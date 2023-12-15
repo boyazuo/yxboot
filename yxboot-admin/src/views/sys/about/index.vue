@@ -2,9 +2,9 @@
   <div class="page">
     <a-back-top />
     <a-card title="关于" style="margin-bottom: 10px">
-      <a-button type="link" size="small" :href="infoData.preview" target="_blank">{{ name }}</a-button>
-      是一个开箱即用的中后台管理系统框架。YXBoot 以前后端分离的方式整合了前后端框架，前端框架使用了最新的`vue3`,`vite4`,
-      `Ant Design Vue 4.0`,`TypeScript`等主流技术开发，后端框架使用了最新的`SpringBoot3`,`Spring Security`,`JWT`等技术。
+      YXBoot 是一个开箱即用的中后台管理系统框架。YXBoot 以前后端分离的方式整合了前后端框架，前端框架使用了最新的vue3,
+      vite4, Ant Design Vue 4.0, TypeScript 等主流技术开发，后端框架使用了最新的 SpringBoot3, Spring Security, JWT
+      等技术。
     </a-card>
     <a-card title="项目信息" size="small" style="margin-bottom: 10px">
       <a-descriptions bordered size="small" :column="2">
@@ -57,8 +57,8 @@
     lastBuildTime,
     doc: 'http://admin.yxboot.com:9000/doc.html#/home',
     preview: 'http://admin.yxboot.com',
-    gitee: 'http://www.gitee.com/yxboot/yxboot',
-    github: 'http://www.github.com/boyazuo/yxboot'
+    gitee: 'https://gitee.com/yxboot/yxboot',
+    github: 'https://github.com/boyazuo/yxboot'
   }
   Object.keys(dependencies).forEach((key) => {
     schema.push({ key, label: key })
