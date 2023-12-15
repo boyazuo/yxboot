@@ -46,27 +46,3 @@ export const REDIRECT_ROUTE: RouteRecordRaw = {
     }
   ]
 }
-
-export const ERROR_LOG_ROUTE: RouteRecordRaw = {
-  path: '/error-log',
-  name: 'ErrorLog',
-  component: LAYOUT,
-  redirect: '/error-log/list',
-  meta: {
-    title: 'ErrorLog',
-    hideBreadcrumb: true,
-    hideChildrenInMenu: true
-  },
-  children: [
-    {
-      path: 'list',
-      name: 'ErrorLogList',
-      component: () => import('@/views/sys/error-log/index.vue'),
-      meta: {
-        title: '错误日志列表',
-        hideBreadcrumb: true,
-        currentActiveMenu: '/error-log'
-      }
-    }
-  ]
-}

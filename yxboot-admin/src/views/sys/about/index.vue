@@ -48,7 +48,7 @@
   import { at as lodashAt } from 'lodash-es'
 
   const { pkg, lastBuildTime } = __APP_INFO__
-  const { dependencies, devDependencies, name, version } = pkg
+  const { dependencies, devDependencies, version } = pkg
 
   const schema: any = []
   const devSchema: any = []
