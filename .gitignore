@@ -1,0 +1,21 @@
+# Intellij project files
+*.iml
+.idea/
+
+yxboot-logs/
+
+# Others
+target/
+logs/
+.DS_Store
+
+*.class
+
+# Package Files #
+*.war
+*.ear
+
+# jrebel配置文件#
+rebel.xml
+rebel-remote.xml
+

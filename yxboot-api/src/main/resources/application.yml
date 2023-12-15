@@ -1,0 +1,141 @@
+server:
+  port: 9000
+  servlet:
+    context-path: /
+  tomcat:
+    uri-encoding: UTF-8
+    threads:
+      max: 1000
+      min-spare: 30
+    # 最大吞吐量不限制
+    max-swallow-size: -1
+  # 优雅停机 关闭容器后默认等待30秒继续执行没处理完的任务 避免数据不一致
+  shutdown: graceful
+
+spring:
+  freemarker:
+    cache: false
+    charset: UTF-8
+    allow-request-override: false
+    expose-session-attributes: true
+    settings:
+      template_update_delay: 0
+      classic_compatible: true # if判读为空不报错
+  profiles:
+    active: dev
+  lifecycle:
+    # 配置优雅停机后的缓冲器 最大等待时间
+    timeout-per-shutdown-phase: 10S
+  # 数据源
+  datasource:
+    # Druid StatViewServlet配置
+    druid:
+      stat-view-servlet:
+        # 默认true 内置监控页面首页/druid/index.html
+        enabled: true
+        url-pattern: /druid/*
+        # 允许清空统计数据
+        reset-enable: true
+        login-username: root
+        login-password: 123456
+        # IP白名单 多个逗号分隔
+        allow:
+        # IP黑名单
+        deny:
+      filter:
+        stat:
+          # 开启监控sql
+          enabled: true
+          # 显示并标注慢sql 默认当超过3秒显示
+          log-slow-sql: true
+          slow-sql-millis: 3000
+          merge-sql: true
+        # 防SQL注入过滤
+        wall:
+          config:
+            # 允许多条sql同时执行
+            multi-statement-allow: true
+
+  servlet:
+    multipart:
+      max-file-size: -1
+      max-request-size: -1
+  jackson:
+    time-zone: GMT+8
+    serialization:
+      fail-on-empty-beans: false
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+
+# Mybatis-plus
+mybatis-plus:
+  mapper-locations: classpath*:mapper/**/*.xml
+  type-handlers-package: com.yxboot.config.mybatisplus.handler
+  global-config:
+    db-config:
+      logic-delete-field: deleted # 全局逻辑删除的实体字段名
+      logic-delete-value: 1 # 逻辑已删除值(默认为 1)
+      logic-not-delete-value: 0 # 逻辑未删除值(默认为 0)
+      update-strategy: ignored
+
+jwt:
+  tokenHeader: Authorization #JWT存储的请求头
+  secret: yunxing #JWT加解密使用的密钥
+  expiration: 604800 #JWT的超期限时间(60*60*24*7)
+  tokenHead: 'Bearer '  #JWT负载中拿到开头
+
+jetcache:
+  statIntervalMinutes: 15
+  areaInCacheName: false
+  local:
+    default:
+      type: linkedhashmap
+      keyConvertor: fastjson2
+  remote:
+    default:
+      type: redis
+      keyConvertor: fastjson2
+      valueEncoder: java
+      valueDecoder: java
+      poolConfig:
+        minIdle: 5
+        maxIdle: 20
+        maxTotal: 50
+      host: localhost
+      port: 6379
+      password: 123456
+
+
+# springdoc-openapi项目配置
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    tags-sorter: alpha
+    #operations-sorter: alpha
+  api-docs:
+    path: /v3/api-docs
+  group-configs:
+    - group: 'default'
+      paths-to-match: '/**'
+      packages-to-scan: com.yxboot
+
+# knife4j的增强配置，不需要增强可以不配
+knife4j:
+  enable: true
+  setting:
+    language: zh_cn
+    swagger-model-name: 实体类列表
+
+# 日志
+logging:
+  # 输出级别
+  level:
+    root: info
+  file:
+    # 指定路径
+    path: logs
+  logback:
+    rollingpolicy:
+      max-history: 7
+      max-file-size: 5MB

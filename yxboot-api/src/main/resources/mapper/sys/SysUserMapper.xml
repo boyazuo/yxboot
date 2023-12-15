@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yxboot.modules.sys.mapper.SysUserMapper">
+    <resultMap id="BaseResultMap" type="com.yxboot.modules.sys.entity.SysUser">
+        <id column="user_id" property="userId" jdbcType="BIGINT" />
+        <result column="username" property="username" jdbcType="VARCHAR" />
+        <result column="password" property="password" jdbcType="VARCHAR" />
+        <result column="name" property="name" jdbcType="VARCHAR" />
+        <result column="avatar" property="avatar" jdbcType="VARCHAR" />
+        <result column="phone" property="phone" jdbcType="VARCHAR" />
+        <result column="email" property="email" jdbcType="VARCHAR" />
+        <result column="sex" property="sex" jdbcType="VARCHAR" />
+        <result column="create_user_id" property="createUserId" jdbcType="BIGINT" />
+        <result column="create_time" property="createTime" jdbcType="DATE" />
+        <result column="update_user_id" property="updateUserId" jdbcType="BIGINT" />
+        <result column="update_time" property="updateTime" jdbcType="DATE" />
+        <result column="last_login_time" property="lastLoginTime" jdbcType="DATE" />
+        <result column="status" property="status" jdbcType="INTEGER" />
+
+        <association property="role" column="user_id" select="com.yxboot.modules.sys.mapper.SysRoleMapper.selectByUserId" />
+    </resultMap>
+</mapper>
