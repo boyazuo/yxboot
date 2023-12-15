@@ -5,7 +5,6 @@ import { PageEnum } from '@/enums/pageEnum'
 import { useMessage } from '@/hooks/web/useMessage'
 import { convertMenuToRoute, isLayoutComponent, wrapperSingleMenu } from '@/router/helper/routeHelper'
 import { HOME_ROUTE } from '@/router/routes'
-import { ERROR_LOG_ROUTE } from '@/router/routes/basic'
 import { usePermissionStoreWithOut } from '@/store/modules/permission'
 import { listToTree } from '@/utils/helper/trees'
 
@@ -67,7 +66,6 @@ export async function loadPermissionRoutes(router: Router) {
   )
 
   routes.push(HOME_ROUTE)
-  routes.push(ERROR_LOG_ROUTE)
 
   permissionStore.setLoaded(true)
   patchHomeAffix(routes)
