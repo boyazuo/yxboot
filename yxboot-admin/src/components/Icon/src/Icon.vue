@@ -89,7 +89,7 @@
 
   .app-iconify {
     display: inline-block;
-    vertical-align: middle;
+    vertical-align: -0.125em;
 
     &-spin {
       svg {
