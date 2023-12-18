@@ -92,7 +92,6 @@
     if (matched.length && unref(getShowSidebar) && !unref(getCollapsed)) {
       openKeys.value.splice(0, openKeys.value.length)
       matched.forEach((o) => {
-        console.log('openKeys==========', o)
         if (o.meta.menuId) {
           const parents = openKeys.value.join('_')
           if (parents) {
@@ -102,7 +101,6 @@
           }
         }
       })
-      console.log('openKeys==========', openKeys)
     }
     watch(
       () => route.fullPath,

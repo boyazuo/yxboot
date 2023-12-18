@@ -8,7 +8,7 @@
       </div>
     </div>
     <a-form ref="formRef" class="form" :model="formData" :rules="rules" size="normal" @keypress.enter="handleLogin">
-      <a-form-item prop="username">
+      <a-form-item name="username">
         <a-input
           v-model:value="formData.username"
           placeholder="请输入用户名"
@@ -17,7 +17,7 @@
           :maxlength="20"
         />
       </a-form-item>
-      <a-form-item prop="password">
+      <a-form-item name="password">
         <a-input-password
           v-model:value="formData.password"
           placeholder="请输入密码"
@@ -26,7 +26,7 @@
           :maxlength="20"
         />
       </a-form-item>
-      <a-form-item prop="captchaCode">
+      <a-form-item name="captchaCode">
         <div class="captchaCode-row">
           <a-input
             class="captchaCode-input"

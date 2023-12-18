@@ -4,7 +4,7 @@
       type="editable-card"
       size="small"
       hide-add
-      tabBarGutter="3"
+      :tabBarGutter="3"
       :activeKey="activeKeyRef"
       @change="handleChange"
       @edit="handleEdit"
@@ -53,7 +53,6 @@
   useTabsDrag(affixTextList)
 
   const getTabsState = computed(() => {
-    console.log('tabStore.getTabList', tabStore.getTabList)
     return tabStore.getTabList.filter((item) => !item.meta?.hideTab)
   })
 

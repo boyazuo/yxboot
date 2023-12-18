@@ -20,7 +20,7 @@
   import { message } from 'ant-design-vue'
   import { editFormSchema } from './generator.data'
 
-  const emit = defineEmits(['success'])
+  const emit = defineEmits(['success', 'register'])
 
   const isUpdate = ref(true)
   const rowId = ref('')

@@ -10,7 +10,7 @@
   import { useModalInner } from '@/components/Modal'
   import { message } from 'ant-design-vue'
 
-  const emit = defineEmits(['success'])
+  const emit = defineEmits(['success', 'register'])
   const formRef = ref({})
 
   const schemas: FormSchema[] = [

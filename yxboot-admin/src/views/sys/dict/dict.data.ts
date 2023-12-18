@@ -10,7 +10,7 @@ export const searchFormSchema: FormSchema[] = [
     field: 'status',
     label: '状态',
     component: 'Select',
-    componentProps: { allowClear: 'true', options: statusEnum }
+    componentProps: { allowClear: true, options: statusEnum }
   }
 ]
 

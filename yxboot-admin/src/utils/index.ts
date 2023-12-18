@@ -91,3 +91,16 @@ export const withInstall = <T>(component: T, alias?: string) => {
   }
   return comp as T & Plugin
 }
+
+export const str2Json = (str: string) => {
+  if (str) {
+    const keyValuePairs = str.split(';')
+    const obj = {}
+    keyValuePairs.forEach((keyValue) => {
+      const [key, value] = keyValue.split(':')
+      obj[key.trim()] = value.trim()
+    })
+    return obj
+  }
+  return {}
+}

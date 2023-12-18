@@ -10,7 +10,7 @@
   import { message } from 'ant-design-vue'
   import { editFormSchema_dictData as editFormSchema, inspectDictData } from './dict.data'
 
-  const emit = defineEmits(['success'])
+  const emit = defineEmits(['success', 'register'])
 
   const isUpdate = ref(true)
   const getTitle = computed(() => (!unref(isUpdate) ? '新增字典数据' : '编辑字典数据'))

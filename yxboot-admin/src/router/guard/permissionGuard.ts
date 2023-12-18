@@ -57,15 +57,12 @@ export function createPermissionGuard(router: Router) {
       return
     }
 
-    console.log('permissionStore.isLoaded', permissionStore.isLoaded)
     if (permissionStore.isLoaded) {
       next()
       return
     }
 
     await loadPermissionRoutes(router)
-
-    console.log(router.getRoutes())
 
     // router.addRoute(PAGE_NOT_FOUND_ROUTE as unknown as RouteRecordRaw)
 

@@ -17,5 +17,4 @@ export default router
 export function setupRouter(app: App<Element>) {
   app.use(router)
   setupRouterGuard(router)
-  console.log('routes', router.getRoutes())
 }

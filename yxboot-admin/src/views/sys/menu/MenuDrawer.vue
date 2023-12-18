@@ -10,7 +10,7 @@
   import { message } from 'ant-design-vue'
   import { editFormSchema } from './menu.data'
 
-  const emit = defineEmits(['success'])
+  const emit = defineEmits(['success', 'register'])
 
   const isUpdate = ref(true)
 

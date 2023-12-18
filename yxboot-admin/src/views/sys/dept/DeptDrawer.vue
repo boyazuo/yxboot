@@ -20,7 +20,7 @@
   import { message } from 'ant-design-vue'
   import { editFormSchema } from './dept.data'
 
-  const emit = defineEmits(['success'])
+  const emit = defineEmits(['success', 'register'])
 
   const isUpdate = ref(true)
   const getTitle = computed(() => (!unref(isUpdate) ? '新增部门' : '编辑部门'))

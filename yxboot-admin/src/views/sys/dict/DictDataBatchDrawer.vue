@@ -19,7 +19,7 @@
   import { message } from 'ant-design-vue'
   import { editFormSchema_dictDataBatch as editFormSchema, inspectDictData } from './dict.data'
 
-  const emit = defineEmits(['success'])
+  const emit = defineEmits(['success', 'register'])
 
   const dictCode = ref('')
   let allDictData: any = null

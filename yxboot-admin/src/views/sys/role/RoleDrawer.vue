@@ -18,7 +18,7 @@
   import { message } from 'ant-design-vue'
   import { editFormSchema } from './role.data'
 
-  const emit = defineEmits(['success'])
+  const emit = defineEmits(['success', 'register'])
 
   const isUpdate = ref(true)
   const getTitle = computed(() => (!unref(isUpdate) ? '新增角色' : '编辑角色'))

@@ -32,5 +32,9 @@ export const basicProps = {
     default: null
   },
   destroyOnClose: { type: Boolean },
+  bodyStyle: {
+    type: Object,
+    default: {}
+  },
   ...footerProps
 }

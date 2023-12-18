@@ -31,7 +31,6 @@
       const visibleRef = ref(false)
       const attrs = useAttrs()
       const propsRef = ref<Partial<Nullable<DrawerProps>>>(null)
-
       const drawerInstance: DrawerInstance = {
         setDrawerProps: setDrawerProps,
         emitVisible: undefined

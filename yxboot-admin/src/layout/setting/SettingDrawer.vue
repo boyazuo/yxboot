@@ -1,5 +1,5 @@
 <template>
-  <BasicDrawer title="项目配置" :show-footer="false" @register="register" width="320" bodyStyle="padding: 16px">
+  <BasicDrawer title="项目配置" :show-footer="false" @register="register" width="320" :bodyStyle="{ padding: '16px' }">
     <a-divider orientation="left">主题</a-divider>
     <AppDarkModeToggle class="mx-auto" />
 
