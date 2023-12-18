@@ -4,7 +4,7 @@
   </a-page-header>
 
   <div class="page-wrapper">
-    <Card title="基础用法">
+    <a-card title="基础用法">
       <div>
         <a-button>默认按钮</a-button>
         <a-button type="primary" class="ml-2">主要按钮</a-button>
@@ -26,9 +26,9 @@
         <a-button size="middle" class="ml-2">默认按钮</a-button>
         <a-button size="small" class="ml-2">小号按钮</a-button>
       </div>
-    </Card>
+    </a-card>
 
-    <Card title="图标按钮" class="my-2">
+    <a-card title="图标按钮" class="my-2">
       <div>
         <a-tooltip title="search">
           <a-button type="primary" shape="circle" :icon="h(SearchOutlined)" />
@@ -50,28 +50,27 @@
           Download
         </a-button>
       </div>
-    </Card>
+    </a-card>
 
-    <Card title="Loading 按钮" class="my-2">
+    <a-card title="Loading 按钮" class="my-2">
       <div>
         <a-button type="primary" loading />
         <a-button type="primary" loading class="ml-2">Loading</a-button>
       </div>
-    </Card>
+    </a-card>
 
-    <Card title="幽灵按钮" class="my-2">
+    <a-card title="幽灵按钮" class="my-2">
       <div :style="{ background: 'rgb(190, 200, 200)', padding: '16px 16px' }">
         <a-button type="primary" ghost>Primary</a-button>
         <a-button ghost class="ml-2">Default</a-button>
         <a-button type="dashed" ghost class="ml-2">Dashed</a-button>
         <a-button type="primary" danger ghost class="ml-2">Danger</a-button>
       </div>
-    </Card>
+    </a-card>
   </div>
 </template>
 <script lang="ts" setup>
   import { DownloadOutlined, EditOutlined, SearchOutlined, ShareAltOutlined } from '@ant-design/icons-vue'
-  import { Card } from 'ant-design-vue'
   import { h } from 'vue'
 </script>
 <style scoped>

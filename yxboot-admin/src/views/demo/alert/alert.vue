@@ -6,7 +6,7 @@
   <div class="page-wrapper">
     <a-row :gutter="20">
       <a-col :span="12">
-        <Card title="基本用法">
+        <a-card title="基本用法">
           <div style="width: 300px">
             <a-alert message="Success Text" type="success" />
             <a-alert message="Info Text" type="info" class="mt-2" />
@@ -17,10 +17,10 @@
             <a-alert message="Warning" type="warning" show-icon class="mt-2" />
             <a-alert message="Error" type="error" show-icon class="mt-2" />
           </div>
-        </Card>
+        </a-card>
       </a-col>
       <a-col :span="12">
-        <Card title="基本用法">
+        <a-card title="基本用法">
           <div style="width: 500px">
             <a-alert
               message="Success Tips"
@@ -50,20 +50,14 @@
               class="mt-2"
             />
           </div>
-        </Card>
+        </a-card>
       </a-col>
     </a-row>
   </div>
 </template>
-<script lang="ts" setup>
-  import { Card } from 'ant-design-vue'
-</script>
+<script lang="ts" setup></script>
 <style scoped>
   .page-wrapper {
     padding: 20px 0;
-  }
-
-  .anticon {
-    vertical-align: middle;
   }
 </style>

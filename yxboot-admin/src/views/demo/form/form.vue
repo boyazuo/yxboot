@@ -4,7 +4,7 @@
   </a-page-header>
 
   <div class="page-wrapper">
-    <Card title="基础表单">
+    <a-card title="基础表单">
       <a-form ref="formRef" :model="formState" :rules="rules" :label-col="labelCol" :wrapper-col="wrapperCol">
         <a-form-item ref="name" label="Activity name" name="name">
           <a-input v-model:value="formState.name" />
@@ -48,11 +48,10 @@
           <a-button style="margin-left: 10px" @click="resetForm">Reset</a-button>
         </a-form-item>
       </a-form>
-    </Card>
+    </a-card>
   </div>
 </template>
 <script lang="ts" setup>
-  import { Card } from 'ant-design-vue'
   import type { Rule } from 'ant-design-vue/es/form'
   import { Dayjs } from 'dayjs'
   import type { UnwrapRef } from 'vue'
@@ -114,9 +113,5 @@
 <style scoped>
   .page-wrapper {
     padding: 20px 0;
-  }
-
-  .anticon {
-    vertical-align: middle;
   }
 </style>
