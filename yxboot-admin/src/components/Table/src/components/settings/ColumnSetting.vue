@@ -167,13 +167,15 @@
   })
 
   // 是否显示序号列
-  const isIndexColumnShow = ref<boolean>(false)
+  const isIndexColumnShow = ref<boolean | null>(false)
   // 序号列更新
   const onIndexColumnShowChange = (e: CheckboxChangeEvent) => {
     // 更新 showIndexColumn
     showIndexColumnUpdate(e.target.checked)
-    // 更新 showIndexColumn 缓存
-    tableSettingStore.setShowIndexColumn(e.target.checked)
+    if (typeof route.name === 'string') {
+      // 更新 showIndexColumn 缓存
+      tableSettingStore.setShowIndexColumn(route.name, e.target.checked)
+    }
     // 从无到有需要处理
     if (e.target.checked) {
       const columns = cloneDeep(table?.getColumns())
@@ -193,13 +195,15 @@
   }
 
   // 是否显示选择列
-  const isRowSelectionShow = ref<boolean>(false)
+  const isRowSelectionShow = ref<boolean | null>(false)
   // 选择列更新
   const onRowSelectionShowChange = (e: CheckboxChangeEvent) => {
     // 更新 showRowSelection
     showRowSelectionUpdate(e.target.checked)
     // 更新 showRowSelection 缓存
-    tableSettingStore.setShowRowSelection(e.target.checked)
+    if (typeof route.name === 'string') {
+      tableSettingStore.setShowRowSelection(route.name, e.target.checked)
+    }
   }
 
   // 更新列缓存
@@ -325,11 +329,9 @@
   // 打开浮窗
   const onOpenChange = async () => {
     await nextTick()
-    console.log('eeeelll', columnOptionsRef.value)
     if (columnOptionsRef.value) {
       // 注册排序实例
       const el = (columnOptionsRef.value as InstanceType<typeof Checkbox.Group>).$el
-      console.log('eeeelll', el)
       Sortablejs.create(unref(el), {
         animation: 500,
         delay: 400,
@@ -399,24 +401,24 @@
 
   // 从缓存恢复
   const restore = () => {
-    // 设置过才恢复
-    if (typeof tableSettingStore.getShowIndexColumn === 'boolean') {
-      isIndexColumnShow.value = tableSettingStore.getShowIndexColumn
-    }
-    if (typeof tableSettingStore.getShowRowSelection === 'boolean') {
-      isRowSelectionShow.value = defaultIsRowSelectionShow && tableSettingStore.getShowRowSelection
-    }
-
-    // 序号列更新
-    onIndexColumnShowChange({
-      target: { checked: isIndexColumnShow.value }
-    } as CheckboxChangeEvent)
-    // 选择列更新
-    onRowSelectionShowChange({
-      target: { checked: isRowSelectionShow.value }
-    } as CheckboxChangeEvent)
-
     if (typeof route.name === 'string') {
+      // 设置过才恢复
+      if (typeof tableSettingStore.getShowIndexColumn(route.name) === 'boolean') {
+        isIndexColumnShow.value = tableSettingStore.getShowIndexColumn(route.name)
+      }
+      if (typeof tableSettingStore.getShowRowSelection(route.name) === 'boolean') {
+        isRowSelectionShow.value = defaultIsRowSelectionShow && tableSettingStore.getShowRowSelection(route.name)
+      }
+
+      // 序号列更新
+      onIndexColumnShowChange({
+        target: { checked: isIndexColumnShow.value }
+      } as CheckboxChangeEvent)
+      // 选择列更新
+      onRowSelectionShowChange({
+        target: { checked: isRowSelectionShow.value }
+      } as CheckboxChangeEvent)
+
       const cache = tableSettingStore.getColumns(route.name)
       // 设置过才恢复
       if (Array.isArray(cache)) {

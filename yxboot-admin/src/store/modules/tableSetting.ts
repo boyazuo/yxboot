@@ -22,15 +22,25 @@ export const useTableSettingStore = defineStore({
     },
     //
     getTableSize(state) {
-      return state.setting?.size || 'middle'
+      return (routerName: string) => {
+        return state.setting?.size && state.setting?.size[routerName] ? state.setting?.size[routerName] : 'middle'
+      }
     },
     //
     getShowIndexColumn(state) {
-      return state.setting?.showIndexColumn
+      return (routerName: string) => {
+        return state.setting?.showIndexColumn && typeof state.setting?.showIndexColumn[routerName] === 'boolean'
+          ? state.setting?.showIndexColumn[routerName]
+          : null
+      }
     },
     //
     getShowRowSelection(state) {
-      return state.setting?.showRowSelection
+      return (routerName: string) => {
+        return state.setting?.showRowSelection && typeof state.setting?.showRowSelection[routerName] === 'boolean'
+          ? state.setting?.showRowSelection[routerName]
+          : null
+      }
     },
     //
     getColumns(state) {
@@ -49,26 +59,35 @@ export const useTableSettingStore = defineStore({
       this.setting = null
     },
     //
-    setTableSize(size: SizeType) {
+    setTableSize(routerName: string, size: SizeType) {
       this.setTableSetting(
         Object.assign({}, this.setting, {
-          size
+          size: {
+            ...this.setting?.size,
+            [routerName]: size
+          }
         })
       )
     },
     //
-    setShowIndexColumn(show: boolean) {
+    setShowIndexColumn(routerName: string, show: boolean) {
       this.setTableSetting(
         Object.assign({}, this.setting, {
-          showIndexColumn: show
+          showIndexColumn: {
+            ...this.setting?.showIndexColumn,
+            [routerName]: show
+          }
         })
       )
     },
     //
-    setShowRowSelection(show: boolean) {
+    setShowRowSelection(routerName: string, show: boolean) {
       this.setTableSetting(
         Object.assign({}, this.setting, {
-          showRowSelection: show
+          showRowSelection: {
+            ...this.setting?.showRowSelection,
+            [routerName]: show
+          }
         })
       )
     },
