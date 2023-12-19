@@ -43,7 +43,7 @@ export const editFormSchema: FormSchema[] = [
     rules: [required('请选择菜单类型')],
     componentProps: { options: listMenuType }
   },
-  { field: 'icon', label: '图标', component: 'Input' },
+  { field: 'icon', label: '图标', component: 'IconPicker' },
   {
     field: 'component',
     label: '组件',
