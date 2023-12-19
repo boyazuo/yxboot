@@ -83,7 +83,7 @@
           class: getClass(),
           onClick: () => $emit('selected', icon)
         },
-        [h(Tooltip, { title: icon }, [h(Icon, { icon, size: 40 })])]
+        [h(Tooltip, { title: icon }, [h(Icon, { icon, size: 32 })])]
       )
     }
   })
@@ -192,7 +192,7 @@
       align-items: flex-start;
 
       .icon {
-        width: 40px;
+        width: 32px;
         border: 1px solid @border-color-light;
         display: flex;
         flex-flow: column nowrap;
