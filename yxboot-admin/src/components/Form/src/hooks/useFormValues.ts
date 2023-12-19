@@ -1,5 +1,5 @@
 import { dateUtil } from '@/utils/dateUtil'
-import { isArray, isFunction, isNullOrUnDef, isObject, isString } from '@/utils/is'
+import { isArray, isFunction, isNil, isObject, isString } from '@/utils/is'
 import { cloneDeep, set } from 'lodash-es'
 import type { ComputedRef, Ref } from 'vue'
 import { unref } from 'vue'
@@ -111,7 +111,7 @@ export function useFormValues({ defaultValueRef, getSchema, formModel, getProps 
     const obj: Recordable = {}
     schemas.forEach((item) => {
       const { defaultValue } = item
-      if (!isNullOrUnDef(defaultValue)) {
+      if (!isNil(defaultValue)) {
         obj[item.field] = defaultValue
 
         if (formModel[item.field] === undefined) {

@@ -5,6 +5,7 @@ import type { VNodeChild } from 'vue'
 import type { PaginationProps } from './pagination'
 
 import { VueNode } from '@/utils/propTypes'
+import { FixedType } from 'ant-design-vue/es/vc-table/interface'
 import { ComponentType } from './componentType'
 
 export declare type SortOrder = 'ascend' | 'descend'
@@ -116,6 +117,7 @@ export interface TableActionType {
   setShowPagination: (show: boolean) => Promise<void>
   getShowPagination: () => boolean
   setCacheColumnsByField?: (dataIndex: string | undefined, value: BasicColumn) => void
+  setCacheColumns?: (columns: BasicColumn[]) => void
 }
 
 export interface FetchSetting {
@@ -440,4 +442,15 @@ export type ColumnChangeParam = {
 
 export interface InnerHandlers {
   onColumnsChange: (data: ColumnChangeParam[]) => void
+}
+
+export interface ColumnOptionsType {
+  value: string
+  label: string
+  //
+  column: {
+    defaultHidden?: boolean
+  }
+  //
+  fixed?: FixedType
 }

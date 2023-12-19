@@ -244,13 +244,27 @@ export function useColumns(
     return cacheColumns
   }
 
+  function setCacheColumns(columns: BasicColumn[]) {
+    if (!isArray(columns)) return
+    cacheColumns = columns.filter((item) => !item.flag)
+  }
+
+  /**
+   * 拖拽列宽修改列的宽度
+   */
+  function setColumnWidth(w: number, col: ColumnType<BasicColumn>) {
+    col.width = w
+  }
+
   return {
     getColumnsRef,
     getCacheColumns,
     getColumns,
     setColumns,
     getViewColumns,
-    setCacheColumnsByField
+    setCacheColumnsByField,
+    setCacheColumns,
+    setColumnWidth
   }
 }
 

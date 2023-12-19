@@ -1,6 +1,6 @@
 import { deepMerge } from '@/utils'
 import { dateUtil } from '@/utils/dateUtil'
-import { isArray, isDef, isFunction, isNullOrUnDef, isObject, isString } from '@/utils/is'
+import { isArray, isDef, isFunction, isNil, isObject, isString } from '@/utils/is'
 import { error } from '@/utils/log'
 import type { NamePath } from 'ant-design-vue/lib/form/interface'
 import { cloneDeep, uniqBy } from 'lodash-es'
@@ -233,7 +233,7 @@ export function useFormEvents({
         item.component != 'Divider' &&
         Reflect.has(item, 'field') &&
         item.field &&
-        !isNullOrUnDef(item.defaultValue) &&
+        !isNil(item.defaultValue) &&
         !(item.field in currentFieldsValue)
       ) {
         obj[item.field] = item.defaultValue

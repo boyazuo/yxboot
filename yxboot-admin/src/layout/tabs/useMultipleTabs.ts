@@ -1,7 +1,7 @@
 import { useSortable } from '@/hooks/web/useSortable'
 import projectSetting from '@/settings/projectSetting'
 import { useMultipleTabStore } from '@/store/modules/multipleTab'
-import { isNullAndUnDef } from '@/utils/is'
+import { isNil } from '@/utils/is'
 import { nextTick, ref, toRaw } from 'vue'
 import type { RouteLocationNormalized } from 'vue-router'
 import { useRouter } from 'vue-router'
@@ -65,7 +65,7 @@ export function useTabsDrag(affixTextList: string[]) {
       onEnd: (evt) => {
         const { oldIndex, newIndex } = evt
 
-        if (isNullAndUnDef(oldIndex) || isNullAndUnDef(newIndex) || oldIndex === newIndex) {
+        if (isNil(oldIndex) || isNil(newIndex) || oldIndex === newIndex) {
           return
         }
 

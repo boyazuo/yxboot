@@ -2,7 +2,7 @@ import type { Options, Sortable } from 'sortablejs'
 import type { Ref } from 'vue'
 import { nextTick, unref } from 'vue'
 
-export function useSortable(el: HTMLElement | Ref<HTMLElement>, options?: Options) {
+export function useSortable(el: HTMLElement | Ref<HTMLElement | undefined>, options?: Options) {
   const sortableRef = ref<Sortable>()
 
   function initSortable() {
@@ -10,7 +10,7 @@ export function useSortable(el: HTMLElement | Ref<HTMLElement>, options?: Option
       if (!el) return
       const Sortable = (await import('sortablejs')).default
       sortableRef.value = Sortable.create(unref(el), {
-        animation: 500,
+        animation: 100,
         delay: 400,
         delayOnTouchOnly: true,
         ...options

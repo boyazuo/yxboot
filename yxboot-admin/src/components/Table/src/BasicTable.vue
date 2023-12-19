@@ -15,7 +15,13 @@
       </template>
     </BasicForm>
 
-    <a-table ref="tableElRef" v-bind="getBindValues" :rowClassName="getRowClassName" @change="handleTableChange">
+    <a-table
+      ref="tableElRef"
+      v-bind="getBindValues"
+      :rowClassName="getRowClassName"
+      @change="handleTableChange"
+      @resize-column="setColumnWidth"
+    >
       <template #[item]="data" v-for="item in Object.keys($slots)" :key="item">
         <slot :name="item" v-bind="data || {}"></slot>
       </template>
@@ -129,10 +135,16 @@
     emit
   )
 
-  const { getViewColumns, getColumns, getColumnsRef, setCacheColumnsByField, setColumns, getCacheColumns } = useColumns(
-    getProps,
-    getPaginationInfo
-  )
+  const {
+    getViewColumns,
+    getColumns,
+    getColumnsRef,
+    setCacheColumnsByField,
+    setCacheColumns,
+    setColumnWidth,
+    setColumns,
+    getCacheColumns
+  } = useColumns(getProps, getPaginationInfo)
 
   const { getScrollRef, redoHeight } = useTableScroll(
     getProps,
@@ -228,6 +240,7 @@
     getCacheColumns,
     setColumns,
     setCacheColumnsByField,
+    setCacheColumns,
     emit,
     updateTableData,
     setShowPagination,
