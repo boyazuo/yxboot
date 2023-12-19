@@ -16,108 +16,96 @@
   </a-drawer>
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
   import { deepMerge } from '@/utils'
   import { isFunction } from '@/utils/is'
-  import { computed, defineComponent, getCurrentInstance, nextTick, ref, unref, useAttrs, watch } from 'vue'
+  import { computed, getCurrentInstance, nextTick, ref, unref, useAttrs, watch } from 'vue'
   import { basicProps } from './props'
   import type { DrawerInstance, DrawerProps } from './types/typing'
+  defineOptions({
+    inheritAttrs: false
+  })
+  const props = defineProps(basicProps)
+  const emit = defineEmits(['visible-change', 'ok', 'close', 'register'])
+  const visibleRef = ref(false)
+  const attrs = useAttrs()
+  const propsRef = ref<Partial<Nullable<DrawerProps>>>(null)
+  const drawerInstance: DrawerInstance = {
+    setDrawerProps: setDrawerProps,
+    emitVisible: undefined
+  }
 
-  export default defineComponent({
-    inheritAttrs: false,
-    props: basicProps,
-    emits: ['visible-change', 'ok', 'close', 'register'],
-    setup(props, { emit }) {
-      const visibleRef = ref(false)
-      const attrs = useAttrs()
-      const propsRef = ref<Partial<Nullable<DrawerProps>>>(null)
-      const drawerInstance: DrawerInstance = {
-        setDrawerProps: setDrawerProps,
-        emitVisible: undefined
-      }
+  const instance = getCurrentInstance()
 
-      const instance = getCurrentInstance()
+  instance && emit('register', drawerInstance, instance.uid)
 
-      instance && emit('register', drawerInstance, instance.uid)
+  const getMergeProps = computed((): DrawerProps => {
+    return deepMerge(unref(props), unref(propsRef))
+  })
 
-      const getMergeProps = computed((): DrawerProps => {
-        return deepMerge(unref(props), unref(propsRef))
-      })
+  const getProps = computed((): DrawerProps => {
+    const opt = {
+      placement: 'right',
+      width: '520',
+      ...unref(attrs),
+      ...unref(getMergeProps),
+      visible: unref(visibleRef)
+    }
+    return opt as DrawerProps
+  })
 
-      const getProps = computed((): DrawerProps => {
-        const opt = {
-          placement: 'right',
-          width: '520',
-          ...unref(attrs),
-          ...unref(getMergeProps),
-          visible: unref(visibleRef)
-        }
-        return opt as DrawerProps
-      })
-
-      const getBindValues = computed((): DrawerProps => {
-        return {
-          ...attrs,
-          ...unref(getProps)
-        }
-      })
-
-      const getLoading = computed(() => {
-        return !!unref(getProps)?.loading
-      })
-
-      watch(
-        () => props.visible,
-        (newVal, oldVal) => {
-          if (newVal !== oldVal) visibleRef.value = newVal
-        },
-        { deep: true }
-      )
-
-      watch(
-        () => visibleRef.value,
-        (visible) => {
-          nextTick(() => {
-            emit('visible-change', visible)
-            instance && drawerInstance.emitVisible?.(visible, instance.uid)
-          })
-        }
-      )
-
-      // Cancel event
-      async function handlClose(e: Recordable) {
-        const { closeFunc } = unref(getProps)
-        emit('close', e)
-        if (closeFunc && isFunction(closeFunc)) {
-          const res = await closeFunc()
-          visibleRef.value = !res
-          return
-        }
-        visibleRef.value = false
-      }
-
-      function setDrawerProps(props: Partial<DrawerProps>): void {
-        // Keep the last setDrawerProps
-        propsRef.value = deepMerge(unref(propsRef) || ({} as any), props)
-
-        if (Reflect.has(props, 'visible')) {
-          visibleRef.value = !!props.visible
-        }
-      }
-
-      function handleOk() {
-        emit('ok')
-      }
-
-      return {
-        getMergeProps: getMergeProps as any,
-        getProps: getProps as any,
-        getLoading,
-        getBindValues,
-        handlClose,
-        handleOk
-      }
+  const getBindValues = computed((): DrawerProps => {
+    return {
+      ...attrs,
+      ...unref(getProps)
     }
   })
+
+  // const getLoading = computed(() => {
+  //   return !!unref(getProps)?.loading
+  // })
+
+  watch(
+    () => props.visible,
+    (newVal, oldVal) => {
+      if (newVal !== oldVal) visibleRef.value = newVal
+    },
+    { deep: true }
+  )
+
+  watch(
+    () => visibleRef.value,
+    (visible) => {
+      nextTick(() => {
+        emit('visible-change', visible)
+        instance && drawerInstance.emitVisible?.(visible, instance.uid)
+      })
+    }
+  )
+
+  // Cancel event
+  async function handlClose(e: Recordable) {
+    const { closeFunc } = unref(getProps)
+    emit('close', e)
+    if (closeFunc && isFunction(closeFunc)) {
+      const res = await closeFunc()
+      visibleRef.value = !res
+      return
+    }
+    visibleRef.value = false
+  }
+
+  function setDrawerProps(props: Partial<DrawerProps>): void {
+    // Keep the last setDrawerProps
+    propsRef.value = deepMerge(unref(propsRef) || ({} as any), props)
+
+    if (Reflect.has(props, 'visible')) {
+      visibleRef.value = !!props.visible
+    }
+  }
+
+  function handleOk() {
+    emit('ok')
+  }
 </script>
 <style lang="less" scope></style>

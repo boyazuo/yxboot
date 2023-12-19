@@ -8,18 +8,18 @@ import { onUnmounted, ref, toRaw, unref, watch } from 'vue'
 import type { PaginationProps } from '../types/pagination'
 import type { BasicColumn, BasicTableProps, FetchParams, TableActionType } from '../types/table'
 
+/**
+ * 将BasicTableProps类型中的属性，变为可选并且可以转换为响应式对象、计算属性对象或者保持其原始属性的类型。
+ */
 type Props = Partial<DynamicProps<BasicTableProps>>
 
 type UseTableMethod = TableActionType & {
   getForm: () => FormActionType
 }
 
-export function useTable(tableProps?: Props): [
-  (instance: TableActionType, formInstance: UseTableMethod) => void,
-  TableActionType & {
-    getForm: () => FormActionType
-  }
-] {
+export function useTable(
+  tableProps?: Props
+): [(instance: TableActionType, formInstance: UseTableMethod) => void, UseTableMethod] {
   const tableRef = ref<Nullable<TableActionType>>(null)
   const loadedRef = ref<Nullable<boolean>>(false)
   const formRef = ref<Nullable<UseTableMethod>>(null)
@@ -64,9 +64,7 @@ export function useTable(tableProps?: Props): [
     return table as TableActionType
   }
 
-  const methods: TableActionType & {
-    getForm: () => FormActionType
-  } = {
+  const methods: UseTableMethod = {
     reload: async (opt?: FetchParams) => {
       return await getTableInstance().reload(opt)
     },

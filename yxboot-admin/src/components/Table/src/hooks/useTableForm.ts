@@ -7,7 +7,7 @@ import type { BasicTableProps, FetchParams } from '../types/table'
 export function useTableForm(
   propsRef: ComputedRef<BasicTableProps>,
   slots: Slots,
-  fetch: (opt?: FetchParams | undefined) => Promise<void>,
+  fetch: (opt?: FetchParams | undefined) => Promise<any>,
   getLoading: ComputedRef<boolean | undefined>
 ) {
   const getFormProps = computed((): Partial<FormProps> => {

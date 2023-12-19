@@ -4,7 +4,7 @@ import type { BasicTableProps, TableActionType } from '../types/table'
 
 const key = Symbol('s-table')
 
-type Instance = TableActionType & {
+type Instance = Partial<TableActionType> & {
   wrapRef: Ref<Nullable<HTMLElement>>
   getBindValues: ComputedRef<Recordable>
 }

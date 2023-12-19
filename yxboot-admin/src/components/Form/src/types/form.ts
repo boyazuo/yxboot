@@ -82,20 +82,20 @@ export interface FormProps {
 }
 
 export interface FormActionType {
-  submit: () => Promise<void>
-  setFieldsValue: <T>(values: T) => Promise<void>
-  resetFields: () => Promise<void>
+  submit: () => Promise<void | any>
+  setFieldsValue: (<T>(values: T) => Promise<void>) | ((values: Recordable<any>) => Promise<void>)
+  resetFields: () => Promise<void | any>
   getFieldsValue: () => Recordable
-  clearValidate: (name?: string | string[]) => Promise<void>
-  setProps: (formProps: Partial<FormProps>) => Promise<void>
-  updateSchema: (data: Partial<FormSchema> | Partial<FormSchema>[]) => Promise<void>
-  resetSchema: (data: Partial<FormSchema> | Partial<FormSchema>[]) => Promise<void>
-  validateFields: (nameList?: NamePath[]) => Promise<any>
-  validate: (nameList?: NamePath[]) => Promise<any>
-  removeSchemaByFiled: (field: string | string[]) => Promise<void>
+  clearValidate: (name?: string | string[]) => Promise<void | any>
+  setProps: (formProps: Partial<FormProps>) => Promise<void | any>
+  updateSchema: (data: Partial<FormSchema> | Partial<FormSchema>[]) => Promise<void | any>
+  resetSchema: (data: Partial<FormSchema> | Partial<FormSchema>[]) => Promise<void | any>
+  validateFields: (nameList?: NamePath[]) => Promise<void | any>
+  validate: (nameList?: NamePath[]) => Promise<void | any>
+  removeSchemaByFiled: (field: string | string[]) => Promise<void | any>
   appendSchemaByField: (
     schema: FormSchema,
     prefixField: string | undefined,
     first?: boolean | undefined
-  ) => Promise<void>
+  ) => Promise<void | any>
 }

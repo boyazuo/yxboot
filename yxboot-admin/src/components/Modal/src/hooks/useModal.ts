@@ -39,7 +39,7 @@ export function useModal(): UseModalReturnType {
 
     modal.value = modalMethod
     loaded.value = true
-    modalMethod.emitVisible = (open: boolean, uid: number) => {
+    modalMethod.emitOpen = (open: boolean, uid: number) => {
       openData[uid] = open
     }
   }
