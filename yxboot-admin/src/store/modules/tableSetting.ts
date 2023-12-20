@@ -29,17 +29,13 @@ export const useTableSettingStore = defineStore({
     //
     getShowIndexColumn(state) {
       return (routerName: string) => {
-        return state.setting?.showIndexColumn && typeof state.setting?.showIndexColumn[routerName] === 'boolean'
-          ? state.setting?.showIndexColumn[routerName]
-          : null
+        return state.setting?.showIndexColumn ? state.setting?.showIndexColumn[routerName] : null
       }
     },
     //
     getShowRowSelection(state) {
       return (routerName: string) => {
-        return state.setting?.showRowSelection && typeof state.setting?.showRowSelection[routerName] === 'boolean'
-          ? state.setting?.showRowSelection[routerName]
-          : null
+        return state.setting?.showRowSelection ? state.setting?.showRowSelection[routerName] : null
       }
     },
     //

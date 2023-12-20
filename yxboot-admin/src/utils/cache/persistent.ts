@@ -1,5 +1,5 @@
 import type { ProjectConfig } from '#/config'
-import type { LockInfo } from '#/store'
+import type { LockInfo, TableSetting } from '#/store'
 import type { RouteLocationNormalized } from 'vue-router'
 
 import {
@@ -9,6 +9,7 @@ import {
   MULTIPLE_TABS_KEY,
   PROJ_CFG_KEY,
   ROLES_KEY,
+  TABLE_SETTING_KEY,
   TOKEN_KEY,
   USER_INFO_KEY
 } from '@/enums/cacheEnum'
@@ -24,6 +25,7 @@ interface BasicStore {
   [LOCK_INFO_KEY]: LockInfo
   [PROJ_CFG_KEY]: ProjectConfig
   [MULTIPLE_TABS_KEY]: RouteLocationNormalized[]
+  [TABLE_SETTING_KEY]: Partial<TableSetting>
 }
 
 type LocalStore = BasicStore

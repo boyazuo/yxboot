@@ -167,7 +167,7 @@
   })
 
   // 是否显示序号列
-  const isIndexColumnShow = ref<boolean | null>(false)
+  const isIndexColumnShow = ref<boolean>(false)
   // 序号列更新
   const onIndexColumnShowChange = (e: CheckboxChangeEvent) => {
     // 更新 showIndexColumn
@@ -195,7 +195,7 @@
   }
 
   // 是否显示选择列
-  const isRowSelectionShow = ref<boolean | null>(false)
+  const isRowSelectionShow = ref<boolean>(false)
   // 选择列更新
   const onRowSelectionShowChange = (e: CheckboxChangeEvent) => {
     // 更新 showRowSelection
@@ -403,11 +403,13 @@
   const restore = () => {
     if (typeof route.name === 'string') {
       // 设置过才恢复
-      if (typeof tableSettingStore.getShowIndexColumn(route.name) === 'boolean') {
-        isIndexColumnShow.value = tableSettingStore.getShowIndexColumn(route.name)
+      const cacheShowIndexColumn = tableSettingStore.getShowIndexColumn(route.name)
+      if (typeof cacheShowIndexColumn === 'boolean') {
+        isIndexColumnShow.value = cacheShowIndexColumn
       }
-      if (typeof tableSettingStore.getShowRowSelection(route.name) === 'boolean') {
-        isRowSelectionShow.value = defaultIsRowSelectionShow && tableSettingStore.getShowRowSelection(route.name)
+      const cacheShowRowSelection = tableSettingStore.getShowRowSelection(route.name)
+      if (typeof cacheShowRowSelection === 'boolean') {
+        isRowSelectionShow.value = cacheShowRowSelection
       }
 
       // 序号列更新
