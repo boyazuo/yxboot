@@ -59,7 +59,7 @@
   }
   const handleOpenChange = (val: any) => {
     if (unref(getShowSidebar) && !unref(getCollapsed)) {
-      const latestOpenKey = val[val.length - 1]
+      const latestOpenKey: string = val[val.length - 1] || ''
       if (latestOpenKey.indexOf('_') > -1) {
         const [parent] = latestOpenKey.split('_')
         openKeys.value.splice(0, openKeys.value.length, ...[parent, latestOpenKey])

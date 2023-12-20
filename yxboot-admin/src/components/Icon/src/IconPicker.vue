@@ -60,6 +60,10 @@
   import { filled, outlined, twotone } from '../data/icons.data'
   import Icon from './Icon.vue'
 
+  defineOptions({
+    inheritAttrs: false
+  })
+
   const iconData = { outlined, filled, twotone }
 
   const IconPickerItem = defineComponent({

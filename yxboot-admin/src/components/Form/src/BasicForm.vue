@@ -33,7 +33,7 @@
           </a-button>
           <slot name="submitBefore"></slot>
 
-          <a-button type="primary" v-bind="getProps.submitButtonOptions" @click="submit" v-if="showSubmitButton">
+          <a-button type="primary" v-bind="getProps.submitButtonOptions" @click="handleSubmit" v-if="showSubmitButton">
             {{ getProps.submitButtonOptions?.text ?? '查询' }}
           </a-button>
         </a-form-item>
@@ -76,6 +76,7 @@
     return { ...props, ...unref(propsRef) } as FormProps
   })
 
+  // ['from', { from--compact: true }]
   const getFormClass = computed(() => {
     return [
       'form',
@@ -85,8 +86,10 @@
     ]
   })
 
+  // get attrs props
   const getBindValue = computed(() => ({ ...attrs, ...props, ...unref(getProps) }) as Recordable)
 
+  // get isShow state
   const getShow = (schema) => {
     const { show, ifShow } = schema
     let isShow = true
@@ -136,6 +139,7 @@
       const { defaultValue, component } = schema
       // handle date type
       if (defaultValue && dateItemType.includes(component)) {
+        // if no Array
         if (!Array.isArray(defaultValue)) {
           schema.defaultValue = dateUtil(defaultValue)
         } else {
@@ -147,6 +151,8 @@
         }
       }
     }
+    // handle advaced button
+    // if showAdvancedButton remove Divider
     if (unref(getProps).showAdvancedButton) {
       return cloneDeep(schemas.filter((schema) => schema.component !== 'Divider') as FormSchema[])
     } else {

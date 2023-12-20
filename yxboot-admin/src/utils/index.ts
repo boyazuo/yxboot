@@ -1,3 +1,4 @@
+import _ from 'lodash-es'
 import type { App, Plugin } from 'vue'
 import type { RouteLocationNormalized, RouteRecordNormalized } from 'vue-router'
 
@@ -32,12 +33,24 @@ export function setObjToUrlParams(baseUrl: string, obj: any): string {
   return /\?$/.test(baseUrl) ? baseUrl + parameters : baseUrl.replace(/\/?$/, '?') + parameters
 }
 
-export function deepMerge<T = any>(src: any = {}, target: any = {}): T {
+/**
+ * 合并对象属性，将源对象中的key值，使用目标对象对应的key值覆盖
+ * @param src 源对象
+ * @param target 目标对象
+ * @param newObject 是否返回一个新对象
+ * @returns T
+ */
+export function deepMerge<T = any>(src: any = {}, target: any = {}, newObject: boolean = false): T {
   let key: string
+  const obj = newObject ? _.cloneDeep(src) : null
   for (key in target) {
-    src[key] = isObject(src[key]) ? deepMerge(src[key], target[key]) : (src[key] = target[key])
+    if (newObject) {
+      obj[key] = isObject(src[key]) ? deepMerge(src[key], target[key], newObject) : (obj[key] = target[key])
+    } else {
+      src[key] = isObject(src[key]) ? deepMerge(src[key], target[key]) : (src[key] = target[key])
+    }
   }
-  return src
+  return newObject ? obj : src
 }
 
 export function openWindow(

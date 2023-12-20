@@ -40,7 +40,7 @@
   instance && emit('register', drawerInstance, instance.uid)
 
   const getMergeProps = computed((): DrawerProps => {
-    return deepMerge(unref(props), unref(propsRef))
+    return deepMerge(unref(props), unref(propsRef), true)
   })
 
   const getProps = computed((): DrawerProps => {
