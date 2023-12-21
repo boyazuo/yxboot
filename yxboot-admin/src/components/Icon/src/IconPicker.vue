@@ -74,7 +74,6 @@
     emits: ['selected'],
     render(context) {
       const { icon, selected, $emit } = context
-      console.log('h=====', icon)
       const getClass = () => {
         return {
           icon: true,

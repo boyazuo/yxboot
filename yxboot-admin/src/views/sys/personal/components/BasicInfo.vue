@@ -50,6 +50,7 @@
   import { uploadFile } from '@/api/sys/file'
   import { saveUser } from '@/api/sys/user'
   import { useUserStoreWithOut } from '@/store/modules/user'
+  import { PlusOutlined } from '@ant-design/icons-vue'
   import type { UploadChangeParam } from 'ant-design-vue'
   import { message } from 'ant-design-vue'
 

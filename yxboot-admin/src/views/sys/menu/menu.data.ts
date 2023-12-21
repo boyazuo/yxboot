@@ -19,9 +19,9 @@ export const findMenuType = (type) => ({ ...allMenuOption, ...listMenuType.find(
 export const tableColumns: BasicColumn[] = [
   { title: '菜单名称', dataIndex: 'name', align: 'left' },
   { title: '菜单类型', dataIndex: 'typeDesc' },
-  { title: '图标', dataIndex: 'icon', slots: { customRender: 'icon' } },
+  { title: '图标', dataIndex: 'icon' },
   { title: '组件', dataIndex: 'component' },
-  { title: '菜单路径/按钮编码', dataIndex: 'path', slots: { customRender: 'path' } },
+  { title: '菜单路径/按钮编码', dataIndex: 'path' },
   { title: '排序', dataIndex: 'sort' },
   { title: '状态', dataIndex: 'statusDesc' }
 ]

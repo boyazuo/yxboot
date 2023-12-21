@@ -22,13 +22,11 @@
       @change="handleTableChange"
       @resize-column="setColumnWidth"
     >
-      <template #[item]="data" v-for="item in Object.keys($slots)" :key="item">
+      <!-- <template #[item]="data" v-for="item in Object.keys($slots)" :key="item">
         <slot :name="item" v-bind="data || {}"></slot>
-      </template>
+      </template> -->
       <template #bodyCell="{ column, record }">
-        <template v-if="column.dataIndex === 'action'">
-          <slot name="action" :record="record"></slot>
-        </template>
+        <slot :name="column.dataIndex" :record="record"></slot>
       </template>
     </a-table>
   </div>

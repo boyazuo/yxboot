@@ -15,7 +15,7 @@ export const searchFormSchema: FormSchema[] = [
 ]
 
 export const tableColumns: BasicColumn[] = [
-  { title: '字典编码', dataIndex: 'dictCode', width: 150, slots: { customRender: 'dictCode' } },
+  { title: '字典编码', dataIndex: 'dictCode', width: 150 },
   { title: '字典名称', dataIndex: 'dictName', width: 200 },
   { title: '字典说明', dataIndex: 'descn', minWidth: 150 },
   { title: '状态', dataIndex: 'statusDesc', width: 80 }
