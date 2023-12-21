@@ -31,7 +31,7 @@
               icon: 'ant-design:delete-outlined',
               tooltip: '删除',
               auth: 'sysMenu:remove',
-              color: 'error',
+              danger: true,
               popConfirm: {
                 title: '是否删除该菜单？',
                 confirm: handleRemove.bind(null, record)

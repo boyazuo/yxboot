@@ -26,7 +26,7 @@
               icon: 'ant-design:delete-outlined',
               tooltip: '删除',
               auth: 'sysDict:remove',
-              color: 'error',
+              danger: true,
               popConfirm: {
                 title: '是否删除该字典？',
                 confirm: handleRemove.bind(null, record)

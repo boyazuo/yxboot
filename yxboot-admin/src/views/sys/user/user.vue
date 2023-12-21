@@ -22,7 +22,7 @@
             {
               icon: 'ant-design:delete-outlined',
               tooltip: '删除',
-              color: 'error',
+              danger: true,
               auth: 'user:remove',
               popConfirm: {
                 title: '是否删除该条记录？',

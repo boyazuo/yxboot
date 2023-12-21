@@ -16,7 +16,7 @@
             {
               icon: 'ant-design:delete-outlined',
               tooltip: '删除',
-              color: 'error',
+              danger: true,
               popConfirm: {
                 title: `是否删除该条记录？`,
                 confirm: handleRemove.bind(null, record)
