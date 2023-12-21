@@ -8,7 +8,7 @@
       <Icon v-else @click="toggleCollapsed" class="trigger" icon="ant-design:menu-fold-outlined" />
     </div>
     <div class="layout-header__menu">
-      <LayoutMenu v-if="isTopMenuType" :theme="getHeaderTheme" />
+      <LayoutMenu v-if="isMixType || isTopMenuType" :mode="MenuModeEnum.HORIZONTAL" :theme="getHeaderTheme" />
     </div>
     <div class="layout-header__action">
       <Icon @click="toggle" class="fullscreen" :icon="fullscreenIcon" size="18" />
@@ -33,6 +33,7 @@
 </template>
 <script lang="ts" setup>
   import { useDrawer } from '@/components/Drawer'
+  import { MenuModeEnum } from '@/enums/menuEnum'
   import { useHeaderSetting } from '@/hooks/setting/useHeaderSetting'
   import { useMenuSetting } from '@/hooks/setting/useMenuSetting'
   import { useUserStoreWithOut } from '@/store/modules/user'
@@ -43,7 +44,7 @@
 
   const userStore = useUserStoreWithOut()
 
-  const { isSidebarType, isTopMenuType, getCollapsed, toggleCollapsed } = useMenuSetting()
+  const { isSidebarType, isTopMenuType, isMixType, getCollapsed, toggleCollapsed } = useMenuSetting()
 
   const { isFullscreen, toggle } = useFullscreen()
   const fullscreenIcon = computed(() => {

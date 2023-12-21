@@ -5,7 +5,7 @@
     v-model:selectedKeys="selectedKeys"
     :openKeys="openKeys"
     :theme="menuTheme"
-    :mode="menuModel"
+    :mode="mode"
     @click="handleMenuClick"
     @open-change="handleOpenChange"
   >
@@ -21,6 +21,7 @@
 </template>
 <script lang="ts" setup>
   import { SysMenu } from '@/api/model/sysModel'
+  import { MenuModeEnum } from '@/enums/menuEnum'
   import { useMenuSetting } from '@/hooks/setting/useMenuSetting'
   import { usePermissionStoreWithOut } from '@/store/modules/permission'
   import { propTypes } from '@/utils/propTypes'
@@ -29,15 +30,12 @@
   import MenuGroup from './components/MenuGroup.vue'
 
   const props = defineProps({
-    theme: propTypes.oneOf(['light', 'dark'])
+    theme: propTypes.oneOf(['light', 'dark']),
+    // 菜单模式
+    mode: propTypes.oneOf([MenuModeEnum.INLINE, MenuModeEnum.HORIZONTAL]).def(MenuModeEnum.INLINE)
   })
 
   const { getShowSidebar, getCollapsed, getMenuTheme } = useMenuSetting()
-
-  //菜单模式
-  const menuModel = computed(() => {
-    return unref(getShowSidebar) ? 'inline' : 'horizontal'
-  })
 
   const menuTheme = computed(() => props.theme || unref(getMenuTheme))
 
