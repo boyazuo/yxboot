@@ -36,7 +36,7 @@
 </script>
 <style lang="less" scoped>
   .center {
-    display: inline-flex;
+    display: inline-block;
     justify-content: flex-start;
     align-items: center;
   }
