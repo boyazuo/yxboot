@@ -2,11 +2,10 @@ import dayjs from 'dayjs'
 import { resolve } from 'path'
 import type { ConfigEnv, UserConfig } from 'vite'
 import { loadEnv } from 'vite'
-
 import { OUTPUT_DIR } from './build/constant'
 import { generateModifyVars } from './build/generate/generateModifyVars'
 import { wrapperEnv } from './build/utils'
-import { createVitePlugins } from './build/vite/plugin'
+import { createPlugins } from './build/vite/plugin'
 import { createProxy } from './build/vite/proxy'
 import pkg from './package.json'
 
@@ -26,7 +25,7 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
   // The boolean type read by loadEnv is a string. This function can be converted to boolean type
   const viteEnv = wrapperEnv(env)
 
-  const { VITE_PORT, VITE_PUBLIC_PATH, VITE_PROXY, VITE_DROP_CONSOLE } = viteEnv
+  const { VITE_PORT, VITE_PUBLIC_PATH, VITE_PROXY, VITE_DROP_CONSOLE, VITE_BUILD_COMPRESS } = viteEnv
 
   const isBuild = command === 'build'
 
@@ -71,7 +70,11 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
         }
       }
     },
-    plugins: createVitePlugins(viteEnv, isBuild),
+    plugins: createPlugins({
+      isBuild,
+      root,
+      compress: VITE_BUILD_COMPRESS
+    }),
     optimizeDeps: {
       // @iconify/iconify: The dependency is dynamically and virtually loaded by @purge-icons/generated, so it needs to be specified explicitly
       include: [

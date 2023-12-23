@@ -2,16 +2,14 @@
  *  Vite Plugin for fast creating SVG sprites.
  * https://github.com/anncwb/vite-plugin-svg-icons
  */
-
+import { resolve } from 'node:path'
+import type { PluginOption } from 'vite'
 import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
-import path from 'path'
 
-export function configSvgIconsPlugin(isBuild: boolean) {
+export function configSvgIconsPlugin({ isBuild }: { isBuild: boolean }) {
   const svgIconsPlugin = createSvgIconsPlugin({
-    iconDirs: [path.resolve(process.cwd(), 'src/assets/icons')],
-    svgoOptions: isBuild,
-    // default
-    symbolId: 'icon-[dir]-[name]'
+    iconDirs: [resolve(process.cwd(), 'src/assets/icons')],
+    svgoOptions: isBuild
   })
-  return svgIconsPlugin
+  return svgIconsPlugin as PluginOption
 }

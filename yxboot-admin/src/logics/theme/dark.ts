@@ -1,5 +1,10 @@
 import { addClass, hasClass, removeClass } from '@/utils/domUtils'
-import { darkCssIsReady, loadDarkThemeCss } from '@kirklin/vite-plugin-vben-theme/es/client'
+
+export type CustomColorType = {
+  name: string
+  light: string
+  dark: string
+}
 
 export async function updateDarkTheme(mode: string | null = 'light') {
   const htmlRoot = document.getElementById('htmlRoot')
@@ -8,9 +13,6 @@ export async function updateDarkTheme(mode: string | null = 'light') {
   }
   const hasDarkClass = hasClass(htmlRoot, 'dark')
   if (mode === 'dark') {
-    if (import.meta.env.PROD && !darkCssIsReady) {
-      await loadDarkThemeCss()
-    }
     htmlRoot.setAttribute('data-theme', 'dark')
     if (!hasDarkClass) {
       addClass(htmlRoot, 'dark')
