@@ -32,7 +32,7 @@
       })
 
       return () => {
-        const bindValues = omit(unref(getBindValues), 'icon')
+        const bindValues = omit(unref(getBindValues), 'icon') as Recordable
         const btnBind = omit(bindValues, 'title') as Recordable
         if (btnBind.disabled) btnBind.color = ''
         const Button = h(BasicButton, btnBind, extendSlots(slots))

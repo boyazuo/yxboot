@@ -7,16 +7,16 @@
     </template>
   </Button>
 </template>
-
-<script lang="ts">
-  export default defineComponent({
-    name: 'AButton',
-    inheritAttrs: false
-  })
-</script>
 <script lang="ts" setup>
   import { Button } from 'ant-design-vue'
+  import { ComponentOptionsMixin, computed, unref } from 'vue'
   import { buttonProps } from './props'
+
+  defineOptions({
+    name: 'AButton',
+    extends: Button as ComponentOptionsMixin,
+    inheritAttrs: false
+  })
 
   const attrs = useAttrs()
   const props = defineProps(buttonProps)

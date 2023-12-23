@@ -4,7 +4,7 @@
   </div>
 </template>
 <script lang="ts" setup>
-  import type { CheckKeys, KeyType } from './tree'
+  import type { CheckKeys, KeyType, TreeProps } from './tree'
 
   import { omit } from 'lodash-es'
   import { treeEmits, treeProps } from './tree'
