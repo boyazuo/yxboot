@@ -288,14 +288,6 @@
       .ant-table.ant-table-bordered .ant-table-title {
         border: none !important;
       }
-
-      .ant-table.ant-table-bordered .ant-table-container {
-        border: none !important;
-      }
-
-      .ant-table.ant-table-bordered table {
-        border-left: 1px solid #f0f0f0;
-      }
     }
 
     &-form-container {

@@ -1,3 +1,4 @@
+// import '@/styles/index.less'
 import 'ant-design-vue/dist/reset.css'
 import 'virtual:windi-devtools'
 import 'virtual:windi.css'
