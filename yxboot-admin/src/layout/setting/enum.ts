@@ -87,7 +87,7 @@ export const menuTypeList = [
   },
   {
     title: '混合菜单模式',
-    mode: MenuModeEnum.INLINE,
+    mode: MenuModeEnum.MIX,
     type: MenuTypeEnum.MIX
   }
 ]

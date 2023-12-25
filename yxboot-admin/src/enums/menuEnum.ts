@@ -17,7 +17,8 @@ export enum MenuModeEnum {
   VERTICAL = 'vertical',
   HORIZONTAL = 'horizontal',
   VERTICAL_RIGHT = 'vertical-right',
-  INLINE = 'inline'
+  INLINE = 'inline',
+  MIX = 'mix'
 }
 
 export enum MenuSplitTyeEnum {

@@ -38,7 +38,7 @@ export function useHeaderSetting() {
   })
 
   const getShowHeaderLogo = computed(() => {
-    return unref(getShowLogo) && !unref(isSidebarType)
+    return unref(getShowLogo) //&& !unref(isSidebarType)
   })
 
   const getShowContent = computed(() => {

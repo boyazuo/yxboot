@@ -1,13 +1,15 @@
 <template>
   <a-layout-header :class="layoutHeaderClass">
     <div class="layout-header__left" v-if="!isSidebarType">
-      <AppLogo />
+      <AppLogo v-if="getShowHeaderLogo" />
     </div>
     <div class="layout-header__left" v-if="!isTopMenuType">
       <Icon v-if="getCollapsed" @click="toggleCollapsed" class="trigger" icon="ant-design:menu-unfold-outlined" />
       <Icon v-else @click="toggleCollapsed" class="trigger" icon="ant-design:menu-fold-outlined" />
     </div>
+
     <div class="layout-header__menu">
+      <Breadcrumb v-if="isSidebarType && getShowBread" />
       <LayoutMenu v-if="isMixType || isTopMenuType" :mode="MenuModeEnum.HORIZONTAL" :theme="getHeaderTheme" />
     </div>
     <div class="layout-header__action">
@@ -38,6 +40,7 @@
   import { useMenuSetting } from '@/hooks/setting/useMenuSetting'
   import { useUserStoreWithOut } from '@/store/modules/user'
   import { useFullscreen } from '@vueuse/core'
+  import Breadcrumb from '../breadcrumb/index.vue'
   import LayoutMenu from '../menu/index.vue'
   import SettingDrawer from '../setting/SettingDrawer.vue'
   import AppLogo from '../sider/AppLogo.vue'
@@ -45,6 +48,8 @@
   const userStore = useUserStoreWithOut()
 
   const { isSidebarType, isTopMenuType, isMixType, getCollapsed, toggleCollapsed } = useMenuSetting()
+
+  const { getShowHeaderLogo, getShowBread } = useHeaderSetting()
 
   const { isFullscreen, toggle } = useFullscreen()
   const fullscreenIcon = computed(() => {

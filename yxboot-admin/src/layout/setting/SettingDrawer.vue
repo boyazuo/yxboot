@@ -25,12 +25,22 @@
       :options="contentModeOptions"
     />
     <SwitchItem title="固定Header" :event="HandlerEnum.HEADER_FIXED" :def="getHeaderFixed" />
-    <SwitchItem title="固定Sidebar" :event="HandlerEnum.MENU_FIXED" :def="getMenuFixed" :disabled="isTopMenuType" />
+    <SwitchItem title="固定Sidebar" :event="HandlerEnum.MENU_FIXED" :def="getMenuFixed" :disabled="!isTopMenuType" />
     <SwitchItem title="自动分割菜单" :event="HandlerEnum.MENU_SPLIT" :def="getSplit" :disabled="!isMixType" />
 
     <a-divider orientation="left">界面显示</a-divider>
-    <SwitchItem title="面包屑" :event="HandlerEnum.SHOW_BREADCRUMB" :def="getShowBreadCrumb" />
-    <SwitchItem title="面包屑图标" :event="HandlerEnum.SHOW_BREADCRUMB_ICON" :def="getShowBreadCrumbIcon" />
+    <SwitchItem
+      title="面包屑"
+      :event="HandlerEnum.SHOW_BREADCRUMB"
+      :def="isSidebarType ? getShowBreadCrumb : false"
+      :disabled="!isSidebarType"
+    />
+    <SwitchItem
+      title="面包屑图标"
+      :event="HandlerEnum.SHOW_BREADCRUMB_ICON"
+      :def="isSidebarType ? getShowBreadCrumbIcon : false"
+      :disabled="!isSidebarType"
+    />
     <SwitchItem title="标签页" :event="HandlerEnum.TABS_SHOW" :def="getShowMultipleTab" />
     <SwitchItem
       title="标签页刷新按钮"
@@ -70,7 +80,8 @@
   import { HandlerEnum, contentModeOptions, menuTypeList } from './enum'
   import { baseHandler } from './handler'
 
-  const { getMenuType, getMenuFixed, getSplit, isTopMenuType, isMixType, getMenuBgColor } = useMenuSetting()
+  const { getMenuType, getMenuFixed, getSplit, isTopMenuType, isMixType, getMenuBgColor, isSidebarType } =
+    useMenuSetting()
   const { getShowMultipleTab, getShowQuick, getShowRedo, getShowFold } = useMultipleTabSetting()
   const { getHeaderBgColor, getFixed: getHeaderFixed } = useHeaderSetting()
   const {

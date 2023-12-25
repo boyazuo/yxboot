@@ -7,16 +7,19 @@
     :theme="getMenuTheme"
     v-model:collapsed="getCollapsed"
   >
-    <AppLogo v-if="isSidebarType" />
+    <AppLogo v-if="getShowHeaderLogo" />
     <LayoutMenu />
   </a-layout-sider>
 </template>
 <script lang="ts" setup>
+  import { useHeaderSetting } from '@/hooks/setting/useHeaderSetting'
   import { useMenuSetting } from '@/hooks/setting/useMenuSetting'
   import LayoutMenu from '../menu/index.vue'
   import AppLogo from './AppLogo.vue'
 
-  const { isSidebarType, getCollapsed, getMenuWidth, getMenuTheme } = useMenuSetting()
+  const { getCollapsed, getMenuWidth, getMenuTheme } = useMenuSetting()
+
+  const { getShowHeaderLogo } = useHeaderSetting()
 </script>
 <style lang="less" scope>
   .ant-layout-sider-dark {
