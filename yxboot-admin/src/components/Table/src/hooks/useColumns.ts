@@ -1,5 +1,6 @@
 import { formatDate } from '@/utils/dateUtil'
 import { isArray, isBoolean, isFunction, isMap, isString } from '@/utils/is'
+import { ColumnType } from 'ant-design-vue/lib/table/interface'
 import { cloneDeep, isEqual } from 'lodash-es'
 import type { ComputedRef } from 'vue'
 import { Ref, computed, reactive, ref, toRaw, unref, watch } from 'vue'

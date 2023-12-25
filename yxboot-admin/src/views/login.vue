@@ -15,6 +15,7 @@
           :prefix="h(Icon, { icon: 'ph:user-bold' })"
           size="large"
           :maxlength="20"
+          autocomplete="username"
         />
       </a-form-item>
       <a-form-item name="password">
@@ -24,6 +25,7 @@
           :prefix="h(Icon, { icon: 'carbon:password' })"
           size="large"
           :maxlength="20"
+          autocomplete="current-password"
         />
       </a-form-item>
       <a-form-item name="captchaCode">
