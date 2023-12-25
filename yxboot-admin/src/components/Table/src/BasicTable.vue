@@ -264,6 +264,16 @@
     .basic-table {
       background-color: #1d1d1d;
     }
+
+    .ant-table.ant-table-bordered table {
+      border: 1px solid #303030;
+    }
+  }
+
+  [data-theme='light'] {
+    .ant-table.ant-table-bordered table {
+      border: 1px solid #f0f0f0;
+    }
   }
 
   .@{prefix-cls} {
@@ -286,6 +296,10 @@
       border-radius: 2px;
 
       .ant-table.ant-table-bordered .ant-table-title {
+        border: none !important;
+      }
+
+      .ant-table.ant-table-bordered .ant-table-container {
         border: none !important;
       }
     }
