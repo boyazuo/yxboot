@@ -9,7 +9,7 @@
       <div :class="`${prefixCls}__toolbar`">
         <slot name="toolbar"></slot>
         <a-divider type="vertical" v-if="$slots.toolbar && showTableSetting" />
-        <TableSetting :setting="tableSetting" v-if="showTableSetting" @columns-change="handleColumnChange" />
+        <TableSettingComponent :setting="tableSetting" v-if="showTableSetting" @columns-change="handleColumnChange" />
       </div>
     </div>
   </div>
@@ -18,6 +18,7 @@
   import type { PropType } from 'vue'
   import type { ColumnChangeParam, TableSetting } from '../types/table'
   import TableTitle from './TableTitle.vue'
+  import TableSettingComponent from './settings/index.vue'
 
   defineProps({
     title: {
