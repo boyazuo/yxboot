@@ -7,7 +7,7 @@
           `${prefixCls}__item`,
           {
             [`${prefixCls}__item--active`]: def === color,
-             [`${prefixCls}__item--white`]: color === '#ffffff'
+            [`${prefixCls}__item--white`]: color === '#ffffff'
           }
         ]"
         :style="{ background: color }"
@@ -17,39 +17,30 @@
     </template>
   </div>
 </template>
-<script lang="ts">
+<script setup lang="ts">
   import { CheckOutlined } from '@ant-design/icons-vue'
 
   import { HandlerEnum } from '../enum'
   import { baseHandler } from '../handler'
 
-  export default defineComponent({
-    name: 'ThemeColorPicker',
-    components: { CheckOutlined },
-    props: {
-      colorList: {
-        type: Array as PropType<string[]>,
-        default: () => []
-      },
-      event: {
-        type: Number as PropType<HandlerEnum>
-      },
-      def: {
-        type: String
-      }
+  const props = defineProps({
+    colorList: {
+      type: Array as PropType<string[]>,
+      default: () => []
     },
-    setup(props) {
-      const prefixCls = 'setting-theme-picker'
-
-      function handleClick(color: string) {
-        props.event && baseHandler(props.event, color)
-      }
-      return {
-        prefixCls,
-        handleClick
-      }
+    event: {
+      type: Number as PropType<HandlerEnum>
+    },
+    def: {
+      type: String
     }
   })
+
+  const prefixCls = 'setting-theme-picker'
+
+  function handleClick(color: string) {
+    props.event && baseHandler(props.event, color)
+  }
 </script>
 <style lang="less">
   @prefix-cls: ~'setting-theme-picker';
@@ -84,7 +75,7 @@
 
       &--white {
         svg {
-          fill: #000000!important;
+          fill: #000 !important;
         }
       }
     }

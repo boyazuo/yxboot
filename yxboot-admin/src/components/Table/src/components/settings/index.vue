@@ -10,9 +10,9 @@
     <FullScreenSetting v-if="getSetting.fullScreen" :getPopupContainer="getTableContainer" />
   </div>
 </template>
-<script lang="ts">
+<script setup lang="ts">
   import type { PropType } from 'vue'
-  import { computed, defineComponent, unref } from 'vue'
+  import { computed, unref } from 'vue'
   import { useTableContext } from '../../hooks/useTableContext'
   import type { ColumnChangeParam, TableSetting } from '../../types/table'
   import ColumnSetting from './ColumnSetting.vue'
@@ -20,45 +20,32 @@
   import RedoSetting from './RedoSetting.vue'
   import SizeSetting from './SizeSetting.vue'
 
-  export default defineComponent({
-    name: 'TableSetting',
-    components: {
-      ColumnSetting,
-      SizeSetting,
-      RedoSetting,
-      FullScreenSetting
-    },
-    props: {
-      setting: {
-        type: Object as PropType<TableSetting>,
-        default: () => ({})
-      }
-    },
-    emits: ['columns-change'],
-    setup(props, { emit }) {
-      const table = useTableContext()
-
-      const getSetting = computed((): TableSetting => {
-        return {
-          redo: true,
-          size: true,
-          setting: true,
-          fullScreen: false,
-          ...props.setting
-        }
-      })
-
-      function handleColumnChange(data: ColumnChangeParam[]) {
-        emit('columns-change', data)
-      }
-
-      function getTableContainer() {
-        return table ? unref(table.wrapRef) : document.body
-      }
-
-      return { getSetting, handleColumnChange, getTableContainer }
+  const props: { setting: any } = defineProps({
+    setting: {
+      type: Object as PropType<TableSetting>,
+      default: () => ({})
     }
   })
+  const emit = defineEmits(['columns-change'])
+  const table = useTableContext()
+
+  const getSetting = computed((): TableSetting => {
+    return {
+      redo: true,
+      size: true,
+      setting: true,
+      fullScreen: false,
+      ...props.setting
+    }
+  })
+
+  function handleColumnChange(data: ColumnChangeParam[]) {
+    emit('columns-change', data)
+  }
+
+  function getTableContainer() {
+    return table ? unref(table.wrapRef) : document.body
+  }
 </script>
 <style lang="less">
   .table-settings {

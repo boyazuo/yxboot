@@ -22,35 +22,21 @@
     </a-dropdown>
   </a-tooltip>
 </template>
-<script lang="ts">
+<script setup lang="ts">
   import { getPopupContainer } from '@/utils'
   import { ColumnHeightOutlined } from '@ant-design/icons-vue'
-  import { defineComponent, ref } from 'vue'
+  import { ref } from 'vue'
   import { useTableContext } from '../../hooks/useTableContext'
   import type { SizeType } from '../../types/table'
 
-  export default defineComponent({
-    name: 'SizeSetting',
-    components: {
-      ColumnHeightOutlined
-    },
-    setup() {
-      const table = useTableContext()
+  const table = useTableContext()
 
-      const selectedKeysRef = ref<SizeType[]>([table.getSize()])
+  const selectedKeysRef = ref<SizeType[]>([table.getSize()])
 
-      function handleTitleClick({ key }: { key: SizeType }) {
-        selectedKeysRef.value = [key]
-        table.setProps({
-          size: key
-        })
-      }
-
-      return {
-        handleTitleClick,
-        selectedKeysRef,
-        getPopupContainer
-      }
-    }
-  })
+  function handleTitleClick({ key }: { key: SizeType }) {
+    selectedKeysRef.value = [key]
+    table.setProps({
+      size: key
+    })
+  }
 </script>

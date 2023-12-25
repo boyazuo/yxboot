@@ -19,7 +19,10 @@ export function baseHandler(event: HandlerEnum, value: any) {
   }
 }
 
-export function handler(event: HandlerEnum, value: any): DeepPartial<ProjectConfig> {
+export function handler(
+  event: HandlerEnum,
+  value: any
+): DeepPartial<ProjectConfig & { menuSetting: { hidden: boolean } }> {
   const appStore = useAppStore()
 
   const { getThemeColor, getDarkMode } = useRootSetting()

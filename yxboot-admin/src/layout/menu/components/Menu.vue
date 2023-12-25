@@ -7,19 +7,15 @@
     <span>{{ menu.name }}</span>
   </a-menu-item>
 </template>
-<script lang="ts">
+<script setup lang="ts">
   import Icon from '@/components/Icon/index'
-  export default {
-    name: 'Menu',
-    components: { Icon },
-    props: {
-      menu: {
-        type: Object,
-        default() {
-          return {}
-        }
+  defineProps({
+    menu: {
+      type: Object,
+      default() {
+        return {}
       }
     }
-  }
+  })
 </script>
 <style lang="less" scoped></style>

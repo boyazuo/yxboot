@@ -10,42 +10,33 @@
     />
   </div>
 </template>
-<script lang="ts">
+<script setup lang="ts">
   import { HandlerEnum } from '../enum'
   import { baseHandler } from '../handler'
 
-  export default defineComponent({
-    name: 'SwitchItem',
-    props: {
-      event: {
-        type: Number as PropType<HandlerEnum>
-      },
-      disabled: {
-        type: Boolean
-      },
-      title: {
-        type: String
-      },
-      def: {
-        type: Boolean
-      }
+  const props = defineProps({
+    event: {
+      type: Number as PropType<HandlerEnum>
     },
-    setup(props) {
-      const prefixCls = 'setting-switch-item'
-
-      const getBindValue = computed(() => {
-        return props.def ? { checked: props.def } : {}
-      })
-      function handleChange(e: ChangeEvent) {
-        props.event && baseHandler(props.event, e)
-      }
-      return {
-        prefixCls,
-        handleChange,
-        getBindValue
-      }
+    disabled: {
+      type: Boolean
+    },
+    title: {
+      type: String
+    },
+    def: {
+      type: Boolean
     }
   })
+  const prefixCls = 'setting-switch-item'
+
+  const getBindValue = computed(() => {
+    return props.def ? { checked: props.def } : {}
+  })
+
+  function handleChange(e: ChangeEvent) {
+    props.event && baseHandler(props.event, e)
+  }
 </script>
 <style lang="less" scoped>
   @prefix-cls: ~'setting-switch-item';

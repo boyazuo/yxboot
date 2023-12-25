@@ -11,49 +11,39 @@
     />
   </div>
 </template>
-<script lang="ts">
+<script setup lang="ts">
   import { HandlerEnum } from '../enum'
   import { baseHandler } from '../handler'
 
-  export default defineComponent({
-    name: 'SelectItem',
-    props: {
-      event: {
-        type: Number as PropType<HandlerEnum>
-      },
-      disabled: {
-        type: Boolean
-      },
-      title: {
-        type: String
-      },
-      def: {
-        type: [String, Number] as PropType<string | number>
-      },
-      initValue: {
-        type: [String, Number] as PropType<string | number>
-      },
-      options: {
-        type: Array as PropType<LabelValueOptions>,
-        default: () => []
-      }
+  const props = defineProps({
+    event: {
+      type: Number as PropType<HandlerEnum>
     },
-    setup(props) {
-      const prefixCls = 'setting-select-item'
-      const getBindValue = computed(() => {
-        return props.def ? { value: props.def, defaultValue: props.initValue || props.def } : {}
-      })
-
-      function handleChange(e: ChangeEvent) {
-        props.event && baseHandler(props.event, e)
-      }
-      return {
-        prefixCls,
-        handleChange,
-        getBindValue
-      }
+    disabled: {
+      type: Boolean
+    },
+    title: {
+      type: String
+    },
+    def: {
+      type: [String, Number] as PropType<string | number>
+    },
+    initValue: {
+      type: [String, Number] as PropType<string | number>
+    },
+    options: {
+      type: Array as PropType<LabelValueOptions>,
+      default: () => []
     }
   })
+  const prefixCls = 'setting-select-item'
+  const getBindValue = computed(() => {
+    return props.def ? { value: props.def, defaultValue: props.initValue || props.def } : {}
+  })
+
+  function handleChange(e: ChangeEvent) {
+    props.event && baseHandler(props.event, e)
+  }
 </script>
 <style lang="less" scoped>
   @prefix-cls: ~'setting-select-item';

@@ -7,29 +7,12 @@
     <FullscreenExitOutlined @click="toggle" v-else />
   </Tooltip>
 </template>
-<script lang="ts">
+<script setup lang="ts">
   import { FullscreenExitOutlined, FullscreenOutlined } from '@ant-design/icons-vue'
   import { useFullscreen } from '@vueuse/core'
   import { Tooltip } from 'ant-design-vue'
-  import { defineComponent } from 'vue'
   import { useTableContext } from '../../hooks/useTableContext'
 
-  export default defineComponent({
-    name: 'FullScreenSetting',
-    components: {
-      FullscreenExitOutlined,
-      FullscreenOutlined,
-      Tooltip
-    },
-
-    setup() {
-      const table = useTableContext()
-      const { toggle, isFullscreen } = useFullscreen(table.wrapRef)
-
-      return {
-        toggle,
-        isFullscreen
-      }
-    }
-  })
+  const table = useTableContext()
+  const { toggle, isFullscreen } = useFullscreen(table.wrapRef)
 </script>

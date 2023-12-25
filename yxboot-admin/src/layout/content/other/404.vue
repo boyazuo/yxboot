@@ -7,15 +7,11 @@
   </a-result>
 </template>
 
-<script>
-  export default {
-    methods: {
-      gohome() {
-        location.href = '/'
-      },
-      goback() {
-        this.$router.go(-1)
-      }
-    }
+<script setup>
+  function gohome() {
+    location.href = '/'
+  }
+  function goback() {
+    this.$router.go(-1)
   }
 </script>

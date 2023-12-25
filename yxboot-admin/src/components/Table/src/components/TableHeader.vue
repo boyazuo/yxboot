@@ -14,40 +14,31 @@
     </div>
   </div>
 </template>
-<script lang="ts">
+<script setup lang="ts">
   import type { PropType } from 'vue'
-  import { defineComponent } from 'vue'
   import type { ColumnChangeParam, TableSetting } from '../types/table'
   import TableTitle from './TableTitle.vue'
-  import TableSettingComponent from './settings/index.vue'
 
-  export default defineComponent({
-    name: 'BasicTableHeader',
-    components: { TableTitle, TableSetting: TableSettingComponent },
-    props: {
-      title: {
-        type: [Function, String] as PropType<string | ((data: Recordable) => string)>
-      },
-      tableSetting: {
-        type: Object as PropType<TableSetting>
-      },
-      showTableSetting: {
-        type: Boolean
-      },
-      titleHelpMessage: {
-        type: [String, Array] as PropType<string | string[]>,
-        default: ''
-      }
+  defineProps({
+    title: {
+      type: [Function, String] as PropType<string | ((data: Recordable) => string)>
     },
-    emits: ['columns-change'],
-    setup(_, { emit }) {
-      const prefixCls = 'table-header'
-      function handleColumnChange(data: ColumnChangeParam[]) {
-        emit('columns-change', data)
-      }
-      return { prefixCls, handleColumnChange }
+    tableSetting: {
+      type: Object as PropType<TableSetting>
+    },
+    showTableSetting: {
+      type: Boolean
+    },
+    titleHelpMessage: {
+      type: [String, Array] as PropType<string | string[]>,
+      default: ''
     }
   })
+  const emit = defineEmits(['columns-change'])
+  const prefixCls = 'table-header'
+  function handleColumnChange(data: ColumnChangeParam[]) {
+    emit('columns-change', data)
+  }
 </script>
 <style lang="less">
   @prefix-cls: ~'table-header';

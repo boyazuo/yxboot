@@ -4,28 +4,16 @@
   </a-layout-footer>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
   import { useRootSetting } from '@/hooks/setting/useRootSetting'
-  import { openWindow } from '@/utils'
 
-  export default defineComponent({
-    name: 'LayoutFooter',
-    setup() {
-      const { getShowFooter } = useRootSetting()
-      const { currentRoute } = useRouter()
+  const { getShowFooter } = useRootSetting()
+  const { currentRoute } = useRouter()
 
-      const footerRef = ref<ComponentRef>(null)
+  const footerRef = ref<ComponentRef>(null)
 
-      const getShowLayoutFooter = computed(() => {
-        return unref(getShowFooter) && !unref(currentRoute).meta?.hiddenFooter
-      })
-
-      return {
-        getShowLayoutFooter,
-        openWindow,
-        footerRef
-      }
-    }
+  const getShowLayoutFooter = computed(() => {
+    return unref(getShowFooter) && !unref(currentRoute).meta?.hiddenFooter
   })
 </script>
 <style lang="less" scoped>
