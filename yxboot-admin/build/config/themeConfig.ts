@@ -6,8 +6,6 @@ export const darkMode = 'light'
 
 type Fn = (...arg: any) => any
 
-type GenerateTheme = 'default' | 'dark'
-
 export interface GenerateColorsParams {
   mixLighten: Fn
   mixDarken: Fn
@@ -15,7 +13,7 @@ export interface GenerateColorsParams {
   color?: string
 }
 
-export function generateAntColors(color: string, theme: GenerateTheme = 'default') {
+export function generateAntColors(color: string, theme: 'default' | 'dark' = 'default') {
   return generate(color, {
     theme
   })

@@ -6,7 +6,6 @@ import type { ProjectConfig } from '#/config'
 import { PROJ_CFG_KEY } from '@/enums/cacheEnum'
 import projectSetting from '@/settings/projectSetting'
 
-import { changeTheme } from '@/logics/theme'
 import { updateDarkTheme } from '@/logics/theme/dark'
 import { updateHeaderBgColor, updateSidebarBgColor } from '@/logics/theme/updateBackground'
 import { updateColorWeak } from '@/logics/theme/updateColorWeak'
@@ -19,7 +18,6 @@ import { getCommonStoragePrefix, getStorageShortName } from '@/utils/env'
 import { ThemeEnum } from '@/enums/appEnum'
 import { deepMerge } from '@/utils'
 import { Persistent } from '@/utils/cache/persistent'
-import { primaryColor } from '../../build/config/themeConfig'
 
 // Initial project configuration
 export function initAppConfigStore() {
@@ -30,16 +28,11 @@ export function initAppConfigStore() {
   const {
     colorWeak,
     grayMode,
-    themeColor,
 
     headerSetting: { bgColor: headerBgColor } = {},
     menuSetting: { bgColor } = {}
   } = projCfg
   try {
-    if (themeColor && themeColor !== primaryColor) {
-      changeTheme(themeColor)
-    }
-
     grayMode && updateGrayMode(grayMode)
     colorWeak && updateColorWeak(colorWeak)
   } catch (error) {

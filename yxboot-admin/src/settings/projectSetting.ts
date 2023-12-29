@@ -9,8 +9,7 @@ import {
 } from '@/enums/appEnum'
 import { CacheTypeEnum } from '@/enums/cacheEnum'
 import { MenuModeEnum, MenuTypeEnum } from '@/enums/menuEnum'
-import { primaryColor } from '../../build/config/themeConfig'
-import { HEADER_PRESET_BG_COLOR_LIST, SIDE_BAR_BG_COLOR_LIST } from './designSetting'
+import { APP_PRESET_COLOR_LIST, HEADER_PRESET_BG_COLOR_LIST, SIDE_BAR_BG_COLOR_LIST } from './designSetting'
 
 // ! You need to clear the browser cache after the change
 const setting: ProjectConfig = {
@@ -33,7 +32,7 @@ const setting: ProjectConfig = {
   sessionTimeoutProcessing: SessionTimeoutProcessingEnum.ROUTE_JUMP,
 
   // color
-  themeColor: primaryColor,
+  themeColor: APP_PRESET_COLOR_LIST[0],
 
   // Website gray mode, open for possible mourning dates
   grayMode: false,

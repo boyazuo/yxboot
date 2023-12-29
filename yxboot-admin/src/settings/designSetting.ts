@@ -37,7 +37,7 @@ export const SIDE_BAR_BG_COLOR_LIST: string[] = [
   //'#001529',
   //'#212121',
   '#273352',
-  '#ffffff',
+  '#ffffff'
   //'#191b24',
   //'#191a23',
   //'#304156',
