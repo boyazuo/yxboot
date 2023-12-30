@@ -12,62 +12,28 @@
       <Breadcrumb v-if="isSidebarType && getShowBread" />
       <LayoutMenu v-if="isMixType || isTopMenuType" :mode="MenuModeEnum.HORIZONTAL" :theme="getHeaderTheme" />
     </div>
-    <div class="layout-header__action">
-      <Icon @click="toggle" class="fullscreen" :icon="fullscreenIcon" size="18" />
-      <Icon @click="openSettingDrawer" class="setting" icon="ant-design:setting-outlined" size="18" />
-      <a-dropdown placement="bottomRight" class="user-dropdown">
-        <a-avatar :src="userStoreData?.avatar">{{ userStoreData?.name }}</a-avatar>
-        <template #overlay>
-          <a-menu>
-            <a-menu-item @click="$router.push({ path: '/personal/index' })">
-              <Icon icon="ant-design:user-outlined" /> 个人中心
-            </a-menu-item>
-            <a-menu-divider />
-            <a-menu-item @click.prevent="handleLogout">
-              <Icon icon="ant-design:poweroff-outlined" /> 退出系统
-            </a-menu-item>
-          </a-menu>
-        </template>
-      </a-dropdown>
+    <div class="layout-header-action">
+      <FullScreen v-if="getShowFullScreen" class="layout-header-action__item" />
+      <Setting v-if="getShowSetting" class="layout-header-action__item" />
+      <UserDropDown :theme="getHeaderTheme" />
     </div>
-    <SettingDrawer @register="registerSettingDrawer" />
   </a-layout-header>
 </template>
 <script lang="ts" setup>
-  import { useDrawer } from '@/components/Drawer'
+  import { SettingButtonPositionEnum } from '@/enums/appEnum'
   import { MenuModeEnum } from '@/enums/menuEnum'
   import { useHeaderSetting } from '@/hooks/setting/useHeaderSetting'
   import { useMenuSetting } from '@/hooks/setting/useMenuSetting'
-  import { useUserStoreWithOut } from '@/store/modules/user'
-  import { useFullscreen } from '@vueuse/core'
+  import { useRootSetting } from '@/hooks/setting/useRootSetting'
   import Breadcrumb from '../breadcrumb/index.vue'
   import LayoutMenu from '../menu/index.vue'
-  import SettingDrawer from '../setting/SettingDrawer.vue'
   import AppLogo from '../sider/AppLogo.vue'
-
-  const userStore = useUserStoreWithOut()
+  import { FullScreen, Setting, UserDropDown } from './components'
 
   const { isSidebarType, isTopMenuType, isMixType, getCollapsed, toggleCollapsed } = useMenuSetting()
+  const { getShowSettingButton, getSettingButtonPosition } = useRootSetting()
+  const { getShowHeaderLogo, getShowBread, getShowFullScreen, getShowHeader } = useHeaderSetting()
 
-  const { getShowHeaderLogo, getShowBread } = useHeaderSetting()
-
-  const { isFullscreen, toggle } = useFullscreen()
-  const fullscreenIcon = computed(() => {
-    return isFullscreen.value ? 'ant-design:fullscreen-exit-outlined' : 'ant-design:fullscreen-outlined'
-  })
-
-  const userStoreData: any = computed(() => userStore.getUser)
-
-  const [registerSettingDrawer, { openDrawer }] = useDrawer()
-
-  const openSettingDrawer = () => {
-    openDrawer()
-  }
-
-  const handleLogout = async () => {
-    await userStore.logout()
-    window.location.reload()
-  }
   //主题
   const { getHeaderTheme } = useHeaderSetting()
   const layoutHeaderClass = computed(() => {
@@ -75,6 +41,18 @@
       'layout-header': true,
       [`layout-header__${unref(getHeaderTheme)}`]: true
     }
+  })
+
+  const getShowSetting = computed(() => {
+    if (!unref(getShowSettingButton)) {
+      return false
+    }
+    const settingButtonPosition = unref(getSettingButtonPosition)
+
+    if (settingButtonPosition === SettingButtonPositionEnum.AUTO) {
+      return unref(getShowHeader)
+    }
+    return settingButtonPosition === SettingButtonPositionEnum.HEADER
   })
 </script>
 <style lang="less" scoped>
@@ -86,10 +64,9 @@
     width: 100%;
     height: 48px;
     line-height: 48px;
-    background-color: var(--header-bg-color);
+    background-color: @header-bg-color-base;
     box-shadow: 0 1px 4px #00152914;
     transition: all 0.2s ease-in-out;
-    z-index: 11;
 
     &__dark {
       color: #fff !important;
@@ -141,16 +118,24 @@
       }
     }
 
-    &__action {
+    &-action {
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      padding: 0 10px;
+      margin-right: 10px;
+      // min-width: 180px;
 
-      .fullscreen,
-      .setting {
-        margin-right: 20px;
+      &__item {
+        display: flex !important;
+        align-items: center;
+        height: @header-height;
+        padding: 0 10px;
+        font-size: 1.2em;
+        color: @text-color-base;
         cursor: pointer;
+
+        &:hover {
+          background-color: @header-bg-hover-color-base;
+        }
       }
 
       .user-dropdown {

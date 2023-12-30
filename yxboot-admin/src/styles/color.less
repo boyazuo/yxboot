@@ -1,16 +1,21 @@
 html {
   // text
   --text-color: rgba(0 0 0 / 85%);
-
   // border
   --border-color: #eee;
+  // header
+  --header-bg-color: #fff;
+  --header-bg-hover-color: #f6f6f6;
+  --header-active-menu-bg-color: #273352;
 
   &[data-theme='dark'] {
     // text
     --text-color: #c9d1d9;
-
     // border
     --border-color: #303030;
+    // header
+    --header-bg-color: #394664;
+    --header-bg-hover-color: #273352;
   }
 }
 
@@ -20,3 +25,9 @@ html {
 // ===========Text color============
 // Main text color
 @text-color-base: var(--text-color);
+
+// ===========Header color============
+@header-bg-color-base: var(--header-bg-color);
+@header-bg-hover-color-base: var(--header-bg-hover-color);
+// top-menu
+@top-menu-active-bg-color: var(--header-active-menu-bg-color);

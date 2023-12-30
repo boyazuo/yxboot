@@ -8,7 +8,7 @@
   </a-menu-item>
 </template>
 <script setup lang="ts">
-  import Icon from '@/components/Icon/index'
+  import Icon from '@/components/Icon'
   defineProps({
     menu: {
       type: Object,
