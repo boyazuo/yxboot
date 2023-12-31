@@ -4,8 +4,7 @@
       <AppLogo v-if="getShowHeaderLogo" />
     </div>
     <div class="layout-header__left" v-if="!isTopMenuType">
-      <Icon v-if="getCollapsed" @click="toggleCollapsed" class="trigger" icon="ant-design:menu-unfold-outlined" />
-      <Icon v-else @click="toggleCollapsed" class="trigger" icon="ant-design:menu-fold-outlined" />
+      <HeaderTrigger />
     </div>
 
     <div class="layout-header__menu">
@@ -28,9 +27,9 @@
   import Breadcrumb from '../breadcrumb/index.vue'
   import LayoutMenu from '../menu/index.vue'
   import AppLogo from '../sider/AppLogo.vue'
-  import { FullScreen, Setting, UserDropDown } from './components'
+  import { FullScreen, HeaderTrigger, Setting, UserDropDown } from './components'
 
-  const { isSidebarType, isTopMenuType, isMixType, getCollapsed, toggleCollapsed } = useMenuSetting()
+  const { isSidebarType, isTopMenuType, isMixType } = useMenuSetting()
   const { getShowSettingButton, getSettingButtonPosition } = useRootSetting()
   const { getShowHeaderLogo, getShowBread, getShowFullScreen, getShowHeader } = useHeaderSetting()
 
@@ -67,6 +66,7 @@
     background-color: @header-bg-color-base;
     box-shadow: 0 1px 4px #00152914;
     transition: all 0.2s ease-in-out;
+    z-index: 11;
 
     &__dark {
       color: #fff !important;
@@ -74,6 +74,22 @@
       .logo {
         :deep(.title) {
           color: #fff !important;
+        }
+      }
+
+      .layout-header-action {
+        &__item {
+          color: @text-color-base;
+
+          &:hover {
+            background-color: @header-dark-bg-hover-color;
+          }
+        }
+      }
+
+      .layout-header-trigger {
+        &:hover {
+          background-color: @header-dark-bg-hover-color;
         }
       }
     }
@@ -86,9 +102,26 @@
           color: #333 !important;
         }
       }
+
+      .layout-header-action {
+        &__item {
+          color: @text-color-base;
+
+          &:hover {
+            background-color: @header-light-bg-hover-color;
+          }
+        }
+      }
+
+      .layout-header-trigger {
+        &:hover {
+          background-color: @header-light-bg-hover-color;
+        }
+      }
     }
 
-    .trigger {
+    &-trigger {
+      height: @header-height;
       font-size: 18px !important;
       padding: 0 10px;
       cursor: pointer;
@@ -136,14 +169,6 @@
         &:hover {
           background-color: @header-bg-hover-color-base;
         }
-      }
-
-      .user-dropdown {
-        border: 1px solid #ccc;
-        overflow: hidden;
-        font-size: 12px;
-        cursor: pointer;
-        align-items: center;
       }
     }
   }

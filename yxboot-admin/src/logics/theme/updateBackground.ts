@@ -80,7 +80,6 @@ export function updateSidebarBgColor(color?: string) {
   })
 }
 
-
 /**
  * Change the background color of the system
  * @param color  bg color

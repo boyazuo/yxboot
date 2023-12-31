@@ -34,6 +34,6 @@
     font-size: 12px;
     cursor: pointer;
     align-items: center;
-    margin: 0 10px;
+    margin: 0 5px;
   }
 </style>
