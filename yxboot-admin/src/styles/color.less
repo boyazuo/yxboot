@@ -5,7 +5,6 @@ html {
   --border-color: #eee;
   // header
   --header-bg-color: #fff;
-  --header-bg-hover-color: #f6f6f6;
   --header-active-menu-bg-color: #273352;
 
   &[data-theme='dark'] {
@@ -15,20 +14,23 @@ html {
     --border-color: #303030;
     // header
     --header-bg-color: #394664;
-    --header-bg-hover-color: #273352;
   }
 }
+
+// ===========Base Color============
+@white: #fff;
+@content-bg: #f4f7f9;
+
+// ===========Text color============
+@text-color-base: var(--text-color);
+@text-color-secondary: #8b949e;
 
 // =========border-color============
 @border-color-base: var(--border-color);
 
-// ===========Text color============
-// Main text color
-@text-color-base: var(--text-color);
-
 // ===========Header color============
 @header-bg-color-base: var(--header-bg-color);
-@header-bg-hover-color-base: var(--header-bg-hover-color);
+@header-dark-hover-color-base: #273352;
 @header-light-bg-hover-color: #f6f6f6;
 // top-menu
 @top-menu-active-bg-color: var(--header-active-menu-bg-color);

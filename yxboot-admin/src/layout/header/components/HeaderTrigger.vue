@@ -3,6 +3,7 @@
     <MenuUnfoldOutlined v-if="getCollapsed" /> <MenuFoldOutlined v-else />
   </div>
 </template>
+
 <script lang="ts" setup>
   import { useMenuSetting } from '@/hooks/setting/useMenuSetting'
   import { propTypes } from '@/utils/propTypes'

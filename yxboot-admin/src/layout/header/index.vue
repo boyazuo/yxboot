@@ -155,7 +155,6 @@
       display: flex;
       align-items: center;
       margin-right: 10px;
-      // min-width: 180px;
 
       &__item {
         display: flex !important;
@@ -165,10 +164,6 @@
         font-size: 1.2em;
         color: @text-color-base;
         cursor: pointer;
-
-        &:hover {
-          background-color: @header-bg-hover-color-base;
-        }
       }
     }
   }
