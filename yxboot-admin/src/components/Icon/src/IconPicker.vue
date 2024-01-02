@@ -196,7 +196,7 @@
 
       .icon {
         width: 32px;
-        border: 1px solid @border-color-light;
+        border: 1px solid @border-color-base;
         display: flex;
         flex-flow: column nowrap;
         justify-content: center;

@@ -69,6 +69,7 @@
     z-index: 11;
 
     &__dark {
+      border-bottom: 1px solid @border-color-base;
       color: #fff !important;
 
       .logo {

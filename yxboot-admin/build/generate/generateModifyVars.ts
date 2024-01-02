@@ -22,9 +22,7 @@ export function generateModifyVars() {
   return {
     ...v3Token,
     // reference:  Avoid repeated references
-    hack: `true; @import (reference) "${resolve('src/styles/bak/config.less')}";@import (reference) "${resolve(
-      'src/styles/config.less'
-    )}";`,
+    hack: `true; @import (reference) "${resolve('src/styles/config.less')}";`,
     'primary-color': primary,
     ...primaryColorObj,
     'info-color': primary,

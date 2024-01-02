@@ -7,6 +7,12 @@ html {
   --header-bg-color: #fff;
   --header-active-menu-bg-color: #273352;
 
+  // app
+  --app-content-background-color: #fafafa;
+
+  // component
+  --component-background-color: #fff;
+
   &[data-theme='dark'] {
     // text
     --text-color: #c9d1d9;
@@ -14,12 +20,19 @@ html {
     --border-color: #303030;
     // header
     --header-bg-color: #394664;
+
+    // app
+    --app-content-background-color: #1e1e1e;
+    // component
+    --component-background-color: #151515;
   }
 }
 
 // ===========Base Color============
 @white: #fff;
 @content-bg: #f4f7f9;
+
+@component-background: var(--component-background-color);
 
 // ===========Text color============
 @text-color-base: var(--text-color);
@@ -30,7 +43,15 @@ html {
 
 // ===========Header color============
 @header-bg-color-base: var(--header-bg-color);
-@header-dark-hover-color-base: #273352;
+@header-dark-bg-hover-color: #273352;
 @header-light-bg-hover-color: #f6f6f6;
 // top-menu
 @top-menu-active-bg-color: var(--header-active-menu-bg-color);
+
+// Auxiliary information color-dark
+@text-color-help-dark: #909399;
+
+// =================================
+// =======app content color=========
+// =================================
+@app-content-background: var(--app-content-background-color);

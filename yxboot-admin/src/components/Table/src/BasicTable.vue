@@ -261,26 +261,20 @@
       background-color: #262626;
     }
 
-    .basic-table {
-      background-color: #1d1d1d;
-    }
-
     .ant-table.ant-table-bordered table {
-      border: 1px solid #303030;
+      border-left: 1px solid #303030;
     }
   }
 
   [data-theme='light'] {
     .ant-table.ant-table-bordered table {
-      border: 1px solid #f0f0f0;
+      border-left: 1px solid #f0f0f0;
     }
   }
 
   .@{prefix-cls} {
-    background-color: @content-bg;
-
     :deep(.ant-pagination) {
-      margin: 16px 6px;
+      margin: 12px 6px;
     }
 
     &-row__striped {
