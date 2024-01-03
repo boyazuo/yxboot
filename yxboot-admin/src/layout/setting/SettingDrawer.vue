@@ -6,13 +6,6 @@
     <a-divider orientation="left">系统主题</a-divider>
     <ThemeColorPicker :colorList="APP_PRESET_COLOR_LIST" :event="HandlerEnum.CHANGE_THEME_COLOR" :def="getThemeColor" />
 
-    <a-divider orientation="left">顶栏主题</a-divider>
-    <ThemeColorPicker
-      :colorList="HEADER_PRESET_BG_COLOR_LIST"
-      :event="HandlerEnum.HEADER_THEME"
-      :def="getHeaderBgColor"
-    />
-
     <a-divider orientation="left">侧栏主题</a-divider>
     <ThemeColorPicker :colorList="SIDE_BAR_BG_COLOR_LIST" :event="HandlerEnum.MENU_THEME" :def="getMenuBgColor" />
 
@@ -71,7 +64,7 @@
   import { useMenuSetting } from '@/hooks/setting/useMenuSetting'
   import { useMultipleTabSetting } from '@/hooks/setting/useMultipleTabSetting'
   import { useRootSetting } from '@/hooks/setting/useRootSetting'
-  import { APP_PRESET_COLOR_LIST, HEADER_PRESET_BG_COLOR_LIST, SIDE_BAR_BG_COLOR_LIST } from '@/settings/designSetting'
+  import { APP_PRESET_COLOR_LIST, SIDE_BAR_BG_COLOR_LIST } from '@/settings/designSetting'
   import AppDarkModeToggle from './components/AppDarkModeToggle.vue'
   import SelectItem from './components/SelectItem.vue'
   import SwitchItem from './components/SwitchItem.vue'
@@ -83,7 +76,7 @@
   const { getMenuType, getMenuFixed, getSplit, isTopMenuType, isMixType, getMenuBgColor, isSidebarType } =
     useMenuSetting()
   const { getShowMultipleTab, getShowQuick, getShowRedo, getShowFold } = useMultipleTabSetting()
-  const { getHeaderBgColor, getFixed: getHeaderFixed } = useHeaderSetting()
+  const { getFixed: getHeaderFixed } = useHeaderSetting()
   const {
     getContentMode,
     getThemeColor,

@@ -150,10 +150,6 @@ export function handler(
       return { multiTabsSetting: { showFold: value } }
 
     // ============header==================
-    case HandlerEnum.HEADER_THEME:
-      updateHeaderBgColor(value)
-      return { headerSetting: { bgColor: value } }
-
     case HandlerEnum.HEADER_SEARCH:
       return { headerSetting: { showSearch: value } }
 

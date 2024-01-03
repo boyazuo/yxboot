@@ -9,7 +9,7 @@ import {
 } from '@/enums/appEnum'
 import { CacheTypeEnum } from '@/enums/cacheEnum'
 import { MenuModeEnum, MenuTypeEnum } from '@/enums/menuEnum'
-import { APP_PRESET_COLOR_LIST, HEADER_PRESET_BG_COLOR_LIST, SIDE_BAR_BG_COLOR_LIST } from './designSetting'
+import { APP_PRESET_COLOR_LIST, SIDE_BAR_BG_COLOR_LIST } from './designSetting'
 
 // ! You need to clear the browser cache after the change
 const setting: ProjectConfig = {
@@ -55,7 +55,7 @@ const setting: ProjectConfig = {
   // Header configuration
   headerSetting: {
     // header bg color
-    bgColor: HEADER_PRESET_BG_COLOR_LIST[0],
+    bgColor: '#ffffff',
     // Fixed at the top
     fixed: true,
     // Whether to show top

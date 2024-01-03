@@ -23,7 +23,6 @@ export enum HandlerEnum {
 
   // header
   HEADER_SHOW,
-  HEADER_THEME,
   HEADER_FIXED,
 
   HEADER_SEARCH,
