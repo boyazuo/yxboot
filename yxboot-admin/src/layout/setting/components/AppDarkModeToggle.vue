@@ -7,15 +7,13 @@
 </template>
 <script lang="ts" setup>
   import { SvgIcon } from '@/components/Icon'
-  import { ThemeEnum } from '@/enums/appEnum'
   import { useRootSetting } from '@/hooks/setting/useRootSetting'
-  import { updateDarkTheme } from '@/logics/theme/dark'
-  import { updateComponentBgColor, updateHeaderBgColor, updateSidebarBgColor } from '@/logics/theme/updateBackground'
-
+  import { useAppTheme } from '@/hooks/web/useTheme'
+  const { isDark, toggleTheme } = useAppTheme()
   const prefixCls = 'dark-switch'
-  const { getDarkMode, setDarkMode, getShowDarkModeToggle } = useRootSetting()
+  const { getShowDarkModeToggle } = useRootSetting()
 
-  const isDark = computed(() => getDarkMode.value === ThemeEnum.DARK)
+  // const isDark = computed(() => getDarkMode.value === ThemeEnum.DARK)
 
   const getClass = computed(() => [
     prefixCls,
@@ -25,12 +23,13 @@
   ])
 
   function toggleDarkMode() {
-    const darkMode = getDarkMode.value === ThemeEnum.DARK ? ThemeEnum.LIGHT : ThemeEnum.DARK
-    setDarkMode(darkMode)
-    updateDarkTheme(darkMode)
-    updateHeaderBgColor()
-    updateSidebarBgColor()
-    updateComponentBgColor()
+    toggleTheme(isDark.value)
+    // const darkMode = getDarkMode.value === ThemeEnum.DARK ? ThemeEnum.LIGHT : ThemeEnum.DARK
+    // setDarkMode(darkMode)
+    // updateDarkTheme(darkMode)
+    // updateHeaderBgColor()
+    // updateSidebarBgColor()
+    // updateComponentBgColor()
   }
 </script>
 <style lang="less" scoped>
