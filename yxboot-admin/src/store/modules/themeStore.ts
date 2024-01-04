@@ -58,8 +58,7 @@ export const useThemeStore = defineStore({
     setHeaderTheme(value: ThemeEnum) {
       this.header = value
     }
-  },
-  persist: true
+  }
 })
 
 // Need to be used outside the setup

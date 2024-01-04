@@ -213,6 +213,5 @@ export const useAppConfig = defineStore({
     setTransition(value: Partial<TransitionConfigOptions>) {
       _assign(this.transition, value)
     }
-  },
-  persist: true
+  }
 })
