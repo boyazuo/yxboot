@@ -7,6 +7,23 @@ import { unref } from 'vue'
 
 export const noop = () => {}
 
+export {
+  assign as _assign,
+  merge as _merge,
+  omit as _omit,
+  clone,
+  cloneDeep,
+  isArray,
+  isBoolean,
+  isEqual,
+  isFunction,
+  isNumber,
+  isString,
+  isUndefined,
+  omit,
+  toString
+} from 'lodash-es'
+
 /**
  * @description:  Set ui mount node
  */

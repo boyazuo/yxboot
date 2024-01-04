@@ -1,4 +1,4 @@
-import { ContentEnum, RouterTransitionEnum } from '@/enums/appEnum'
+import { ContentLayoutEnum, RouterTransitionEnum } from '@/enums/appEnum'
 import { MenuModeEnum, MenuTypeEnum } from '@/enums/menuEnum'
 
 export enum HandlerEnum {
@@ -50,11 +50,11 @@ export enum HandlerEnum {
 
 export const contentModeOptions = [
   {
-    value: ContentEnum.FULL,
+    value: ContentLayoutEnum.FULL,
     label: '流式'
   },
   {
-    value: ContentEnum.FIXED,
+    value: ContentLayoutEnum.FIXED,
     label: '定宽'
   }
 ]

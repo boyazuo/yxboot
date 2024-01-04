@@ -1,3 +1,15 @@
+// 折叠触发器位置
+export enum TriggerEnum {
+  // 不显示
+  NONE = 'NONE',
+  // 菜单底部
+  FOOTER = 'FOOTER',
+  // 菜单中间
+  CENTER = 'CENTER',
+  // 头部
+  HEADER = 'HEADER'
+}
+
 /**
  * @description: menu type
  */
@@ -25,4 +37,9 @@ export enum MenuSplitTyeEnum {
   NONE,
   TOP,
   LEFT
+}
+
+export enum MixSidebarTriggerEnum {
+  HOVER = 'hover',
+  CLICK = 'click'
 }

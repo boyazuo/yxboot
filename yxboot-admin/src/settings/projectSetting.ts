@@ -1,6 +1,6 @@
 import type { ProjectConfig } from '#/config'
 import {
-  ContentEnum,
+  ContentLayoutEnum,
   PermissionModeEnum,
   RouterTransitionEnum,
   SessionTimeoutProcessingEnum,
@@ -44,7 +44,7 @@ const setting: ProjectConfig = {
   fullContent: false,
 
   // content mode
-  contentMode: ContentEnum.FULL,
+  contentMode: ContentLayoutEnum.FULL,
 
   // Whether to display the logo
   showLogo: true,

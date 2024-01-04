@@ -1,6 +1,6 @@
 export const SIDE_BAR_MINI_WIDTH = 48
 
-export enum ContentEnum {
+export enum ContentLayoutEnum {
   // auto width
   FULL = 'full',
   // fixed width
@@ -11,6 +11,20 @@ export enum ContentEnum {
 export enum ThemeEnum {
   DARK = 'dark',
   LIGHT = 'light'
+}
+
+/**
+ * @description: Navigation bar mode
+ */
+export enum NavBarModeEnum {
+  // left menu
+  SIDEBAR = 'sidebar',
+  // mix-sidebar
+  MIX_SIDEBAR = 'mix-sidebar',
+  // mixin menu
+  MIX = 'mix',
+  // top menu
+  TOP_MENU = 'top-menu'
 }
 
 export enum SettingButtonPositionEnum {
