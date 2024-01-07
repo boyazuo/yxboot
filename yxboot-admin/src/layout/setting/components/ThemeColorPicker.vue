@@ -43,7 +43,7 @@
   function handleClick(color: string) {
     switch (props.event) {
       case HandlerEnum.CHANGE_THEME_COLOR:
-        setThemeColor(color)
+        setThemeColor({ colorPrimary: color })
         break
     }
     props.event && baseHandler(props.event, color)
