@@ -1,5 +1,5 @@
 <template>
-  <a-layout-header :class="layoutHeaderClass">
+  <Layout.Header :class="layoutHeaderClass">
     <div class="layout-header__left" v-if="!isSidebarType">
       <AppLogo v-if="getShowHeaderLogo" />
     </div>
@@ -16,7 +16,7 @@
       <Setting v-if="getShowSetting" class="layout-header-action__item" />
       <UserDropDown :theme="getHeaderTheme" />
     </div>
-  </a-layout-header>
+  </Layout.Header>
 </template>
 <script lang="ts" setup>
   import { SettingButtonPositionEnum } from '@/enums/appEnum'
@@ -24,6 +24,7 @@
   import { useHeaderSetting } from '@/hooks/setting/useHeaderSetting'
   import { useMenuSetting } from '@/hooks/setting/useMenuSetting'
   import { useRootSetting } from '@/hooks/setting/useRootSetting'
+  import { Layout } from 'ant-design-vue'
   import Breadcrumb from '../breadcrumb/index.vue'
   import LayoutMenu from '../menu/index.vue'
   import AppLogo from '../sider/AppLogo.vue'

@@ -7,11 +7,13 @@
 </template>
 <script lang="ts" setup>
   import { SvgIcon } from '@/components/Icon'
+  import { ThemeEnum } from '@/enums/appEnum'
   import { useRootSetting } from '@/hooks/setting/useRootSetting'
   import { useAppTheme } from '@/hooks/web/useTheme'
+  import { updateHeaderBgColor } from '@/logics/theme/updateBackground'
   const { isDark, toggleTheme } = useAppTheme()
   const prefixCls = 'dark-switch'
-  const { getShowDarkModeToggle } = useRootSetting()
+  const { getShowDarkModeToggle, setDarkMode } = useRootSetting()
 
   // const isDark = computed(() => getDarkMode.value === ThemeEnum.DARK)
 
@@ -23,11 +25,11 @@
   ])
 
   function toggleDarkMode() {
-    toggleTheme(isDark.value)
-    // const darkMode = getDarkMode.value === ThemeEnum.DARK ? ThemeEnum.LIGHT : ThemeEnum.DARK
-    // setDarkMode(darkMode)
+    toggleTheme(!isDark.value)
+    const darkMode = !isDark.value ? ThemeEnum.LIGHT : ThemeEnum.DARK
+    setDarkMode(darkMode)
     // updateDarkTheme(darkMode)
-    // updateHeaderBgColor()
+    updateHeaderBgColor()
     // updateSidebarBgColor()
     // updateComponentBgColor()
   }

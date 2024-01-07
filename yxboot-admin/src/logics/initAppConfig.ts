@@ -3,21 +3,17 @@
  */
 import type { ProjectConfig } from '#/config'
 
+import { ThemeEnum } from '@/enums/appEnum'
 import { PROJ_CFG_KEY } from '@/enums/cacheEnum'
-import projectSetting from '@/settings/projectSetting'
-
 import { updateDarkTheme } from '@/logics/theme/dark'
 import { updateHeaderBgColor, updateSidebarBgColor } from '@/logics/theme/updateBackground'
 import { updateColorWeak } from '@/logics/theme/updateColorWeak'
 import { updateGrayMode } from '@/logics/theme/updateGrayMode'
-
+import projectSetting from '@/settings/projectSetting'
 import { useAppStore } from '@/store/modules/app'
-
-import { getCommonStoragePrefix, getStorageShortName } from '@/utils/env'
-
-import { ThemeEnum } from '@/enums/appEnum'
 import { deepMerge } from '@/utils'
 import { Persistent } from '@/utils/cache/persistent'
+import { getCommonStoragePrefix, getStorageShortName } from '@/utils/env'
 
 // Initial project configuration
 export function initAppConfigStore() {
