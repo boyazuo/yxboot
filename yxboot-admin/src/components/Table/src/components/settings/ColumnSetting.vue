@@ -580,7 +580,7 @@
         width: 100%;
 
         &:hover {
-          color: @primary-color;
+          color: var(--primary-color);
         }
       }
     }
@@ -592,7 +592,7 @@
 
       &.active,
       &:hover {
-        color: @primary-color;
+        color: var(--primary-color);
       }
 
       &.disabled {

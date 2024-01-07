@@ -53,7 +53,7 @@
       width: 3px;
       height: 16px;
       margin-right: 4px;
-      background-color: @primary-color;
+      background-color: var(--primary-color);
       content: '';
     }
 

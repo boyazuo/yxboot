@@ -1,4 +1,5 @@
 import { useThemeStoreWithOut } from '@/store/modules/themeStore'
+import { setCssVar } from '@/utils/theme'
 import { theme } from 'ant-design-vue'
 import { storeToRefs } from 'pinia'
 import { computed, unref } from 'vue'
@@ -28,6 +29,14 @@ export const useAppTheme = () => {
   const primaryColor = computed(() => {
     return unref(getTheme).token?.colorPrimary
   })
+
+  watch(
+    primaryColor,
+    (val) => {
+      val && setCssVar('--primary-color', val)
+    },
+    { deep: true }
+  )
 
   return {
     getTheme,

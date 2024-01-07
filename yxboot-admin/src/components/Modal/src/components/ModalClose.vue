@@ -76,7 +76,7 @@
       padding: 10px;
 
       &:hover {
-        color: @primary-color;
+        color: var(--primary-color);
       }
     }
 

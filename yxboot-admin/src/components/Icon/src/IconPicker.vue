@@ -206,7 +206,7 @@
 
         &.selected,
         &:hover {
-          border-color: @primary-color;
+          border-color: var(--primary-color);
         }
       }
     }

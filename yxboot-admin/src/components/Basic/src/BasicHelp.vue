@@ -76,7 +76,7 @@
     cursor: pointer;
 
     &:hover {
-      color: @primary-color;
+      color: var(--primary-color);
     }
 
     &__wrap {
