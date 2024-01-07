@@ -20,13 +20,13 @@ export const useAppTheme = () => {
   const setThemeColor = (color: string) => {
     unref(getTheme).token = {
       ...unref(getTheme).token,
-      primaryColor: color
+      colorPrimary: color
     }
     setTheme(unref(getTheme))
   }
 
   const primaryColor = computed(() => {
-    return unref(getTheme).token?.primaryColor
+    return unref(getTheme).token?.colorPrimary
   })
 
   return {

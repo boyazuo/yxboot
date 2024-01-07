@@ -28,11 +28,11 @@
     }
   }
 
-  .ant-layout-sider-light {
-    .title {
-      color: var(--ant-primary-color);
-    }
-  }
+  // .ant-layout-sider-light {
+  //   .title {
+  //     color: var(--ant-primary-color);
+  //   }
+  // }
 
   .ant-layout-sider-collapsed {
     .logo {
