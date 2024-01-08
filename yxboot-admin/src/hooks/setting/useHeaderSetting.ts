@@ -25,13 +25,9 @@ export function useHeaderSetting() {
 
   const getHeaderBgColor = computed(() => appStore.getHeaderSetting.bgColor)
 
-  const getShowSearch = computed(() => appStore.getHeaderSetting.showSearch)
-
   const getUseLockPage = computed(() => appStore.getHeaderSetting.useLockPage)
 
   const getShowFullScreen = computed(() => appStore.getHeaderSetting.showFullScreen)
-
-  const getShowNotice = computed(() => appStore.getHeaderSetting.showNotice)
 
   const getShowBread = computed(() => {
     return unref(getMenuMode) !== MenuModeEnum.HORIZONTAL && unref(getShowBreadCrumb)
@@ -53,11 +49,9 @@ export function useHeaderSetting() {
   return {
     setHeaderSetting,
 
-    getShowSearch,
     getHeaderTheme,
     getUseLockPage,
     getShowFullScreen,
-    getShowNotice,
     getShowBread,
     getShowContent,
     getShowHeaderLogo,

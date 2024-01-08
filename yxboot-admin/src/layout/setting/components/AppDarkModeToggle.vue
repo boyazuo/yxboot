@@ -1,5 +1,5 @@
 <template>
-  <div v-if="getShowDarkModeToggle" :class="getClass" @click="toggleDarkMode">
+  <div :class="getClass" @click="toggleDarkMode">
     <div :class="`${prefixCls}-inner`"></div>
     <SvgIcon size="14" name="sun" />
     <SvgIcon size="14" name="moon" />
@@ -13,7 +13,7 @@
   import { updateHeaderBgColor } from '@/logics/theme/updateBackground'
   const { isDark, toggleTheme } = useAppTheme()
   const prefixCls = 'dark-switch'
-  const { getShowDarkModeToggle, setDarkMode } = useRootSetting()
+  const { setDarkMode } = useRootSetting()
 
   // const isDark = computed(() => getDarkMode.value === ThemeEnum.DARK)
 

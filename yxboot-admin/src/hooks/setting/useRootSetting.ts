@@ -18,8 +18,6 @@ export function useRootSetting() {
 
   const getCanEmbedIFramePage = computed(() => appStore.getProjectConfig.canEmbedIFramePage)
 
-  const getPermissionMode = computed(() => appStore.getProjectConfig.permissionMode)
-
   const getShowLogo = computed(() => appStore.getProjectConfig.showLogo)
 
   const getContentMode = computed(() => appStore.getProjectConfig.contentMode)
@@ -38,15 +36,7 @@ export function useRootSetting() {
 
   const getShowBreadCrumbIcon = computed(() => appStore.getProjectConfig.showBreadCrumbIcon)
 
-  const getFullContent = computed(() => appStore.getProjectConfig.fullContent)
-
-  const getColorWeak = computed(() => appStore.getProjectConfig.colorWeak)
-
-  const getGrayMode = computed(() => appStore.getProjectConfig.grayMode)
-
   const getLockTime = computed(() => appStore.getProjectConfig.lockTime)
-
-  const getShowDarkModeToggle = computed(() => appStore.getProjectConfig.showDarkModeToggle)
 
   const getDarkMode = computed(() => appStore.getDarkMode)
 
@@ -65,14 +55,10 @@ export function useRootSetting() {
     setRootSetting,
 
     getSettingButtonPosition,
-    getFullContent,
-    getColorWeak,
-    getGrayMode,
     getLayoutContentMode,
     getPageLoading,
     getOpenKeepAlive,
     getCanEmbedIFramePage,
-    getPermissionMode,
     getShowLogo,
     getUseErrorHandle,
     getShowBreadCrumb,
@@ -84,7 +70,6 @@ export function useRootSetting() {
     getLockTime,
     getThemeColor,
     getDarkMode,
-    setDarkMode,
-    getShowDarkModeToggle
+    setDarkMode
   }
 }

@@ -1,6 +1,4 @@
 import { updateHeaderBgColor, updateSidebarBgColor } from '@/logics/theme/updateBackground'
-import { updateColorWeak } from '@/logics/theme/updateColorWeak'
-import { updateGrayMode } from '@/logics/theme/updateGrayMode'
 import { HandlerEnum } from './enum'
 
 import { ProjectConfig } from '#/config'
@@ -110,9 +108,6 @@ export function handler(
     case HandlerEnum.LOCK_TIME:
       return { lockTime: value }
 
-    case HandlerEnum.FULL_CONTENT:
-      return { fullContent: value }
-
     case HandlerEnum.CONTENT_MODE:
       return { contentMode: value }
 
@@ -122,16 +117,8 @@ export function handler(
     case HandlerEnum.SHOW_BREADCRUMB_ICON:
       return { showBreadCrumbIcon: value }
 
-    case HandlerEnum.GRAY_MODE:
-      updateGrayMode(value)
-      return { grayMode: value }
-
     case HandlerEnum.SHOW_FOOTER:
       return { showFooter: value }
-
-    case HandlerEnum.COLOR_WEAK:
-      updateColorWeak(value)
-      return { colorWeak: value }
 
     case HandlerEnum.SHOW_LOGO:
       return { showLogo: value }
@@ -150,8 +137,6 @@ export function handler(
       return { multiTabsSetting: { showFold: value } }
 
     // ============header==================
-    case HandlerEnum.HEADER_SEARCH:
-      return { headerSetting: { showSearch: value } }
 
     case HandlerEnum.HEADER_FIXED:
       return { headerSetting: { fixed: value } }

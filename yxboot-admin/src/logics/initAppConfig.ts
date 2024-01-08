@@ -7,8 +7,6 @@ import { ThemeEnum } from '@/enums/appEnum'
 import { PROJ_CFG_KEY } from '@/enums/cacheEnum'
 import { updateDarkTheme } from '@/logics/theme/dark'
 import { updateHeaderBgColor, updateSidebarBgColor } from '@/logics/theme/updateBackground'
-import { updateColorWeak } from '@/logics/theme/updateColorWeak'
-import { updateGrayMode } from '@/logics/theme/updateGrayMode'
 import projectSetting from '@/settings/projectSetting'
 import { useAppStore } from '@/store/modules/app'
 import { deepMerge } from '@/utils'
@@ -21,19 +19,8 @@ export function initAppConfigStore() {
   let projCfg: ProjectConfig = Persistent.getLocal(PROJ_CFG_KEY) as ProjectConfig
   projCfg = deepMerge(projectSetting, projCfg || {})
   const darkMode = appStore.getDarkMode
-  const {
-    colorWeak,
-    grayMode,
+  const { headerSetting: { bgColor: headerBgColor } = {}, menuSetting: { bgColor } = {} } = projCfg
 
-    headerSetting: { bgColor: headerBgColor } = {},
-    menuSetting: { bgColor } = {}
-  } = projCfg
-  try {
-    grayMode && updateGrayMode(grayMode)
-    colorWeak && updateColorWeak(colorWeak)
-  } catch (error) {
-    console.error(error)
-  }
   appStore.setProjectConfig(projCfg)
 
   // init dark mode

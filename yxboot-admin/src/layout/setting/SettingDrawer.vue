@@ -55,7 +55,6 @@
     />
     <SwitchItem title="Logo" :event="HandlerEnum.SHOW_LOGO" :def="getShowLogo" />
     <SwitchItem title="页脚" :event="HandlerEnum.SHOW_FOOTER" :def="getShowFooter" />
-    <SwitchItem title="色弱模式" :event="HandlerEnum.COLOR_WEAK" :def="getColorWeak" />
   </BasicDrawer>
 </template>
 <script lang="ts" setup>
@@ -77,15 +76,8 @@
     useMenuSetting()
   const { getShowMultipleTab, getShowQuick, getShowRedo, getShowFold } = useMultipleTabSetting()
   const { getFixed: getHeaderFixed } = useHeaderSetting()
-  const {
-    getContentMode,
-    getThemeColor,
-    getShowBreadCrumb,
-    getShowBreadCrumbIcon,
-    getShowLogo,
-    getShowFooter,
-    getColorWeak
-  } = useRootSetting()
+  const { getContentMode, getThemeColor, getShowBreadCrumb, getShowBreadCrumbIcon, getShowLogo, getShowFooter } =
+    useRootSetting()
 
   const [register] = useDrawerInner()
 

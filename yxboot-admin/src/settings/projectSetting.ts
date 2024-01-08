@@ -1,13 +1,5 @@
 import type { ProjectConfig } from '#/config'
-import {
-  ContentLayoutEnum,
-  PermissionModeEnum,
-  RouterTransitionEnum,
-  SessionTimeoutProcessingEnum,
-  SettingButtonPositionEnum,
-  ThemeEnum
-} from '@/enums/appEnum'
-import { CacheTypeEnum } from '@/enums/cacheEnum'
+import { ContentLayoutEnum, RouterTransitionEnum, SettingButtonPositionEnum, ThemeEnum } from '@/enums/appEnum'
 import { MenuModeEnum, MenuTypeEnum } from '@/enums/menuEnum'
 import { APP_PRESET_COLOR_LIST, SIDE_BAR_BG_COLOR_LIST } from './designSetting'
 
@@ -16,32 +8,11 @@ const setting: ProjectConfig = {
   // Whether to show the configuration button
   showSettingButton: true,
 
-  // Whether to show the theme switch button
-  showDarkModeToggle: true,
-
   // `Settings` button position
   settingButtonPosition: SettingButtonPositionEnum.AUTO,
 
-  // Permission mode
-  permissionMode: PermissionModeEnum.ROUTE_MAPPING,
-
-  // Permission-related cache is stored in sessionStorage or localStorage
-  permissionCacheType: CacheTypeEnum.LOCAL,
-
-  // Session timeout processing
-  sessionTimeoutProcessing: SessionTimeoutProcessingEnum.ROUTE_JUMP,
-
   // color
   themeColor: APP_PRESET_COLOR_LIST[0],
-
-  // Website gray mode, open for possible mourning dates
-  grayMode: false,
-
-  // Color Weakness Mode
-  colorWeak: false,
-
-  // Whether to cancel the menu, the top, the multi-tab page display, for possible embedded in other systems
-  fullContent: false,
 
   // content mode
   contentMode: ContentLayoutEnum.FULL,
@@ -65,13 +36,7 @@ const setting: ProjectConfig = {
     // Whether to enable the lock screen function
     useLockPage: true,
     // Whether to show the full screen button
-    showFullScreen: true,
-    // Whether to show the document button
-    showDoc: true,
-    // Whether to show the notification button
-    showNotice: true,
-    // Whether to display the menu search
-    showSearch: true
+    showFullScreen: true
   },
 
   // Menu configuration
