@@ -1,5 +1,5 @@
 import { PageEnum } from '@/enums/pageEnum'
-import { removeTabChangeListener } from '@/logics/mitt/routeChange'
+import { removeTabChangeListener } from '@/router/mitt/routeChange'
 import { useAppStore } from '@/store/modules/app'
 import { useMultipleTabStore } from '@/store/modules/multipleTab'
 import { usePermissionStore } from '@/store/modules/permission'

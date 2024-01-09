@@ -30,8 +30,8 @@
 
 <script lang="ts" setup>
   import { useMultipleTabSetting } from '@/hooks/setting/useMultipleTabSetting'
-  import { listenerRouteChange } from '@/logics/mitt/routeChange'
   import { REDIRECT_NAME } from '@/router/constant'
+  import { listenerRouteChange } from '@/router/mitt/routeChange'
   import { useMultipleTabStore } from '@/store/modules/multipleTab'
   import { useUserStore } from '@/store/modules/user'
   import type { RouteLocationNormalized, RouteMeta } from 'vue-router'
@@ -99,3 +99,4 @@
 <style lang="less">
   @import url('./index.less');
 </style>
+@/router/mitt/routeChange

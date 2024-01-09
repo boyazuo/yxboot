@@ -1,11 +1,9 @@
-import { updateHeaderBgColor, updateSidebarBgColor } from '@/logics/theme/updateBackground'
-import { HandlerEnum } from './enum'
-
 import { ProjectConfig } from '#/config'
+import { updateDarkTheme, updateHeaderBgColor, updateSidebarBgColor } from '@/hooks/config'
 import { useRootSetting } from '@/hooks/setting/useRootSetting'
-import { changeTheme } from '@/logics/theme'
-import { updateDarkTheme } from '@/logics/theme/dark'
+import { useAppTheme } from '@/hooks/web/useTheme'
 import { useAppStore } from '@/store/modules/app'
+import { HandlerEnum } from './enum'
 
 export function baseHandler(event: HandlerEnum, value: any) {
   const appStore = useAppStore()
@@ -24,6 +22,7 @@ export function handler(
   const appStore = useAppStore()
 
   const { getThemeColor, getDarkMode } = useRootSetting()
+  const { setThemeColor } = useAppTheme()
   switch (event) {
     case HandlerEnum.CHANGE_LAYOUT:
       const { mode, type, split } = value
@@ -44,7 +43,7 @@ export function handler(
       if (getThemeColor.value === value) {
         return {}
       }
-      changeTheme(value)
+      setThemeColor({ colorPrimary: value })
 
       return { themeColor: value }
 

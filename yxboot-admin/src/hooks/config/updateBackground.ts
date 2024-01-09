@@ -1,7 +1,7 @@
 import { ThemeEnum } from '@/enums/appEnum'
 import { useAppStore } from '@/store/modules/app'
 import { colorIsDark, darken, lighten } from '@/utils/color'
-import { setCssVar } from './util'
+import { setCssVar } from '@/utils/theme'
 
 const HEADER_BG_COLOR_VAR = '--header-bg-color'
 const HEADER_BG_HOVER_COLOR_VAR = '--header-bg-hover-color'

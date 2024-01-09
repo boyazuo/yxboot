@@ -1,5 +1,5 @@
 import { useTransitionSetting } from '@/hooks/setting/useTransitionSetting'
-import { setRouteChange } from '@/logics/mitt/routeChange'
+import { setRouteChange } from '@/router/mitt/routeChange'
 import projectSetting from '@/settings/projectSetting'
 import { useAppStoreWithOut } from '@/store/modules/app'
 import { useUserStoreWithOut } from '@/store/modules/user'

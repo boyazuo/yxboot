@@ -8,9 +8,9 @@
 <script lang="ts" setup>
   import { SvgIcon } from '@/components/Icon'
   import { ThemeEnum } from '@/enums/appEnum'
+  import { updateHeaderBgColor } from '@/hooks/config'
   import { useRootSetting } from '@/hooks/setting/useRootSetting'
   import { useAppTheme } from '@/hooks/web/useTheme'
-  import { updateHeaderBgColor } from '@/logics/theme/updateBackground'
   const { isDark, toggleTheme } = useAppTheme()
   const prefixCls = 'dark-switch'
   const { setDarkMode } = useRootSetting()
