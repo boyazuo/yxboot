@@ -51,8 +51,6 @@ export interface TransitionSetting {
   enable: boolean
   // Route basic switching animation
   basicTransition: RouterTransitionEnum
-  // Whether to open page switching loading
-  openPageLoading: boolean
   // Whether to open the top progress bar
   openNProgress: boolean
 }

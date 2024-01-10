@@ -19,8 +19,6 @@ export function handler(
   event: HandlerEnum,
   value: any
 ): DeepPartial<ProjectConfig & { menuSetting: { hidden: boolean } }> {
-  const appStore = useAppStore()
-
   const { getThemeColor, getDarkMode } = useRootSetting()
   const { setThemeColor } = useAppTheme()
   switch (event) {
@@ -87,10 +85,6 @@ export function handler(
       return { menuSetting: { fixed: value } }
 
     // ============transition==================
-    case HandlerEnum.OPEN_PAGE_LOADING:
-      appStore.setPageLoading(false)
-      return { transitionSetting: { openPageLoading: value } }
-
     case HandlerEnum.ROUTER_TRANSITION:
       return { transitionSetting: { basicTransition: value } }
 

@@ -1,13 +1,8 @@
-import { useTransitionSetting } from '@/hooks/setting/useTransitionSetting'
 import { setRouteChange } from '@/router/mitt/routeChange'
 import projectSetting from '@/settings/projectSetting'
-import { useAppStoreWithOut } from '@/store/modules/app'
-import { useUserStoreWithOut } from '@/store/modules/user'
 import { AxiosCanceler } from '@/utils/http/axios/axiosCancel'
 import { warn } from '@/utils/log'
 import { Modal, notification } from 'ant-design-vue'
-import nProgress from 'nprogress'
-import { unref } from 'vue'
 import type { RouteLocationNormalized, Router } from 'vue-router'
 import { createPermissionGuard } from './permissionGuard'
 import { createStateGuard } from './stateGuard'
@@ -15,11 +10,9 @@ import { createStateGuard } from './stateGuard'
 // Don't change the order of creation
 export function setupRouterGuard(router: Router) {
   createPageGuard(router)
-  createPageLoadingGuard(router)
   createHttpGuard(router)
   createScrollGuard(router)
   createMessageGuard(router)
-  createProgressGuard(router)
   createPermissionGuard(router)
   createStateGuard(router)
 }
@@ -41,38 +34,6 @@ function createPageGuard(router: Router) {
 
   router.afterEach((to) => {
     loadedPageMap.set(to.path, true)
-  })
-}
-
-// Used to handle page loading status
-function createPageLoadingGuard(router: Router) {
-  const userStore = useUserStoreWithOut()
-  const appStore = useAppStoreWithOut()
-  const { getOpenPageLoading } = useTransitionSetting()
-  router.beforeEach(async (to) => {
-    if (!userStore.getToken) {
-      return true
-    }
-    if (to.meta.loaded) {
-      return true
-    }
-
-    if (unref(getOpenPageLoading)) {
-      appStore.setPageLoadingAction(true)
-      return true
-    }
-
-    return true
-  })
-  router.afterEach(async () => {
-    if (unref(getOpenPageLoading)) {
-      // TODO Looking for a better way
-      // The timer simulates the loading time to prevent flashing too fast,
-      setTimeout(() => {
-        appStore.setPageLoading(false)
-      }, 220)
-    }
-    return true
   })
 }
 
@@ -124,22 +85,6 @@ export function createMessageGuard(router: Router) {
     } catch (error) {
       warn('message guard error:' + error)
     }
-    return true
-  })
-}
-
-export function createProgressGuard(router: Router) {
-  const { getOpenNProgress } = useTransitionSetting()
-  router.beforeEach(async (to) => {
-    if (to.meta.loaded) {
-      return true
-    }
-    unref(getOpenNProgress) && nProgress.start()
-    return true
-  })
-
-  router.afterEach(async () => {
-    unref(getOpenNProgress) && nProgress.done()
     return true
   })
 }

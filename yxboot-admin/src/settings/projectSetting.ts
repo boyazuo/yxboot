@@ -5,14 +5,14 @@ import { APP_PRESET_COLOR_LIST, SIDE_BAR_BG_COLOR_LIST } from './designSetting'
 
 // ! You need to clear the browser cache after the change
 const setting: ProjectConfig = {
+  // color
+  themeColor: APP_PRESET_COLOR_LIST[0],
+
   // Whether to show the configuration button
   showSettingButton: true,
 
   // `Settings` button position
   settingButtonPosition: SettingButtonPositionEnum.AUTO,
-
-  // color
-  themeColor: APP_PRESET_COLOR_LIST[0],
 
   // content mode
   contentMode: ContentLayoutEnum.FULL,
@@ -86,10 +86,6 @@ const setting: ProjectConfig = {
 
     // Route basic switching animation
     basicTransition: RouterTransitionEnum.FADE_SIDE,
-
-    // Whether to open page switching loading
-    // Only open when enable=true
-    openPageLoading: true,
 
     // Whether to open the top progress bar
     openNProgress: false

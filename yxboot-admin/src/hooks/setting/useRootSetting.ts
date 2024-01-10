@@ -10,8 +10,6 @@ type RootSetting = Omit<ProjectConfig, 'locale' | 'headerSetting' | 'menuSetting
 export function useRootSetting() {
   const appStore = useAppStore()
 
-  const getPageLoading = computed(() => appStore.getPageLoading)
-
   const getOpenKeepAlive = computed(() => appStore.getProjectConfig.openKeepAlive)
 
   const getSettingButtonPosition = computed(() => appStore.getProjectConfig.settingButtonPosition)
@@ -56,7 +54,6 @@ export function useRootSetting() {
 
     getSettingButtonPosition,
     getLayoutContentMode,
-    getPageLoading,
     getOpenKeepAlive,
     getCanEmbedIFramePage,
     getShowLogo,
