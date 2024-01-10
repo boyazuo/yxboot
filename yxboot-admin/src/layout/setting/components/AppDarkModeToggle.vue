@@ -31,7 +31,6 @@
     // updateDarkTheme(darkMode)
     updateHeaderBgColor()
     // updateSidebarBgColor()
-    // updateComponentBgColor()
   }
 </script>
 <style lang="less" scoped>

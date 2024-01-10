@@ -1,18 +1,15 @@
 import { ThemeEnum } from '@/enums/appEnum'
 import { useAppStore } from '@/store/modules/app'
-import { colorIsDark, darken, lighten } from '@/utils/color'
+import { colorIsDark, lighten } from '@/utils/color'
 import { setCssVar } from '@/utils/theme'
 
 const HEADER_BG_COLOR_VAR = '--header-bg-color'
 const HEADER_BG_HOVER_COLOR_VAR = '--header-bg-hover-color'
 const HEADER_MENU_ACTIVE_BG_COLOR_VAR = '--header-active-menu-bg-color'
 
-const SIDER_DARK_BG_COLOR = '--sider-dark-bg-color'
-const SIDER_DARK_DARKEN_BG_COLOR = '--sider-dark-darken-bg-color'
-const SIDER_LIGHTEN_BG_COLOR = '--sider-dark-lighten-bg-color'
-
-// 背景颜色
-const COMPONENT_BG_COLOR_VAR = '--component-background-color'
+// const SIDER_DARK_BG_COLOR = '--sider-dark-bg-color'
+// const SIDER_DARK_DARKEN_BG_COLOR = '--sider-dark-darken-bg-color'
+// const SIDER_LIGHTEN_BG_COLOR = '--sider-dark-lighten-bg-color'
 
 // Dark模式颜色
 const DARK_COLOR = '#212121'
@@ -65,9 +62,9 @@ export function updateSidebarBgColor(color?: string) {
       color = appStore.getMenuSetting.bgColor
     }
   }
-  setCssVar(SIDER_DARK_BG_COLOR, color)
-  setCssVar(SIDER_DARK_DARKEN_BG_COLOR, darken(color!, 6))
-  setCssVar(SIDER_LIGHTEN_BG_COLOR, lighten(color!, 5))
+  // setCssVar(SIDER_DARK_BG_COLOR, color)
+  // setCssVar(SIDER_DARK_DARKEN_BG_COLOR, darken(color!, 6))
+  // setCssVar(SIDER_LIGHTEN_BG_COLOR, lighten(color!, 5))
 
   // only #ffffff is light
   // Only when the background color is #fff, the theme of the menu will be changed to light
@@ -78,25 +75,4 @@ export function updateSidebarBgColor(color?: string) {
       theme: isLight && !darkMode ? ThemeEnum.LIGHT : ThemeEnum.DARK
     }
   })
-}
-
-/**
- * Change the background color of the system
- * @param color  bg color
- */
-export function updateComponentBgColor() {
-  const appStore = useAppStore()
-
-  // if (!isHexColor(color)) return;
-  const darkMode = appStore.getDarkMode === ThemeEnum.DARK
-  let color
-  if (darkMode) {
-    color = DARK_COLOR
-    setCssVar(SIDER_DARK_BG_COLOR, color)
-    setCssVar(SIDER_DARK_DARKEN_BG_COLOR, darken(color!, 6))
-    setCssVar(SIDER_LIGHTEN_BG_COLOR, lighten(color!, 5))
-  } else {
-    color = '#ffffff'
-  }
-  setCssVar(COMPONENT_BG_COLOR_VAR, color)
 }

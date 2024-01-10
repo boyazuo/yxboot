@@ -27,7 +27,6 @@ export function handler(
     case HandlerEnum.CHANGE_LAYOUT:
       const { mode, type, split } = value
       const splitOpt = split === undefined ? { split } : {}
-
       return {
         menuSetting: {
           mode,
@@ -44,7 +43,6 @@ export function handler(
         return {}
       }
       setThemeColor({ colorPrimary: value })
-
       return { themeColor: value }
 
     case HandlerEnum.CHANGE_THEME:
@@ -52,7 +50,6 @@ export function handler(
         return {}
       }
       updateDarkTheme(value)
-
       return {}
 
     case HandlerEnum.MENU_HAS_DRAG:
