@@ -1,15 +1,13 @@
 import type { HeaderSetting } from '#/config'
 
-import { computed, unref } from 'vue'
-
-import { useAppStore } from '@/store/modules/app'
-
 import { MenuModeEnum } from '@/enums/menuEnum'
 import { useMenuSetting } from '@/hooks/setting/useMenuSetting'
 import { useRootSetting } from '@/hooks/setting/useRootSetting'
+import { useAppConfigStore } from '@/store/modules/appConfig'
+import { computed, unref } from 'vue'
 
 export function useHeaderSetting() {
-  const appStore = useAppStore()
+  const appStore = useAppConfigStore()
 
   const { getMenuMode, isSidebarType } = useMenuSetting()
 
@@ -43,7 +41,7 @@ export function useHeaderSetting() {
 
   // Set header configuration
   function setHeaderSetting(headerSetting: Partial<HeaderSetting>) {
-    appStore.setProjectConfig({ headerSetting })
+    appStore.setHeaderSetting(headerSetting)
   }
 
   return {

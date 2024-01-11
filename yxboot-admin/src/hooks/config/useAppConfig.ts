@@ -1,10 +1,10 @@
 /**
  * Application configuration
  */
-import type { AppSetting, ProjectConfig } from '#/config'
+import type { AppSetting } from '#/config'
 
 import { ThemeEnum } from '@/enums'
-import { PROJ_CFG_KEY } from '@/enums/cacheEnum'
+import { APP_CFG_KEY } from '@/enums/cacheEnum'
 import { HandlerEnum } from '@/enums/handlerEnum'
 import appSetting from '@/settings/appSetting'
 import { initAppConfigStore, useAppConfigStore } from '@/store/modules/appConfig'
@@ -19,8 +19,9 @@ import { updateHeaderBgColor, updateSidebarBgColor } from './updateBackground'
 
 // Initial project configuration
 export function initAppConfig() {
-  let projCfg: ProjectConfig = Persistent.getLocal(PROJ_CFG_KEY) as ProjectConfig
+  let projCfg: AppSetting = Persistent.getLocal(APP_CFG_KEY) as AppSetting
   projCfg = deepMerge(appSetting, projCfg || {})
+  console.log('projCfg', projCfg)
   initAppConfigStore(projCfg)
 }
 
@@ -42,6 +43,15 @@ export const useAppConfig = () => {
   const isDark = computed(() => {
     return unref(getTheme) === ThemeEnum.DARK
   })
+
+  const toggleTheme = (value) => {
+    if (getTheme.value === value) {
+      return
+    }
+    setAppConfig({ themeSetting: { theme: value }, headerSetting: { theme: value } })
+    updateDarkTheme(value)
+    updateHeaderBgColor()
+  }
 
   const getThemeConfig = computed(() => {
     return {
@@ -67,6 +77,7 @@ export const useAppConfig = () => {
   return {
     ...appConfigOptions,
     isDark,
+    toggleTheme,
     setAppConfig,
     baseHandler,
     getThemeConfig
@@ -77,23 +88,13 @@ export function handlerResults(
   event: HandlerEnum,
   value: any
 ): DeepPartial<AppSetting & { menuSetting: { hidden: boolean } }> {
-  const { getTheme, getPrimaryColor, setThemeSetting } = useThemeSetting()
+  const { toggleTheme } = useAppConfig()
   switch (event) {
+    // ============theme==================
     case HandlerEnum.CHANGE_THEME:
-      if (getTheme.value === value) {
-        return {}
-      }
-      setThemeSetting({ theme: value })
-      updateDarkTheme(value)
-      updateHeaderBgColor()
-      console.log('updateDarkTheme1', value)
-      console.log('updateDarkTheme2', getTheme.value)
+      toggleTheme(value)
       return {}
     case HandlerEnum.CHANGE_THEME_COLOR:
-      if (getPrimaryColor.value === value) {
-        return {}
-      }
-      // setThemeSetting({ primaryColor: value })
       return { themeSetting: { primaryColor: value } }
 
     case HandlerEnum.CHANGE_LAYOUT:

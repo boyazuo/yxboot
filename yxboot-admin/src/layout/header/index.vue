@@ -36,6 +36,7 @@
 
   //主题
   const { getHeaderTheme } = useHeaderSetting()
+  console.log('===getHeaderTheme', getHeaderTheme.value)
   const layoutHeaderClass = computed(() => {
     return {
       'layout-header': true,
