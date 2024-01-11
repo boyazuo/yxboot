@@ -1,7 +1,6 @@
 import { ProjectConfig } from '#/config'
 import { updateDarkTheme, updateHeaderBgColor, updateSidebarBgColor } from '@/hooks/config'
 import { useRootSetting } from '@/hooks/setting/useRootSetting'
-import { useAppTheme } from '@/hooks/web/useTheme'
 import { useAppStore } from '@/store/modules/app'
 import { HandlerEnum } from './enum'
 
@@ -20,7 +19,6 @@ export function handler(
   value: any
 ): DeepPartial<ProjectConfig & { menuSetting: { hidden: boolean } }> {
   const { getThemeColor, getDarkMode } = useRootSetting()
-  const { setThemeColor } = useAppTheme()
   switch (event) {
     case HandlerEnum.CHANGE_LAYOUT:
       const { mode, type, split } = value
@@ -40,7 +38,6 @@ export function handler(
       if (getThemeColor.value === value) {
         return {}
       }
-      setThemeColor({ colorPrimary: value })
       return { themeColor: value }
 
     case HandlerEnum.CHANGE_THEME:

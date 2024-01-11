@@ -18,12 +18,11 @@
   </div>
 </template>
 <script setup lang="ts">
-  import { useAppTheme } from '@/hooks/web/useTheme'
+  import { useAppConfig } from '@/hooks/config/useAppConfig'
   import { CheckOutlined } from '@ant-design/icons-vue'
   import { HandlerEnum } from '../enum'
-  import { baseHandler } from '../handler'
 
-  const { setThemeColor } = useAppTheme()
+  const { baseHandler } = useAppConfig()
 
   const props = defineProps({
     colorList: {
@@ -41,11 +40,6 @@
   const prefixCls = 'setting-theme-picker'
 
   function handleClick(color: string) {
-    switch (props.event) {
-      case HandlerEnum.CHANGE_THEME_COLOR:
-        setThemeColor({ colorPrimary: color })
-        break
-    }
     props.event && baseHandler(props.event, color)
   }
 </script>

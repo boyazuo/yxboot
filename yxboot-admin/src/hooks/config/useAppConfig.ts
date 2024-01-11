@@ -53,7 +53,7 @@ export const useAppConfig = () => {
   })
 
   watch(
-    getThemeColors.value,
+    getThemeColors,
     (val) => {
       val.colorPrimary && setCssVar('--primary-color', val.colorPrimary)
       val.colorSuccess && setCssVar('--success-color', val.colorSuccess)
@@ -76,7 +76,7 @@ export const useAppConfig = () => {
 export function handlerResults(
   event: HandlerEnum,
   value: any
-): DeepPartial<ProjectConfig & { menuSetting: { hidden: boolean } }> {
+): DeepPartial<AppSetting & { menuSetting: { hidden: boolean } }> {
   const { getTheme, getPrimaryColor, setThemeSetting } = useThemeSetting()
   switch (event) {
     case HandlerEnum.CHANGE_THEME:
@@ -93,8 +93,8 @@ export function handlerResults(
       if (getPrimaryColor.value === value) {
         return {}
       }
-      setThemeSetting({ primaryColor: value })
-      return { themeColor: value }
+      // setThemeSetting({ primaryColor: value })
+      return { themeSetting: { primaryColor: value } }
 
     case HandlerEnum.CHANGE_LAYOUT:
       const { mode, type, split } = value
