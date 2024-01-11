@@ -4,12 +4,12 @@
   </ConfigProvider>
 </template>
 <script setup lang="ts">
-  import { useAppTheme } from '@/hooks/web/useTheme'
+  import { useAppConfig } from '@/hooks/config/useAppConfig'
   import { ConfigProvider } from 'ant-design-vue'
   import zhCN from 'ant-design-vue/es/locale/zh_CN'
   import 'dayjs/locale/zh-cn'
 
-  const { isDark, getThemeConfig } = useAppTheme()
+  const { isDark, getThemeConfig } = useAppConfig()
 
   //监听是否暗黑模式
   watch(

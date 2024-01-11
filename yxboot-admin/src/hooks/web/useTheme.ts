@@ -8,32 +8,16 @@ import { computed, unref } from 'vue'
 
 export const useAppTheme = () => {
   const themeStore = useThemeStore()
-  const { setTheme, setHeaderTheme, setSiderTheme, setToken } = themeStore
-  const { getTheme, getHeaderTheme, getSiderTheme, getToken } = storeToRefs(themeStore)
+  const { setTheme, setToken } = themeStore
+  const { getTheme, getToken } = storeToRefs(themeStore)
 
   const isDark = computed(() => {
     return unref(getTheme) === ThemeEnum.DARK
   })
 
-  const isSiderDark = computed(() => {
-    return unref(getTheme) === ThemeEnum.DARK || unref(getSiderTheme) === ThemeEnum.DARK
-  })
-
-  const isHeaderDark = computed(() => {
-    return unref(getTheme) === ThemeEnum.DARK || unref(getHeaderTheme) === ThemeEnum.DARK
-  })
-
   const toggleTheme = (dark: boolean) => {
     setTheme(dark ? ThemeEnum.DARK : ThemeEnum.LIGHT)
     // unref(getTheme).algorithm = dark ? theme.darkAlgorithm : theme.defaultAlgorithm
-  }
-
-  const toggleSiderTheme = (dark: boolean) => {
-    setSiderTheme(dark ? ThemeEnum.DARK : ThemeEnum.LIGHT)
-  }
-
-  const toggleHeaderTheme = (dark: boolean) => {
-    setHeaderTheme(dark ? ThemeEnum.DARK : ThemeEnum.LIGHT)
   }
 
   const getThemeConfig = computed(() => {
@@ -92,12 +76,8 @@ export const useAppTheme = () => {
 
   return {
     isDark,
-    isSiderDark,
-    isHeaderDark,
 
     toggleTheme,
-    toggleSiderTheme,
-    toggleHeaderTheme,
     setThemeColor,
 
     getThemeConfig

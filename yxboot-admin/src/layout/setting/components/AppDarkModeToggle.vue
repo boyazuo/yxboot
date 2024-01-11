@@ -8,12 +8,13 @@
 <script lang="ts" setup>
   import { SvgIcon } from '@/components/Icon'
   import { ThemeEnum } from '@/enums/appEnum'
-  import { updateHeaderBgColor } from '@/hooks/config'
-  import { useRootSetting } from '@/hooks/setting/useRootSetting'
-  import { useAppTheme } from '@/hooks/web/useTheme'
-  const { isDark, toggleTheme } = useAppTheme()
+  import { HandlerEnum } from '@/enums/handlerEnum'
+  import { useAppConfig } from '@/hooks/config/useAppConfig'
+
+  // const { isDark, toggleTheme } = useAppTheme()
+  const { isDark, baseHandler } = useAppConfig()
+
   const prefixCls = 'dark-switch'
-  const { setDarkMode } = useRootSetting()
 
   // const isDark = computed(() => getDarkMode.value === ThemeEnum.DARK)
 
@@ -25,11 +26,12 @@
   ])
 
   function toggleDarkMode() {
-    toggleTheme(!isDark.value)
-    const darkMode = !isDark.value ? ThemeEnum.LIGHT : ThemeEnum.DARK
-    setDarkMode(darkMode)
+    baseHandler(HandlerEnum.CHANGE_THEME, isDark.value ? ThemeEnum.LIGHT : ThemeEnum.DARK)
+    // toggleTheme(!isDark.value)
+    // const darkMode = !isDark.value ? ThemeEnum.LIGHT : ThemeEnum.DARK
+    // setDarkMode(darkMode)
+    // updateHeaderBgColor()
     // updateDarkTheme(darkMode)
-    updateHeaderBgColor()
     // updateSidebarBgColor()
   }
 </script>

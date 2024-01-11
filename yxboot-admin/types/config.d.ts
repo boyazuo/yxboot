@@ -3,6 +3,16 @@ import { MenuModeEnum, MenuTypeEnum } from '@/enums/menuEnum'
 
 export type LocaleType = 'zh_CN' | 'en' | 'ru' | 'ja' | 'ko'
 
+export interface ThemeSetting {
+  theme: string
+  borderRadius: number
+  primaryColor: string
+  successColor: string
+  warningColor: string
+  errorColor: string
+  infoColor: string
+}
+
 export interface MenuSetting {
   bgColor: string
   fixed: boolean
@@ -94,6 +104,23 @@ export interface ProjectConfig {
   closeMessageOnSwitch: boolean
   // Whether to cancel the http request that has been sent but not responded when switching the interface.
   removeAllHttpPending: boolean
+}
+
+export interface AppSetting {
+  // Theme configuration
+  themeSetting: ThemeSetting
+  // Project configuration
+  projectSetting: ProjectSetting
+  // Sider configuration
+  siderSetting: MenuSetting
+  // Header configuration
+  headerSetting: HeaderSetting
+  // Menu configuration
+  menuSetting: MenuSetting
+  // Multi-tab configuration
+  multiTabsSetting: MultiTabsSetting
+  // Transition configuration
+  transitionSetting: TransitionSetting
 }
 
 export interface GlobConfig {

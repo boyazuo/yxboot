@@ -1,6 +1,6 @@
 import { ThemeEnum } from '@/enums/appEnum'
-import { useAppStore } from '@/store/modules/app'
-import { colorIsDark, lighten } from '@/utils/color'
+import { useAppConfig } from '@/hooks/config/useAppConfig'
+import { lighten } from '@/utils/color'
 import { setCssVar } from '@/utils/theme'
 
 const HEADER_BG_COLOR_VAR = '--header-bg-color'
@@ -19,10 +19,10 @@ const DARK_COLOR = '#212121'
  * @param color
  */
 export function updateHeaderBgColor(color?: string) {
-  const appStore = useAppStore()
-  const darkMode = appStore.getDarkMode === ThemeEnum.DARK
+  const { isDark, setAppConfig } = useAppConfig()
+  // const darkMode = appStore.getDarkMode === ThemeEnum.DARK
   if (!color) {
-    if (darkMode) {
+    if (isDark) {
       color = '#151515'
     } else {
       color = appStore.getHeaderSetting.bgColor
@@ -37,11 +37,11 @@ export function updateHeaderBgColor(color?: string) {
   setCssVar(HEADER_MENU_ACTIVE_BG_COLOR_VAR, hoverColor)
 
   // Determine the depth of the color value and automatically switch the theme
-  const isDark = colorIsDark(color!)
+  // const isDark = colorIsDark(color!)
 
-  appStore.setProjectConfig({
+  setAppConfig({
     headerSetting: {
-      theme: isDark || darkMode ? ThemeEnum.DARK : ThemeEnum.LIGHT
+      theme: isDark ? ThemeEnum.DARK : ThemeEnum.LIGHT
     }
   })
 }

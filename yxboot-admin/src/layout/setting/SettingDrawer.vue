@@ -59,6 +59,7 @@
 </template>
 <script lang="ts" setup>
   import { BasicDrawer, useDrawerInner } from '@/components/Drawer'
+  import { useAppConfig } from '@/hooks/config/useAppConfig'
   import { useHeaderSetting } from '@/hooks/setting/useHeaderSetting'
   import { useMenuSetting } from '@/hooks/setting/useMenuSetting'
   import { useMultipleTabSetting } from '@/hooks/setting/useMultipleTabSetting'
@@ -70,7 +71,6 @@
   import ThemeColorPicker from './components/ThemeColorPicker.vue'
   import TypePicker from './components/TypePicker.vue'
   import { HandlerEnum, contentModeOptions, menuTypeList } from './enum'
-  import { baseHandler } from './handler'
 
   const { getMenuType, getMenuFixed, getSplit, isTopMenuType, isMixType, getMenuBgColor, isSidebarType } =
     useMenuSetting()
@@ -80,6 +80,8 @@
     useRootSetting()
 
   const [register] = useDrawerInner()
+
+  const { baseHandler } = useAppConfig()
 
   const menuTypeHandler = (item) => {
     baseHandler(HandlerEnum.CHANGE_LAYOUT, {

@@ -9,7 +9,7 @@ import App from './App.vue'
 
 import { registerGlobComp } from '@/components/registerGlobComp'
 import { setupGlobDirectives } from '@/directives'
-import { initAppConfigStore } from '@/hooks/config'
+import { initAppConfig } from '@/hooks/config'
 import { setupRouter } from '@/router'
 import { setupStore } from '@/store'
 
@@ -24,7 +24,7 @@ async function bootstrap() {
 
   // Initialize internal system configuration
   // 初始化内部系统配置
-  initAppConfigStore()
+  initAppConfig()
 
   // 挂载路由
   setupRouter(app)
