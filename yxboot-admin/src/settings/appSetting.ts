@@ -1,10 +1,17 @@
 import { AppSetting } from '#/config'
-import { ContentLayoutEnum, RouterTransitionEnum, SettingButtonPositionEnum, ThemeEnum } from '@/enums/appEnum'
+import {
+  ContentLayoutEnum,
+  RouterTransitionEnum,
+  SettingButtonPositionEnum,
+  ThemeEnum,
+  ThemeTypeEnum
+} from '@/enums/appEnum'
 import { MenuModeEnum, MenuTypeEnum } from '@/enums/menuEnum'
 
 const setting: AppSetting = {
   themeSetting: {
     theme: ThemeEnum.LIGHT,
+    themeType: ThemeTypeEnum.DARK,
     borderRadius: 4,
     primaryColor: '#0960bd',
     successColor: '#55D187',

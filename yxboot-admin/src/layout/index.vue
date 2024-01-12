@@ -2,7 +2,7 @@
   <a-layout class="layout">
     <LayoutHeader fixed v-if="getShowHeader && !isSidebarType" />
     <a-layout>
-      <LayoutSider v-if="getShowSidebar" />
+      <LayoutSider v-if="getShowSider" />
       <a-layout :class="`${prefixCls}-main`">
         <LayoutHeader v-if="getShowHeader && isSidebarType" />
         <Tabs v-if="getShowMultipleTab" />
@@ -19,10 +19,12 @@
   import { useHeaderSetting } from '@/hooks/setting/useHeaderSetting'
   import { useMenuSetting } from '@/hooks/setting/useMenuSetting'
   import { useMultipleTabSetting } from '@/hooks/setting/useMultipleTabSetting'
+  import { useSiderSetting } from '@/hooks/setting/useSiderSetting'
   import LayoutContent from './content/index.vue'
   import Tabs from './tabs/index.vue'
 
-  const { getShowSidebar, isSidebarType } = useMenuSetting()
+  const { isSidebarType } = useMenuSetting()
+  const { getShowSider } = useSiderSetting()
   const { getShowHeader } = useHeaderSetting()
   const { getShowMultipleTab } = useMultipleTabSetting()
 

@@ -11,8 +11,13 @@
   </div>
 </template>
 <script setup lang="ts">
-  import { HandlerEnum } from '../enum'
-  import { baseHandler } from '../handler'
+  import { HandlerEnum } from '@/enums/handlerEnum'
+  import { useAppConfig } from '@/hooks/config'
+  import { PropType, computed } from 'vue'
+
+  const { baseHandler } = useAppConfig()
+
+  defineOptions({ name: 'SwitchItem' })
 
   const props = defineProps({
     event: {

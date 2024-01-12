@@ -1,16 +1,16 @@
 <template>
-  <div class="logo" :style="{ width: `${getMenuWidth}px` }">
+  <div class="logo" :style="{ width: `${getWidth}px` }">
     <img src="/favicon.png" alt="" />
     <div class="title">{{ title }}</div>
   </div>
 </template>
 <script lang="ts" setup>
   import { useGlobSetting } from '@/hooks/setting/index'
-  import { useMenuSetting } from '@/hooks/setting/useMenuSetting'
+  import { useSiderSetting } from '@/hooks/setting/useSiderSetting'
 
   const { title } = useGlobSetting()
 
-  const { getMenuWidth } = useMenuSetting()
+  const { getWidth } = useSiderSetting()
 </script>
 <style lang="less" scope>
   .logo {

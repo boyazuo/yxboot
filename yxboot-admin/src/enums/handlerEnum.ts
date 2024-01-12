@@ -1,10 +1,14 @@
-import { ContentLayoutEnum, RouterTransitionEnum } from '@/enums/appEnum'
+import { ContentLayoutEnum, RouterTransitionEnum, ThemeEnum, ThemeTypeEnum } from '@/enums/appEnum'
 import { MenuModeEnum, MenuTypeEnum } from '@/enums/menuEnum'
 
 export enum HandlerEnum {
   CHANGE_LAYOUT,
   CHANGE_THEME_COLOR,
   CHANGE_THEME,
+
+  // sider
+  SIDER_THEME,
+
   // menu
   MENU_HAS_DRAG,
   MENU_ACCORDION,
@@ -72,6 +76,27 @@ export const routerTransitionOptions = [
     value: item
   }
 })
+
+export const themeTypeList = [
+  {
+    title: '亮色主题风格',
+    theme: ThemeEnum.LIGHT,
+    sider: ThemeEnum.LIGHT,
+    type: ThemeTypeEnum.LIGHT
+  },
+  {
+    title: '暗色主题风格',
+    theme: ThemeEnum.LIGHT,
+    sider: ThemeEnum.DARK,
+    type: ThemeTypeEnum.DARK
+  },
+  {
+    title: '暗黑模式',
+    theme: ThemeEnum.DARK,
+    sider: ThemeEnum.DARK,
+    type: ThemeTypeEnum.REAL_DARK
+  }
+]
 
 export const menuTypeList = [
   {

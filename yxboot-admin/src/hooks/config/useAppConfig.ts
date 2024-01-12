@@ -3,7 +3,7 @@
  */
 import type { AppSetting } from '#/config'
 
-import { ThemeEnum } from '@/enums'
+import { ThemeEnum, ThemeTypeEnum } from '@/enums'
 import { APP_CFG_KEY } from '@/enums/cacheEnum'
 import { HandlerEnum } from '@/enums/handlerEnum'
 import appSetting from '@/settings/appSetting'
@@ -13,22 +13,22 @@ import { Persistent } from '@/utils/cache/persistent'
 import { setCssVar } from '@/utils/theme'
 import { theme } from 'ant-design-vue'
 import { storeToRefs } from 'pinia'
+import { useSiderSetting } from '../setting/useSiderSetting'
 import { useThemeSetting } from '../setting/useThemeSetting'
 import { updateDarkTheme } from './dark'
-import { updateHeaderBgColor, updateSidebarBgColor } from './updateBackground'
+import { updateHeaderBgColor } from './updateBackground'
 
 // Initial project configuration
 export function initAppConfig() {
-  let projCfg: AppSetting = Persistent.getLocal(APP_CFG_KEY) as AppSetting
-  projCfg = deepMerge(appSetting, projCfg || {})
-  console.log('projCfg', projCfg)
-  initAppConfigStore(projCfg)
+  let appCfg: AppSetting = Persistent.getLocal(APP_CFG_KEY) as AppSetting
+  appCfg = deepMerge(appSetting, appCfg || {})
+  initAppConfigStore(appCfg)
 }
 
 export const useAppConfig = () => {
   const appConfigStore = useAppConfigStore()
   const appConfigOptions = storeToRefs(appConfigStore)
-  const { getTheme, getToken, getThemeColors } = useThemeSetting()
+  const { getTheme, getThemeType, getToken, getThemeColors } = useThemeSetting()
 
   const setAppConfig = (configs: DeepPartial<AppSetting>) => {
     appConfigStore.$patch((state) => {
@@ -45,11 +45,33 @@ export const useAppConfig = () => {
   })
 
   const toggleTheme = (value) => {
-    if (getTheme.value === value) {
+    if (getThemeType.value === value) {
       return
     }
-    setAppConfig({ themeSetting: { theme: value }, headerSetting: { theme: value } })
-    updateDarkTheme(value)
+    if (value === ThemeTypeEnum.LIGHT) {
+      setAppConfig({
+        themeSetting: { theme: ThemeEnum.LIGHT, themeType: ThemeTypeEnum.LIGHT },
+        siderSetting: { theme: ThemeEnum.LIGHT },
+        headerSetting: { theme: ThemeEnum.LIGHT }
+      })
+      updateDarkTheme(ThemeEnum.LIGHT)
+    }
+    if (value === ThemeTypeEnum.DARK) {
+      setAppConfig({
+        themeSetting: { theme: ThemeEnum.LIGHT, themeType: ThemeTypeEnum.DARK },
+        siderSetting: { theme: ThemeEnum.DARK },
+        headerSetting: { theme: ThemeEnum.LIGHT }
+      })
+      updateDarkTheme(ThemeEnum.LIGHT)
+    }
+    if (value === ThemeTypeEnum.REAL_DARK) {
+      setAppConfig({
+        themeSetting: { theme: ThemeEnum.DARK, themeType: ThemeTypeEnum.REAL_DARK },
+        siderSetting: { theme: ThemeEnum.DARK },
+        headerSetting: { theme: ThemeEnum.DARK }
+      })
+      updateDarkTheme(ThemeEnum.DARK)
+    }
     updateHeaderBgColor()
   }
 
@@ -89,6 +111,7 @@ export function handlerResults(
   value: any
 ): DeepPartial<AppSetting & { menuSetting: { hidden: boolean } }> {
   const { toggleTheme } = useAppConfig()
+  const { getSiderTheme } = useSiderSetting()
   switch (event) {
     // ============theme==================
     case HandlerEnum.CHANGE_THEME:
@@ -111,6 +134,13 @@ export function handlerResults(
         }
       }
 
+    // ============sider==================
+    case HandlerEnum.SIDER_THEME:
+      if (getSiderTheme.value === value) {
+        return {}
+      }
+      return { siderSetting: { theme: value } }
+
     case HandlerEnum.MENU_HAS_DRAG:
       return { menuSetting: { canDrag: value } }
 
@@ -131,10 +161,6 @@ export function handlerResults(
 
     case HandlerEnum.MENU_COLLAPSED_SHOW_TITLE:
       return { menuSetting: { collapsedShowTitle: value } }
-
-    case HandlerEnum.MENU_THEME:
-      updateSidebarBgColor(value)
-      return { menuSetting: { bgColor: value } }
 
     case HandlerEnum.MENU_SPLIT:
       return { menuSetting: { split: value } }

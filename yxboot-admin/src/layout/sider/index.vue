@@ -1,10 +1,10 @@
 <template>
   <a-layout-sider
     class="layout-sider"
-    :width="getMenuWidth"
+    :width="getWidth"
     collapsible
     :trigger="null"
-    :theme="getMenuTheme"
+    :theme="getSiderTheme"
     v-model:collapsed="getCollapsed"
   >
     <AppLogo v-if="getShowHeaderLogo" />
@@ -13,11 +13,11 @@
 </template>
 <script lang="ts" setup>
   import { useHeaderSetting } from '@/hooks/setting/useHeaderSetting'
-  import { useMenuSetting } from '@/hooks/setting/useMenuSetting'
+  import { useSiderSetting } from '@/hooks/setting/useSiderSetting'
   import LayoutMenu from '../menu/index.vue'
   import AppLogo from './AppLogo.vue'
 
-  const { getCollapsed, getMenuWidth, getMenuTheme } = useMenuSetting()
+  const { getCollapsed, getWidth, getSiderTheme } = useSiderSetting()
 
   const { getShowHeaderLogo } = useHeaderSetting()
 </script>

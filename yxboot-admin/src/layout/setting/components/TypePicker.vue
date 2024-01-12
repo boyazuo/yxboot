@@ -19,8 +19,9 @@
   </div>
 </template>
 <script setup lang="ts">
+  import { menuTypeList as Types } from '@/enums/handlerEnum'
   import { Tooltip } from 'ant-design-vue'
-  import { menuTypeList as Types } from '../enum'
+  import { PropType } from 'vue'
 
   defineProps({
     menuTypeList: {
@@ -62,7 +63,8 @@
       }
 
       &--sidebar,
-      &--light {
+      &--light,
+      &--dark {
         &::before {
           top: 0;
           left: 0;
@@ -112,7 +114,7 @@
         }
       }
 
-      &--dark {
+      &--real-dark {
         background-color: #273352;
       }
 

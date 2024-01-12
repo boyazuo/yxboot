@@ -13,6 +13,12 @@ export enum ThemeEnum {
   LIGHT = 'light'
 }
 
+export enum ThemeTypeEnum {
+  LIGHT = 'light',
+  DARK = 'dark',
+  REAL_DARK = 'real-dark'
+}
+
 /**
  * @description: Navigation bar mode
  */

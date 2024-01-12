@@ -18,9 +18,10 @@
   </div>
 </template>
 <script setup lang="ts">
+  import { HandlerEnum } from '@/enums/handlerEnum'
   import { useAppConfig } from '@/hooks/config/useAppConfig'
   import { CheckOutlined } from '@ant-design/icons-vue'
-  import { HandlerEnum } from '../enum'
+  import { PropType } from 'vue'
 
   const { baseHandler } = useAppConfig()
 

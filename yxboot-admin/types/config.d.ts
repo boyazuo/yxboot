@@ -5,6 +5,7 @@ export type LocaleType = 'zh_CN' | 'en' | 'ru' | 'ja' | 'ko'
 
 export interface ThemeSetting {
   theme: string
+  themeType: string
   borderRadius: number
   primaryColor: string
   successColor: string
@@ -13,17 +14,20 @@ export interface ThemeSetting {
   infoColor: string
 }
 
-export interface MenuSetting {
-  bgColor: string
+export interface SiderSetting {
+  theme: ThemeEnum
   fixed: boolean
   show: boolean
+  width: number
+  mixSidebarWidth: number
+  collapsedWidth: number
   collapsed: boolean
-  siderHidden: boolean
-  split: boolean
-  menuWidth: number
+}
+
+export interface MenuSetting {
   mode: MenuModeEnum
   type: MenuTypeEnum
-  theme: ThemeEnum
+  split: boolean
 }
 
 export interface MultiTabsSetting {
@@ -112,7 +116,7 @@ export interface AppSetting {
   // Project configuration
   projectSetting: ProjectSetting
   // Sider configuration
-  siderSetting: MenuSetting
+  siderSetting: SiderSetting
   // Header configuration
   headerSetting: HeaderSetting
   // Menu configuration

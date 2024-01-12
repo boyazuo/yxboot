@@ -7,6 +7,7 @@ export function useThemeSetting() {
   const { getThemeSetting } = storeToRefs(appConfigStore)
 
   const getTheme = computed(() => unref(getThemeSetting).theme)
+  const getThemeType = computed(() => unref(getThemeSetting).themeType)
   const getBorderRadius = computed(() => unref(getThemeSetting).borderRadius)
   const getPrimaryColor = computed(() => unref(getThemeSetting).primaryColor)
   const getSuccessColor = computed(() => unref(getThemeSetting).successColor)
@@ -33,6 +34,7 @@ export function useThemeSetting() {
     setThemeSetting,
 
     getTheme,
+    getThemeType,
     getToken,
     getThemeColors,
     getBorderRadius,

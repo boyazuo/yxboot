@@ -22,7 +22,7 @@
 <script lang="ts" setup>
   import { SysMenu } from '@/api/model/sysModel'
   import { MenuModeEnum } from '@/enums/menuEnum'
-  import { useMenuSetting } from '@/hooks/setting/useMenuSetting'
+  import { useSiderSetting } from '@/hooks/setting/useSiderSetting'
   import { usePermissionStoreWithOut } from '@/store/modules/permission'
   import { propTypes } from '@/utils/propTypes'
   import { useRoute, useRouter } from 'vue-router'
@@ -35,9 +35,9 @@
     mode: propTypes.oneOf([MenuModeEnum.INLINE, MenuModeEnum.HORIZONTAL]).def(MenuModeEnum.INLINE)
   })
 
-  const { getShowSidebar, getCollapsed, getMenuTheme } = useMenuSetting()
+  const { getShow, getCollapsed, getSiderTheme } = useSiderSetting()
 
-  const menuTheme = computed(() => props.theme || unref(getMenuTheme))
+  const menuTheme = computed(() => props.theme || unref(getSiderTheme))
 
   const router = useRouter()
 
@@ -56,7 +56,7 @@
     }
   }
   const handleOpenChange = (val: any) => {
-    if (unref(getShowSidebar) && !unref(getCollapsed)) {
+    if (unref(getShow) && !unref(getCollapsed)) {
       const latestOpenKey: string = val[val.length - 1] || ''
       if (latestOpenKey.indexOf('_') > -1) {
         const [parent] = latestOpenKey.split('_')
@@ -87,7 +87,7 @@
     selectedKeys.value.splice(0, selectedKeys.value.length, route.fullPath)
     const resolve = router.resolve(route)
     const { matched } = resolve
-    if (matched.length && unref(getShowSidebar) && !unref(getCollapsed)) {
+    if (matched.length && unref(getShow) && !unref(getCollapsed)) {
       openKeys.value.splice(0, openKeys.value.length)
       matched.forEach((o) => {
         if (o.meta.menuId) {

@@ -1,13 +1,14 @@
 <template>
   <BasicDrawer title="项目配置" :show-footer="false" @register="register" width="320" :bodyStyle="{ padding: '16px' }">
-    <a-divider orientation="left">主题</a-divider>
-    <AppDarkModeToggle class="mx-auto" />
-
     <a-divider orientation="left">系统主题</a-divider>
-    <ThemeColorPicker :colorList="APP_PRESET_COLOR_LIST" :event="HandlerEnum.CHANGE_THEME_COLOR" :def="getThemeColor" />
+    <ThemeColorPicker
+      :colorList="APP_PRESET_COLOR_LIST"
+      :event="HandlerEnum.CHANGE_THEME_COLOR"
+      :def="getPrimaryColor"
+    />
 
-    <a-divider orientation="left">侧栏主题</a-divider>
-    <ThemeColorPicker :colorList="SIDE_BAR_BG_COLOR_LIST" :event="HandlerEnum.MENU_THEME" :def="getMenuBgColor" />
+    <a-divider orientation="left">整体风格设置</a-divider>
+    <TypePicker :menuTypeList="themeTypeList" :handler="themeTypeHandler" :def="getThemeType" />
 
     <a-divider orientation="left">导航模式</a-divider>
     <TypePicker :menuTypeList="menuTypeList" :handler="menuTypeHandler" :def="getMenuType" />
@@ -59,29 +60,33 @@
 </template>
 <script lang="ts" setup>
   import { BasicDrawer, useDrawerInner } from '@/components/Drawer'
+  import { HandlerEnum, contentModeOptions, menuTypeList, themeTypeList } from '@/enums/handlerEnum'
   import { useAppConfig } from '@/hooks/config/useAppConfig'
   import { useHeaderSetting } from '@/hooks/setting/useHeaderSetting'
   import { useMenuSetting } from '@/hooks/setting/useMenuSetting'
   import { useMultipleTabSetting } from '@/hooks/setting/useMultipleTabSetting'
   import { useRootSetting } from '@/hooks/setting/useRootSetting'
-  import { APP_PRESET_COLOR_LIST, SIDE_BAR_BG_COLOR_LIST } from '@/settings/designSetting'
-  import AppDarkModeToggle from './components/AppDarkModeToggle.vue'
+  import { useThemeSetting } from '@/hooks/setting/useThemeSetting'
+  import { APP_PRESET_COLOR_LIST } from '@/settings/designSetting'
   import SelectItem from './components/SelectItem.vue'
   import SwitchItem from './components/SwitchItem.vue'
   import ThemeColorPicker from './components/ThemeColorPicker.vue'
   import TypePicker from './components/TypePicker.vue'
-  import { HandlerEnum, contentModeOptions, menuTypeList } from './enum'
 
-  const { getMenuType, getMenuFixed, getSplit, isTopMenuType, isMixType, getMenuBgColor, isSidebarType } =
-    useMenuSetting()
+  const { getMenuType, getSplit } = useMenuSetting()
+
   const { getShowMultipleTab, getShowQuick, getShowRedo, getShowFold } = useMultipleTabSetting()
   const { getFixed: getHeaderFixed } = useHeaderSetting()
-  const { getContentMode, getThemeColor, getShowBreadCrumb, getShowBreadCrumbIcon, getShowLogo, getShowFooter } =
-    useRootSetting()
+  const { getContentMode, getShowBreadCrumb, getShowBreadCrumbIcon, getShowLogo, getShowFooter } = useRootSetting()
+  const { getThemeType, getPrimaryColor } = useThemeSetting()
 
   const [register] = useDrawerInner()
 
   const { baseHandler } = useAppConfig()
+
+  const themeTypeHandler = (item) => {
+    baseHandler(HandlerEnum.CHANGE_THEME, item.type)
+  }
 
   const menuTypeHandler = (item) => {
     baseHandler(HandlerEnum.CHANGE_LAYOUT, {
