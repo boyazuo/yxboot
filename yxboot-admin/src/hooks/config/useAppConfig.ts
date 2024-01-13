@@ -3,7 +3,7 @@
  */
 import type { AppSetting } from '#/config'
 
-import { ThemeEnum, ThemeTypeEnum } from '@/enums'
+import { MenuModeEnum, MenuTypeEnum, ThemeEnum, ThemeTypeEnum } from '@/enums'
 import { APP_CFG_KEY } from '@/enums/cacheEnum'
 import { HandlerEnum } from '@/enums/handlerEnum'
 import appSetting from '@/settings/appSetting'
@@ -13,6 +13,7 @@ import { Persistent } from '@/utils/cache/persistent'
 import { setCssVar } from '@/utils/theme'
 import { theme } from 'ant-design-vue'
 import { storeToRefs } from 'pinia'
+import { useMenuSetting } from '../setting/useMenuSetting'
 import { useSiderSetting } from '../setting/useSiderSetting'
 import { useThemeSetting } from '../setting/useThemeSetting'
 import { updateDarkTheme } from './dark'
@@ -29,6 +30,7 @@ export const useAppConfig = () => {
   const appConfigStore = useAppConfigStore()
   const appConfigOptions = storeToRefs(appConfigStore)
   const { getTheme, getThemeType, getToken, getThemeColors } = useThemeSetting()
+  const { getMenuType } = useMenuSetting()
 
   const setAppConfig = (configs: DeepPartial<AppSetting>) => {
     appConfigStore.$patch((state) => {
@@ -75,6 +77,19 @@ export const useAppConfig = () => {
     updateHeaderBgColor()
   }
 
+  function changeMenuType(type: MenuTypeEnum) {
+    if (type === unref(getMenuType)) return
+    if (type === MenuTypeEnum.SIDER) {
+      setAppConfig({ menuSetting: { mode: MenuModeEnum.INLINE, type }, siderSetting: { show: true } })
+    }
+    if (type === MenuTypeEnum.TOP_MENU) {
+      setAppConfig({ menuSetting: { mode: MenuModeEnum.HORIZONTAL, type }, siderSetting: { show: false } })
+    }
+    if (type === MenuTypeEnum.MIX_TOP) {
+      setAppConfig({ menuSetting: { mode: MenuModeEnum.INLINE, type }, siderSetting: { show: true } })
+    }
+  }
+
   const getThemeConfig = computed(() => {
     return {
       algorithm: isDark.value ? theme.darkAlgorithm : theme.defaultAlgorithm,
@@ -100,6 +115,7 @@ export const useAppConfig = () => {
     ...appConfigOptions,
     isDark,
     toggleTheme,
+    changeMenuType,
     setAppConfig,
     baseHandler,
     getThemeConfig
@@ -110,7 +126,7 @@ export function handlerResults(
   event: HandlerEnum,
   value: any
 ): DeepPartial<AppSetting & { menuSetting: { hidden: boolean } }> {
-  const { toggleTheme } = useAppConfig()
+  const { toggleTheme, changeMenuType } = useAppConfig()
   const { getSiderTheme } = useSiderSetting()
   switch (event) {
     // ============theme==================
@@ -120,19 +136,10 @@ export function handlerResults(
     case HandlerEnum.CHANGE_THEME_COLOR:
       return { themeSetting: { primaryColor: value } }
 
+    // ============layout==================
     case HandlerEnum.CHANGE_LAYOUT:
-      const { mode, type, split } = value
-      const splitOpt = split === undefined ? { split } : {}
-      return {
-        menuSetting: {
-          mode,
-          type,
-          collapsed: false,
-          show: true,
-          hidden: false,
-          ...splitOpt
-        }
-      }
+      changeMenuType(value)
+      return {}
 
     // ============sider==================
     case HandlerEnum.SIDER_THEME:

@@ -9,7 +9,7 @@
 
     <div class="layout-header__menu">
       <Breadcrumb v-if="isSidebarType && getShowBread" />
-      <LayoutMenu v-if="isMixType || isTopMenuType" :mode="MenuModeEnum.HORIZONTAL" :theme="getHeaderTheme" />
+      <LayoutMenu v-if="isMixTopType || isTopMenuType" :mode="MenuModeEnum.HORIZONTAL" :theme="getHeaderTheme" />
     </div>
     <div class="layout-header-action">
       <FullScreen v-if="getShowFullScreen" class="layout-header-action__item" />
@@ -30,13 +30,12 @@
   import AppLogo from '../sider/AppLogo.vue'
   import { FullScreen, HeaderTrigger, Setting, UserDropDown } from './components'
 
-  const { isSidebarType, isTopMenuType, isMixType } = useMenuSetting()
+  const { isSidebarType, isTopMenuType, isMixTopType } = useMenuSetting()
   const { getShowSettingButton, getSettingButtonPosition } = useRootSetting()
   const { getShowHeaderLogo, getShowBread, getShowFullScreen, getShowHeader } = useHeaderSetting()
 
   //主题
   const { getHeaderTheme } = useHeaderSetting()
-  console.log('===getHeaderTheme', getHeaderTheme.value)
   const layoutHeaderClass = computed(() => {
     return {
       'layout-header': true,

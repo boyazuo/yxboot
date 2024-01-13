@@ -3,6 +3,11 @@ import { MenuModeEnum, MenuTypeEnum } from '@/enums/menuEnum'
 
 export type LocaleType = 'zh_CN' | 'en' | 'ru' | 'ja' | 'ko'
 
+export interface SelectorType {
+  title: string
+  type: ThemeTypeEnum | MenuTypeEnum | string
+}
+
 export interface ThemeSetting {
   theme: string
   themeType: string

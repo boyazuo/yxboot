@@ -15,11 +15,13 @@ export enum TriggerEnum {
  */
 export enum MenuTypeEnum {
   // left menu
-  SIDEBAR = 'sidebar',
-  // mixin menu
-  MIX = 'mix',
+  SIDER = 'sider',
   // top menu
-  TOP_MENU = 'top-menu'
+  TOP_MENU = 'top-menu',
+  // mixin menu
+  MIX_TOP = 'mix-top',
+  // mix-sidebar
+  MIX_SIDER = 'mix-sider'
 }
 
 export type Mode = 'vertical' | 'vertical-right' | 'horizontal' | 'inline'

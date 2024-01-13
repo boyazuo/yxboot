@@ -1,6 +1,6 @@
 <template>
   <div :class="prefixCls">
-    <template v-for="item in menuTypeList || []" :key="item.title">
+    <template v-for="item in typeList || []" :key="item.title">
       <Tooltip :title="item.title" placement="bottom">
         <div
           @click="handler(item)"
@@ -19,17 +19,19 @@
   </div>
 </template>
 <script setup lang="ts">
-  import { menuTypeList as Types } from '@/enums/handlerEnum'
+  import type { SelectorType } from '#/config'
   import { Tooltip } from 'ant-design-vue'
   import { PropType } from 'vue'
 
+  defineOptions({ name: 'TypePicker' })
+
   defineProps({
-    menuTypeList: {
-      type: Array as PropType<typeof Types>,
+    typeList: {
+      type: Array as PropType<SelectorType[]>,
       default: () => []
     },
     handler: {
-      type: Function as PropType<Fn>,
+      type: Function,
       default: () => ({})
     },
     def: {

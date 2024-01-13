@@ -8,10 +8,12 @@
     />
 
     <a-divider orientation="left">整体风格设置</a-divider>
-    <TypePicker :menuTypeList="themeTypeList" :handler="themeTypeHandler" :def="getThemeType" />
+    <TypePicker :typeList="themeTypeList" :handler="themeTypeHandler" :def="getThemeType" />
 
     <a-divider orientation="left">导航模式</a-divider>
-    <TypePicker :menuTypeList="menuTypeList" :handler="menuTypeHandler" :def="getMenuType" />
+    <TypePicker :typeList="menuTypeList" :handler="menuTypeHandler" :def="getMenuType" />
+
+    <a-divider orientation="left">界面布局</a-divider>
     <SelectItem
       title="内容区域宽度"
       :event="HandlerEnum.CONTENT_MODE"
@@ -19,8 +21,8 @@
       :options="contentModeOptions"
     />
     <SwitchItem title="固定Header" :event="HandlerEnum.HEADER_FIXED" :def="getHeaderFixed" />
-    <SwitchItem title="固定Sidebar" :event="HandlerEnum.MENU_FIXED" :def="getMenuFixed" :disabled="!isTopMenuType" />
-    <SwitchItem title="自动分割菜单" :event="HandlerEnum.MENU_SPLIT" :def="getSplit" :disabled="!isMixType" />
+    <SwitchItem title="固定Sidebar" :event="HandlerEnum.MENU_FIXED" :def="getFixed" :disabled="!isTopMenuType" />
+    <SwitchItem title="自动分割菜单" :event="HandlerEnum.MENU_SPLIT" :def="getSplit" :disabled="!isMixTopType" />
 
     <a-divider orientation="left">界面显示</a-divider>
     <SwitchItem
@@ -66,6 +68,7 @@
   import { useMenuSetting } from '@/hooks/setting/useMenuSetting'
   import { useMultipleTabSetting } from '@/hooks/setting/useMultipleTabSetting'
   import { useRootSetting } from '@/hooks/setting/useRootSetting'
+  import { useSiderSetting } from '@/hooks/setting/useSiderSetting'
   import { useThemeSetting } from '@/hooks/setting/useThemeSetting'
   import { APP_PRESET_COLOR_LIST } from '@/settings/designSetting'
   import SelectItem from './components/SelectItem.vue'
@@ -73,7 +76,8 @@
   import ThemeColorPicker from './components/ThemeColorPicker.vue'
   import TypePicker from './components/TypePicker.vue'
 
-  const { getMenuType, getSplit } = useMenuSetting()
+  const { getMenuType, getSplit, isSidebarType, isTopMenuType, isMixTopType } = useMenuSetting()
+  const { getFixed } = useSiderSetting()
 
   const { getShowMultipleTab, getShowQuick, getShowRedo, getShowFold } = useMultipleTabSetting()
   const { getFixed: getHeaderFixed } = useHeaderSetting()
@@ -89,9 +93,6 @@
   }
 
   const menuTypeHandler = (item) => {
-    baseHandler(HandlerEnum.CHANGE_LAYOUT, {
-      mode: item.mode,
-      type: item.type
-    })
+    baseHandler(HandlerEnum.CHANGE_LAYOUT, item.type)
   }
 </script>

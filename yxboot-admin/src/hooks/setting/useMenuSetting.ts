@@ -11,10 +11,10 @@ export function useMenuSetting() {
   const getMenuType = computed(() => unref(getMenuSetting).type)
   const getSplit = computed(() => unref(getMenuSetting).split)
 
-  const isSidebarType = computed(() => unref(getMenuType) === MenuTypeEnum.SIDEBAR)
+  const isSidebarType = computed(() => unref(getMenuType) === MenuTypeEnum.SIDER)
   const isTopMenuType = computed(() => unref(getMenuType) === MenuTypeEnum.TOP_MENU)
-  const isMixType = computed(() => {
-    return unref(getMenuMode) === MenuModeEnum.INLINE && unref(getMenuType) === MenuTypeEnum.MIX
+  const isMixTopType = computed(() => {
+    return unref(getMenuMode) === MenuModeEnum.INLINE && unref(getMenuType) === MenuTypeEnum.MIX_TOP
   })
 
   return {
@@ -25,6 +25,6 @@ export function useMenuSetting() {
     getSplit,
     isSidebarType,
     isTopMenuType,
-    isMixType
+    isMixTopType
   }
 }
