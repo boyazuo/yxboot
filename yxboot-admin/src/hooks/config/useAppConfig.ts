@@ -86,6 +86,9 @@ export const useAppConfig = () => {
       setAppConfig({ menuSetting: { mode: MenuModeEnum.HORIZONTAL, type }, siderSetting: { show: false } })
     }
     if (type === MenuTypeEnum.MIX_TOP) {
+      setAppConfig({ menuSetting: { mode: MenuModeEnum.HORIZONTAL, type }, siderSetting: { show: true } })
+    }
+    if (type === MenuTypeEnum.MIX_SIDER) {
       setAppConfig({ menuSetting: { mode: MenuModeEnum.INLINE, type }, siderSetting: { show: true } })
     }
   }

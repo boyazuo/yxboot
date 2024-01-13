@@ -85,7 +85,7 @@ const setting: AppSetting = {
     // Menu mode
     mode: MenuModeEnum.INLINE,
     // Menu type
-    type: MenuTypeEnum.SIDEBAR,
+    type: MenuTypeEnum.SIDER,
     // Split menu
     split: false
   },

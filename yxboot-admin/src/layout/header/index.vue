@@ -1,9 +1,9 @@
 <template>
   <Layout.Header :class="layoutHeaderClass">
-    <div class="layout-header__left" v-if="!isSidebarType">
+    <div class="layout-header__left" v-if="!isSidebarType && !isMixSidebarType">
       <AppLogo v-if="getShowHeaderLogo" />
     </div>
-    <div class="layout-header__left" v-if="!isTopMenuType">
+    <div class="layout-header__left" v-if="!isTopMenuType && !isMixTopType">
       <HeaderTrigger />
     </div>
 
@@ -30,7 +30,7 @@
   import AppLogo from '../sider/AppLogo.vue'
   import { FullScreen, HeaderTrigger, Setting, UserDropDown } from './components'
 
-  const { isSidebarType, isTopMenuType, isMixTopType } = useMenuSetting()
+  const { isSidebarType, isTopMenuType, isMixTopType, isMixSidebarType } = useMenuSetting()
   const { getShowSettingButton, getSettingButtonPosition } = useRootSetting()
   const { getShowHeaderLogo, getShowBread, getShowFullScreen, getShowHeader } = useHeaderSetting()
 
