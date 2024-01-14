@@ -3,7 +3,7 @@
     <div class="layout-header__left" v-if="!isSidebarType && !isMixSidebarType">
       <AppLogo v-if="getShowHeaderLogo" />
     </div>
-    <div class="layout-header__left" v-if="!isTopMenuType && !isMixTopType">
+    <div class="layout-header__left" v-if="isSidebarType">
       <HeaderTrigger />
     </div>
 

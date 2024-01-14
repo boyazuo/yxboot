@@ -5,19 +5,25 @@
     collapsible
     :trigger="null"
     :theme="getSiderTheme"
-    v-model:collapsed="getCollapsed"
+    v-model:collapsed="isCollapsed"
   >
     <AppLogo v-if="getShowHeaderLogo" />
-    <LayoutMenu />
+    <LayoutMenu v-if="!isMixSidebarType" />
+    <MixMenu v-else />
   </a-layout-sider>
 </template>
 <script lang="ts" setup>
   import { useHeaderSetting } from '@/hooks/setting/useHeaderSetting'
+  import { useMenuSetting } from '@/hooks/setting/useMenuSetting'
   import { useSiderSetting } from '@/hooks/setting/useSiderSetting'
   import LayoutMenu from '../menu/index.vue'
+  import MixMenu from '../mix-menu/index.vue'
   import AppLogo from './AppLogo.vue'
 
   const { getCollapsed, getWidth, getSiderTheme } = useSiderSetting()
+  const { isMixSidebarType } = useMenuSetting()
+
+  const isCollapsed = computed(() => unref(isMixSidebarType) || unref(getCollapsed))
 
   const { getShowHeaderLogo } = useHeaderSetting()
 </script>
