@@ -9,10 +9,11 @@
   >
     <AppLogo v-if="getShowHeaderLogo" />
     <LayoutMenu v-if="!isMixSidebarType" />
-    <MixMenu v-else />
+    <MixMenu :mode="MenuModeEnum.INLINE" v-else />
   </a-layout-sider>
 </template>
 <script lang="ts" setup>
+  import { MenuModeEnum } from '@/enums/menuEnum'
   import { useHeaderSetting } from '@/hooks/setting/useHeaderSetting'
   import { useMenuSetting } from '@/hooks/setting/useMenuSetting'
   import { useSiderSetting } from '@/hooks/setting/useSiderSetting'

@@ -36,15 +36,16 @@
   const { title } = useGlobSetting()
 
   const props = defineProps({
+    mode: propTypes.oneOf(['vertical', 'horizontal', 'inline']),
     theme: propTypes.oneOf(['light', 'dark'])
   })
 
   const { getShowSider, getSiderTheme } = useSiderSetting()
 
   //菜单模式
-  const menuModel = computed(() => {
-    return unref(getShowSider) ? 'inline' : 'horizontal'
-  })
+  const menuModel = computed(() => props.mode || (unref(getShowSider) ? 'inline' : 'horizontal'))
+
+  console.log('menuModel', menuModel.value)
 
   const menuTheme = computed(() => props.theme || unref(getSiderTheme))
 
@@ -139,7 +140,7 @@
       flex-flow: column nowrap;
       justify-content: center;
       align-items: center;
-      width: 100%;
+      // width: 100%;
       line-height: 60px !important;
       height: 60px !important;
     }

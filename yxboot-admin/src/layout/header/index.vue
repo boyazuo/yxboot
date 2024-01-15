@@ -9,7 +9,8 @@
 
     <div class="layout-header__menu">
       <Breadcrumb v-if="isSidebarType && getShowBread" />
-      <LayoutMenu v-if="isMixTopType || isTopMenuType" :mode="MenuModeEnum.HORIZONTAL" :theme="getHeaderTheme" />
+      <LayoutMenu v-if="isTopMenuType" :mode="MenuModeEnum.HORIZONTAL" :theme="getHeaderTheme" />
+      <MixMenu v-if="isMixTopType" :mode="MenuModeEnum.HORIZONTAL" :theme="getHeaderTheme" />
     </div>
     <div class="layout-header-action">
       <FullScreen v-if="getShowFullScreen" class="layout-header-action__item" />
@@ -27,6 +28,7 @@
   import { Layout } from 'ant-design-vue'
   import Breadcrumb from '../breadcrumb/index.vue'
   import LayoutMenu from '../menu/index.vue'
+  import MixMenu from '../mix-menu/index.vue'
   import AppLogo from '../sider/AppLogo.vue'
   import { FullScreen, HeaderTrigger, Setting, UserDropDown } from './components'
 
