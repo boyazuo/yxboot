@@ -1,4 +1,4 @@
-import type { AppSetting, ProjectConfig } from '#/config'
+import type { AppSetting } from '#/config'
 import type { LockInfo, TableSetting } from '#/store'
 import type { RouteLocationNormalized } from 'vue-router'
 
@@ -8,7 +8,6 @@ import {
   APP_SESSION_CACHE_KEY,
   LOCK_INFO_KEY,
   MULTIPLE_TABS_KEY,
-  PROJ_CFG_KEY,
   ROLES_KEY,
   TABLE_SETTING_KEY,
   TOKEN_KEY,
@@ -25,7 +24,6 @@ interface BasicStore {
   [ROLES_KEY]: string[]
   [LOCK_INFO_KEY]: LockInfo
   [APP_CFG_KEY]: AppSetting
-  [PROJ_CFG_KEY]: ProjectConfig
   [MULTIPLE_TABS_KEY]: RouteLocationNormalized[]
   [TABLE_SETTING_KEY]: Partial<TableSetting>
 }

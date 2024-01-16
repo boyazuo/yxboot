@@ -1,6 +1,6 @@
 import { PageEnum } from '@/enums/pageEnum'
 import { removeTabChangeListener } from '@/router/mitt/routeChange'
-import { useAppStore } from '@/store/modules/app'
+import { useAppConfigStore } from '@/store/modules/appConfig'
 import { useMultipleTabStore } from '@/store/modules/multipleTab'
 import { usePermissionStore } from '@/store/modules/permission'
 import { useUserStore } from '@/store/modules/user'
@@ -12,9 +12,9 @@ export function createStateGuard(router: Router) {
     if (to.path === PageEnum.BASE_LOGIN) {
       const tabStore = useMultipleTabStore()
       const userStore = useUserStore()
-      const appStore = useAppStore()
+      const appConfigStore = useAppConfigStore()
       const permissionStore = usePermissionStore()
-      appStore.resetAllState()
+      appConfigStore.resetAllState()
       permissionStore.resetState()
       tabStore.resetState()
       userStore.resetState()

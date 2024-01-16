@@ -5,9 +5,9 @@
 </template>
 
 <script setup lang="ts">
-  import { useRootSetting } from '@/hooks/setting/useRootSetting'
+  import { useProjectSetting } from '@/hooks/setting/useProjectSetting'
 
-  const { getShowFooter } = useRootSetting()
+  const { getShowFooter } = useProjectSetting()
   const { currentRoute } = useRouter()
 
   const footerRef = ref<ComponentRef>(null)

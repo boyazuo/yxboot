@@ -74,68 +74,17 @@ export interface TransitionSetting {
   openNProgress: boolean
 }
 
-export interface ProjectConfig {
-  // Whether to show the configuration button
-  showSettingButton: boolean
-  // Configure where the button is displayed
-  settingButtonPosition: SettingButtonPositionEnum
-  // Theme color
-  themeColor: string
-  // content width
-  contentMode: ContentLayoutEnum
-  // Whether to display the logo
-  showLogo: boolean
-  // Whether to show the global footer
-  showFooter: boolean
-  // menuType: MenuTypeEnum;
-  headerSetting: HeaderSetting
-  // menuSetting
-  menuSetting: MenuSetting
-  // Multi-tab settings
-  multiTabsSetting: MultiTabsSetting
-  // Animation configuration
-  transitionSetting: TransitionSetting
-  // pageLayout whether to enable keep-alive
-  openKeepAlive: boolean
-  // Lock screen time
-  lockTime: number
-  // Show breadcrumbs
-  showBreadCrumb: boolean
-  // Show breadcrumb icon
-  showBreadCrumbIcon: boolean
-  // Use error-handler-plugin
-  useErrorHandle: boolean
-  // Whether to open back to top
-  useOpenBackTop: boolean
-  // Is it possible to embed iframe pages
-  canEmbedIFramePage: boolean
-  // Whether to delete unclosed messages and notify when switching the interface
-  closeMessageOnSwitch: boolean
-  // Whether to cancel the http request that has been sent but not responded when switching the interface.
-  removeAllHttpPending: boolean
-}
-
 export interface ProjectSetting {
   // Whether to show the configuration button
   showSettingButton: boolean
   // Configure where the button is displayed
   settingButtonPosition: SettingButtonPositionEnum
-  // Theme color
-  themeColor: string
   // content width
   contentMode: ContentLayoutEnum
   // Whether to display the logo
   showLogo: boolean
   // Whether to show the global footer
   showFooter: boolean
-  // menuType: MenuTypeEnum;
-  headerSetting: HeaderSetting
-  // menuSetting
-  menuSetting: MenuSetting
-  // Multi-tab settings
-  multiTabsSetting: MultiTabsSetting
-  // Animation configuration
-  transitionSetting: TransitionSetting
   // pageLayout whether to enable keep-alive
   openKeepAlive: boolean
   // Lock screen time

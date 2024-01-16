@@ -2,7 +2,7 @@ import type { HeaderSetting } from '#/config'
 
 import { MenuModeEnum } from '@/enums/menuEnum'
 import { useMenuSetting } from '@/hooks/setting/useMenuSetting'
-import { useRootSetting } from '@/hooks/setting/useRootSetting'
+import { useProjectSetting } from '@/hooks/setting/useProjectSetting'
 import { useAppConfigStore } from '@/store/modules/appConfig'
 import { computed, unref } from 'vue'
 
@@ -11,7 +11,7 @@ export function useHeaderSetting() {
 
   const { getMenuMode, isSidebarType } = useMenuSetting()
 
-  const { getShowBreadCrumb, getShowLogo } = useRootSetting()
+  const { getShowBreadCrumb, getShowLogo } = useProjectSetting()
 
   const getShowMixHeaderRef = computed(() => !unref(isSidebarType) && unref(getShowHeader))
 

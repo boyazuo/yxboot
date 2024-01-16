@@ -22,9 +22,7 @@ import { updateHeaderBgColor } from './updateBackground'
 // Initial project configuration
 export function initAppConfig() {
   let appCfg: AppSetting = Persistent.getLocal(APP_CFG_KEY) as AppSetting
-  console.log('appCfg', appCfg)
   appCfg = deepMerge(appSetting, appCfg || {})
-  console.log('appCfg', appCfg)
   initAppConfigStore(appCfg)
 }
 

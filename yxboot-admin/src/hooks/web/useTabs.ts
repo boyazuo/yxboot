@@ -3,7 +3,7 @@ import type { RouteLocationNormalized, Router } from 'vue-router'
 import { unref } from 'vue'
 import { useRouter } from 'vue-router'
 
-import { useAppStore } from '@/store/modules/app'
+import { useAppConfigStore } from '@/store/modules/appConfig'
 import { useMultipleTabStore } from '@/store/modules/multipleTab'
 
 enum TableActionEnum {
@@ -17,10 +17,10 @@ enum TableActionEnum {
 }
 
 export function useTabs(_router?: Router) {
-  const appStore = useAppStore()
+  const appConfigStore = useAppConfigStore()
 
   function canIUseTabs(): boolean {
-    const { show } = appStore.getMultiTabsSetting
+    const { show } = appConfigStore.getMultiTabsSetting
     if (!show) {
       throw new Error('The multi-tab page is currently not open, please open it in the settings！')
     }

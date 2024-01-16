@@ -1,13 +1,13 @@
 import { AppSetting } from '#/config'
 import { _assign, deepMerge } from '@/utils'
+import { Persistent } from '@/utils/cache/persistent'
 import { defineStore } from 'pinia'
 
-let defaultOptions: AppSetting = {}
+let defaultOptions: AppSetting
 
 // Must be called before the first use of useAppConfig
 export const initAppConfigStore = (options) => {
   defaultOptions = deepMerge(defaultOptions, options)
-  console.log('defaultOptions', defaultOptions)
   useAppConfigStore()
 }
 
@@ -58,6 +58,9 @@ export const useAppConfigStore = defineStore({
     },
     setTransitionSetting(value) {
       _assign(this.transitionSetting, value)
+    },
+    async resetAllState() {
+      Persistent.clearAll()
     }
   }
 })
