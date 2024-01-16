@@ -1,25 +1,22 @@
-import type { MultiTabsSetting } from '#/config'
-
-import { computed } from 'vue'
-
-import { useAppStore } from '@/store/modules/app'
+import { useAppConfigStore } from '@/store/modules/appConfig'
+import { storeToRefs } from 'pinia'
 
 export function useMultipleTabSetting() {
-  const appStore = useAppStore()
+  const appConfigStore = useAppConfigStore()
+  const { setMultiTabsSetting } = appConfigStore
+  const { getMultiTabsSetting } = storeToRefs(appConfigStore)
 
-  const getShowMultipleTab = computed(() => appStore.getMultiTabsSetting.show)
+  const getShowMultipleTab = computed(() => unref(getMultiTabsSetting).show)
 
-  const getShowQuick = computed(() => appStore.getMultiTabsSetting.showQuick)
+  const getShowQuick = computed(() => unref(getMultiTabsSetting).showQuick)
 
-  const getShowRedo = computed(() => appStore.getMultiTabsSetting.showRedo)
+  const getShowRedo = computed(() => unref(getMultiTabsSetting).showRedo)
 
-  const getShowFold = computed(() => appStore.getMultiTabsSetting.showFold)
+  const getShowFold = computed(() => unref(getMultiTabsSetting).showFold)
 
-  function setMultipleTabSetting(multiTabsSetting: Partial<MultiTabsSetting>) {
-    appStore.setProjectConfig({ multiTabsSetting })
-  }
   return {
-    setMultipleTabSetting,
+    setMultiTabsSetting,
+
     getShowMultipleTab,
     getShowQuick,
     getShowRedo,

@@ -7,6 +7,7 @@ let defaultOptions: AppSetting = {}
 // Must be called before the first use of useAppConfig
 export const initAppConfigStore = (options) => {
   defaultOptions = deepMerge(defaultOptions, options)
+  console.log('defaultOptions', defaultOptions)
   useAppConfigStore()
 }
 

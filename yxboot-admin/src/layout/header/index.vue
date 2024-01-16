@@ -24,7 +24,7 @@
   import { MenuModeEnum } from '@/enums/menuEnum'
   import { useHeaderSetting } from '@/hooks/setting/useHeaderSetting'
   import { useMenuSetting } from '@/hooks/setting/useMenuSetting'
-  import { useRootSetting } from '@/hooks/setting/useRootSetting'
+  import { useProjectSetting } from '@/hooks/setting/useProjectSetting'
   import { Layout } from 'ant-design-vue'
   import Breadcrumb from '../breadcrumb/index.vue'
   import LayoutMenu from '../menu/index.vue'
@@ -33,7 +33,7 @@
   import { FullScreen, HeaderTrigger, Setting, UserDropDown } from './components'
 
   const { isSidebarType, isTopMenuType, isMixTopType, isMixSidebarType } = useMenuSetting()
-  const { getShowSettingButton, getSettingButtonPosition } = useRootSetting()
+  const { getShowSettingButton, getSettingButtonPosition } = useProjectSetting()
   const { getShowHeaderLogo, getShowBread, getShowFullScreen, getShowHeader } = useHeaderSetting()
 
   //主题

@@ -21,7 +21,7 @@ const setting: AppSetting = {
   },
 
   // Project configuration
-  pojectSetting: {
+  projectSetting: {
     // Whether to show the configuration button
     showSettingButton: true,
     // `Settings` button position
