@@ -1,5 +1,5 @@
+import { useProjectSetting } from '@/hooks/setting'
 import { setRouteChange } from '@/router/mitt/routeChange'
-import projectSetting from '@/settings/projectSetting'
 import { AxiosCanceler } from '@/utils/http/axios/axiosCancel'
 import { warn } from '@/utils/log'
 import { Modal, notification } from 'ant-design-vue'
@@ -42,9 +42,9 @@ function createPageGuard(router: Router) {
  * @param router
  */
 function createHttpGuard(router: Router) {
-  const { removeAllHttpPending } = projectSetting
+  const { getRemoveAllHttpPending } = useProjectSetting()
   let axiosCanceler: Nullable<AxiosCanceler>
-  if (removeAllHttpPending) {
+  if (unref(getRemoveAllHttpPending)) {
     axiosCanceler = new AxiosCanceler()
   }
   router.beforeEach(async () => {
@@ -74,11 +74,11 @@ function createScrollGuard(router: Router) {
  * @param router
  */
 export function createMessageGuard(router: Router) {
-  const { closeMessageOnSwitch } = projectSetting
+  const { getCloseMessageOnSwitch } = useProjectSetting()
 
   router.beforeEach(async () => {
     try {
-      if (closeMessageOnSwitch) {
+      if (unref(getCloseMessageOnSwitch)) {
         Modal.destroyAll()
         notification.destroy()
       }

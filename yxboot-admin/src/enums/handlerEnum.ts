@@ -102,10 +102,10 @@ export const menuTypeList: SelectorType[] = [
     title: '顶部菜单模式',
     type: MenuTypeEnum.TOP_MENU
   },
-  {
-    title: '顶部混合菜单模式',
-    type: MenuTypeEnum.MIX_TOP
-  },
+  // {
+  //   title: '顶部混合菜单模式',
+  //   type: MenuTypeEnum.MIX_TOP
+  // },
   {
     title: '侧栏混合菜单模式',
     type: MenuTypeEnum.MIX_SIDER

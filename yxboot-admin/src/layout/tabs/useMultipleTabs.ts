@@ -1,5 +1,5 @@
+import { useMultipleTabSetting } from '@/hooks/setting'
 import { useSortable } from '@/hooks/web/useSortable'
-import projectSetting from '@/settings/projectSetting'
 import { useMultipleTabStore } from '@/store/modules/multipleTab'
 import { isNil } from '@/utils/is'
 import { nextTick, ref, toRaw } from 'vue'
@@ -51,10 +51,10 @@ export function initAffixTabs(): string[] {
 
 export function useTabsDrag(affixTextList: string[]) {
   const tabStore = useMultipleTabStore()
-  const { multiTabsSetting } = projectSetting
+  const { getCanDrag } = useMultipleTabSetting()
   const prefixCls = 'tabs'
   nextTick(() => {
-    if (!multiTabsSetting.canDrag) return
+    if (!unref(getCanDrag)) return
     const el = document.querySelectorAll(`.${prefixCls} .ant-tabs-nav-wrap > div`)?.[0] as HTMLElement
     useSortable(el, {
       filter: (e: ChangeEvent) => {

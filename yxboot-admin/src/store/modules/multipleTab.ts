@@ -1,19 +1,16 @@
 import type { RouteLocationNormalized, RouteLocationRaw, Router } from 'vue-router'
 
-import { store } from '@/store'
-import { defineStore } from 'pinia'
-import { toRaw, unref } from 'vue'
-
-import { useGo, useRedo } from '@/hooks/web/usePage'
-import { Persistent } from '@/utils/cache/persistent'
-
 import { MULTIPLE_TABS_KEY } from '@/enums/cacheEnum'
 import { PageEnum } from '@/enums/pageEnum'
+import { useGo, useRedo } from '@/hooks/web/usePage'
 import { PAGE_NOT_FOUND_ROUTE, REDIRECT_ROUTE } from '@/router/routes/basic'
-import { getRawRoute } from '@/utils'
-
-import projectSetting from '@/settings/projectSetting'
+import appSetting from '@/settings/appSetting'
+import { store } from '@/store'
 import { useUserStore } from '@/store/modules/user'
+import { getRawRoute } from '@/utils'
+import { Persistent } from '@/utils/cache/persistent'
+import { defineStore } from 'pinia'
+import { toRaw, unref } from 'vue'
 
 export interface MultipleTabState {
   cacheTabList: Set<string>
@@ -35,7 +32,7 @@ const getToTarget = (tabItem: RouteLocationNormalized) => {
   }
 }
 
-const cacheTab = projectSetting.multiTabsSetting.cache
+const { cache } = appSetting.multiTabsSetting
 
 export const useMultipleTabStore = defineStore({
   id: 'app-multiple-tab',
@@ -43,7 +40,7 @@ export const useMultipleTabStore = defineStore({
     // Tabs that need to be cached
     cacheTabList: new Set(),
     // multiple tab list
-    tabList: cacheTab ? Persistent.getLocal(MULTIPLE_TABS_KEY) || [] : [],
+    tabList: cache ? Persistent.getLocal(MULTIPLE_TABS_KEY) || [] : [],
     // Index of the last moved tab
     lastDragEndIndex: 0
   }),
