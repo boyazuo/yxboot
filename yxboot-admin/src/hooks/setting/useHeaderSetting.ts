@@ -1,8 +1,7 @@
 import type { HeaderSetting } from '#/config'
 
 import { MenuModeEnum } from '@/enums/menuEnum'
-import { useMenuSetting } from '@/hooks/setting/useMenuSetting'
-import { useProjectSetting } from '@/hooks/setting/useProjectSetting'
+import { useMenuSetting, useProjectSetting } from '@/hooks/setting'
 import { useAppConfigStore } from '@/store/modules/appConfig'
 import { computed, unref } from 'vue'
 

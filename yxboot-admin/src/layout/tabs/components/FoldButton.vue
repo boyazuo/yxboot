@@ -4,15 +4,15 @@
   </span>
 </template>
 <script setup lang="ts">
-  import { useHeaderSetting } from '@/hooks/setting/useHeaderSetting'
-  import { useMenuSetting } from '@/hooks/setting/useMenuSetting'
+  import { useHeaderSetting, useMenuSetting, useSiderSetting } from '@/hooks/setting'
   import { triggerWindowResize } from '@/utils/event'
 
   const prefixCls = 'tabs-content'
-  const { getShowMenu, setMenuSetting } = useMenuSetting()
+  const { getShowSider } = useSiderSetting()
+  const { setMenuSetting } = useMenuSetting()
   const { getShowHeader, setHeaderSetting } = useHeaderSetting()
 
-  const getIsUnFold = computed(() => !unref(getShowMenu) && !unref(getShowHeader))
+  const getIsUnFold = computed(() => !unref(getShowSider) && !unref(getShowHeader))
 
   const getIcon = computed(() => (unref(getIsUnFold) ? 'codicon:screen-normal' : 'codicon:screen-full'))
 

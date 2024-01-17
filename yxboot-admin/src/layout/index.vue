@@ -13,9 +13,7 @@
   import LayoutHeader from './header/index.vue'
   import LayoutSider from './sider/index.vue'
   // import LayoutTags from './tags/index.vue'
-  import { useHeaderSetting } from '@/hooks/setting/useHeaderSetting'
-  import { useMultipleTabSetting } from '@/hooks/setting/useMultipleTabSetting'
-  import { useSiderSetting } from '@/hooks/setting/useSiderSetting'
+  import { useHeaderSetting, useMultipleTabSetting, useSiderSetting } from '@/hooks/setting'
   import LayoutContent from './content/index.vue'
   import Tabs from './tabs/index.vue'
 

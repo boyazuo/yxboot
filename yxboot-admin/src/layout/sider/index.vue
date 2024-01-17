@@ -14,9 +14,7 @@
 </template>
 <script lang="ts" setup>
   import { MenuModeEnum } from '@/enums/menuEnum'
-  import { useHeaderSetting } from '@/hooks/setting/useHeaderSetting'
-  import { useMenuSetting } from '@/hooks/setting/useMenuSetting'
-  import { useSiderSetting } from '@/hooks/setting/useSiderSetting'
+  import { useHeaderSetting, useMenuSetting, useSiderSetting } from '@/hooks/setting'
   import LayoutMenu from '../menu/index.vue'
   import MixMenu from '../mix-menu/index.vue'
   import AppLogo from './AppLogo.vue'

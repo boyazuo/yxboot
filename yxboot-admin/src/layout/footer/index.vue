@@ -5,7 +5,7 @@
 </template>
 
 <script setup lang="ts">
-  import { useProjectSetting } from '@/hooks/setting/useProjectSetting'
+  import { useProjectSetting } from '@/hooks/setting'
 
   const { getShowFooter } = useProjectSetting()
   const { currentRoute } = useRouter()

@@ -29,7 +29,7 @@
 </template>
 
 <script lang="ts" setup>
-  import { useMultipleTabSetting } from '@/hooks/setting/useMultipleTabSetting'
+  import { useMultipleTabSetting } from '@/hooks/setting'
   import { REDIRECT_NAME } from '@/router/constant'
   import { listenerRouteChange } from '@/router/mitt/routeChange'
   import { useMultipleTabStore } from '@/store/modules/multipleTab'

@@ -5,7 +5,7 @@
 </template>
 
 <script lang="ts" setup>
-  import { useSiderSetting } from '@/hooks/setting/useSiderSetting'
+  import { useSiderSetting } from '@/hooks/setting'
   import { propTypes } from '@/utils/propTypes'
   import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons-vue'
 

@@ -5,8 +5,7 @@
   </div>
 </template>
 <script lang="ts" setup>
-  import { useGlobSetting } from '@/hooks/setting/index'
-  import { useSiderSetting } from '@/hooks/setting/useSiderSetting'
+  import { useGlobSetting, useSiderSetting } from '@/hooks/setting'
 
   const { title } = useGlobSetting()
 

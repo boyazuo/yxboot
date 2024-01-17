@@ -22,7 +22,7 @@
 <script lang="ts" setup>
   import { SysMenu } from '@/api/model/sysModel'
   import { MenuModeEnum } from '@/enums/menuEnum'
-  import { useSiderSetting } from '@/hooks/setting/useSiderSetting'
+  import { useSiderSetting } from '@/hooks/setting'
   import { usePermissionStoreWithOut } from '@/store/modules/permission'
   import { propTypes } from '@/utils/propTypes'
   import { useRoute, useRouter } from 'vue-router'

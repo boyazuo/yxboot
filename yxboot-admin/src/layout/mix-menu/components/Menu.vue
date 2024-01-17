@@ -9,7 +9,7 @@
 </template>
 <script lang="ts" setup>
   import Icon from '@/components/Icon'
-  import { useMenuSetting } from '@/hooks/setting/useMenuSetting'
+  import { useMenuSetting } from '@/hooks/setting'
 
   const props = defineProps({
     menu: {

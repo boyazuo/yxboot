@@ -18,7 +18,7 @@
 </template>
 <script lang="ts" setup>
   import { SysMenu } from '@/api/model/sysModel'
-  import { useSiderSetting } from '@/hooks/setting/useSiderSetting'
+  import { useSiderSetting } from '@/hooks/setting'
   import { propTypes } from '@/utils/propTypes'
   import { useRoute, useRouter } from 'vue-router'
   import MenuGroup from './MenuGroup.vue'

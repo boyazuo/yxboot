@@ -25,8 +25,7 @@
   </a-layout-sider>
 </template>
 <script lang="ts" setup>
-  import { useGlobSetting } from '@/hooks/setting/index'
-  import { useSiderSetting } from '@/hooks/setting/useSiderSetting'
+  import { useGlobSetting, useSiderSetting } from '@/hooks/setting'
   import { usePermissionStoreWithOut } from '@/store/modules/permission'
   import { propTypes } from '@/utils/propTypes'
   import { RouteRecord, useRoute, useRouter } from 'vue-router'

@@ -22,9 +22,7 @@
 <script lang="ts" setup>
   import { SettingButtonPositionEnum } from '@/enums/appEnum'
   import { MenuModeEnum } from '@/enums/menuEnum'
-  import { useHeaderSetting } from '@/hooks/setting/useHeaderSetting'
-  import { useMenuSetting } from '@/hooks/setting/useMenuSetting'
-  import { useProjectSetting } from '@/hooks/setting/useProjectSetting'
+  import { useHeaderSetting, useMenuSetting, useProjectSetting } from '@/hooks/setting'
   import { Layout } from 'ant-design-vue'
   import Breadcrumb from '../breadcrumb/index.vue'
   import LayoutMenu from '../menu/index.vue'

@@ -50,7 +50,7 @@
 </template>
 <script lang="ts" setup>
   import Icon from '@/components/Icon/index'
-  import { useGlobSetting } from '@/hooks/setting/index'
+  import { useGlobSetting } from '@/hooks/setting'
   import { useUserStore } from '@/store/modules/user'
   import { message } from 'ant-design-vue'
 

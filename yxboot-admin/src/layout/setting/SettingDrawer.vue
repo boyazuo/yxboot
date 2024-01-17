@@ -64,12 +64,14 @@
   import { BasicDrawer, useDrawerInner } from '@/components/Drawer'
   import { HandlerEnum, contentModeOptions, menuTypeList, themeTypeList } from '@/enums/handlerEnum'
   import { useAppConfig } from '@/hooks/config/useAppConfig'
-  import { useHeaderSetting } from '@/hooks/setting/useHeaderSetting'
-  import { useMenuSetting } from '@/hooks/setting/useMenuSetting'
-  import { useMultipleTabSetting } from '@/hooks/setting/useMultipleTabSetting'
-  import { useProjectSetting } from '@/hooks/setting/useProjectSetting'
-  import { useSiderSetting } from '@/hooks/setting/useSiderSetting'
-  import { useThemeSetting } from '@/hooks/setting/useThemeSetting'
+  import {
+    useHeaderSetting,
+    useMenuSetting,
+    useMultipleTabSetting,
+    useProjectSetting,
+    useSiderSetting,
+    useThemeSetting
+  } from '@/hooks/setting'
   import { APP_PRESET_COLOR_LIST } from '@/settings/designSetting'
   import SelectItem from './components/SelectItem.vue'
   import SwitchItem from './components/SwitchItem.vue'
