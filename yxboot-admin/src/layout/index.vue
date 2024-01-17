@@ -1,13 +1,10 @@
 <template>
   <a-layout class="layout">
-    <LayoutHeader fixed v-if="getShowHeader && !isSidebarType && !isMixSidebarType" />
-    <a-layout>
-      <LayoutSider v-if="getShowSider" />
-      <a-layout :class="`${prefixCls}-main`">
-        <LayoutHeader v-if="getShowHeader && (isSidebarType || isMixSidebarType)" />
-        <Tabs v-if="getShowMultipleTab" />
-        <LayoutContent />
-      </a-layout>
+    <LayoutSider v-if="getShowSider" />
+    <a-layout :class="`${prefixCls}-main`">
+      <LayoutHeader v-if="getShowHeader" />
+      <Tabs v-if="getShowMultipleTab" />
+      <LayoutContent />
     </a-layout>
   </a-layout>
 </template>
@@ -17,13 +14,11 @@
   import LayoutSider from './sider/index.vue'
   // import LayoutTags from './tags/index.vue'
   import { useHeaderSetting } from '@/hooks/setting/useHeaderSetting'
-  import { useMenuSetting } from '@/hooks/setting/useMenuSetting'
   import { useMultipleTabSetting } from '@/hooks/setting/useMultipleTabSetting'
   import { useSiderSetting } from '@/hooks/setting/useSiderSetting'
   import LayoutContent from './content/index.vue'
   import Tabs from './tabs/index.vue'
 
-  const { isSidebarType, isMixSidebarType } = useMenuSetting()
   const { getShowSider } = useSiderSetting()
   const { getShowHeader } = useHeaderSetting()
   const { getShowMultipleTab } = useMultipleTabSetting()

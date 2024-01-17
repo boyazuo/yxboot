@@ -35,7 +35,7 @@
     mode: propTypes.oneOf([MenuModeEnum.INLINE, MenuModeEnum.HORIZONTAL]).def(MenuModeEnum.INLINE)
   })
 
-  const { getShow, getCollapsed, getSiderTheme } = useSiderSetting()
+  const { getShowSider, getCollapsed, getSiderTheme } = useSiderSetting()
 
   const menuTheme = computed(() => props.theme || unref(getSiderTheme))
 
@@ -87,7 +87,7 @@
     selectedKeys.value.splice(0, selectedKeys.value.length, route.fullPath)
     const resolve = router.resolve(route)
     const { matched } = resolve
-    if (matched.length && unref(getShow) && !unref(getCollapsed)) {
+    if (matched.length && unref(getShowSider) && !unref(getCollapsed)) {
       openKeys.value.splice(0, openKeys.value.length)
       matched.forEach((o) => {
         if (o.meta.menuId) {
