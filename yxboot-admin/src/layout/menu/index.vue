@@ -5,7 +5,7 @@
     v-model:selectedKeys="selectedKeys"
     :openKeys="openKeys"
     :theme="menuTheme"
-    :mode="mode"
+    :mode="getMenuMode"
     @click="handleMenuClick"
     @open-change="handleOpenChange"
   >
@@ -29,13 +29,21 @@
   import Menu from './components/Menu.vue'
   import MenuGroup from './components/MenuGroup.vue'
 
+  const { getShowSider, getCollapsed, getSiderTheme } = useSiderSetting()
+
   const props = defineProps({
     theme: propTypes.oneOf(['light', 'dark']),
     // 菜单模式
     mode: propTypes.oneOf([MenuModeEnum.INLINE, MenuModeEnum.HORIZONTAL]).def(MenuModeEnum.INLINE)
   })
 
-  const { getShowSider, getCollapsed, getSiderTheme } = useSiderSetting()
+  const getMenuMode = computed(() => {
+    if (unref(getCollapsed) && unref(getShowSider)) {
+      return MenuModeEnum.VERTICAL
+    } else {
+      return props.mode
+    }
+  })
 
   const menuTheme = computed(() => props.theme || unref(getSiderTheme))
 
@@ -56,7 +64,7 @@
     }
   }
   const handleOpenChange = (val: any) => {
-    if (unref(getShow) && !unref(getCollapsed)) {
+    if (unref(getShowSider) && !unref(getCollapsed)) {
       const latestOpenKey: string = val[val.length - 1] || ''
       if (latestOpenKey.indexOf('_') > -1) {
         const [parent] = latestOpenKey.split('_')
