@@ -12,7 +12,7 @@
             }
           ]"
         >
-          <div class="mix-sidebar"></div>
+          <div class="mix-sider"></div>
         </div>
       </Tooltip>
     </template>
@@ -64,9 +64,28 @@
         content: '';
       }
 
-      &--sidebar,
-      &--light,
-      &--dark {
+      &--light {
+        &::before {
+          top: 0;
+          left: 0;
+          z-index: 1;
+          width: 33%;
+          height: 100%;
+          background-color: #fff;
+          border-radius: 4px 0 0 4px;
+        }
+
+        &::after {
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 25%;
+          background-color: #fff;
+        }
+      }
+
+      &--dark,
+      &--sider {
         &::before {
           top: 0;
           left: 0;
@@ -86,23 +105,25 @@
         }
       }
 
-      &--mix {
+      &--real-dark {
+        background-color: #273352a9;
+
         &::before {
           top: 0;
           left: 0;
+          z-index: 1;
           width: 33%;
           height: 100%;
-          background-color: #fff;
+          background-color: #273352;
           border-radius: 4px 0 0 4px;
         }
 
         &::after {
           top: 0;
           left: 0;
-          z-index: 1;
           width: 100%;
           height: 25%;
-          background-color: #273352;
+          background-color: #273352a6;
         }
       }
 
@@ -116,16 +137,12 @@
         }
       }
 
-      &--real-dark {
-        background-color: #273352;
-      }
-
-      &--mix-sidebar {
+      &--mix-sider {
         &::before {
           top: 0;
           left: 0;
           z-index: 1;
-          width: 25%;
+          width: 15%;
           height: 100%;
           background-color: #273352;
           border-radius: 4px 0 0 4px;
@@ -133,18 +150,19 @@
 
         &::after {
           top: 0;
-          left: 0;
+          left: 35%;
           width: 100%;
           height: 25%;
           background-color: #fff;
         }
 
-        .mix-sidebar {
+        .mix-sider {
           position: absolute;
-          left: 25%;
-          width: 15%;
+          top: 0;
+          left: 15%;
+          width: 20%;
           height: 100%;
-          background-color: #fff;
+          background-color: #273352a6;
         }
       }
 
