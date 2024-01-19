@@ -21,8 +21,7 @@
       :options="contentModeOptions"
     />
     <SwitchItem title="固定Header" :event="HandlerEnum.HEADER_FIXED" :def="getHeaderFixed" />
-    <SwitchItem title="固定Sidebar" :event="HandlerEnum.MENU_FIXED" :def="getFixed" :disabled="!isTopMenuType" />
-    <SwitchItem title="自动分割菜单" :event="HandlerEnum.MENU_SPLIT" :def="getSplit" :disabled="!isMixTopType" />
+    <SwitchItem title="固定Sidebar" :event="HandlerEnum.SIDER_FIXED" :def="getFixed" :disabled="!isTopMenuType" />
 
     <a-divider orientation="left">界面显示</a-divider>
     <SwitchItem
@@ -39,15 +38,15 @@
     />
     <SwitchItem title="标签页" :event="HandlerEnum.TABS_SHOW" :def="getShowMultipleTab" />
     <SwitchItem
-      title="标签页刷新按钮"
-      :event="HandlerEnum.TABS_SHOW_REDO"
-      :def="getShowRedo"
-      :disabled="!getShowMultipleTab"
-    />
-    <SwitchItem
       title="标签页快捷按钮"
       :event="HandlerEnum.TABS_SHOW_QUICK"
       :def="getShowQuick"
+      :disabled="!getShowMultipleTab"
+    />
+    <SwitchItem
+      title="标签页刷新按钮"
+      :event="HandlerEnum.TABS_SHOW_REDO"
+      :def="getShowRedo"
       :disabled="!getShowMultipleTab"
     />
     <SwitchItem
@@ -78,7 +77,7 @@
   import ThemeColorPicker from './components/ThemeColorPicker.vue'
   import TypePicker from './components/TypePicker.vue'
 
-  const { getMenuType, getSplit, isSidebarType, isTopMenuType, isMixTopType } = useMenuSetting()
+  const { getMenuType, isSidebarType, isTopMenuType } = useMenuSetting()
   const { getFixed } = useSiderSetting()
 
   const { getShowMultipleTab, getShowQuick, getShowRedo, getShowFold } = useMultipleTabSetting()

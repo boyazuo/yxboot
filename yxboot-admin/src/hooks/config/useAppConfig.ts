@@ -14,7 +14,6 @@ import { setCssVar } from '@/utils/theme'
 import { theme } from 'ant-design-vue'
 import { storeToRefs } from 'pinia'
 import { useMenuSetting } from '../setting/useMenuSetting'
-import { useSiderSetting } from '../setting/useSiderSetting'
 import { useThemeSetting } from '../setting/useThemeSetting'
 import { updateDarkTheme } from './dark'
 import { updateHeaderBgColor } from './updateBackground'
@@ -126,12 +125,8 @@ export const useAppConfig = () => {
   }
 }
 
-export function handlerResults(
-  event: HandlerEnum,
-  value: any
-): DeepPartial<AppSetting & { menuSetting: { hidden: boolean } }> {
+export function handlerResults(event: HandlerEnum, value: any): DeepPartial<AppSetting> {
   const { toggleTheme, changeMenuType } = useAppConfig()
-  const { getSiderTheme } = useSiderSetting()
   switch (event) {
     // ============theme==================
     case HandlerEnum.CHANGE_THEME:
@@ -144,43 +139,46 @@ export function handlerResults(
     case HandlerEnum.CHANGE_LAYOUT:
       changeMenuType(value)
       return {}
+    case HandlerEnum.CONTENT_MODE:
+      return { projectSetting: { contentMode: value } }
+
+    // ============header==================
+    case HandlerEnum.HEADER_FIXED:
+      return { headerSetting: { fixed: value } }
+
+    case HandlerEnum.HEADER_SHOW:
+      return { headerSetting: { show: value } }
 
     // ============sider==================
-    case HandlerEnum.SIDER_THEME:
-      if (getSiderTheme.value === value) {
-        return {}
-      }
-      return { siderSetting: { theme: value } }
+    case HandlerEnum.SIDER_FIXED:
+      return { siderSetting: { fixed: value } }
 
-    case HandlerEnum.MENU_HAS_DRAG:
-      return { menuSetting: { canDrag: value } }
+    // ============project==================
 
-    case HandlerEnum.MENU_ACCORDION:
-      return { menuSetting: { accordion: value } }
+    case HandlerEnum.SHOW_BREADCRUMB:
+      return { projectSetting: { showBreadCrumb: value } }
 
-    case HandlerEnum.MENU_TOP_ALIGN:
-      return { menuSetting: { topMenuAlign: value } }
+    case HandlerEnum.SHOW_BREADCRUMB_ICON:
+      return { projectSetting: { showBreadCrumbIcon: value } }
 
-    case HandlerEnum.MENU_COLLAPSED:
-      return { menuSetting: { collapsed: value } }
+    case HandlerEnum.SHOW_LOGO:
+      return { projectSetting: { showLogo: value } }
 
-    case HandlerEnum.MENU_WIDTH:
-      return { menuSetting: { menuWidth: value } }
+    case HandlerEnum.SHOW_FOOTER:
+      return { projectSetting: { showFooter: value } }
 
-    case HandlerEnum.MENU_SHOW_SIDEBAR:
-      return { menuSetting: { show: value } }
+    // ============tabs==================
+    case HandlerEnum.TABS_SHOW:
+      return { multiTabsSetting: { show: value } }
 
-    case HandlerEnum.MENU_COLLAPSED_SHOW_TITLE:
-      return { menuSetting: { collapsedShowTitle: value } }
+    case HandlerEnum.TABS_SHOW_QUICK:
+      return { multiTabsSetting: { showQuick: value } }
 
-    case HandlerEnum.MENU_SPLIT:
-      return { menuSetting: { split: value } }
+    case HandlerEnum.TABS_SHOW_REDO:
+      return { multiTabsSetting: { showRedo: value } }
 
-    case HandlerEnum.MENU_CLOSE_MIX_SIDEBAR_ON_CHANGE:
-      return { menuSetting: { closeMixSidebarOnChange: value } }
-
-    case HandlerEnum.MENU_FIXED:
-      return { menuSetting: { fixed: value } }
+    case HandlerEnum.TABS_SHOW_FOLD:
+      return { multiTabsSetting: { showFold: value } }
 
     // ============transition==================
     case HandlerEnum.ROUTER_TRANSITION:
@@ -191,46 +189,11 @@ export function handlerResults(
 
     case HandlerEnum.OPEN_PROGRESS:
       return { transitionSetting: { openNProgress: value } }
+
     // ============root==================
-
     case HandlerEnum.LOCK_TIME:
-      return { lockTime: value }
+      return { projectSetting: { lockTime: value } }
 
-    case HandlerEnum.CONTENT_MODE:
-      return { contentMode: value }
-
-    case HandlerEnum.SHOW_BREADCRUMB:
-      return { showBreadCrumb: value }
-
-    case HandlerEnum.SHOW_BREADCRUMB_ICON:
-      return { showBreadCrumbIcon: value }
-
-    case HandlerEnum.SHOW_FOOTER:
-      return { showFooter: value }
-
-    case HandlerEnum.SHOW_LOGO:
-      return { showLogo: value }
-
-    // ============tabs==================
-    case HandlerEnum.TABS_SHOW_QUICK:
-      return { multiTabsSetting: { showQuick: value } }
-
-    case HandlerEnum.TABS_SHOW:
-      return { multiTabsSetting: { show: value } }
-
-    case HandlerEnum.TABS_SHOW_REDO:
-      return { multiTabsSetting: { showRedo: value } }
-
-    case HandlerEnum.TABS_SHOW_FOLD:
-      return { multiTabsSetting: { showFold: value } }
-
-    // ============header==================
-
-    case HandlerEnum.HEADER_FIXED:
-      return { headerSetting: { fixed: value } }
-
-    case HandlerEnum.HEADER_SHOW:
-      return { headerSetting: { show: value } }
     default:
       return {}
   }
