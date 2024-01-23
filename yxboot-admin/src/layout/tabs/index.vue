@@ -19,7 +19,7 @@
         </template>
       </a-tab-pane>
 
-      <template #rightExtra v-if="getShowRedo || getShowQuick">
+      <template #rightExtra v-if="getShowRedo || getShowQuick || getShowFold">
         <TabRedo v-if="getShowRedo" />
         <TabContent isExtra :tabItem="$route" v-if="getShowQuick" />
         <FoldButton v-if="getShowFold" />
