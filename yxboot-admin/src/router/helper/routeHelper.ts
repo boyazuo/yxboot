@@ -1,5 +1,6 @@
 import { SysMenu } from '@/api/model/sysModel'
 import { LAYOUT, PARENT_LAYOUT } from '@/router/constant'
+import { findPath } from '@/utils/helper/trees'
 import { RouteRecordRaw } from 'vue-router'
 
 // export const ERROR_PAGE = () => import('@/views/exception/404.vue')
@@ -11,6 +12,11 @@ export function isLayoutComponent(component) {
     return true
   }
   return false
+}
+
+export function getAllParentPath<T = Recordable>(treeData: T[], path: string) {
+  const menuList = findPath(treeData, (n) => n.path === path) as Menu[]
+  return (menuList || []).map((item) => item.path)
 }
 
 export function convertMenuToRoute(menu: SysMenu): RouteRecordRaw {

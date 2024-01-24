@@ -139,7 +139,7 @@
     }
 
     &__menu {
-      padding: 0 60px;
+      padding: 0 10px;
       flex-grow: 1;
       flex-shrink: 1;
 
