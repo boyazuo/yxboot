@@ -61,7 +61,7 @@
     const filterMenus = menus.filter((item) => item.path === parent[0])
     const matched = getMatched(filterMenus, parent) as any
     if (!matched || matched.length === 0) return
-    console.log('matched', matched)
+
     const breadcrumbList = filterItem(matched)
 
     if (currentRoute.value.meta?.currentActiveMenu) {
@@ -71,7 +71,6 @@
       } as unknown as RouteLocationMatched)
     }
     routes.value = breadcrumbList
-    console.log('routes.value', routes.value)
   })
 
   function getMatched(menus: Menu[], parent: string[]) {
@@ -133,7 +132,6 @@
   }
 
   function hasRedirect(routes: RouteLocationMatched[], route: RouteLocationMatched) {
-    console.log('routes', routes)
     return routes.indexOf(route) !== routes.length - 1
   }
 

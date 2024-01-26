@@ -1,6 +1,7 @@
 import type { UserInfo } from '#/store'
 import { LoginParams } from '@/api/model/userModel'
 import { login } from '@/api/sys/auth'
+import { ResultEnum } from '@/enums/httpEnum'
 import { PageEnum } from '@/enums/pageEnum'
 import router from '@/router'
 import { store } from '@/store'
@@ -49,7 +50,7 @@ export const useUserStore = defineStore({
       try {
         const response = await login(userInfo)
         const { data, code } = response
-        if (code === 0) {
+        if (code === ResultEnum.SUCCESS) {
           const ex = 7 * 24 * 60 * 60 * 1000
           storage.set(ACCESS_TOKEN, data.token, ex)
           storage.set(CURRENT_USER, data, ex)
@@ -65,6 +66,8 @@ export const useUserStore = defineStore({
     async logout(goLogin = false) {
       this.setToken(undefined)
       this.setUser(null)
+      storage.remove(ACCESS_TOKEN)
+      storage.remove(CURRENT_USER)
 
       goLogin && router.push(PageEnum.BASE_LOGIN)
     },
