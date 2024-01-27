@@ -1,17 +1,13 @@
 import type { UserInfo } from '#/store'
 import { LoginParams } from '@/api/model/userModel'
 import { login } from '@/api/sys/auth'
+import { ACCESS_TOKEN, CURRENT_USER } from '@/enums/cacheEnum'
 import { ResultEnum } from '@/enums/httpEnum'
 import { PageEnum } from '@/enums/pageEnum'
 import router from '@/router'
 import { store } from '@/store'
-import { createStorage } from '@/utils/storage'
+import { storage } from '@/utils/storage'
 import { defineStore } from 'pinia'
-
-const storage = createStorage({ storage: localStorage })
-
-const ACCESS_TOKEN = 'ACCESS_TOKEN'
-const CURRENT_USER = 'CURRENT_USER'
 
 export interface UserState {
   user: Nullable<UserInfo>

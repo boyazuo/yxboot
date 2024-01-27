@@ -1,20 +1,20 @@
 import type { Router } from 'vue-router'
 
+import { ACCESS_TOKEN } from '@/enums/cacheEnum'
 import { PageEnum } from '@/enums/pageEnum'
 import { PAGE_NOT_FOUND_ROUTE } from '@/router/routes/basic'
 import { loadPermissionRoutes } from '@/router/routes/dynamic'
 import { usePermissionStoreWithOut } from '@/store/modules/permission'
-import { useUserStoreWithOut } from '@/store/modules/user'
+import { storage } from '@/utils/storage'
 
 const LOGIN_PATH = PageEnum.BASE_LOGIN
-
 const whitePathList: PageEnum[] = [LOGIN_PATH]
 
 export function createPermissionGuard(router: Router) {
-  const userStore = useUserStoreWithOut()
   const permissionStore = usePermissionStoreWithOut()
+
   router.beforeEach(async (to, from, next) => {
-    const token = userStore.getToken
+    const token = storage.get(ACCESS_TOKEN)
 
     // Whitelist can be directly entered
     if (whitePathList.includes(to.path as PageEnum)) {
