@@ -1,7 +1,6 @@
 import { FormSchema } from '@/components/Form'
 import { BasicColumn } from '@/components/Table'
 import { statusEnum } from '@/utils/formEnums'
-import { required } from '@/utils/formRules'
 
 export const listMenuType = [
   { label: '模块', value: 1, isCreateChild: true },
@@ -34,13 +33,13 @@ export const editFormSchema: FormSchema[] = [
     field: 'name',
     label: '菜单名称',
     component: 'Input',
-    rules: [required('请输入菜单名称')]
+    required: true
   },
   {
     field: 'type',
     label: '菜单类型',
     component: 'Select',
-    rules: [required('请选择菜单类型')],
+    rules: [{ required: true, message: '请选择菜单类型' }],
     componentProps: { options: listMenuType }
   },
   { field: 'icon', label: '图标', component: 'IconPicker' },
@@ -68,7 +67,7 @@ export const editFormSchema: FormSchema[] = [
     field: 'status',
     label: '状态',
     component: 'Select',
-    rules: [required('请选择状态')],
+    rules: [{ required: true, message: '请选择状态' }],
     defaultValue: 1,
     componentProps: { options: statusEnum }
   }

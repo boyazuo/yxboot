@@ -1,7 +1,6 @@
 import { FormSchema } from '@/components/Form'
 import { BasicColumn } from '@/components/Table'
 import { statusEnum } from '@/utils/formEnums'
-import { commonRules, required } from '@/utils/formRules'
 
 export const searchFormSchema: FormSchema[] = [
   { field: 'dictCode', label: '字典编码', component: 'Input' },
@@ -27,20 +26,20 @@ export const editFormSchema: FormSchema[] = [
     field: 'dictCode',
     label: '字典编码',
     component: 'Input',
-    rules: [required('请输入字典编码'), ...commonRules.code4]
+    required: true
   },
   {
     field: 'dictName',
     label: '字典名称',
     component: 'Input',
-    rules: [required('请输入字典名称')]
+    required: true
   },
   { field: 'descn', label: '字典说明', component: 'InputTextArea' },
   {
     field: 'status',
     label: '状态',
     component: 'Select',
-    rules: [required('请选择状态')],
+    rules: [{ required: true, message: '请选择状态' }],
     defaultValue: 1,
     componentProps: { options: statusEnum }
   }
@@ -61,20 +60,20 @@ export const editFormSchema_dictData: FormSchema[] = [
     field: 'label',
     label: '字典标签名',
     component: 'Input',
-    rules: [required('请输入字典标签名')]
+    required: true
   },
   {
     field: 'value',
     label: '字典内容值',
     component: 'Input',
-    rules: [required('请输入字典内容值'), ...commonRules.code1]
+    required: true
   },
   { field: 'sort', label: '排序', component: 'InputNumber', componentProps: { precision: 0 } },
   {
     field: 'status',
     label: '状态',
     component: 'Select',
-    rules: [required('请选择状态')],
+    rules: [{ required: true, message: '请选择状态' }],
     defaultValue: 1,
     componentProps: { options: statusEnum }
   }
@@ -85,14 +84,14 @@ export const editFormSchema_dictDataBatch: FormSchema[] = [
     field: 'label',
     label: '字典标签名',
     component: 'Input',
-    rules: [required('请输入字典标签名')],
+    required: true,
     colProps: { span: 11 }
   },
   {
     field: 'value',
     label: '字典内容值',
     component: 'Input',
-    rules: [required('请输入字典内容值'), ...commonRules.code1],
+    required: true,
     colProps: { span: 11 }
   },
   {

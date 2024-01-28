@@ -3,7 +3,6 @@ import { allRole } from '@/api/sys/role'
 import { FormSchema } from '@/components/Form'
 import { BasicColumn } from '@/components/Table'
 import { statusEnum } from '@/utils/formEnums'
-import { commonRules, required } from '@/utils/formRules'
 
 export const tableColumns: BasicColumn[] = [
   { title: '登录账号', dataIndex: 'username' },
@@ -44,40 +43,79 @@ export const editFormSchema: FormSchema[] = [
     field: 'username',
     label: '登录账号',
     component: 'Input',
-    rules: [required('请输入登录账号'), ...commonRules.code4]
+    required: true,
+    rules: [
+      {
+        pattern: /^[A-Za-z0-9_]+$/,
+        message: '只能包含数字、字母、下划线',
+        trigger: 'change'
+      },
+      {
+        min: 4,
+        max: 20,
+        message: `长度应在4 ~ 20位之间`,
+        trigger: 'blur'
+      }
+    ]
   },
   {
     field: 'password',
     label: '密码',
     component: 'Input',
     ifShow: ({ userId }) => !userId,
-    rules: [required('请输入初始密码'), ...commonRules.code6]
+    required: true,
+    rules: [
+      {
+        min: 6,
+        max: 20,
+        message: `长度应在6 ~ 20位之间`,
+        trigger: 'blur'
+      }
+    ]
   },
   {
     field: 'name',
     label: '姓名',
     component: 'Input',
-    rules: [required('请输入姓名')]
+    required: true
   },
   {
     field: 'sex',
     label: '性别',
     component: 'Dict',
-    rules: [required('请选择性别')],
+    rules: [{ required: true, message: '请选择性别' }],
     componentProps: { code: 'UserSex' }
   },
   {
     field: 'phone',
     label: '手机号',
     component: 'Input',
-    rules: [required('请输入手机号'), ...commonRules.phone]
+    required: true,
+    rules: [
+      {
+        pattern: /^1[3-9]\d{9}$/,
+        message: '请输入正确的的11位手机号码',
+        trigger: 'blur'
+      }
+    ]
   },
-  { field: 'email', label: '邮箱', component: 'Input', rules: [...commonRules.email] },
+  {
+    field: 'email',
+    label: '邮箱',
+    component: 'Input',
+    rules: [
+      {
+        pattern: /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/,
+        message: '请输入正确的邮箱',
+        trigger: 'blur'
+      }
+    ]
+  },
   {
     field: 'roleId',
     label: '角色',
     component: 'ApiSelect',
-    rules: [required('请选择角色')],
+    required: true,
     componentProps: {
       api: allRole,
       resultField: 'data',
@@ -89,7 +127,7 @@ export const editFormSchema: FormSchema[] = [
     field: 'deptId',
     label: '部门',
     component: 'ApiTreeSelect',
-    rules: [required('请选择部门')],
+    rules: [{ required: true, message: '请选择部门' }],
     componentProps: {
       api: treeDept,
       allowClear: true,
@@ -101,7 +139,7 @@ export const editFormSchema: FormSchema[] = [
     field: 'status',
     label: '状态',
     component: 'Select',
-    rules: [required('请选择状态')],
+    rules: [{ required: true, message: '请选择状态' }],
     defaultValue: 1,
     componentProps: { options: statusEnum }
   }

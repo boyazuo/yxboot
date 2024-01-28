@@ -31,6 +31,7 @@ export interface FormSchema {
   component: ComponentType
   componentProps?: object
   required?: boolean
+  message?: string
   itemProps?: Partial<FormItem>
   colProps?: Partial<ColEx>
 

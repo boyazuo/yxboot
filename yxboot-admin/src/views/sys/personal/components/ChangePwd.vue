@@ -10,7 +10,6 @@
   import { changePassword } from '@/api/sys/user'
   import { useForm } from '@/components/Form'
   import { useUserStore } from '@/store/modules/user'
-  import { commonRules, required } from '@/utils/formRules'
   import { message } from 'ant-design-vue'
 
   const userStore = useUserStore()
@@ -31,7 +30,7 @@
         field: 'oldPassword',
         label: '旧密码',
         component: 'InputPassword',
-        rules: [required('请输入旧密码')],
+        required: true,
         // 为 input 元素添加 autocomplete 属性，并将其设置为 "current-password"。
         // 这样的设置告诉浏览器这是一个用于输入当前密码的字段，并且可能触发浏览器的密码管理工具。
         componentProps: { autocomplete: 'current-password' }
@@ -40,14 +39,15 @@
         field: 'password',
         label: '新密码',
         component: 'InputPassword',
-        rules: [required('请输入新密码'), ...commonRules.code6],
+        required: true,
+        rules: [{ min: 6, max: 20, message: '密码长度为6-20位' }],
         componentProps: { autocomplete: 'current-password' }
       },
       {
         field: 'confirmPassword',
         label: '确认密码',
         component: 'InputPassword',
-        rules: [required('请输入确认密码')],
+        required: true,
         componentProps: { autocomplete: 'current-password' }
       }
     ],

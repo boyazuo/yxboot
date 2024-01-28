@@ -1,7 +1,6 @@
 import { FormSchema } from '@/components/Form'
 import { BasicColumn } from '@/components/Table'
 import { statusEnum } from '@/utils/formEnums'
-import { required } from '@/utils/formRules'
 
 export const tableColumns: BasicColumn[] = [
   { title: '部门名称', dataIndex: 'name', align: 'left' },
@@ -21,14 +20,14 @@ export const editFormSchema: FormSchema[] = [
     field: 'name',
     label: '部门名称',
     component: 'Input',
-    rules: [required('请输入部门名称')]
+    required: true
   },
   { field: 'remark', label: '部门说明', component: 'InputTextArea' },
   {
     field: 'status',
     label: '状态',
     component: 'Select',
-    rules: [required('请选择状态')],
+    rules: [{ required: true, message: '请选择状态' }],
     defaultValue: 1,
     componentProps: { options: statusEnum }
   }

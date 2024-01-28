@@ -1,5 +1,4 @@
 import { FormSchema } from '@/components/Form'
-import { commonRules, required } from '@/utils/formRules'
 
 export const tableColumns = [
   { title: '表名', dataIndex: 'tableName' },
@@ -15,13 +14,20 @@ export const editFormSchema: FormSchema[] = [
     field: 'author',
     label: '作者',
     component: 'Input',
-    rules: [required('请输入作者')]
+    required: true
   },
   {
     field: 'email',
     label: '邮箱',
     component: 'Input',
-    rules: [required('请输入邮箱'), ...commonRules.email]
+    required: true,
+    rules: [
+      {
+        pattern: /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/,
+        message: '请输入正确的邮箱',
+        trigger: 'blur'
+      }
+    ]
   },
   { field: 'frontChecked', label: '', defaultValue: true, component: 'Switch', slot: 'frontChecked' },
   { field: 'backChecked', label: '', defaultValue: true, component: 'Switch', slot: 'backChecked' },
@@ -29,7 +35,7 @@ export const editFormSchema: FormSchema[] = [
     field: 'pkg',
     label: '后端包名',
     component: 'Input',
-    rules: [required('请输入后端包名')],
+    required: true,
     ifShow: ({ backChecked }) => backChecked
   }
 ]
