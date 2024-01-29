@@ -2,7 +2,7 @@ import { treeDept } from '@/api/sys/dept'
 import { allRole } from '@/api/sys/role'
 import { FormSchema } from '@/components/Form'
 import { BasicColumn } from '@/components/Table'
-import { statusEnum } from '@/utils/formEnums'
+import { statusOptions } from '@/enums'
 
 export const tableColumns: BasicColumn[] = [
   { title: '登录账号', dataIndex: 'username' },
@@ -33,7 +33,7 @@ export const searchFormSchema: FormSchema[] = [
     label: '状态',
     component: 'Select',
     defaultValue: 1,
-    componentProps: { allowClear: true, options: statusEnum }
+    componentProps: { allowClear: true, options: statusOptions }
   }
 ]
 
@@ -139,8 +139,8 @@ export const editFormSchema: FormSchema[] = [
     field: 'status',
     label: '状态',
     component: 'Select',
-    rules: [{ required: true, message: '请选择状态' }],
     defaultValue: 1,
-    componentProps: { options: statusEnum }
+    rules: [{ required: true, message: '请选择状态' }],
+    componentProps: { options: statusOptions }
   }
 ]

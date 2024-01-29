@@ -1,6 +1,6 @@
 import { FormSchema } from '@/components/Form'
 import { BasicColumn } from '@/components/Table'
-import { statusEnum } from '@/utils/formEnums'
+import { statusOptions } from '@/enums'
 
 export const tableColumns: BasicColumn[] = [
   { title: '角色名称', dataIndex: 'name' },
@@ -14,7 +14,7 @@ export const searchFormSchema: FormSchema[] = [
     field: 'status',
     label: '状态',
     component: 'Select',
-    componentProps: { allowClear: true, options: statusEnum }
+    componentProps: { allowClear: true, options: statusOptions }
   }
 ]
 
@@ -33,6 +33,6 @@ export const editFormSchema: FormSchema[] = [
     component: 'Select',
     rules: [{ required: true, message: '请选择状态' }],
     defaultValue: 1,
-    componentProps: { options: statusEnum }
+    componentProps: { options: statusOptions }
   }
 ]
