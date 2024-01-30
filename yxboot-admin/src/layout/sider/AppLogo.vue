@@ -1,6 +1,6 @@
 <template>
   <div class="logo" :style="{ width: `${getWidth}px` }">
-    <img src="/favicon.png" alt="" />
+    <img src="/logo.png" alt="" />
     <div class="title">{{ title }}</div>
   </div>
 </template>

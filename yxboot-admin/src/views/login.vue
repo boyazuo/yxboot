@@ -1,7 +1,7 @@
 <template>
   <div class="loginpage">
     <div class="title-box">
-      <img :class="{ 'title-img': true, small: !titleOption.subtitle }" src="/favicon.png" />
+      <img :class="{ 'title-img': true, small: !titleOption.subtitle }" src="/logo.png" />
       <div class="title">
         <div class="headline">{{ titleOption.headline }}</div>
         <div class="subtitle" v-if="titleOption.subtitle">{{ titleOption.subtitle }}</div>
