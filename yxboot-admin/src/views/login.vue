@@ -38,7 +38,8 @@
             allowClear
             :maxlength="4"
           />
-          <img class="captcha" :src="formData.captchaImage" @click="handleChangeCaptcha" />
+          <img v-if="formData.captchaImage" class="captcha" :src="formData.captchaImage" @click="handleChangeCaptcha" />
+          <img v-else class="captcha" src="../assets/images/captcha.png" @click="handleChangeCaptcha" />
         </div>
       </a-form-item>
       <a-row>
