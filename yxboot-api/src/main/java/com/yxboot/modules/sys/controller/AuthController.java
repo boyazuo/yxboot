@@ -20,7 +20,6 @@ import com.yxboot.utils.UserUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.*;
@@ -32,7 +31,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -87,7 +85,7 @@ public class AuthController {
 
     @Operation(summary = "获取验证码")
     @GetMapping("/captcha")
-    public void captcha(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public Result captcha(HttpServletRequest request) {
         // 定义验证码字典表 和取值长度
         RandomGenerator randomGenerator = new RandomGenerator(RANDOM_GENERATOR_CODE, 4);
 
@@ -100,8 +98,9 @@ public class AuthController {
         // 获取验证码中的文字内容
         String captchaCode = captcha.getCode();
         // 图形验证码写出，可以写出到文件，也可以写出到流
-        captcha.write(response.getOutputStream());
+        String base64 =  captcha.getImageBase64Data();
         request.getSession().setAttribute("captchaCode", captchaCode);
+        return Result.success("获取成功", base64);
     }
 
     @GetMapping(value = "/profile")
