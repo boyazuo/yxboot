@@ -1,10 +1,9 @@
 import colors from 'picocolors'
 import { type PluginOption } from 'vite'
-
+import pkg from '../../../package.json'
+import { getConfigFileName } from '../../getConfigFileName'
 import { getEnvConfig } from '../utils/env'
 import { createContentHash } from '../utils/hash'
-
-import pkg from '../../../package.json'
 
 const GLOBAL_CONFIG_FILE_NAME = '_app.config.js'
 const PLUGIN_NAME = 'app-config'
@@ -22,10 +21,8 @@ function createAppConfigPlugin({ isBuild }: { isBuild: boolean }): PluginOption 
   return {
     name: PLUGIN_NAME,
     async configResolved(_config) {
-      const appTitle = _config?.env?.VITE_GLOB_APP_TITLE ?? ''
-      // appTitle = appTitle.replace(/\s/g, '_').replace(/-/g, '_');
       publicPath = _config.base
-      source = await getConfigSource(appTitle)
+      source = await getConfigSource()
     },
     async transformIndexHtml(html) {
       publicPath = publicPath.endsWith('/') ? publicPath : `${publicPath}/`
@@ -60,25 +57,9 @@ function createAppConfigPlugin({ isBuild }: { isBuild: boolean }): PluginOption 
   }
 }
 
-/**
- * Get the configuration file variable name
- * @param env
- */
-const getVariableName = (title: string) => {
-  function strToHex(str: string) {
-    const result: string[] = []
-    for (let i = 0; i < str.length; ++i) {
-      const hex = str.charCodeAt(i).toString(16)
-      result.push(('000' + hex).slice(-4))
-    }
-    return result.join('').toUpperCase()
-  }
-  return `__PRODUCTION__${strToHex(title) || '__APP'}__CONF__`.toUpperCase().replace(/\s/g, '')
-}
-
-async function getConfigSource(appTitle: string) {
+async function getConfigSource() {
   const config = await getEnvConfig()
-  const variableName = getVariableName(appTitle)
+  const variableName = getConfigFileName(config)
   const windowVariable = `window.${variableName}`
   // Ensure that the variable will not be modified
   let source = `${windowVariable}=${JSON.stringify(config)};`
