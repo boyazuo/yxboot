@@ -2,32 +2,32 @@
   <a-menu
     class="yxboot-menus"
     v-if="menus.length > 0"
-    v-model:selectedKeys="selectedKeys"
-    :openKeys="openKeys"
+    v-model:selectedKeys="menuState.selectedKeys"
+    :openKeys="menuState.openKeys"
     :theme="menuTheme"
     :mode="getMenuMode"
     @click="handleMenuClick"
     @open-change="handleOpenChange"
   >
     <template v-for="menu in menus">
-      <MenuGroup v-if="isGroupMenu(menu)" :key="`menu_${menu.path}`" :menu="menu" />
+      <MenuGroup v-if="isMenuGroup(menu)" :key="`menu_${menu.path}`" :menu="menu" />
       <Menu v-else :key="`menu_${parseMenu(menu).path}`" :menu="parseMenu(menu)" />
     </template>
-    <!-- <template v-for="menu in menus">
-      <MenuGroup v-if="menu.children && menu.children.length > 0" :key="`menu_${menu.path}`" :menu="menu" />
-      <Menu v-else :key="`menu_${menu.path}`" :menu="menu" />
-    </template> -->
   </a-menu>
 </template>
 <script lang="ts" setup>
   import { SysMenu } from '@/api/model/sysModel'
   import { MenuModeEnum } from '@/enums/menuEnum'
   import { useSiderSetting } from '@/hooks/setting'
+  import { REDIRECT_NAME } from '@/router/constant'
+  import { getAllParentPath } from '@/router/helper/routeHelper'
+  import { listenerRouteChange } from '@/router/mitt/routeChange'
   import { usePermissionStoreWithOut } from '@/store/modules/permission'
   import { propTypes } from '@/utils/propTypes'
-  import { useRoute, useRouter } from 'vue-router'
+  import { RouteLocationNormalizedLoaded, useRouter } from 'vue-router'
   import Menu from './components/Menu.vue'
   import MenuGroup from './components/MenuGroup.vue'
+  import type { Key, MenuState } from './types'
 
   const { getShowSider, getCollapsed, getSiderTheme } = useSiderSetting()
 
@@ -37,6 +37,20 @@
     mode: propTypes.oneOf([MenuModeEnum.INLINE, MenuModeEnum.HORIZONTAL]).def(MenuModeEnum.INLINE)
   })
 
+  const menuState = reactive<MenuState>({
+    defaultSelectedKeys: [],
+    openKeys: [],
+    selectedKeys: [],
+    collapsedOpenKeys: []
+  })
+
+  const { currentRoute } = useRouter()
+  const router = useRouter()
+  const permission = usePermissionStoreWithOut()
+  const menus = permission.getMenus
+  const isClickGo = ref(false)
+
+  const menuTheme = computed(() => props.theme || unref(getSiderTheme))
   const getMenuMode = computed(() => {
     if (unref(getCollapsed) && unref(getShowSider)) {
       return MenuModeEnum.VERTICAL
@@ -45,37 +59,35 @@
     }
   })
 
-  const menuTheme = computed(() => props.theme || unref(getSiderTheme))
-
-  const router = useRouter()
-
-  const selectedKeys = ref<string[]>([])
-  const openKeys = ref<string[]>([])
-
-  const permission = usePermissionStoreWithOut()
-  const menus = permission.getMenus
-
   const handleMenuClick = function ({ key }: { key: string }) {
-    selectedKeys.value.splice(0, selectedKeys.value.length, key)
+    menuState.selectedKeys = [key]
+    isClickGo.value = true
     if (/http(s)?:/.test(key)) {
       window.open(key)
     } else {
       router.push(key)
     }
   }
-  const handleOpenChange = (val: any) => {
+
+  const handleOpenChange = (openKeys: string[]) => {
+    const rootSubMenuKeys: Key[] = []
+    for (const { children, path } of unref(menus)) {
+      if (children && children.length > 0) {
+        rootSubMenuKeys.push(path)
+      }
+    }
+
     if (unref(getShowSider) && !unref(getCollapsed)) {
-      const latestOpenKey: string = val[val.length - 1] || ''
-      if (latestOpenKey.indexOf('_') > -1) {
-        const [parent] = latestOpenKey.split('_')
-        openKeys.value.splice(0, openKeys.value.length, ...[parent, latestOpenKey])
+      const latestOpenKey = openKeys.find((key) => menuState.openKeys.indexOf(key) === -1)
+      if (rootSubMenuKeys.indexOf(latestOpenKey as string) === -1) {
+        menuState.openKeys = openKeys
       } else {
-        openKeys.value.splice(0, openKeys.value.length, latestOpenKey)
+        menuState.openKeys = latestOpenKey ? [latestOpenKey] : []
       }
     }
   }
 
-  const isGroupMenu = function (menu: SysMenu) {
+  const isMenuGroup = function (menu: SysMenu) {
     if (!menu.children || menu.children.length === 0) {
       return false
     }
@@ -90,31 +102,35 @@
     return menu.children && menu.children.length > 0 ? menu.children[0] : menu
   }
 
-  onMounted(async () => {
-    const route = useRoute()
-    selectedKeys.value.splice(0, selectedKeys.value.length, route.fullPath)
-    const resolve = router.resolve(route)
-    const { matched } = resolve
-    if (matched.length && unref(getShowSider) && !unref(getCollapsed)) {
-      openKeys.value.splice(0, openKeys.value.length)
-      matched.forEach((o) => {
-        if (o.meta.menuId) {
-          const parents = openKeys.value.join('_')
-          if (parents) {
-            openKeys.value.push(`${parents}_${o.meta.menuId}`)
-          } else {
-            openKeys.value.push(`${o.meta.menuId}`)
-          }
-        }
-      })
-    }
-    watch(
-      () => route.fullPath,
-      () => {
-        selectedKeys.value.splice(0, selectedKeys.value.length, route.fullPath)
-      }
-    )
+  listenerRouteChange((route) => {
+    if (route.name === REDIRECT_NAME) return
+    handleMenuChange(route)
   })
+
+  async function handleMenuChange(route?: RouteLocationNormalizedLoaded) {
+    if (unref(isClickGo)) {
+      isClickGo.value = false
+      return
+    }
+    const path: string = (route || unref(currentRoute)).path
+    setOpenKeys(path)
+    if (unref(getShowSider) && !unref(getCollapsed)) {
+      const parentPaths = await getAllParentPath(menus, path)
+      menuState.selectedKeys = parentPaths
+    }
+  }
+
+  async function setOpenKeys(path: string) {
+    if (getMenuMode.value === MenuModeEnum.HORIZONTAL) {
+      return
+    }
+    const menuList = toRaw(menus)
+    if (menuList?.length === 0) {
+      menuState.openKeys = []
+      return
+    }
+    menuState.openKeys = getAllParentPath(menuList, path)
+  }
 </script>
 <style lang="less" scope>
   .yxboot-menus {

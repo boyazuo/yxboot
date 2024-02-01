@@ -1,5 +1,5 @@
 <template>
-  <a-sub-menu :key="`${parent.menuId ? parent.menuId + '_' : ''}${menu.menuId}`">
+  <a-sub-menu :key="`${parent.path ? parent.path + '_' : ''}${menu.path}`">
     <template #icon v-if="menu.icon">
       <Icon :icon="menu.icon" size="18" />
     </template>
@@ -13,10 +13,10 @@
       <menu-group
         :parent="menu"
         :menu="item"
-        :key="`${fullPrefix}${item.path}`"
+        :key="`group_${fullPrefix}${item.path}`"
         v-if="item.children && item.children.length > 0"
       />
-      <Menu :menu="item" :key="`${fullPrefix}${item.path}`" v-else />
+      <Menu :menu="item" :key="`menu_${fullPrefix}${item.path}`" v-else />
     </template>
   </a-sub-menu>
 </template>
