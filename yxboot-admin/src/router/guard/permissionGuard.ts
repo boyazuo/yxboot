@@ -63,7 +63,6 @@ export function createPermissionGuard(router: Router) {
     }
 
     await loadPermissionRoutes(router)
-    console.log('router111', router.getRoutes())
 
     // router.addRoute(PAGE_NOT_FOUND_ROUTE as unknown as RouteRecordRaw)
     if (to.name === PAGE_NOT_FOUND_ROUTE.name) {

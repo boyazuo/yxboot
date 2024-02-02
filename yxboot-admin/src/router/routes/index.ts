@@ -7,7 +7,7 @@ import { PERSONAL_ROUTE } from './personal'
 // 根路由
 export const HOME_ROUTE: RouteRecordRaw = {
   path: '/',
-  name: 'Index2',
+  name: 'Index',
   component: LAYOUT,
   redirect: PageEnum.BASE_HOME,
   children: [

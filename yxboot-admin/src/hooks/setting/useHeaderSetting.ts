@@ -20,8 +20,6 @@ export function useHeaderSetting() {
 
   const getFixed = computed(() => appStore.getHeaderSetting.fixed)
 
-  const getHeaderBgColor = computed(() => appStore.getHeaderSetting.bgColor)
-
   const getUseLockPage = computed(() => appStore.getHeaderSetting.useLockPage)
 
   const getShowFullScreen = computed(() => appStore.getHeaderSetting.showFullScreen)
@@ -54,7 +52,6 @@ export function useHeaderSetting() {
     getShowHeaderLogo,
     getShowHeader,
     getFixed,
-    getShowMixHeaderRef,
-    getHeaderBgColor
+    getShowMixHeaderRef
   }
 }

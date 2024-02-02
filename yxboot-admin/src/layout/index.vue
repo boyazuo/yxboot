@@ -10,11 +10,10 @@
 </template>
 
 <script lang="ts" setup>
-  import LayoutHeader from './header/index.vue'
-  import LayoutSider from './sider/index.vue'
-  // import LayoutTags from './tags/index.vue'
   import { useHeaderSetting, useMultipleTabSetting, useSiderSetting } from '@/hooks/setting'
   import LayoutContent from './content/index.vue'
+  import LayoutHeader from './header/index.vue'
+  import LayoutSider from './sider/index.vue'
   import Tabs from './tabs/index.vue'
 
   const { getShowSider } = useSiderSetting()

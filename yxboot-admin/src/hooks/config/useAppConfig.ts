@@ -16,13 +16,16 @@ import { storeToRefs } from 'pinia'
 import { useMenuSetting } from '../setting/useMenuSetting'
 import { useThemeSetting } from '../setting/useThemeSetting'
 import { updateDarkTheme } from './dark'
-import { updateHeaderBgColor } from './updateBackground'
 
 // Initial project configuration
 export function initAppConfig() {
   let appCfg: AppSetting = Persistent.getLocal(APP_CFG_KEY) as AppSetting
+  console.log('appCfg', appCfg)
   appCfg = deepMerge(appSetting, appCfg || {})
   initAppConfigStore(appCfg)
+
+  // Init Dark Theme
+  updateDarkTheme(appCfg.themeSetting.theme)
 }
 
 export const useAppConfig = () => {
@@ -74,7 +77,6 @@ export const useAppConfig = () => {
       })
       updateDarkTheme(ThemeEnum.DARK)
     }
-    updateHeaderBgColor()
   }
 
   function changeMenuType(type: MenuTypeEnum) {

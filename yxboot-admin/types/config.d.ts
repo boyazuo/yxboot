@@ -45,7 +45,6 @@ export interface MultiTabsSetting {
 }
 
 export interface HeaderSetting {
-  bgColor: string
   fixed: boolean
   show: boolean
   theme: ThemeEnum

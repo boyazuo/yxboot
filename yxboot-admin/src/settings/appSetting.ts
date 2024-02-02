@@ -66,8 +66,6 @@ const setting: AppSetting = {
 
   // Header configuration
   headerSetting: {
-    // header bg color
-    bgColor: '#ffffff',
     // Fixed at the top
     fixed: true,
     // Whether to show top
