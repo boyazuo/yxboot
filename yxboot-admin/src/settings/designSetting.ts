@@ -6,15 +6,14 @@ export const darkMode = ThemeEnum.LIGHT
 
 // app theme preset color
 export const APP_PRESET_COLOR_LIST: string[] = [
-  '#0960bd',
-  '#0084f4',
-  '#009688',
-  '#536dfe',
-  '#ff5c93',
-  '#ee4f12',
-  '#0096c7',
-  '#9c27b0',
-  '#ff9800'
+  '#1677ff',
+  '#f5222d',
+  '#fa541c',
+  '#faad14',
+  '#13c2c2',
+  '#52c41a',
+  '#2f54eb',
+  '#722ed1'
 ]
 
 // sider preset color

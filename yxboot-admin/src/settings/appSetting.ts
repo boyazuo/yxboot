@@ -13,11 +13,11 @@ const setting: AppSetting = {
     theme: ThemeEnum.LIGHT,
     themeType: ThemeTypeEnum.DARK,
     borderRadius: 4,
-    primaryColor: '#0960bd',
-    successColor: '#55D187',
-    warningColor: '#EFBD47',
-    errorColor: '#ED6F6F',
-    infoColor: '#0960bd'
+    primaryColor: '#1677ff',
+    successColor: '#52c41a',
+    warningColor: '#faad14',
+    errorColor: '#ff4d4f',
+    infoColor: '#1677ff'
   },
 
   // Project configuration
@@ -55,7 +55,7 @@ const setting: AppSetting = {
 
   // Sider Configuration
   siderSetting: {
-    theme: ThemeEnum.LIGHT,
+    theme: ThemeEnum.DARK,
     fixed: false,
     show: true,
     width: 210,
