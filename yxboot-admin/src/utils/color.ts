@@ -1,5 +1,3 @@
-import { generate } from '@ant-design/colors'
-
 /**
  * 判断是否 十六进制颜色值.
  * 输入形式可为 #fff000 #f00
@@ -147,27 +145,4 @@ function subtractLight(color: string, amount: number) {
   const cc = parseInt(color, 16) - amount
   const c = cc < 0 ? 0 : cc
   return c.toString(16).length > 1 ? c.toString(16) : `0${c.toString(16)}`
-}
-
-interface GenerateColorsOptions {
-  theme?: 'dark' | 'default'
-  backgroundColor?: string
-}
-
-type GeneratedColors = [
-  string, //最浅色
-  string,
-  string,
-  string,
-  string,
-  string, //基本色
-  string,
-  string,
-  string,
-  string //最深色
-]
-export function generateColors(color: string, opts: GenerateColorsOptions = { theme: 'default' }) {
-  return generate(color, {
-    ...opts
-  }) as GeneratedColors
 }

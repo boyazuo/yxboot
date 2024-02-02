@@ -57,7 +57,16 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
       cssTarget: 'chrome80',
       outDir: OUTPUT_DIR,
       reportCompressedSize: false,
-      chunkSizeWarningLimit: 2000
+      chunkSizeWarningLimit: 1500,
+      rollupOptions: {
+        maxParallelFileOps: 3,
+        output: {
+          manualChunks: {
+            vue: ['vue', 'pinia', 'vue-router'],
+            antd: ['ant-design-vue', '@ant-design/icons-vue']
+          }
+        }
+      }
     },
     define: {
       __APP_INFO__: JSON.stringify(__APP_INFO__)
