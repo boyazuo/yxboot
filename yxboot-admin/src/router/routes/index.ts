@@ -1,14 +1,13 @@
 import { PageEnum } from '@/enums/pageEnum'
 import { LAYOUT } from '@/router/constant'
 import { RouteRecordRaw } from 'vue-router'
-import { ABOUT_ROUTE } from './about'
 import { PAGE_NOT_FOUND_ROUTE, REDIRECT_ROUTE } from './basic'
 import { PERSONAL_ROUTE } from './personal'
 
 // 根路由
 export const HOME_ROUTE: RouteRecordRaw = {
   path: '/',
-  name: 'Index',
+  name: 'Index2',
   component: LAYOUT,
   redirect: PageEnum.BASE_HOME,
   children: [
@@ -34,4 +33,4 @@ export const LOGIN_ROUTE: RouteRecordRaw = {
 
 // Basic routing without permission
 // 未经许可的基本路由
-export const basicRoutes = [LOGIN_ROUTE, HOME_ROUTE, REDIRECT_ROUTE, PAGE_NOT_FOUND_ROUTE, ABOUT_ROUTE, PERSONAL_ROUTE]
+export const basicRoutes = [HOME_ROUTE, LOGIN_ROUTE, REDIRECT_ROUTE, PAGE_NOT_FOUND_ROUTE, PERSONAL_ROUTE]

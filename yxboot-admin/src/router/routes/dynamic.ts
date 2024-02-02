@@ -2,9 +2,7 @@ import type { Router, RouteRecordRaw } from 'vue-router'
 
 import { permissions } from '@/api/sys/auth'
 import { PageEnum } from '@/enums/pageEnum'
-import { useMessage } from '@/hooks/web/useMessage'
 import { convertMenuToRoute, isLayoutComponent, wrapperSingleMenu } from '@/router/helper/routeHelper'
-import { HOME_ROUTE } from '@/router/routes'
 import { usePermissionStoreWithOut } from '@/store/modules/permission'
 import { listToTree } from '@/utils/helper/trees'
 
@@ -41,20 +39,13 @@ const patchHomeAffix = (routes: RouteRecordRaw[]) => {
 }
 
 export async function loadPermissionRoutes(router: Router) {
-  const { createMessage } = useMessage()
   const permissionStore = usePermissionStoreWithOut()
 
   let routes: RouteRecordRaw[] = []
 
-  createMessage.loading({
-    content: '菜单加载中...',
-    duration: 1
-  })
-
   const res = await permissions()
 
   // Dynamically introduce components
-  //let menus = res.data || []
   const menus = res.data.filter((item: any) => [1, 2].indexOf(item.type) > -1)
   const menusTree = listToTree(menus, { id: 'menuId' })
   const code = res.data.filter((item) => !!item.code).map((item) => item.code)
@@ -64,8 +55,6 @@ export async function loadPermissionRoutes(router: Router) {
   routes = menusTree.map((item) =>
     !isLayoutComponent(item.component) ? wrapperSingleMenu(item) : convertMenuToRoute(item)
   )
-
-  routes.push(HOME_ROUTE)
 
   permissionStore.setLoaded(true)
   patchHomeAffix(routes)

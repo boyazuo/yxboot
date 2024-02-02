@@ -12,7 +12,7 @@ export const PERSONAL_ROUTE: RouteRecordRaw = {
       name: 'personalPage',
       component: () => import('@/views/sys/personal/personal.vue'),
       meta: {
-        title: '关于',
+        title: '个人中心',
         icon: 'ant-design:user-outlined',
         hideMenu: true
       }
