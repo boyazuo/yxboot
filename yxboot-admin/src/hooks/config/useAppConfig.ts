@@ -20,7 +20,6 @@ import { updateDarkTheme } from './dark'
 // Initial project configuration
 export function initAppConfig() {
   let appCfg: AppSetting = Persistent.getLocal(APP_CFG_KEY) as AppSetting
-  console.log('appCfg', appCfg)
   appCfg = deepMerge(appSetting, appCfg || {})
   initAppConfigStore(appCfg)
 
