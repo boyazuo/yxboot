@@ -1,11 +1,10 @@
 <template>
-  <Card title="访问来源" :loading="loading">
+  <a-card title="访问来源" :loading="loading">
     <div ref="chartRef" :style="{ width, height }"></div>
-  </Card>
+  </a-card>
 </template>
 <script lang="ts" setup>
   import { useECharts } from '@/hooks/web/useECharts'
-  import { Card } from 'ant-design-vue'
   import type { PropType } from 'vue'
   import { Ref, ref, watch } from 'vue'
 
@@ -13,13 +12,15 @@
     loading: Boolean,
     width: {
       type: String as PropType<string>,
-      default: '100%'
+      default: '100%',
+      required: true
     },
     height: {
       type: String as PropType<string>,
       default: '300px'
     }
   })
+
   const chartRef = ref<HTMLDivElement | null>(null)
   const { setOptions } = useECharts(chartRef as Ref<HTMLDivElement>)
 

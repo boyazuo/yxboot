@@ -15,7 +15,12 @@ module.exports = {
       jsx: true
     }
   },
-  extends: ['plugin:vue/vue3-recommended', 'plugin:@typescript-eslint/recommended', 'plugin:prettier/recommended'],
+  extends: [
+    'eslint:recommended',
+    'plugin:vue/vue3-recommended',
+    'plugin:@typescript-eslint/recommended',
+    'plugin:prettier/recommended'
+  ],
   rules: {
     'vue/script-setup-uses-vars': 'error',
     '@typescript-eslint/ban-ts-ignore': 'off',
@@ -69,5 +74,6 @@ module.exports = {
     ],
     'vue/multi-word-component-names': 'off',
     'vue/no-reserved-component-names': 'off'
-  }
+  },
+  globals: { defineOptions: 'readonly' }
 }

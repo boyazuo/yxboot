@@ -3,6 +3,7 @@
 </template>
 <script lang="ts" setup>
   import { useECharts } from '@/hooks/web/useECharts'
+  import { defineProps, onMounted, ref, Ref } from 'vue'
   import { basicProps } from './props'
 
   defineProps({

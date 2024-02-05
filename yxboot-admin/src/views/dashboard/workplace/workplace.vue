@@ -21,6 +21,7 @@
   </div>
 </template>
 <script lang="ts" setup>
+  import { ref } from 'vue'
   import DynamicInfo from './components/DynamicInfo.vue'
   import ProjectCard from './components/ProjectCard.vue'
   import QuickNav from './components/QuickNav.vue'
@@ -30,5 +31,5 @@
 
   setTimeout(() => {
     loading.value = false
-  }, 1500)
+  }, 1000)
 </script>
