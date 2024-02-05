@@ -1,11 +1,4 @@
-import type {
-  ComponentPublicInstance,
-  ComponentRenderProxy,
-  FunctionalComponent,
-  VNode,
-  VNodeChild,
-  PropType as VuePropType
-} from 'vue'
+import type { ComponentPublicInstance, ComponentRenderProxy, FunctionalComponent, VNode, VNodeChild } from 'vue'
 
 declare global {
   const __APP_INFO__: {
@@ -17,13 +10,9 @@ declare global {
     }
     lastBuildTime: string
   }
-  // declare interface Window {
-  //   // Global vue app instance
-  //   __APP__: App<Element>;
-  // }
 
   // vue
-  declare type PropType<T> = VuePropType<T>
+  // declare type PropType<T> = VuePropType<T>
   declare type VueNode = VNodeChild | JSX.Element
 
   export type Writable<T> = {
@@ -33,10 +22,10 @@ declare global {
   declare type Nullable<T> = T | null
   declare type NonNullable<T> = T extends null | undefined ? never : T
   declare type Recordable<T = any> = Record<string, T>
-  declare type ReadonlyRecordable<T = any> = {
+  declare interface ReadonlyRecordable<T = any> {
     readonly [key: string]: T
   }
-  declare type Indexable<T = any> = {
+  declare interface Indexable<T = any> {
     [key: string]: T
   }
   declare type DeepPartial<T> = {
@@ -44,34 +33,6 @@ declare global {
   }
   declare type TimeoutHandle = ReturnType<typeof setTimeout>
   declare type IntervalHandle = ReturnType<typeof setInterval>
-
-  interface Fn<T = any, R = T> {
-    (...arg: T[]): R
-  }
-
-  interface PromiseFn<T = any, R = T> {
-    (...arg: T[]): Promise<R>
-  }
-
-  type RefType<T> = T | null
-
-  type LabelValueOptions = {
-    label: string
-    value: any
-    [key: string]: string | number | boolean
-  }[]
-
-  type EmitType = (event: string, ...args: any[]) => void
-
-  type TargetContext = '_self' | '_blank'
-
-  interface ComponentElRef<T extends HTMLElement = HTMLDivElement> {
-    $el: T
-  }
-
-  type ComponentRef<T extends HTMLElement = HTMLDivElement> = ComponentElRef<T> | null
-
-  type ElRef<T extends HTMLElement = HTMLDivElement> = Nullable<T>
 
   declare interface ChangeEvent extends Event {
     target: HTMLInputElement

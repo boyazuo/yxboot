@@ -71,7 +71,6 @@
 </template>
 <script lang="ts" setup>
   import { DownloadOutlined, EditOutlined, SearchOutlined, ShareAltOutlined } from '@ant-design/icons-vue'
-  import { h } from 'vue'
 </script>
 <style scoped>
   .page-wrapper {

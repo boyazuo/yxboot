@@ -5,7 +5,6 @@
 </template>
 <script lang="ts" setup>
   import { useECharts } from '@/hooks/web/useECharts'
-  import type { PropType } from 'vue'
   import { Ref, ref, watch } from 'vue'
 
   const props = defineProps({
