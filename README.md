@@ -78,4 +78,5 @@ YXBoot 是一个开箱即用的前后台管理系统框架。YXBoot 以前后端
 
 ## 交流
 YXBoot 是完全开源免费的项目，在帮助开发者更方便地进行中大型管理系统开发。如果遇到问题或者想交流 YXBoot，可以添加微信（请备注“YXBoot”）。
+
 <img src="https://yxboot-oss.oss-cn-beijing.aliyuncs.com/images/weixin-boya.png" width="300" />
