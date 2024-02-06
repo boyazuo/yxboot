@@ -81,7 +81,7 @@
 
   const titleOption = {
     title: 'YXBoot' || useGlobSetting().title,
-    desc: 'YXBoot 一个开箱即用的前后端解决方案'
+    desc: 'YXBoot 一个开箱即用的前后台管理系统框架'
   }
 
   const formData = reactive({
