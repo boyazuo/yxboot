@@ -20,7 +20,7 @@ YXBoot 是一个开箱即用的前后台管理系统框架。YXBoot 以前后端
 
 ## 技术架构
 
-### 开发环境
+#### 开发环境
 - 语言：JAVA 17
 - IDE（后端）：IDEA
 - IDE（前端）：VS Code、 IDEA
@@ -29,14 +29,14 @@ YXBoot 是一个开箱即用的前后台管理系统框架。YXBoot 以前后端
 - 数据库： MySQL
 - 前端构建：node(>=16.15.1)、pnpm(>=8.1.0)
 
-### 后端
+#### 后端
 - 基础框架：Spring Boot 3.1.3
 - 安全框架：Spring Security、JWT
 - 持久层框架： MyBatis Plus
 - 数据库连接池：Druid
 - 其他：Swagger、Hutool、Freemarker 等
 
-### 前端
+#### 前端
 - 基础框架：Vue 3.3.4
 - UI 库：Ant design Vue 4.1.1
 - 状态管理：pinia 2.1.7
