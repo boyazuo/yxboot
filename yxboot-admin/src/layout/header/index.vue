@@ -8,7 +8,7 @@
     </div>
 
     <div class="layout-header__menu">
-      <Breadcrumb v-if="isSidebarType && getShowBread" />
+      <Breadcrumb v-if="(isSidebarType || isMixSidebarType) && getShowBread" />
       <LayoutMenu v-if="isTopMenuType" :mode="MenuModeEnum.HORIZONTAL" :theme="getHeaderTheme" />
       <MixMenu v-if="isMixTopType" :mode="MenuModeEnum.HORIZONTAL" :theme="getHeaderTheme" />
     </div>
