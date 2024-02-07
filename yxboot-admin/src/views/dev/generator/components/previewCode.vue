@@ -21,6 +21,19 @@
   defineExpose({ loadPreviewCode })
 </script>
 <style lang="less" scoped>
+  html[data-theme='dark'] {
+    .editor {
+      background-color: #303133;
+      border: 1px solid var(--border-color);
+      color: #fff;
+    }
+
+    .editor:focus {
+      border: 1px solid var(--primary-color);
+      outline: none;
+    }
+  }
+
   .editor {
     width: 100%;
     height: 600px;

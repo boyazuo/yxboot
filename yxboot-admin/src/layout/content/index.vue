@@ -29,7 +29,7 @@
 
     .layout-content {
       flex: 1 1 auto;
-      padding: 10px;
+      margin: 10px;
     }
   }
 </style>
