@@ -37,10 +37,10 @@ YXBoot 是一个开箱即用的前后台管理系统框架。YXBoot 以前后端
 - 其他：Swagger、Hutool、Freemarker 等
 
 #### 前端
-- 基础框架：Vue 3.3.4
-- UI 库：Ant design Vue 4.1.1
+- 基础框架：Vue 3.4.15
+- UI 库：Ant design Vue 4.1.2
 - 状态管理：pinia 2.1.7
-- 打包：Vite 5.0.10
+- 打包：Vite 5.0.12
 - 其他：axios、lodash、dayjs 等
 
 ## 预览
