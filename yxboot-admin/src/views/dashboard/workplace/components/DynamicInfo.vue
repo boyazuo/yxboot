@@ -13,7 +13,7 @@
             <!-- eslint-disable-next-line -->
             <template #title> {{ item.name }} <span v-html="item.desc"> </span> </template>
             <template #avatar>
-              <img :src="item.avatar" :size="30" width="30px" height="30px" />
+              <img :src="item.avatar" :size="30" width="30" height="30" />
             </template>
           </a-list-item-meta>
         </a-list-item>

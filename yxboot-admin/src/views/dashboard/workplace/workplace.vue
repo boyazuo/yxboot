@@ -9,11 +9,6 @@
     </div>
     <div class="lg:w-3/10 w-full enter-y">
       <QuickNav :loading="loading" class="enter-y" />
-
-      <!-- <Card class="!my-4 enter-y" :loading="loading">
-        <img class="xl:h-50 h-30 mx-auto" src="../../../assets/svg/illustration.svg" />
-      </Card>
-       -->
       <a-card class="!my-4 enter-y" :loading="loading">
         <a-calendar :fullscreen="false" />
       </a-card>
