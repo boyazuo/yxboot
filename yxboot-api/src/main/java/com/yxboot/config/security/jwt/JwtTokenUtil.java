@@ -6,12 +6,14 @@ import com.yxboot.common.vo.AccountToken;
 import com.yxboot.modules.sys.entity.SysUser;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.security.Keys;
+import io.jsonwebtoken.security.SecureDigestAlgorithm;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import javax.crypto.SecretKey;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -26,6 +28,11 @@ public class JwtTokenUtil {
     private static final String CLAIM_KEY_USERNAME = "sub";
     private static final String CLAIM_KEY_CREATED = "created";
 
+    private final static SecureDigestAlgorithm<SecretKey, SecretKey> ALGORITHM = Jwts.SIG.HS256;
+    private final static String SECRET = "secret-key-for-yxboot-admin-demo";
+    public static final SecretKey KEY = Keys.hmacShaKeyFor(SECRET.getBytes());
+
+
     @Value("${jwt.secret}")
     private String secret;
     @Value("${jwt.expiration}")
@@ -38,9 +45,13 @@ public class JwtTokenUtil {
      */
     private String generateToken(Map<String, Object> claims) {
         return Jwts.builder()
-                .setClaims(claims)
-                .setExpiration(generateExpirationDate())
-                .signWith(SignatureAlgorithm.HS512, secret)
+                .header()
+                .add("typ", "JWT")
+                .add("alg", "HS256")
+                .and()
+                .claims(claims)
+                .expiration(generateExpirationDate())
+                .signWith(KEY, ALGORITHM)
                 .compact();
     }
 
@@ -51,9 +62,10 @@ public class JwtTokenUtil {
         Claims claims = null;
         try {
             claims = Jwts.parser()
-                    .setSigningKey(secret)
-                    .parseClaimsJws(token)
-                    .getBody();
+                    .verifyWith(KEY)
+                    .build()
+                    .parseSignedClaims(token)
+                    .getPayload();
         } catch (Exception e) {
             LOGGER.info("JWT格式验证失败:{}", token);
         }

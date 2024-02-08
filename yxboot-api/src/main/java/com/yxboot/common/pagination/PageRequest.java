@@ -44,6 +44,10 @@ public class PageRequest {
     }
 
     private OrderItem build(String column, String order) {
-        return new OrderItem(column, StrUtil.equals(order, ORDER_ASC));
+        if (StrUtil.equals(order, ORDER_ASC)) {
+            return OrderItem.asc(column);
+        } else {
+            return OrderItem.desc(column);
+        }
     }
 }
