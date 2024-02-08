@@ -7,7 +7,7 @@
 
 ## 简介
 
-YXBoot 是一个开箱即用的前后台管理系统框架。YXBoot 以前后端分离的方式整合了前后端框架，前端框架使用了最新的`vue3`,`vite4`, `Ant Design Vue 4.0`,`TypeScript`等主流技术开发，后端框架使用了最新的`SpringBoot3`,`Spring Security`,`JWT`等技术。
+YXBoot 是一个开箱即用的前后台管理系统框架。YXBoot 以前后端分离的方式整合了前后端框架，前端框架使用了最新的`vue3`, `vite4`, `Ant Design Vue 4.0`, `TypeScript` 等主流技术开发，后端框架使用了最新的`SpringBoot3`, `Spring Security`, `JWT` 等技术。
 
 ## 特性
 
@@ -30,7 +30,7 @@ YXBoot 是一个开箱即用的前后台管理系统框架。YXBoot 以前后端
 - 前端构建：node(>=16.15.1)、pnpm(>=8.1.0)
 
 #### 后端
-- 基础框架：Spring Boot 3.1.3
+- 基础框架：Spring Boot 3.2.2
 - 安全框架：Spring Security、JWT
 - 持久层框架： MyBatis Plus
 - 数据库连接池：Druid
