@@ -2,8 +2,8 @@ import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 import { PluginOption } from 'vite'
 
+import UnoCSS from 'unocss/vite'
 import purgeIcons from 'vite-plugin-purge-icons'
-import windiCSS from 'vite-plugin-windicss'
 
 import { createAppConfigPlugin } from './appConfig'
 import { configComponentsPlugin } from './components'
@@ -26,8 +26,8 @@ function createPlugins({ isBuild, compress }: Options) {
   const appConfigPlugin = createAppConfigPlugin({ isBuild })
   vitePlugins.push(appConfigPlugin)
 
-  // vite-plugin-windicss
-  vitePlugins.push(windiCSS())
+  // unocss
+  vitePlugins.push(UnoCSS())
 
   // vite-plugin-html
   vitePlugins.push(configHtmlPlugin({ isBuild }))
