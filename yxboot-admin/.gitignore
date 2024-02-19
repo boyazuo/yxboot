@@ -14,7 +14,7 @@ dist-ssr
 auto-imports.d.ts
 components.d.ts
 
-# Editor directories and files
+# Editor directories and files 1111
 .idea
 .DS_Store
 *.suo
