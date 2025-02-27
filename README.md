@@ -34,7 +34,7 @@ YXBoot 是一个开箱即用的前后台管理系统框架。YXBoot 以前后端
 - 安全框架：Spring Security、JWT
 - 持久层框架： MyBatis Plus
 - 数据库连接池：Druid
-- 其他：Swagger、Hutool、Freemarker 等
+- 其他：Swagger、Hutool 等
 
 #### 前端
 - 基础框架：Vue 3.4.15

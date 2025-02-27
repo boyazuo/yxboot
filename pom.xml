@@ -12,16 +12,16 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.2.2</version>
+        <version>3.4.3</version>
     </parent>
 
     <properties>
         <yxboot.version>1.0.0</yxboot.version>
-        <lombok.version>1.18.30</lombok.version>
-        <hutool.version>5.8.25</hutool.version>
-        <mybatis-plus.version>3.5.5</mybatis-plus.version>
+        <lombok.version>1.18.36</lombok.version>
+        <hutool.version>5.8.36</hutool.version>
+        <mybatis-plus.version>3.5.10</mybatis-plus.version>
         <mysql-connector.version>8.3.0</mysql-connector.version>
-        <druid.version>1.2.21</druid.version>
+        <druid.version>1.2.24</druid.version>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>

@@ -13,14 +13,6 @@ server:
   shutdown: graceful
 
 spring:
-  freemarker:
-    cache: false
-    charset: UTF-8
-    allow-request-override: false
-    expose-session-attributes: true
-    settings:
-      template_update_delay: 0
-      classic_compatible: true # if判读为空不报错
   profiles:
     active: dev
   lifecycle:
@@ -83,7 +75,7 @@ jwt:
   tokenHeader: Authorization #JWT存储的请求头
   secret: yunxing #JWT加解密使用的密钥
   expiration: 604800 #JWT的超期限时间(60*60*24*7)
-  tokenHead: 'Bearer '  #JWT负载中拿到开头
+  tokenHead: "Bearer " #JWT负载中拿到开头
 
 jetcache:
   statIntervalMinutes: 15
@@ -106,7 +98,6 @@ jetcache:
       port: 6379
       password: 123456
 
-
 # springdoc-openapi项目配置
 springdoc:
   swagger-ui:
@@ -116,8 +107,8 @@ springdoc:
   api-docs:
     path: /v3/api-docs
   group-configs:
-    - group: 'default'
-      paths-to-match: '/**'
+    - group: "default"
+      paths-to-match: "/**"
       packages-to-scan: com.yxboot
 
 # knife4j的增强配置，不需要增强可以不配

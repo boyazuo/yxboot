@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-
 /**
  * 部门表 Api
  *
@@ -24,6 +23,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/sys/dept")
 @RequiredArgsConstructor
+@SuppressWarnings("rawtypes")
 @Tag(name = "【系统模块】部门表 Api")
 public class SysDeptController {
     private final SysDeptService sysDeptService;
@@ -45,8 +45,8 @@ public class SysDeptController {
     @GetMapping("/get")
     @Operation(summary = "查询详情接口")
     public Result get(@RequestParam Long deptId) {
-        SysDept sysDept =sysDeptService.getById(deptId);
-        return Result.success("查询成功！", sysDept );
+        SysDept sysDept = sysDeptService.getById(deptId);
+        return Result.success("查询成功！", sysDept);
     }
 
     @PostMapping("/save")
@@ -61,9 +61,9 @@ public class SysDeptController {
     @SysLogOperation(value = "删除部门信息")
     @Operation(summary = "删除信息接口")
     public Result remove(Long deptId) {
-     List<SysDept> sysDepts=   sysDeptService.queryByParentId(deptId);
-        if (CollUtil.isNotEmpty(sysDepts)){
-            return  Result.error("删除失败！当前部门下有子级部门不可删除");
+        List<SysDept> sysDepts = sysDeptService.queryByParentId(deptId);
+        if (CollUtil.isNotEmpty(sysDepts)) {
+            return Result.error("删除失败！当前部门下有子级部门不可删除");
         }
         sysDeptService.removeById(deptId);
         return Result.success("删除成功！");
