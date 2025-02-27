@@ -2,7 +2,6 @@ import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 import { PluginOption } from 'vite'
 
-import UnoCSS from 'unocss/vite'
 import purgeIcons from 'vite-plugin-purge-icons'
 
 import { createAppConfigPlugin } from './appConfig'
@@ -20,13 +19,14 @@ interface Options {
   enableAnalyze?: boolean
 }
 
-function createPlugins({ isBuild, compress }: Options) {
+async function createPlugins({ isBuild, compress }: Options) {
   const vitePlugins: (PluginOption | PluginOption[])[] = [vue(), vueJsx()]
 
   const appConfigPlugin = createAppConfigPlugin({ isBuild })
   vitePlugins.push(appConfigPlugin)
 
   // unocss
+  const { default: UnoCSS } = await import('unocss/vite')
   vitePlugins.push(UnoCSS())
 
   // vite-plugin-html

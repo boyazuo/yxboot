@@ -14,8 +14,7 @@ export interface UserState {
   token?: string
 }
 
-export const useUserStore = defineStore({
-  id: 'userStore',
+export const useUserStore = defineStore('userStore', {
   state: (): UserState => ({
     user: null,
     token: ''

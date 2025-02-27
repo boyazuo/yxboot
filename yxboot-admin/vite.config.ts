@@ -7,7 +7,7 @@ import { generateModifyVars } from './build/generate/generateModifyVars'
 import { wrapperEnv } from './build/utils'
 import { createPlugins } from './build/vite/plugin'
 import { createProxy } from './build/vite/proxy'
-import pkg from './package.json'
+import pkg from './package.json' assert { type: 'json' }
 
 function pathResolve(dir: string) {
   return resolve(process.cwd(), '.', dir)
@@ -19,7 +19,7 @@ const __APP_INFO__ = {
   lastBuildTime: dayjs().format('YYYY-MM-DD HH:mm:ss')
 }
 
-export default ({ command, mode }: ConfigEnv): UserConfig => {
+export default async ({ command, mode }: ConfigEnv): Promise<UserConfig> => {
   const root = process.cwd()
   const env = loadEnv(mode, root)
   // The boolean type read by loadEnv is a string. This function can be converted to boolean type
@@ -79,7 +79,7 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
         }
       }
     },
-    plugins: createPlugins({
+    plugins: await createPlugins({
       isBuild,
       root,
       compress: VITE_BUILD_COMPRESS

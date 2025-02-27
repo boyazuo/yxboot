@@ -9,8 +9,7 @@ export interface PermissionState {
   menusCode: Array<SysMenu>
   loaded: boolean
 }
-export const usePermissionStore = defineStore({
-  id: 'permissionStore',
+export const usePermissionStore = defineStore('permissionStore', {
   state: (): PermissionState => ({
     origin: [],
     menus: [],
