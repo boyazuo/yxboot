@@ -12,6 +12,9 @@ public class Dict implements Serializable {
     private String label;
     private String value;
 
+    public Dict() {
+    }
+
     public Dict(String value) {
         this.value = value;
     }
