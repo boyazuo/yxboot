@@ -142,6 +142,14 @@ export function useColumns(
     const viewColumns = sortFixedColumn(unref(getColumnsRef))
 
     const columns = cloneDeep(viewColumns)
+
+    // 处理 dataIndex 为嵌套格式的情况
+    columns.forEach((item) => {
+      if (typeof item.dataIndex === 'string' && item.dataIndex.indexOf('.') > -1) {
+        item.dataIndex = item.dataIndex.split('.')
+      }
+    })
+
     return columns
       .filter((column) => {
         return isIfShow(column)
