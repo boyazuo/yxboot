@@ -101,25 +101,25 @@ export const useAppConfigStore = defineStore('APP_CONFIG', {
   },
   actions: {
     setThemeSetting(value) {
-      this.themeSetting = value
+      this.themeSetting = { ...this.themeSetting, ...value }
     },
     setProjectSetting(value) {
-      this.projectSetting = value
+      this.projectSetting = { ...this.projectSetting, ...value }
     },
     setSiderSetting(value) {
-      this.siderSetting = value
+      this.siderSetting = { ...this.siderSetting, ...value }
     },
     setHeaderSetting(value) {
-      this.headerSetting = value
+      this.headerSetting = { ...this.headerSetting, ...value }
     },
     setMenuSetting(value) {
-      this.menuSetting = value
+      this.menuSetting = { ...this.menuSetting, ...value }
     },
     setMultiTabsSetting(value) {
-      this.multiTabsSetting = value
+      this.multiTabsSetting = { ...this.multiTabsSetting, ...value }
     },
     setTransitionSetting(value) {
-      this.transitionSetting = value
+      this.transitionSetting = { ...this.transitionSetting, ...value }
     },
     async resetAllState() {
       Persistent.clearAll()

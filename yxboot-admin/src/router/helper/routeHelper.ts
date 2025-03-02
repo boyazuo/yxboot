@@ -34,7 +34,7 @@ export function convertMenuToRoute(menu: SysMenu): RouteRecordRaw {
   const component = resolveComponent(menu.component)
   return {
     path: menu.path,
-    name: menu.name + '_layout',
+    name: menu.name + (component === LAYOUT ? '_layout' : ''),
     component: component,
     props: true,
     children: menu.children.map((item) => convertMenuToRoute(item)),
