@@ -14,7 +14,11 @@
       <Divider type="vertical" class="action-divider" v-if="divider && index < getActions.length - 1" />
     </template>
 
-    <Divider type="vertical" class="action-divider" v-if="divider && dropDownActions && getDropdownList.length > 0" />
+    <Divider
+      type="vertical"
+      class="action-divider"
+      v-if="divider && actions && dropDownActions && getDropdownList.length > 0"
+    />
     <a-dropdown :trigger="['hover']" v-if="dropDownActions && getDropdownList.length > 0">
       <a-button type="link" size="small"> <MoreOutlined class="icon-more" /> </a-button>
       <template #overlay>

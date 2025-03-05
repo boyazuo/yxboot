@@ -37,6 +37,8 @@ export interface FormSchema {
 
   ifShow?: boolean | ((renderCallbackParams) => boolean)
   show?: boolean | ((renderCallbackParams) => boolean)
+  readonly?: boolean | ((renderCallbackParams) => boolean)
+  disabled?: boolean | ((renderCallbackParams) => boolean)
 
   slot?: string
 }

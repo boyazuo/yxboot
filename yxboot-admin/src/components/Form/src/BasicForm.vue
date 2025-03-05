@@ -110,6 +110,28 @@
     return { isShow, isIfShow }
   }
 
+  const getDisable = (schema) => {
+    const { disabled } = schema
+    if (isBoolean(disabled)) {
+      return disabled
+    }
+    if (isFunction(disabled)) {
+      return disabled(unref(formModel))
+    }
+    return false
+  }
+
+  const getReadonly = (schema) => {
+    const { readonly } = schema
+    if (isBoolean(readonly)) {
+      return readonly
+    }
+    if (isFunction(readonly)) {
+      return readonly(unref(formModel))
+    }
+    return false
+  }
+
   const getComponent = (schema) => {
     return componentMap.get(schema.component)
   }
@@ -129,7 +151,9 @@
     return {
       clearable: true,
       placeholder: createPlaceholderMessage(unref(component)) + schema.label,
-      ...compProps
+      ...compProps,
+      disabled: getDisable(schema),
+      readonly: getReadonly(schema)
     }
   }
 
