@@ -13,6 +13,33 @@
       </PopConfirmButton>
       <Divider type="vertical" class="action-divider" v-if="divider && index < getActions.length - 1" />
     </template>
+
+    <Divider type="vertical" class="action-divider" v-if="divider && dropDownActions && getDropdownList.length > 0" />
+    <a-dropdown :trigger="['hover']" v-if="dropDownActions && getDropdownList.length > 0">
+      <a-button type="link" size="small"> <MoreOutlined class="icon-more" /> </a-button>
+      <template #overlay>
+        <a-menu>
+          <template v-for="item in getDropdownList">
+            <a-menu-item @click="item.onClick" :disabled="item.disabled">
+              <a-popconfirm v-if="item.popConfirm" v-bind="getPopConfirmAttrs(item.popConfirm)">
+                <template #icon v-if="item.popConfirm.icon">
+                  <Icon :icon="item.popConfirm.icon" />
+                </template>
+                <div>
+                  <Icon :icon="item.icon" v-if="item.icon" />
+                  <span class="ml-1">{{ item.label }}</span>
+                </div>
+              </a-popconfirm>
+              <template v-else>
+                <Icon :icon="item.icon" v-if="item.icon" />
+                <span class="ml-1">{{ item.label }}</span>
+              </template>
+            </a-menu-item>
+            <a-menu-divider v-if="item.divider" />
+          </template>
+        </a-menu>
+      </template>
+    </a-dropdown>
   </div>
 </template>
 <script lang="ts" setup>
@@ -22,7 +49,9 @@
   import { usePermission } from '@/hooks/web/usePermission'
   import { isBoolean, isFunction, isString } from '@/utils/is'
   import { propTypes } from '@/utils/propTypes'
+  import { MoreOutlined } from '@ant-design/icons-vue'
   import { Divider, TooltipProps } from 'ant-design-vue'
+  import { omit } from 'lodash-es'
   import { computed, toRaw, unref } from 'vue'
 
   const { hasPermission } = usePermission()
@@ -75,6 +104,31 @@
           enable: !!popConfirm
         }
       })
+  })
+
+  const getDropdownList = computed((): any[] => {
+    const list = (toRaw(props.dropDownActions) || []).filter((action) => {
+      return hasPermission(action.auth) && isIfShow(action)
+    })
+    return list.map((action, index) => {
+      const { popConfirm } = action
+      return {
+        ...action,
+        ...popConfirm,
+        onConfirm: popConfirm?.confirm,
+        onCancel: popConfirm?.cancel,
+        divider: index < list.length - 1 ? props.divider : false
+      }
+    })
+  })
+
+  const getPopConfirmAttrs = computed(() => {
+    return (attrs) => {
+      const originAttrs = omit(attrs, ['confirm', 'cancel', 'icon'])
+      if (!attrs.onConfirm && attrs.confirm && isFunction(attrs.confirm)) originAttrs['onConfirm'] = attrs.confirm
+      if (!attrs.onCancel && attrs.cancel && isFunction(attrs.cancel)) originAttrs['onCancel'] = attrs.cancel
+      return originAttrs
+    }
   })
 
   function getTooltip(data?: string | TooltipProps): TooltipProps {
