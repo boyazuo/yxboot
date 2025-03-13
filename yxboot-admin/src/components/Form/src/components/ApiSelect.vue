@@ -1,5 +1,11 @@
 <template>
-  <a-select @dropdown-visible-change="handleFetch" v-bind="attrs" :options="getOptions" :value="state">
+  <a-select
+    @dropdown-visible-change="handleFetch"
+    v-bind="attrs"
+    @change="handleChange"
+    :options="getOptions"
+    :value="state"
+  >
     <template #[item]="data" v-for="item in Object.keys($slots)">
       <slot :name="item" v-bind="data"></slot>
     </template>
@@ -96,5 +102,9 @@
 
   function emitChange() {
     emit('options-change', unref(options))
+  }
+
+  function handleChange(value: string) {
+    emit('change', value)
   }
 </script>
