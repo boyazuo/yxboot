@@ -5,13 +5,18 @@
         <a-col v-bind="getColProps(schema)" v-if="getShow(schema).isIfShow" v-show="getShow(schema).isShow">
           <a-form-item :label="schema.label" :name="schema.field" :rules="schema.rules" v-bind="getItemProps(schema)">
             <template v-if="!getSchemaSlot(schema)">
-              <!--动态渲染表单组件-->
-              <component
-                class="componentStyle"
-                v-bind="getComponentProps(schema)"
-                :is="getComponent(schema)"
-                v-model:value="formModel[schema.field]"
-              />
+              <div style="display: flex">
+                <!--动态渲染表单组件-->
+                <component
+                  class="componentStyle"
+                  v-bind="getComponentProps(schema)"
+                  :is="getComponent(schema)"
+                  v-model:value="formModel[schema.field]"
+                />
+                <template v-if="schema.suffix">
+                  <span class="suffix">{{ schema.suffix }}</span>
+                </template>
+              </div>
             </template>
             <template v-else>
               <slot :name="getSchemaSlot(schema)" v-bind="getSlotScope(schema)"></slot>
@@ -314,7 +319,6 @@
     border-radius: 2px;
 
     .ant-form-item {
-      // margin-bottom: 8px;
       .componentStyle {
         &.ant-input-number,
         &.ant-input-number-group-wrapper,
@@ -326,6 +330,14 @@
           display: flex;
           flex-flow: column;
         }
+      }
+
+      .suffix {
+        display: inline-flex;
+        align-items: center;
+        margin-top: 1px;
+        padding-left: 6px;
+        line-height: 1;
       }
     }
 
