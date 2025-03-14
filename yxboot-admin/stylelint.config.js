@@ -1,6 +1,6 @@
 module.exports = {
   extends: ['stylelint-config-standard'],
-  plugins: ['stylelint-order', 'stylelint-prettier'],
+  plugins: ['stylelint-order'],
   overrides: [
     {
       files: ['**/*.(css|html|vue)'],
@@ -21,7 +21,6 @@ module.exports = {
     }
   ],
   rules: {
-    'prettier/prettier': true,
     'media-feature-range-notation': null,
     'selector-not-notation': null,
     'import-notation': null,
