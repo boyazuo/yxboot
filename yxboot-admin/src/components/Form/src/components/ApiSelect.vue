@@ -1,11 +1,5 @@
 <template>
-  <a-select
-    @dropdown-visible-change="handleFetch"
-    v-bind="attrs"
-    @change="handleChange"
-    :options="getOptions"
-    :value="state"
-  >
+  <a-select @dropdown-visible-change="handleFetch" v-bind="attrs" :options="getOptions" :value="state">
     <template #[item]="data" v-for="item in Object.keys($slots)">
       <slot :name="item" v-bind="data"></slot>
     </template>
@@ -14,8 +8,8 @@
 <script setup lang="ts">
   import { isFunction } from '@/utils/is'
   import { propTypes } from '@/utils/propTypes'
-  import _, { get } from 'lodash-es'
-  import { PropType, computed, ref, unref, useAttrs, watchEffect } from 'vue'
+  import { get } from 'lodash-es'
+  import { PropType, computed, ref, unref, useAttrs, watch } from 'vue'
   import { useRuleFormItem } from '../hooks/useFormItem'
 
   type OptionsItem = { label: string; value: string; disabled?: boolean }
@@ -54,18 +48,14 @@
 
     return unref(options).reduce((prev, next: Recordable) => {
       if (next) {
-        const value = next[valueField as string]
+        const value = get(next, valueField)
         prev.push({
-          label: _.isFunction(labelField) ? labelField(next) : next[labelField as string],
+          label: get(next, labelField),
           value: numberToString ? `${value}` : value
         })
       }
       return prev
     }, [] as OptionsItem[])
-  })
-
-  watchEffect(() => {
-    props.immediate && fetch()
   })
 
   async function fetch() {
@@ -104,7 +94,16 @@
     emit('options-change', unref(options))
   }
 
-  function handleChange(value: string) {
-    emit('change', value)
-  }
+  watch(
+    () => props.value,
+    (newVal) => {
+      if (newVal) {
+        emit('change', newVal)
+      }
+    }
+  )
+
+  onMounted(() => {
+    props.immediate && fetch()
+  })
 </script>
