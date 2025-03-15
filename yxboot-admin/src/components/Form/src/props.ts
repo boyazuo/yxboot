@@ -39,6 +39,13 @@ export const basicProps = {
 
   //是否显示操作按钮（查询/重置）
   showActionButtonGroup: propTypes.bool.def(true),
+  //转化时间
+  transformDateFunc: {
+    type: Function as PropType<Fn>,
+    default: (date: any) => {
+      return date?.format?.('YYYY-MM-DD HH:mm:ss') ?? date
+    }
+  },
   // 显示重置按钮
   showResetButton: propTypes.bool.def(true),
   //重置按钮配置

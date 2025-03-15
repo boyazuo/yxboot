@@ -20,7 +20,7 @@
     value: propTypes.oneOfType([propTypes.object, propTypes.number, propTypes.string, propTypes.array]),
     numberToString: propTypes.bool,
     api: {
-      type: Function as PropType<(arg?: Recordable) => Promise<OptionsItem[]>>,
+      type: Function as PropType<(arg?: any) => Promise<OptionsItem[] | Recordable<any>>>,
       default: null
     },
     // api params
