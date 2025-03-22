@@ -9,7 +9,7 @@
   import { isFunction } from '@/utils/is'
   import { propTypes } from '@/utils/propTypes'
   import { get } from 'lodash-es'
-  import { PropType, computed, ref, unref, useAttrs, watchEffect } from 'vue'
+  import { PropType, computed, ref, unref, useAttrs } from 'vue'
   import { useDict } from '../hooks/useDict'
   import { useRuleFormItem } from '../hooks/useFormItem'
 
@@ -18,6 +18,7 @@
   defineOptions({
     inheritAttrs: false
   })
+
   const props = defineProps({
     value: propTypes.oneOfType([propTypes.object, propTypes.number, propTypes.string, propTypes.array]),
     numberToString: propTypes.bool,
@@ -34,7 +35,9 @@
     valueField: propTypes.string.def('value'),
     immediate: propTypes.bool.def(true)
   })
+
   const emit = defineEmits(['options-change', 'change'])
+
   const options = ref<OptionsItem[]>([])
   const loading = ref(false)
   const isFirstLoad = ref(true)
@@ -55,10 +58,6 @@
       }
       return prev
     }, [] as OptionsItem[])
-  })
-
-  watchEffect(() => {
-    props.immediate && fetch()
   })
 
   async function fetch() {
@@ -96,4 +95,17 @@
   function emitChange() {
     emit('options-change', unref(options))
   }
+
+  watch(
+    () => props.value,
+    (newVal) => {
+      if (newVal) {
+        emit('change', newVal)
+      }
+    }
+  )
+
+  onMounted(() => {
+    props.immediate && fetch()
+  })
 </script>
