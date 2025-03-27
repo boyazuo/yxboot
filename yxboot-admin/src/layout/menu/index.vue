@@ -104,6 +104,7 @@
 
   listenerRouteChange((route) => {
     if (route.name === REDIRECT_NAME) return
+    if (route.meta?.display !== 1) return
     handleMenuChange(route)
   })
 

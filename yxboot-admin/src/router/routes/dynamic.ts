@@ -47,19 +47,31 @@ export async function loadPermissionRoutes(router: Router) {
 
   // Dynamically introduce components
   const menus = res.data.filter((item: any) => [1, 2].indexOf(item.type) > -1)
-  const menusTree = listToTree(menus, { id: 'menuId' })
-  const code = res.data.filter((item) => !!item.code).map((item) => item.code)
-  permissionStore.setMenus(menusTree)
-  permissionStore.setMenusCode(code)
 
+  const menusTree = listToTree(menus, { id: 'menuId' })
   routes = menusTree.map((item) =>
     !isLayoutComponent(item.component) ? wrapperSingleMenu(item) : convertMenuToRoute(item)
   )
 
-  permissionStore.setLoaded(true)
   patchHomeAffix(routes)
 
   routes.forEach((route) => {
     router.addRoute(route as unknown as RouteRecordRaw)
   })
+
+  const code = res.data.filter((item) => !!item.code).map((item) => item.code)
+  permissionStore.setMenusCode(code)
+
+  const displyMenusTree = filterDisplayMenus(menusTree)
+  permissionStore.setMenus(displyMenusTree)
+  permissionStore.setLoaded(true)
+}
+
+const filterDisplayMenus = (menus: any[]) => {
+  menus.forEach((item: any) => {
+    if (item.children) {
+      item.children = item.children.filter((child: any) => child.display === 1)
+    }
+  })
+  return menus.filter((item: any) => [1, 2].indexOf(item.type) > -1 && item.display === 1)
 }

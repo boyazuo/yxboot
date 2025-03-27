@@ -7,6 +7,10 @@ export const listMenuType = [
   { label: '菜单', value: 2, isCreateChild: true, ifShowComponent: true, ifShowPath: true },
   { label: '按钮', value: 3, ifShowCode: true }
 ]
+const displayOptions = [
+  { label: '显示', value: 1 },
+  { label: '隐藏', value: 0 }
+]
 const allMenuOption = {
   isCreateChild: false, // 是否能创建子项
   ifShowComponent: false, // 是否保存【component-组件】字段
@@ -63,6 +67,13 @@ export const editFormSchema: FormSchema[] = [
   },
   { field: 'descn', label: '菜单说明', component: 'Input' },
   { field: 'sort', label: '排序', component: 'Input' },
+  {
+    field: 'display',
+    label: '是否显示',
+    component: 'Select',
+    defaultValue: 1,
+    componentProps: { options: displayOptions }
+  },
   {
     field: 'status',
     label: '状态',
