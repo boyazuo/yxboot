@@ -63,15 +63,35 @@ export async function loadPermissionRoutes(router: Router) {
   permissionStore.setMenusCode(code)
 
   const displyMenusTree = filterDisplayMenus(menusTree)
+  console.log('displyMenusTree', displyMenusTree)
   permissionStore.setMenus(displyMenusTree)
   permissionStore.setLoaded(true)
 }
 
 const filterDisplayMenus = (menus: any[]) => {
-  menus.forEach((item: any) => {
-    if (item.children) {
-      item.children = item.children.filter((child: any) => child.display === 1)
-    }
-  })
-  return menus.filter((item: any) => [1, 2].indexOf(item.type) > -1 && item.display === 1)
+  const filterChildren = (items: any[]): any[] => {
+    return items
+      .filter((item: any) => item.display === 1)
+      .map((item: any) => {
+        if (item.children && item.children.length > 0) {
+          return {
+            ...item,
+            children: filterChildren(item.children)
+          }
+        }
+        return item
+      })
+  }
+
+  return menus
+    .filter((item: any) => [1, 2].indexOf(item.type) > -1 && item.display === 1)
+    .map((item: any) => {
+      if (item.children && item.children.length > 0) {
+        return {
+          ...item,
+          children: filterChildren(item.children)
+        }
+      }
+      return item
+    })
 }

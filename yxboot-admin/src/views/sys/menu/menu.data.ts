@@ -26,6 +26,7 @@ export const tableColumns: BasicColumn[] = [
   { title: '组件', dataIndex: 'component' },
   { title: '菜单路径/按钮编码', dataIndex: 'path' },
   { title: '排序', dataIndex: 'sort' },
+  { title: '是否显示', dataIndex: 'display', customRender: ({ text }) => (text === 1 ? '显示' : '隐藏') },
   { title: '状态', dataIndex: 'statusDesc' }
 ]
 
