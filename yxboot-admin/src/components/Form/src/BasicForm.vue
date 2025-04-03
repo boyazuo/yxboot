@@ -151,12 +151,15 @@
   }
 
   const getComponentProps = (schema) => {
-    const compProps = schema.componentProps ?? {}
+    let { componentProps = {} } = schema
+    if (isFunction(componentProps)) {
+      componentProps = componentProps({ schema, formModel, formActionType }) ?? {}
+    }
     const component = schema.component
     return {
       clearable: true,
       placeholder: createPlaceholderMessage(unref(component)) + schema.label,
-      ...compProps,
+      ...componentProps,
       disabled: getDisable(schema),
       readonly: getReadonly(schema)
     }

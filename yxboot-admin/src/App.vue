@@ -1,6 +1,6 @@
 <template>
   <a-config-provider :locale="zhCN" :theme="getThemeConfig">
-    <router-view />
+    <router-view :key="$route.fullPath" />
   </a-config-provider>
 </template>
 <script setup lang="ts">
