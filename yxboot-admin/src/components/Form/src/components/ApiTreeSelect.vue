@@ -20,7 +20,7 @@
   const emit = defineEmits(['options-change', 'change'])
   const attrs = useAttrs()
   const treeData = ref<Recordable[]>([])
-  const isFirstLoaded = ref<Boolean>(false)
+  const isFirstLoaded = ref<boolean>(false)
   const loading = ref(false)
   const getAttrs = computed(() => {
     return {

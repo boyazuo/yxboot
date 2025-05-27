@@ -84,7 +84,7 @@ export function openWindow(
 }
 
 // dynamic use hook props
-export function getDynamicProps<T extends Object, U>(props: T): Partial<U> {
+export function getDynamicProps<T extends object, U>(props: T): Partial<U> {
   const ret: Recordable = {}
 
   Object.keys(props).map((key) => {
