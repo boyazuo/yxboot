@@ -10,7 +10,7 @@ import type { PaginationProps } from '../types/pagination'
 import type { BasicColumn, BasicTableProps, CellFormat, GetColumnsParams } from '../types/table'
 
 function handleItem(item: BasicColumn, ellipsis: boolean) {
-  const { dataIndex, children } = item
+  const { children } = item
   item.align = item.align || DEFAULT_ALIGN
   if (ellipsis) {
     if (!isBoolean(item.ellipsis)) {
@@ -18,10 +18,6 @@ function handleItem(item: BasicColumn, ellipsis: boolean) {
         ellipsis
       })
     }
-  }
-
-  if (typeof dataIndex === 'string' && dataIndex.indexOf('.') > -1) {
-    item.dataIndex = dataIndex.split('.')
   }
 
   if (children && children.length) {
@@ -140,7 +136,6 @@ export function useColumns(
 
   const getViewColumns = computed(() => {
     const viewColumns = sortFixedColumn(unref(getColumnsRef))
-
     const columns = cloneDeep(viewColumns)
 
     // 处理 dataIndex 为嵌套格式的情况
