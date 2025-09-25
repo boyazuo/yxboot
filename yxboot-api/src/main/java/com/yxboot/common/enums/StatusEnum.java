@@ -1,11 +1,11 @@
 package com.yxboot.common.enums;
 
-import cn.hutool.core.convert.Convert;
-import cn.hutool.core.util.EnumUtil;
-import com.baomidou.mybatisplus.annotation.EnumValue;
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.mybatisflex.annotation.EnumValue;
 import com.yxboot.common.base.BaseEnum;
 import com.yxboot.common.exception.ApiException;
+import cn.hutool.core.convert.Convert;
+import cn.hutool.core.util.EnumUtil;
 import lombok.Getter;
 
 /**
@@ -30,7 +30,7 @@ public enum StatusEnum implements BaseEnum {
 
     @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
     public static StatusEnum create(Object value) {
-        value = Convert.toInt(value) != null ?  Convert.toInt(value): value;
+        value = Convert.toInt(value) != null ? Convert.toInt(value) : value;
         StatusEnum statusEnum = EnumUtil.likeValueOf(StatusEnum.class, value);
         if (statusEnum == null) {
             throw new ApiException("未找到匹配的枚举值：" + value);

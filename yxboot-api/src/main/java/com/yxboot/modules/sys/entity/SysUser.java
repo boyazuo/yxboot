@@ -1,18 +1,19 @@
 package com.yxboot.modules.sys.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
-import com.yxboot.common.enums.StatusEnum;
-import com.yxboot.common.vo.Dict;
-import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.Date;
+import com.mybatisflex.annotation.Column;
+import com.mybatisflex.annotation.Id;
+import com.mybatisflex.annotation.KeyType;
+import com.mybatisflex.annotation.Table;
+import com.yxboot.common.enums.StatusEnum;
+import com.yxboot.common.vo.Dict;
+import com.yxboot.config.mybatisflex.MyFlexListener;
+import com.yxboot.config.mybatisflex.handler.DictTypeHandler;
+import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  * 系统用户表
@@ -21,7 +22,7 @@ import java.util.Date;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-@TableName(value = "sys_user",resultMap = "BaseResultMap")
+@Table(value = "sys_user", onInsert = MyFlexListener.class, onUpdate = MyFlexListener.class)
 @Schema(name = "SysUser", description = "系统用户表")
 public class SysUser implements Serializable {
 	@Serial
@@ -30,7 +31,7 @@ public class SysUser implements Serializable {
 	/**
 	 * 用户编号
 	 */
-	@TableId(value = "user_id", type = IdType.AUTO)
+	@Id(keyType = KeyType.Auto)
 	@Schema(description = "用户编号")
 	private Long userId;
 
@@ -74,6 +75,7 @@ public class SysUser implements Serializable {
 	 * 性别（0:未设置 1:男 2:女）
 	 */
 	@Schema(description = "性别（0:未设置 1:男 2:女）")
+	@Column(typeHandler = DictTypeHandler.class)
 	private Dict sex;
 
 	/**
@@ -136,31 +138,12 @@ public class SysUser implements Serializable {
 	@Schema(description = "删除标识(0:未删除 1:已删除)")
 	private Integer deleted;
 
-	@TableField(exist = false)
-	private SysRole role;
-
-	@TableField(exist = false)
+	@Column(ignore = true)
 	private Long roleId;
 
-	@TableField(exist = false)
-	private String  deptName;
+	@Column(ignore = true)
+	private String roleName;
 
-	public Long getRoleId() {
-		if (role != null) {
-			return role.getRoleId();
-		} else {
-			return roleId;
-		}
-	}
-
-	public SysRole getRole() {
-		if (role != null) {
-			return role;
-		} else {
-			SysRole sysRole = new SysRole();
-			sysRole.setRoleId(roleId);
-			return sysRole;
-		}
-	}
-
+	@Column(ignore = true)
+	private String deptName;
 }

@@ -1,14 +1,16 @@
 package com.yxboot.modules.sys.entity;
 
-import com.baomidou.mybatisplus.annotation.*;
-import com.yxboot.common.enums.StatusEnum;
-import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.Date;
+import com.mybatisflex.annotation.Id;
+import com.mybatisflex.annotation.KeyType;
+import com.mybatisflex.annotation.Table;
+import com.yxboot.common.enums.StatusEnum;
+import com.yxboot.config.mybatisflex.MyFlexListener;
+import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  * 字典数据表
@@ -17,7 +19,7 @@ import java.util.Date;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-@TableName("sys_dict_data")
+@Table(value = "sys_dict_data", onInsert = MyFlexListener.class, onUpdate = MyFlexListener.class)
 @Schema(name = "SysDictData", description = "字典数据表")
 public class SysDictData implements Serializable {
 	@Serial
@@ -26,7 +28,7 @@ public class SysDictData implements Serializable {
 	/**
 	 * 编号
 	 */
-	@TableId(value = "id", type = IdType.AUTO)
+	@Id(keyType = KeyType.Auto)
 	@Schema(description = "编号")
 	private Long id;
 
@@ -58,28 +60,24 @@ public class SysDictData implements Serializable {
 	 * 创建人
 	 */
 	@Schema(description = "创建人")
-	@TableField(fill = FieldFill.INSERT)
 	private Long createUserId;
 
 	/**
 	 * 创建时间
 	 */
 	@Schema(description = "创建时间")
-	@TableField(fill = FieldFill.INSERT)
 	private Date createTime;
 
 	/**
 	 * 更新人
 	 */
 	@Schema(description = "更新人")
-	@TableField(fill = FieldFill.INSERT_UPDATE)
 	private Long updateUserId;
 
 	/**
 	 * 更新时间
 	 */
 	@Schema(description = "更新时间")
-	@TableField(fill = FieldFill.INSERT_UPDATE)
 	private Date updateTime;
 
 	/**

@@ -1,19 +1,19 @@
 package com.yxboot.modules.sys.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
-import com.yxboot.common.enums.MenuEnum;
-import com.yxboot.common.enums.StatusEnum;
-import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import com.mybatisflex.annotation.Column;
+import com.mybatisflex.annotation.Id;
+import com.mybatisflex.annotation.KeyType;
+import com.mybatisflex.annotation.Table;
+import com.yxboot.common.enums.MenuEnum;
+import com.yxboot.common.enums.StatusEnum;
+import com.yxboot.config.mybatisflex.MyFlexListener;
+import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  * 菜单表
@@ -22,7 +22,7 @@ import java.util.List;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-@TableName("sys_menu")
+@Table(value = "sys_menu", onInsert = MyFlexListener.class, onUpdate = MyFlexListener.class)
 @Schema(name = "SysMenu", description = "菜单表")
 public class SysMenu implements Serializable {
 	@Serial
@@ -31,7 +31,7 @@ public class SysMenu implements Serializable {
 	/**
 	 * 菜单编号
 	 */
-	@TableId(value = "menu_id", type = IdType.AUTO)
+	@Id(keyType = KeyType.Auto)
 	@Schema(description = "菜单编号")
 	private Long menuId;
 
@@ -134,13 +134,13 @@ public class SysMenu implements Serializable {
 	/**
 	 * 子菜单
 	 */
-	@TableField(exist = false)
+	@Column(ignore = true)
 	private List<SysMenu> children;
 
 	/**
 	 * 上级菜单
 	 */
 	@Schema(description = "上级菜单")
-	@TableField(exist = false)
+	@Column(ignore = true)
 	private String parentName;
 }

@@ -1,11 +1,11 @@
 package com.yxboot.common.enums;
 
-import cn.hutool.core.convert.Convert;
-import cn.hutool.core.util.EnumUtil;
-import com.baomidou.mybatisplus.annotation.EnumValue;
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.mybatisflex.annotation.EnumValue;
 import com.yxboot.common.base.BaseEnum;
 import com.yxboot.common.exception.ApiException;
+import cn.hutool.core.convert.Convert;
+import cn.hutool.core.util.EnumUtil;
 import lombok.Getter;
 
 @Getter
@@ -27,7 +27,7 @@ public enum MenuEnum implements BaseEnum {
 
     @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
     public static MenuEnum create(Object value) {
-        value = Convert.toInt(value) != null ?  Convert.toInt(value): value;
+        value = Convert.toInt(value) != null ? Convert.toInt(value) : value;
         MenuEnum menuEnum = EnumUtil.likeValueOf(MenuEnum.class, value);
         if (menuEnum == null) {
             throw new ApiException("未找到匹配的枚举值：" + value);

@@ -1,18 +1,18 @@
 package com.yxboot.modules.sys.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
-import com.yxboot.common.enums.StatusEnum;
-import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import com.mybatisflex.annotation.Column;
+import com.mybatisflex.annotation.Id;
+import com.mybatisflex.annotation.KeyType;
+import com.mybatisflex.annotation.Table;
+import com.yxboot.common.enums.StatusEnum;
+import com.yxboot.config.mybatisflex.MyFlexListener;
+import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  * 部门表
@@ -21,7 +21,7 @@ import java.util.List;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-@TableName("sys_dept")
+@Table(value = "sys_dept", onInsert = MyFlexListener.class, onUpdate = MyFlexListener.class)
 @Schema(name = "SysDept", description = "部门表")
 public class SysDept implements Serializable {
 	@Serial
@@ -30,7 +30,7 @@ public class SysDept implements Serializable {
 	/**
 	 * 部门编号
 	 */
-	@TableId(value = "dept_id", type = IdType.AUTO)
+	@Id(keyType = KeyType.Auto)
 	@Schema(description = "部门编号")
 	private Long deptId;
 
@@ -97,6 +97,6 @@ public class SysDept implements Serializable {
 	/**
 	 * 子部门
 	 */
-	@TableField(exist = false)
+	@Column(ignore = true)
 	private List<SysDept> children;
 }

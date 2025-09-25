@@ -1,24 +1,29 @@
 package com.yxboot.modules.sys.controller;
 
-import cn.hutool.core.bean.BeanUtil;
-import cn.hutool.core.bean.copier.CopyOptions;
-import cn.hutool.core.util.StrUtil;
-import com.baomidou.mybatisplus.core.metadata.IPage;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+import com.mybatisflex.core.paginate.Page;
 import com.yxboot.common.api.Result;
 import com.yxboot.common.aspect.SysLogOperation;
 import com.yxboot.common.pagination.PageRequest;
 import com.yxboot.modules.sys.entity.SysUser;
 import com.yxboot.modules.sys.entity.SysUserRole;
-import com.yxboot.modules.sys.filler.SysDeptFiller;
 import com.yxboot.modules.sys.service.SysUserRoleService;
 import com.yxboot.modules.sys.service.SysUserService;
 import com.yxboot.utils.UserUtil;
+import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.bean.copier.CopyOptions;
+import cn.hutool.core.util.StrUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.*;
 
 
 /**
@@ -34,30 +39,27 @@ import org.springframework.web.bind.annotation.*;
 public class SysUserController {
     private final SysUserService sysUserService;
     private final SysUserRoleService sysUserRoleService;
-    private final UserUtil userUtil;
     private final PasswordEncoder passwordEncoder;
-    private final SysDeptFiller sysDeptFiller;
 
     @GetMapping("/list")
     @Operation(summary = "查询列表接口")
-    public Result list(String name, String phone, Long roleId, Integer status, Integer deptId, PageRequest pageRequest) {
-        IPage<SysUser> pageResult = sysUserService.pageQuery(name, phone, roleId, status, deptId, pageRequest);
-        sysDeptFiller.fillSysDept(pageResult.getRecords());
+    public Result<Page<SysUser>> list(String name, String phone, Long roleId, Integer status, Integer deptId,
+            PageRequest pageRequest) {
+        Page<SysUser> pageResult = sysUserService.pageQuery(name, phone, roleId, status, deptId, pageRequest);
         return Result.success("查询成功！", pageResult);
     }
 
     @GetMapping("/get")
     @Operation(summary = "查询详情接口")
-    public Result get(@RequestParam Long userId) {
-        SysUser sysUser = sysUserService.getById(userId);
-        sysDeptFiller.fillSysDept(sysUser);
+    public Result<SysUser> get(@RequestParam Long userId) {
+        SysUser sysUser = sysUserService.selectById(userId);
         return Result.success("查询成功！", sysUser);
     }
 
     @PostMapping("/save")
     @SysLogOperation(value = "保存用户信息")
     @Operation(summary = "保存信息接口")
-    public Result save(@RequestBody SysUser sysUser) {
+    public Result<SysUser> save(@RequestBody SysUser sysUser) {
         if (sysUser.getUserId() != null) {
             SysUser dbUser = sysUserService.getById(sysUser.getUserId());
             BeanUtil.copyProperties(sysUser, dbUser, CopyOptions.create().ignoreNullValue());
@@ -90,7 +92,7 @@ public class SysUserController {
     @PostMapping("/resetPassword")
     @SysLogOperation(value = "重置用户密码")
     @Operation(summary = "重置用户密码接口")
-    public Result resetPassword(Long userId, String password) {
+    public Result<SysUser> resetPassword(Long userId, String password) {
         SysUser sysUser = sysUserService.getById(userId);
         if (sysUser != null && StrUtil.isNotEmpty(password)) {
             sysUser.setPassword(passwordEncoder.encode(password));
@@ -104,8 +106,9 @@ public class SysUserController {
     @PostMapping("/changePassword")
     @SysLogOperation(value = "修改密码")
     @Operation(summary = "修改密码接口")
-    public Result changePassword(String oldPassword, String password) {
-        SysUser sysUser = userUtil.getCurrentUser();
+    public Result<SysUser> changePassword(String oldPassword, String password) {
+        Long userId = UserUtil.getCurrentUserId();
+        SysUser sysUser = sysUserService.getById(userId);
         if (sysUser != null && StrUtil.isNotEmpty(password) && StrUtil.isNotBlank(oldPassword)) {
             if (passwordEncoder.matches(oldPassword, sysUser.getPassword())) {
                 sysUser.setPassword(passwordEncoder.encode(password));
@@ -122,7 +125,7 @@ public class SysUserController {
     @DeleteMapping("/remove")
     @SysLogOperation(value = "删除用户信息")
     @Operation(summary = "删除信息接口")
-    public Result remove(Long userId) {
+    public Result<Void> remove(Long userId) {
         sysUserService.removeById(userId);
         log.warn("删除用户，用户id：{}", userId);
         return Result.success("删除成功！");

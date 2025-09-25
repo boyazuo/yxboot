@@ -19,7 +19,7 @@
         <yxboot.version>1.0.0</yxboot.version>
         <lombok.version>1.18.36</lombok.version>
         <hutool.version>5.8.36</hutool.version>
-        <mybatis-plus.version>3.5.10</mybatis-plus.version>
+        <mybatis-flex.version>1.10.9</mybatis-flex.version>
         <mysql-connector.version>8.3.0</mysql-connector.version>
         <druid.version>1.2.24</druid.version>
 

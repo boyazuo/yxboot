@@ -1,21 +1,18 @@
 package com.yxboot.modules.sys.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
-import com.fasterxml.jackson.databind.annotation.JsonAppend;
-import com.yxboot.common.enums.StatusEnum;
-import com.yxboot.config.web.jackson.CreateUserWriter;
-import com.yxboot.config.web.jackson.UpdateUserWriter;
-import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import com.mybatisflex.annotation.Column;
+import com.mybatisflex.annotation.Id;
+import com.mybatisflex.annotation.KeyType;
+import com.mybatisflex.annotation.Table;
+import com.yxboot.common.enums.StatusEnum;
+import com.yxboot.config.mybatisflex.MyFlexListener;
+import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  * 系统角色表
@@ -24,13 +21,8 @@ import java.util.List;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-@TableName("sys_role")
+@Table(value = "sys_role", onInsert = MyFlexListener.class, onUpdate = MyFlexListener.class)
 @Schema(name = "SysRole", description = "系统角色表")
-@JsonAppend(
-		props = {
-				@JsonAppend.Prop(value = CreateUserWriter.class, type = String.class, name = "createUserName"),
-				@JsonAppend.Prop(value = UpdateUserWriter.class, type = String.class, name = "updateUserName")
-		})
 public class SysRole implements Serializable {
 	@Serial
 	private static final long serialVersionUID = 1L;
@@ -38,7 +30,7 @@ public class SysRole implements Serializable {
 	/**
 	 * 角色编号
 	 */
-	@TableId(value = "role_id", type = IdType.AUTO)
+	@Id(keyType = KeyType.Auto)
 	@Schema(description = "角色编号")
 	private Long roleId;
 
@@ -103,12 +95,12 @@ public class SysRole implements Serializable {
 	private StatusEnum status;
 
 	/**
-	 * 删除标识（0:未删除  1:已删除）
+	 * 删除标识（0:未删除 1:已删除）
 	 */
 	@Schema(description = "删除标识（0:未删除  1:已删除）")
 	private Integer deleted;
 
-	@TableField(exist = false)
+	@Column(ignore = true)
 	@Schema(description = "关联菜单")
 	private List<SysMenu> menus;
 }

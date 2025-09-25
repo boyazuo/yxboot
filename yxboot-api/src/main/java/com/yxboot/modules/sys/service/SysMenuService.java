@@ -1,14 +1,16 @@
 package com.yxboot.modules.sys.service;
 
-import cn.hutool.core.collection.CollUtil;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import static com.yxboot.modules.sys.entity.table.SysMenuTableDef.SYS_MENU;
+import static com.yxboot.modules.sys.entity.table.SysRoleMenuTableDef.SYS_ROLE_MENU;
+import java.util.List;
+import org.springframework.stereotype.Service;
+import com.mybatisflex.core.query.QueryWrapper;
+import com.mybatisflex.spring.service.impl.ServiceImpl;
 import com.yxboot.common.enums.MenuEnum;
 import com.yxboot.modules.sys.entity.SysMenu;
+import com.yxboot.modules.sys.entity.table.SysMenuTableDef;
 import com.yxboot.modules.sys.mapper.SysMenuMapper;
-import org.springframework.stereotype.Service;
-
-import java.util.List;
+import cn.hutool.core.collection.CollUtil;
 
 
 /**
@@ -18,47 +20,70 @@ import java.util.List;
  */
 @Service
 public class SysMenuService extends ServiceImpl<SysMenuMapper, SysMenu> {
+
     public List<SysMenu> selectAll() {
-        QueryWrapper<SysMenu> wrapper = new QueryWrapper<>();
-        wrapper.orderByAsc("sort");
+        SysMenuTableDef parent = SYS_MENU.as("parent");
+
+        QueryWrapper wrapper = QueryWrapper.create();
+        wrapper.select(SYS_MENU.ALL_COLUMNS);
+        wrapper.select(parent.NAME.as("parentName"));
+        wrapper.leftJoin(parent).on(SYS_MENU.PARENT_ID.eq(parent.MENU_ID));
+        wrapper.orderBy(SYS_MENU.SORT, true);
+
         return list(wrapper);
     }
 
     public List<SysMenu> query(Long parentId, List<Integer> type, Long roleId, Integer status) {
-        QueryWrapper<SysMenu> wrapper = new QueryWrapper<>();
-        wrapper.eq(parentId != null, "parent_id", parentId);
-        wrapper.in(CollUtil.isNotEmpty(type), "type", type);
-        wrapper.exists(roleId != null, "select * from sys_role_menu where sys_role_menu.menu_id=sys_menu.menu_id and role_id=" + roleId);
-        wrapper.eq(status != null, "status", status);
-        wrapper.orderByAsc("sort");
+        SysMenuTableDef parent = SYS_MENU.as("parent");
+        QueryWrapper wrapper = QueryWrapper.create();
+        wrapper.select(SYS_MENU.ALL_COLUMNS);
+        wrapper.select(parent.NAME.as("parentName"));
+        if (parentId != null) {
+            wrapper.where(SYS_MENU.PARENT_ID.eq(parentId));
+        }
+        if (CollUtil.isNotEmpty(type)) {
+            wrapper.where(SYS_MENU.TYPE.in(type));
+        }
+        if (roleId != null) {
+            wrapper.leftJoin(SYS_ROLE_MENU).on(SYS_ROLE_MENU.MENU_ID.eq(SYS_MENU.MENU_ID));
+            wrapper.where(SYS_ROLE_MENU.ROLE_ID.eq(roleId));
+        }
+        if (status != null) {
+            wrapper.where(SYS_MENU.STATUS.eq(status));
+        }
+        wrapper.leftJoin(parent).on(SYS_MENU.PARENT_ID.eq(parent.MENU_ID));
+
+        wrapper.orderBy(SYS_MENU.SORT, true);
         return list(wrapper);
     }
 
     public List<SysMenu> selectByRoleId(Long roleId) {
-        QueryWrapper<SysMenu> wrapper = new QueryWrapper<>();
-        wrapper.exists("select * from sys_role_menu where sys_role_menu.menu_id=sys_menu.menu_id and role_id=" + roleId);
-        wrapper.orderByAsc("sort");
+        QueryWrapper wrapper = QueryWrapper.create();
+        wrapper.leftJoin(SYS_ROLE_MENU).on(SYS_ROLE_MENU.MENU_ID.eq(SYS_MENU.MENU_ID));
+        wrapper.where(SYS_ROLE_MENU.ROLE_ID.eq(roleId));
+        wrapper.orderBy(SYS_MENU.SORT, true);
         return list(wrapper);
     }
 
     public List<SysMenu> selectByRoleId(List<Long> roleIds) {
-        QueryWrapper<SysMenu> wrapper = new QueryWrapper<>();
-        wrapper.exists("select * from sys_role_menu where sys_role_menu.menu_id=sys_menu.menu_id and role_id in (" + CollUtil.join(roleIds, ",") + ")");
-        wrapper.orderByAsc("sort");
+        QueryWrapper wrapper = QueryWrapper.create();
+        wrapper.leftJoin(SYS_ROLE_MENU).on(SYS_ROLE_MENU.MENU_ID.eq(SYS_MENU.MENU_ID));
+        wrapper.where(SYS_ROLE_MENU.ROLE_ID.in(roleIds));
+        wrapper.orderBy(SYS_MENU.SORT, true);
         return list(wrapper);
     }
 
     public List<SysMenu> queryByParentId(Long menuId) {
-        QueryWrapper<SysMenu> wrapper = new QueryWrapper<>();
-        wrapper.eq("parent_id",menuId);
-        wrapper.ne("type", MenuEnum.BUTTON);
-       return list(wrapper);
+        QueryWrapper wrapper = QueryWrapper.create();
+        wrapper.where(SYS_MENU.PARENT_ID.eq(menuId));
+        wrapper.where(SYS_MENU.TYPE.ne(MenuEnum.BUTTON));
+        return list(wrapper);
     }
 
-    public List<SysMenu> queryByParentIdAndBootion(Long menuId) {
-        QueryWrapper<SysMenu> wrapper = new QueryWrapper<>();
-        wrapper.eq("parent_id",menuId);
-        wrapper.eq("type", MenuEnum.BUTTON);
+    public List<SysMenu> queryByParentIdAndBooton(Long menuId) {
+        QueryWrapper wrapper = QueryWrapper.create();
+        wrapper.where(SYS_MENU.PARENT_ID.eq(menuId));
+        wrapper.where(SYS_MENU.TYPE.eq(MenuEnum.BUTTON));
         return list(wrapper);
     }
 }

@@ -1,9 +1,6 @@
 package com.yxboot.common.pagination;
 
-import cn.hutool.core.util.StrUtil;
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.core.metadata.OrderItem;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.mybatisflex.core.paginate.Page;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -21,11 +18,11 @@ public class PageRequest {
     /**
      * 当前页面
      */
-    private Long current = 1L;
+    private Long pageNumber = 1L;
     /**
      * 每页条数
      */
-    private Long size = 20L;
+    private Long pageSize = 20L;
     /**
      * 排序字段
      */
@@ -35,19 +32,8 @@ public class PageRequest {
      */
     private String order;
 
-    public <T> IPage<T> convertToPage(){
-        Page<T> page =  new Page<>(current, size);
-        if (StrUtil.isNotEmpty(field)) {
-            page.addOrder(build(field, order));
-        }
-        return page;
+    public <T> Page<T> convertToPage() {
+        return Page.of(pageNumber, pageSize);
     }
 
-    private OrderItem build(String column, String order) {
-        if (StrUtil.equals(order, ORDER_ASC)) {
-            return OrderItem.asc(column);
-        } else {
-            return OrderItem.desc(column);
-        }
-    }
 }

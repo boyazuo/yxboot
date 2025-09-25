@@ -1,6 +1,12 @@
 package com.yxboot.modules.sys.controller;
 
-import com.baomidou.mybatisplus.core.metadata.IPage;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+import com.mybatisflex.core.paginate.Page;
 import com.yxboot.common.api.Result;
 import com.yxboot.common.aspect.SysLogOperation;
 import com.yxboot.common.pagination.PageRequest;
@@ -9,7 +15,6 @@ import com.yxboot.modules.sys.service.SysLogService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.*;
 
 /**
  * 日志表 Api
@@ -25,14 +30,14 @@ public class SysLogController {
 
     @GetMapping("/list")
     @Operation(summary = "日志表 查询列表接口")
-    public Result list(Integer type, PageRequest pageRequest) {
-        IPage<SysLog> pageResult = sysLogService.pageQuery(type, pageRequest);
+    public Result<Page<SysLog>> list(Integer type, PageRequest pageRequest) {
+        Page<SysLog> pageResult = sysLogService.pageQuery(type, pageRequest);
         return Result.success("查询成功！", pageResult);
     }
 
     @GetMapping("/get")
     @Operation(summary = "查询详情接口33")
-    public Result get(@RequestParam Long id) {
+    public Result<SysLog> get(@RequestParam Long id) {
         SysLog sysLog = sysLogService.getById(id);
         return Result.success("查询成功！", sysLog);
     }
@@ -40,7 +45,7 @@ public class SysLogController {
     @PostMapping("/save")
     @SysLogOperation(value = "保存日志信息")
     @Operation(summary = "保存信息接口")
-    public Result save(@RequestBody SysLog sysLog) {
+    public Result<SysLog> save(@RequestBody SysLog sysLog) {
         sysLogService.saveOrUpdate(sysLog);
         return Result.success("保存成功！", sysLog);
     }
@@ -48,7 +53,7 @@ public class SysLogController {
     @PostMapping("/remove")
     @SysLogOperation(value = "删除日志信息")
     @Operation(summary = "删除信息接口")
-    public Result remove(Long id) {
+    public Result<Void> remove(Long id) {
         sysLogService.removeById(id);
         return Result.success("删除成功！");
     }

@@ -7,7 +7,7 @@ import { statusOptions } from '@/enums'
 export const tableColumns: BasicColumn[] = [
   { title: '登录账号', dataIndex: 'username' },
   { title: '用户名称', dataIndex: 'name' },
-  { title: '用户角色', dataIndex: 'role.name' },
+  { title: '用户角色', dataIndex: 'roleName' },
   { title: '所属部门', dataIndex: 'deptName' },
   { title: '性别', dataIndex: 'sex.label' },
   { title: '手机号', dataIndex: 'phone' },

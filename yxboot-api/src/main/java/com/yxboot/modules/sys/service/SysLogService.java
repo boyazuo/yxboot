@@ -1,12 +1,13 @@
 package com.yxboot.modules.sys.service;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import static com.yxboot.modules.sys.entity.table.SysLogTableDef.SYS_LOG;
 import org.springframework.stereotype.Service;
-import com.yxboot.modules.sys.mapper.SysLogMapper;
-import com.yxboot.modules.sys.entity.SysLog;
+import com.mybatisflex.core.paginate.Page;
+import com.mybatisflex.core.query.QueryWrapper;
+import com.mybatisflex.spring.service.impl.ServiceImpl;
 import com.yxboot.common.pagination.PageRequest;
+import com.yxboot.modules.sys.entity.SysLog;
+import com.yxboot.modules.sys.mapper.SysLogMapper;
 
 /**
  * 日志表 业务实现类
@@ -17,10 +18,12 @@ import com.yxboot.common.pagination.PageRequest;
  */
 @Service
 public class SysLogService extends ServiceImpl<SysLogMapper, SysLog> {
-    public IPage<SysLog> pageQuery(Integer type, PageRequest pageRequest) {
-        QueryWrapper<SysLog> wrapper = new QueryWrapper<>();
-        wrapper.eq(type != null, "type", type);
-        wrapper.orderByDesc("create_time");
+    public Page<SysLog> pageQuery(Integer type, PageRequest pageRequest) {
+        QueryWrapper wrapper = QueryWrapper.create();
+        if (type != null) {
+            wrapper.where(SYS_LOG.TYPE.eq(type));
+        }
+        wrapper.orderBy(SYS_LOG.CREATE_TIME, false);
         return page(pageRequest.convertToPage(), wrapper);
     }
 }

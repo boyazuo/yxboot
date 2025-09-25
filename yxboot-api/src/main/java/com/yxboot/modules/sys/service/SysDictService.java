@@ -1,13 +1,14 @@
 package com.yxboot.modules.sys.service;
 
-import cn.hutool.core.util.StrUtil;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import static com.yxboot.modules.sys.entity.table.SysDictTableDef.SYS_DICT;
+import org.springframework.stereotype.Service;
+import com.mybatisflex.core.paginate.Page;
+import com.mybatisflex.core.query.QueryWrapper;
+import com.mybatisflex.spring.service.impl.ServiceImpl;
 import com.yxboot.common.pagination.PageRequest;
 import com.yxboot.modules.sys.entity.SysDict;
 import com.yxboot.modules.sys.mapper.SysDictMapper;
-import org.springframework.stereotype.Service;
+import cn.hutool.core.util.StrUtil;
 
 
 /**
@@ -16,18 +17,26 @@ import org.springframework.stereotype.Service;
  * @author Boya
  */
 @Service
-public class SysDictService extends ServiceImpl<SysDictMapper, SysDict>{
-    public IPage<SysDict> pageQuery(String dictName, String dictCode, Integer status, PageRequest pageRequest) {
-        QueryWrapper<SysDict> wrapper = new QueryWrapper<>();
-        wrapper.like(StrUtil.isNotEmpty(dictName), "dict_name", dictName);
-        wrapper.like(StrUtil.isNotEmpty(dictCode), "dict_code", dictCode);
-        wrapper.eq(status != null, "status", status);
+public class SysDictService extends ServiceImpl<SysDictMapper, SysDict> {
+    public Page<SysDict> pageQuery(String dictName, String dictCode, Integer status, PageRequest pageRequest) {
+        QueryWrapper wrapper = QueryWrapper.create();
+        if (StrUtil.isNotEmpty(dictName)) {
+            wrapper.where(SYS_DICT.DICT_NAME.like(dictName));
+        }
+        if (StrUtil.isNotEmpty(dictCode)) {
+            wrapper.where(SYS_DICT.DICT_CODE.like(dictCode));
+        }
+        if (status != null) {
+            wrapper.where(SYS_DICT.STATUS.eq(status));
+        }
         return page(pageRequest.convertToPage(), wrapper);
     }
 
     public SysDict selectByDictCode(String dictCode) {
-        QueryWrapper<SysDict> wrapper = new QueryWrapper<>();
-        wrapper.lambda().eq(StrUtil.isNotEmpty(dictCode), SysDict::getDictCode, dictCode);
+        QueryWrapper wrapper = QueryWrapper.create();
+        if (StrUtil.isNotEmpty(dictCode)) {
+            wrapper.where(SYS_DICT.DICT_CODE.eq(dictCode));
+        }
         return getOne(wrapper);
     }
 }

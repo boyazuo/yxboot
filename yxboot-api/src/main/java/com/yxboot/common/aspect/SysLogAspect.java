@@ -1,13 +1,10 @@
 package com.yxboot.common.aspect;
 
 
-import com.yxboot.common.enums.LogTypeEnum;
-import com.yxboot.modules.sys.entity.SysLog;
-import com.yxboot.modules.sys.service.SysLogService;
-import com.yxboot.utils.CusAccessObjectUtil;
-import com.yxboot.utils.UserUtil;
-import jakarta.servlet.http.HttpServletRequest;
-import lombok.extern.slf4j.Slf4j;
+import java.lang.reflect.Method;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import org.apache.commons.lang.ArrayUtils;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
@@ -18,11 +15,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
-
-import java.lang.reflect.Method;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import com.yxboot.common.enums.LogTypeEnum;
+import com.yxboot.modules.sys.entity.SysLog;
+import com.yxboot.modules.sys.entity.SysUser;
+import com.yxboot.modules.sys.service.SysLogService;
+import com.yxboot.modules.sys.service.SysUserService;
+import com.yxboot.utils.CusAccessObjectUtil;
+import com.yxboot.utils.UserUtil;
+import jakarta.servlet.http.HttpServletRequest;
+import lombok.extern.slf4j.Slf4j;
 
 @Aspect
 @Component
@@ -31,7 +32,7 @@ public class SysLogAspect {
     @Autowired
     private SysLogService sysLogService;
     @Autowired
-    private UserUtil userUtil;
+    private SysUserService sysUserService;
 
     // 定义切点@Pointcut
     // 在注解的位置切入代码
@@ -43,33 +44,35 @@ public class SysLogAspect {
     // 切面 配置通知
     @AfterReturning("logPoinCut()")
     public void saveSysLog(JoinPoint joinPoint) {
-        //保存日志
+        // 保存日志
         SysLog sysLog = new SysLog();
-        //从切面织入点处通过反射机制获取织入点处的方法
+        // 从切面织入点处通过反射机制获取织入点处的方法
         MethodSignature signature = (MethodSignature) joinPoint.getSignature();
-        //获取切入点所在的方法
+        // 获取切入点所在的方法
         Method method = signature.getMethod();
-        //获取操作
+        // 获取操作
         SysLogOperation operation = method.getAnnotation(SysLogOperation.class);
         if (operation != null) {
             String value = operation.value();
-            sysLog.setOperation(value);//保存获取的操作
+            sysLog.setOperation(value);// 保存获取的操作
             sysLog.setType(operation.type());
             if (sysLog.getType() != LogTypeEnum.LOGIN) {
-                sysLog.setUsername(userUtil.getCurrentUser().getUsername());
+                Long userId = UserUtil.getCurrentUserId();
+                SysUser user = sysUserService.getById(userId);
+                sysLog.setUsername(user.getUsername());
             }
         }
-        //获取请求的类名
+        // 获取请求的类名
         String className = joinPoint.getTarget().getClass().getName();
-        //获取请求的方法名
+        // 获取请求的方法名
         String methodName = method.getName();
         sysLog.setMethod(className + "." + methodName);
-        //请求的参数
+        // 请求的参数
         Map<String, Object> params = new HashMap<>();
-        if (joinPoint.getArgs() != null){
-            getParams(params,joinPoint,signature);
+        if (joinPoint.getArgs() != null) {
+            getParams(params, joinPoint, signature);
         }
-        //将参数所在的数组转换成json
+        // 将参数所在的数组转换成json
         if (params.size() > 0) {
             if (sysLog.getType() == LogTypeEnum.LOGIN) {
                 sysLog.setUsername(params.get("username").toString());
@@ -80,7 +83,7 @@ public class SysLogAspect {
         }
 
 
-        //获取用户ip地址
+        // 获取用户ip地址
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes())
                 .getRequest();
         sysLog.setIp(CusAccessObjectUtil.getIpAddress(request));

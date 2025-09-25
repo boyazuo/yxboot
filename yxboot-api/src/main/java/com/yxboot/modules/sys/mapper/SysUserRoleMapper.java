@@ -1,6 +1,6 @@
 package com.yxboot.modules.sys.mapper;
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.mybatisflex.core.BaseMapper;
 import com.yxboot.modules.sys.entity.SysUserRole;
 
 /**

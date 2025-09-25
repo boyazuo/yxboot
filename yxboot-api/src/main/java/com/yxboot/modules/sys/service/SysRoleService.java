@@ -1,15 +1,15 @@
 package com.yxboot.modules.sys.service;
 
-import cn.hutool.core.util.StrUtil;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import static com.yxboot.modules.sys.entity.table.SysRoleTableDef.SYS_ROLE;
+import java.util.List;
+import org.springframework.stereotype.Service;
+import com.mybatisflex.core.paginate.Page;
+import com.mybatisflex.core.query.QueryWrapper;
+import com.mybatisflex.spring.service.impl.ServiceImpl;
 import com.yxboot.common.pagination.PageRequest;
 import com.yxboot.modules.sys.entity.SysRole;
 import com.yxboot.modules.sys.mapper.SysRoleMapper;
-import org.springframework.stereotype.Service;
-
-import java.util.List;
+import cn.hutool.core.util.StrUtil;
 
 
 /**
@@ -19,17 +19,25 @@ import java.util.List;
  */
 @Service
 public class SysRoleService extends ServiceImpl<SysRoleMapper, SysRole> {
-    public IPage<SysRole> pageQuery(String name, Integer status, PageRequest pageRequest) {
-        QueryWrapper<SysRole> wrapper = new QueryWrapper<>();
-        wrapper.like(StrUtil.isNotEmpty(name), "name", name);
-        wrapper.eq(status != null, "status", status);
+    public Page<SysRole> pageQuery(String name, Integer status, PageRequest pageRequest) {
+        QueryWrapper wrapper = QueryWrapper.create();
+        if (StrUtil.isNotEmpty(name)) {
+            wrapper.where(SYS_ROLE.NAME.like(name));
+        }
+        if (status != null) {
+            wrapper.where(SYS_ROLE.STATUS.eq(status));
+        }
         return page(pageRequest.convertToPage(), wrapper);
     }
 
     public List<SysRole> query(String name, Integer status) {
-        QueryWrapper<SysRole> wrapper = new QueryWrapper<>();
-        wrapper.like(StrUtil.isNotEmpty(name), "name", name);
-        wrapper.eq(status != null, "status", status);
+        QueryWrapper wrapper = QueryWrapper.create();
+        if (StrUtil.isNotEmpty(name)) {
+            wrapper.where(SYS_ROLE.NAME.like(name));
+        }
+        if (status != null) {
+            wrapper.where(SYS_ROLE.STATUS.eq(status));
+        }
         return list(wrapper);
     }
 }

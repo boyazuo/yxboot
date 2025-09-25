@@ -1,14 +1,26 @@
 package com.yxboot.modules.sys.controller;
 
-import cn.hutool.captcha.CaptchaUtil;
-import cn.hutool.captcha.ShearCaptcha;
-import cn.hutool.captcha.generator.RandomGenerator;
-import cn.hutool.core.collection.CollUtil;
-import cn.hutool.core.util.StrUtil;
+import java.util.List;
+import java.util.stream.Collectors;
+import org.springframework.security.authentication.AccountExpiredException;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.CredentialsExpiredException;
+import org.springframework.security.authentication.DisabledException;
+import org.springframework.security.authentication.LockedException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import com.yxboot.common.api.Result;
 import com.yxboot.common.api.ResultCode;
 import com.yxboot.common.aspect.SysLogOperation;
 import com.yxboot.common.enums.LogTypeEnum;
+import com.yxboot.common.vo.AccountToken;
 import com.yxboot.config.security.jwt.JwtTokenUtil;
 import com.yxboot.modules.sys.entity.SysMenu;
 import com.yxboot.modules.sys.entity.SysUser;
@@ -17,22 +29,16 @@ import com.yxboot.modules.sys.service.SysMenuService;
 import com.yxboot.modules.sys.service.SysUserRoleService;
 import com.yxboot.modules.sys.service.SysUserService;
 import com.yxboot.utils.UserUtil;
+import cn.hutool.captcha.CaptchaUtil;
+import cn.hutool.captcha.ShearCaptcha;
+import cn.hutool.captcha.generator.RandomGenerator;
+import cn.hutool.core.collection.CollUtil;
+import cn.hutool.core.util.StrUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.authentication.*;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/auth")
@@ -44,7 +50,6 @@ public class AuthController {
     private final SysUserRoleService sysUserRoleService;
     private final SysMenuService sysMenuService;
     private final JwtTokenUtil jwtTokenUtil;
-    private final UserUtil userUtil;
 
     /**
      * 验证码字典
@@ -54,13 +59,15 @@ public class AuthController {
     @SysLogOperation(value = "用户登录", type = LogTypeEnum.LOGIN)
     @PostMapping(value = "/login")
     @Operation(summary = "登录接口")
-    public Result login(String username, String password, String captchaCode, HttpSession session) throws AuthenticationException {
+    public Result<AccountToken> login(String username, String password, String captchaCode, HttpSession session)
+            throws AuthenticationException {
         String sessionCaptchaCode = StrUtil.toString(session.getAttribute("captchaCode"));
         RandomGenerator randomGenerator = new RandomGenerator(RANDOM_GENERATOR_CODE, 4);
         if (!randomGenerator.verify(sessionCaptchaCode, captchaCode)) {
             return Result.error(ResultCode.FORBIDDEN, "验证码错误");
         }
-        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(username, password);
+        UsernamePasswordAuthenticationToken authenticationToken =
+                new UsernamePasswordAuthenticationToken(username, password);
         try {
             Authentication authentication = authenticationManager.authenticate(authenticationToken);
             SecurityContextHolder.getContext().setAuthentication(authentication);
@@ -85,7 +92,7 @@ public class AuthController {
 
     @Operation(summary = "获取验证码")
     @GetMapping("/captcha")
-    public Result captcha(HttpServletRequest request) {
+    public Result<String> captcha(HttpServletRequest request) {
         // 定义验证码字典表 和取值长度
         RandomGenerator randomGenerator = new RandomGenerator(RANDOM_GENERATOR_CODE, 4);
 
@@ -98,21 +105,22 @@ public class AuthController {
         // 获取验证码中的文字内容
         String captchaCode = captcha.getCode();
         // 图形验证码写出，可以写出到文件，也可以写出到流
-        String base64 =  captcha.getImageBase64Data();
+        String base64 = captcha.getImageBase64Data();
         request.getSession().setAttribute("captchaCode", captchaCode);
         return Result.success("获取成功", base64);
     }
 
     @GetMapping(value = "/profile")
     @Operation(summary = "获取当前用户信息")
-    public Result profile() throws AuthenticationException {
-        return Result.success("查询成功", userUtil.getCurrentUser());
+    public Result<SysUser> profile() throws AuthenticationException {
+        Long currentUserId = UserUtil.getCurrentUserId();
+        return Result.success("查询成功", sysUserService.getById(currentUserId));
     }
 
     @GetMapping(value = "/permissions")
     @Operation(summary = "获取当前用户权限")
-    public Result permissions() throws AuthenticationException {
-        Long currentUserId = userUtil.getCurrentUserId();
+    public Result<List<SysMenu>> permissions() throws AuthenticationException {
+        Long currentUserId = UserUtil.getCurrentUserId();
         List<SysUserRole> userRoles = sysUserRoleService.selectByUserId(currentUserId);
         List<Long> roleIds = userRoles.stream().map(SysUserRole::getRoleId).collect(Collectors.toList());
         if (CollUtil.isNotEmpty(roleIds)) {

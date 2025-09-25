@@ -1,14 +1,13 @@
 package com.yxboot.modules.sys.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import java.io.Serial;
+import java.io.Serializable;
+import com.mybatisflex.annotation.Id;
+import com.mybatisflex.annotation.KeyType;
+import com.mybatisflex.annotation.Table;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-
-import java.io.Serial;
-import java.io.Serializable;
 
 /**
  * 系统用户角色表
@@ -17,7 +16,7 @@ import java.io.Serializable;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-@TableName("sys_user_role")
+@Table(value = "sys_user_role")
 @Schema(name = "SysUserRole", description = "系统用户角色表")
 public class SysUserRole implements Serializable {
 	@Serial
@@ -26,7 +25,7 @@ public class SysUserRole implements Serializable {
 	/**
 	 * 编号
 	 */
-	@TableId(value = "id", type = IdType.AUTO)
+	@Id(keyType = KeyType.Auto)
 	@Schema(description = "编号")
 	private Long id;
 

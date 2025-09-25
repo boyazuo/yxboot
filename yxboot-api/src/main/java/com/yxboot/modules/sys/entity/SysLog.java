@@ -1,27 +1,28 @@
 package com.yxboot.modules.sys.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import java.io.Serial;
+import java.io.Serializable;
+import java.util.Date;
+import com.mybatisflex.annotation.Id;
+import com.mybatisflex.annotation.KeyType;
+import com.mybatisflex.annotation.Table;
 import com.yxboot.common.enums.LogTypeEnum;
+import com.yxboot.config.mybatisflex.MyFlexListener;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
-import java.io.Serial;
-import java.io.Serializable;
-import java.util.Date;
-
 /**
  * 日志表
+ * 
  * @author Boya
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@TableName("sys_log")
-@Schema(name ="SysLog", description = "日志表")
+@Table(value = "sys_log", onInsert = MyFlexListener.class, onUpdate = MyFlexListener.class)
+@Schema(name = "SysLog", description = "日志表")
 public class SysLog implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
@@ -29,7 +30,7 @@ public class SysLog implements Serializable {
     /**
      *
      */
-    @TableId(value = "id", type = IdType.AUTO)
+    @Id(keyType = KeyType.Auto)
     private Long id;
 
     /**
