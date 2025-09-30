@@ -47,101 +47,101 @@
   </div>
 </template>
 <script lang="ts" setup>
-  import { PopConfirmButton } from '@/components/Button'
-  import Icon from '@/components/Icon/index'
-  import { ActionItem } from '@/components/Table'
-  import { usePermission } from '@/hooks/web/usePermission'
-  import { isBoolean, isFunction, isString } from '@/utils/is'
-  import { propTypes } from '@/utils/propTypes'
-  import { MoreOutlined } from '@ant-design/icons-vue'
-  import { Divider, TooltipProps } from 'ant-design-vue'
-  import { omit } from 'lodash-es'
-  import { computed, toRaw, unref } from 'vue'
+import { MoreOutlined } from '@ant-design/icons-vue'
+import { Divider, TooltipProps } from 'ant-design-vue'
+import { omit } from 'lodash-es'
+import { computed, toRaw, unref } from 'vue'
+import { PopConfirmButton } from '@/components/Button'
+import Icon from '@/components/Icon/index'
+import { ActionItem } from '@/components/Table'
+import { usePermission } from '@/hooks/web/usePermission'
+import { isBoolean, isFunction, isString } from '@/utils/is'
+import { propTypes } from '@/utils/propTypes'
 
-  const { hasPermission } = usePermission()
+const { hasPermission } = usePermission()
 
-  const props = defineProps({
-    actions: {
-      type: Array as PropType<ActionItem[]>,
-      default: null
-    },
-    dropDownActions: {
-      type: Array as PropType<ActionItem[]>,
-      default: null
-    },
-    divider: propTypes.bool.def(true),
-    outside: propTypes.bool,
-    stopButtonPropagation: propTypes.bool.def(false)
-  })
+const props = defineProps({
+  actions: {
+    type: Array as PropType<ActionItem[]>,
+    default: null,
+  },
+  dropDownActions: {
+    type: Array as PropType<ActionItem[]>,
+    default: null,
+  },
+  divider: propTypes.bool.def(true),
+  outside: propTypes.bool,
+  stopButtonPropagation: propTypes.bool.def(false),
+})
 
-  let table: Partial<any> = {}
+let table: Partial<any> = {}
 
-  const isIfShow = (action: ActionItem): boolean => {
-    const ifShow = action.ifShow
+const isIfShow = (action: ActionItem): boolean => {
+  const ifShow = action.ifShow
 
-    let isIfShow = true
+  let isIfShow = true
 
-    if (isBoolean(ifShow)) {
-      isIfShow = ifShow
-    }
-    if (isFunction(ifShow)) {
-      isIfShow = ifShow(action)
-    }
-    return isIfShow
+  if (isBoolean(ifShow)) {
+    isIfShow = ifShow
   }
+  if (isFunction(ifShow)) {
+    isIfShow = ifShow(action)
+  }
+  return isIfShow
+}
 
-  const getActions = computed(() => {
-    return (toRaw(props.actions) || [])
-      .filter((action) => {
-        return hasPermission(action.auth) && isIfShow(action)
-      })
-      .map((action) => {
-        const { popConfirm } = action
-        return {
-          getPopupContainer: () => unref((table as any)?.wrapRef?.value) ?? document.body,
-          type: 'link',
-          size: 'small',
-          ...action,
-          ...(popConfirm || {}),
-          onConfirm: popConfirm?.confirm,
-          onCancel: popConfirm?.cancel,
-          enable: !!popConfirm
-        }
-      })
-  })
-
-  const getDropdownList = computed((): any[] => {
-    const list = (toRaw(props.dropDownActions) || []).filter((action) => {
+const getActions = computed(() => {
+  return (toRaw(props.actions) || [])
+    .filter((action) => {
       return hasPermission(action.auth) && isIfShow(action)
     })
-    return list.map((action, index) => {
+    .map((action) => {
       const { popConfirm } = action
       return {
+        getPopupContainer: () => unref((table as any)?.wrapRef?.value) ?? document.body,
+        type: 'link',
+        size: 'small',
         ...action,
-        ...popConfirm,
+        ...(popConfirm || {}),
         onConfirm: popConfirm?.confirm,
         onCancel: popConfirm?.cancel,
-        divider: index < list.length - 1 ? props.divider : false
+        enable: !!popConfirm,
       }
     })
-  })
+})
 
-  const getPopConfirmAttrs = computed(() => {
-    return (attrs) => {
-      const originAttrs = omit(attrs, ['confirm', 'cancel', 'icon'])
-      if (!attrs.onConfirm && attrs.confirm && isFunction(attrs.confirm)) originAttrs['onConfirm'] = attrs.confirm
-      if (!attrs.onCancel && attrs.cancel && isFunction(attrs.cancel)) originAttrs['onCancel'] = attrs.cancel
-      return originAttrs
-    }
+const getDropdownList = computed((): any[] => {
+  const list = (toRaw(props.dropDownActions) || []).filter((action) => {
+    return hasPermission(action.auth) && isIfShow(action)
   })
-
-  function getTooltip(data?: string | TooltipProps): TooltipProps {
+  return list.map((action, index) => {
+    const { popConfirm } = action
     return {
-      // getPopupContainer: () => unref((table as any)?.wrapRef.value) ?? document.body,
-      placement: 'bottom',
-      ...(isString(data) ? { title: data } : data)
+      ...action,
+      ...popConfirm,
+      onConfirm: popConfirm?.confirm,
+      onCancel: popConfirm?.cancel,
+      divider: index < list.length - 1 ? props.divider : false,
     }
+  })
+})
+
+const getPopConfirmAttrs = computed(() => {
+  return (attrs) => {
+    const originAttrs = omit(attrs, ['confirm', 'cancel', 'icon'])
+    if (!attrs.onConfirm && attrs.confirm && isFunction(attrs.confirm)) originAttrs['onConfirm'] = attrs.confirm
+    if (!attrs.onCancel && attrs.cancel && isFunction(attrs.cancel)) originAttrs['onCancel'] = attrs.cancel
+    return originAttrs
   }
+})
+
+function getTooltip(data?: string | TooltipProps): TooltipProps {
+  return {
+    // getPopupContainer: () => unref((table as any)?.wrapRef.value) ?? document.body,
+    placement: 'bottom',
+    ...(isString(data) ? { title: data } : data),
+  }
+}
 </script>
 <style lang="less" scope>
   .table-body__action {

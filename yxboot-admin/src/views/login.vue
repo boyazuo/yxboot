@@ -72,72 +72,71 @@
   </div>
 </template>
 <script lang="ts" setup>
-  import { captcha } from '@/api/sys/auth'
-  import Icon from '@/components/Icon/index'
-  import { useGlobSetting } from '@/hooks/setting'
-  import { useUserStore } from '@/store/modules/user'
-  import { AlipayCircleFilled, GithubFilled, WechatFilled } from '@ant-design/icons-vue'
-  import { message } from 'ant-design-vue'
+import { AlipayCircleFilled, GithubFilled, WechatFilled } from '@ant-design/icons-vue'
+import { message } from 'ant-design-vue'
+import { captcha } from '@/api/sys/auth'
+import Icon from '@/components/Icon/index'
+import { useUserStore } from '@/store/modules/user'
 
-  const titleOption = {
-    title: 'YXBoot' || useGlobSetting().title,
-    desc: 'YXBoot 一个开箱即用的前后台管理系统框架'
-  }
+const titleOption = {
+  title: 'YXBoot',
+  desc: 'YXBoot 一个开箱即用的前后台管理系统框架',
+}
 
-  const formData = reactive({
-    username: '',
-    password: '',
-    captchaCode: '',
-    captchaImage: ''
-  })
-  const rules = {
-    username: [{ required: true, message: '请输入用户名' }],
-    password: [{ required: true, message: '请输入密码' }],
-    captchaCode: [{ required: true, message: '请输入验证码' }]
-  }
+const formData = reactive({
+  username: '',
+  password: '',
+  captchaCode: '',
+  captchaImage: '',
+})
+const rules = {
+  username: [{ required: true, message: '请输入用户名' }],
+  password: [{ required: true, message: '请输入密码' }],
+  captchaCode: [{ required: true, message: '请输入验证码' }],
+}
 
-  const formRef = ref()
-  const router = useRouter()
-  const route = useRoute()
-  const userStore = useUserStore()
-  const loading = ref(false)
-  const rememberMe = ref(false)
+const formRef = ref()
+const router = useRouter()
+const route = useRoute()
+const userStore = useUserStore()
+const loading = ref(false)
+const rememberMe = ref(false)
 
-  const handleLogin = async () => {
-    formRef.value.validate().then(() => {
-      loading.value = true
-      userStore
-        .login(formData)
-        .then((res) => {
-          if (res.code === 0) {
-            const toPath = decodeURIComponent((route.query?.redirect || '/') as string)
-            message.success('登录成功，即将进入系统')
-            if (route.name === '/login') router.replace('/')
-            else router.replace(toPath)
-          } else {
-            message.error(res.msg)
-            handleChangeCaptcha()
-          }
-        })
-        .catch(() => {
+const handleLogin = async () => {
+  formRef.value.validate().then(() => {
+    loading.value = true
+    userStore
+      .login(formData)
+      .then((res) => {
+        if (res.code === 0) {
+          const toPath = decodeURIComponent((route.query?.redirect || '/') as string)
+          message.success('登录成功，即将进入系统')
+          if (route.name === '/login') router.replace('/')
+          else router.replace(toPath)
+        } else {
+          message.error(res.msg)
           handleChangeCaptcha()
-        })
-        .finally(() => {
-          loading.value = false
-        })
-    })
-  }
-
-  const handleChangeCaptcha = () => {
-    formData.captchaCode = ''
-    captcha().then((res) => {
-      formData.captchaImage = res.data
-    })
-  }
-
-  onMounted(() => {
-    handleChangeCaptcha()
+        }
+      })
+      .catch(() => {
+        handleChangeCaptcha()
+      })
+      .finally(() => {
+        loading.value = false
+      })
   })
+}
+
+const handleChangeCaptcha = () => {
+  formData.captchaCode = ''
+  captcha().then((res) => {
+    formData.captchaImage = res.data
+  })
+}
+
+onMounted(() => {
+  handleChangeCaptcha()
+})
 </script>
 <style lang="less" scoped>
   .page {

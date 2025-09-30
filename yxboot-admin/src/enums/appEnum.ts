@@ -4,19 +4,19 @@ export enum ContentLayoutEnum {
   // auto width
   FULL = 'full',
   // fixed width
-  FIXED = 'fixed'
+  FIXED = 'fixed',
 }
 
 // menu theme enum
 export enum ThemeEnum {
   DARK = 'dark',
-  LIGHT = 'light'
+  LIGHT = 'light',
 }
 
 export enum ThemeTypeEnum {
   LIGHT = 'light',
   DARK = 'dark',
-  REAL_DARK = 'real-dark'
+  REAL_DARK = 'real-dark',
 }
 
 /**
@@ -30,13 +30,13 @@ export enum NavBarModeEnum {
   // mixin menu
   MIX = 'mix',
   // top menu
-  TOP_MENU = 'top-menu'
+  TOP_MENU = 'top-menu',
 }
 
 export enum SettingButtonPositionEnum {
   AUTO = 'auto',
   HEADER = 'header',
-  FIXED = 'fixed'
+  FIXED = 'fixed',
 }
 
 // Route switching animation
@@ -47,5 +47,5 @@ export enum RouterTransitionEnum {
   FADE_SIDE = 'fade-slide',
   FADE = 'fade',
   FADE_BOTTOM = 'fade-bottom',
-  FADE_SCALE = 'fade-scale'
+  FADE_SCALE = 'fade-scale',
 }

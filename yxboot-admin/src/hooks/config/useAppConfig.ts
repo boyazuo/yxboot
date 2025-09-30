@@ -1,8 +1,9 @@
 /**
  * Application configuration
  */
+import { theme } from 'ant-design-vue'
+import { storeToRefs } from 'pinia'
 import type { AppSetting } from '#/config'
-
 import { MenuModeEnum, MenuTypeEnum, ThemeEnum, ThemeTypeEnum } from '@/enums'
 import { APP_CFG_KEY } from '@/enums/cacheEnum'
 import { HandlerEnum } from '@/enums/handlerEnum'
@@ -11,8 +12,6 @@ import { initAppConfigStore, useAppConfigStore } from '@/store/modules/appConfig
 import { _merge, deepMerge } from '@/utils'
 import { Persistent } from '@/utils/cache/persistent'
 import { setCssVar } from '@/utils/theme'
-import { theme } from 'ant-design-vue'
-import { storeToRefs } from 'pinia'
 import { useMenuSetting } from '../setting/useMenuSetting'
 import { useThemeSetting } from '../setting/useThemeSetting'
 import { updateDarkTheme } from './dark'
@@ -56,7 +55,7 @@ export const useAppConfig = () => {
       setAppConfig({
         themeSetting: { theme: ThemeEnum.LIGHT, themeType: ThemeTypeEnum.LIGHT },
         siderSetting: { theme: ThemeEnum.LIGHT },
-        headerSetting: { theme: ThemeEnum.LIGHT }
+        headerSetting: { theme: ThemeEnum.LIGHT },
       })
       updateDarkTheme(ThemeEnum.LIGHT)
     }
@@ -64,7 +63,7 @@ export const useAppConfig = () => {
       setAppConfig({
         themeSetting: { theme: ThemeEnum.LIGHT, themeType: ThemeTypeEnum.DARK },
         siderSetting: { theme: ThemeEnum.DARK },
-        headerSetting: { theme: ThemeEnum.LIGHT }
+        headerSetting: { theme: ThemeEnum.LIGHT },
       })
       updateDarkTheme(ThemeEnum.LIGHT)
     }
@@ -72,7 +71,7 @@ export const useAppConfig = () => {
       setAppConfig({
         themeSetting: { theme: ThemeEnum.DARK, themeType: ThemeTypeEnum.REAL_DARK },
         siderSetting: { theme: ThemeEnum.DARK },
-        headerSetting: { theme: ThemeEnum.DARK }
+        headerSetting: { theme: ThemeEnum.DARK },
       })
       updateDarkTheme(ThemeEnum.DARK)
     }
@@ -98,8 +97,8 @@ export const useAppConfig = () => {
     return {
       algorithm: isDark.value ? theme.darkAlgorithm : theme.defaultAlgorithm,
       token: {
-        ...unref(getToken)
-      }
+        ...unref(getToken),
+      },
     }
   })
 
@@ -112,7 +111,7 @@ export const useAppConfig = () => {
       val.colorWarning && setCssVar('--warning-color', val.colorWarning)
       val.colorInfo && setCssVar('--info-color', val.colorInfo)
     },
-    { deep: true }
+    { deep: true },
   )
 
   return {
@@ -122,7 +121,7 @@ export const useAppConfig = () => {
     changeMenuType,
     setAppConfig,
     baseHandler,
-    getThemeConfig
+    getThemeConfig,
   }
 }
 

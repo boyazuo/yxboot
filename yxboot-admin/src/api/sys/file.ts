@@ -1,5 +1,5 @@
 import { http } from '@/utils/http/axios'
-import { BasicResultModel } from '../model/basicModel'
+import type { BasicResultModel } from '../model/basicModel'
 
 enum Api {
   list = '/sys/file/list',
@@ -7,7 +7,7 @@ enum Api {
   save = '/sys/file/save',
   remove = '/sys/file/remove',
   getByPath = '/sys/file/getByPath',
-  upload = '/sys/file/upload'
+  upload = '/sys/file/upload',
 }
 
 export const listFile = (params: any) => http.get<BasicResultModel>({ url: Api.list, params })

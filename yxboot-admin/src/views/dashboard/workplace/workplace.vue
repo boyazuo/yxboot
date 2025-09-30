@@ -16,15 +16,15 @@
   </div>
 </template>
 <script lang="ts" setup>
-  import { ref } from 'vue'
-  import DynamicInfo from './components/DynamicInfo.vue'
-  import ProjectCard from './components/ProjectCard.vue'
-  import QuickNav from './components/QuickNav.vue'
-  import WorkbenchHeader from './components/WorkbenchHeader.vue'
+import { ref } from 'vue'
+import DynamicInfo from './components/DynamicInfo.vue'
+import ProjectCard from './components/ProjectCard.vue'
+import QuickNav from './components/QuickNav.vue'
+import WorkbenchHeader from './components/WorkbenchHeader.vue'
 
-  const loading = ref(true)
+const loading = ref(true)
 
-  setTimeout(() => {
-    loading.value = false
-  }, 1000)
+setTimeout(() => {
+  loading.value = false
+}, 1000)
 </script>

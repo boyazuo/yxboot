@@ -1,5 +1,5 @@
+import type { AxiosError, AxiosInstance } from 'axios'
 import { RetryConfig } from '@/utils/http/axios/retryConfig'
-import { AxiosError, AxiosInstance } from 'axios'
 /**
  *  请求重试机制
  */
@@ -9,7 +9,6 @@ export class AxiosRetry {
    * 重试
    */
   retry(AxiosInstance: AxiosInstance, error: AxiosError) {
-    // @ts-ignore
     const { config } = error.response
     const retryConfig = new RetryConfig(config)
     const { waitTime, count } = retryConfig?.requestOptions?.retryRequest

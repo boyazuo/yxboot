@@ -1,6 +1,3 @@
-import type { Component } from 'vue'
-import type { ComponentType } from './types/index'
-
 /**
  * Component list, register here to setting it in the form
  */
@@ -18,13 +15,15 @@ import {
   Slider,
   Switch,
   TimePicker,
-  TreeSelect
+  TreeSelect,
 } from 'ant-design-vue'
+import type { Component } from 'vue'
 import { IconPicker } from '../../Icon'
 import ApiSelect from './components/ApiSelect.vue'
 import ApiTreeSelect from './components/ApiTreeSelect.vue'
 import Dict from './components/Dict.vue'
 import UploadImg from './components/UploadImg.vue'
+import type { ComponentType } from './types/index'
 
 const componentMap = new Map<ComponentType, Component>()
 

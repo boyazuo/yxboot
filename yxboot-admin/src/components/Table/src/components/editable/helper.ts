@@ -1,4 +1,4 @@
-import { ComponentType } from '../../types/componentType'
+import type { ComponentType } from '../../types/componentType'
 
 /**
  * @description: 生成placeholder

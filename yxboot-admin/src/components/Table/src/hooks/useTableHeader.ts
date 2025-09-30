@@ -1,7 +1,7 @@
-import { getSlot } from '@/utils/helper/tsxHelper'
-import { isString } from '@/utils/is'
 import type { ComputedRef, Slots } from 'vue'
 import { computed, h, unref } from 'vue'
+import { getSlot } from '@/utils/helper/tsxHelper'
+import { isString } from '@/utils/is'
 import TableHeader from '../components/TableHeader.vue'
 import type { BasicTableProps, InnerHandlers } from '../types/table'
 
@@ -24,26 +24,26 @@ export function useTableHeader(propsRef: ComputedRef<BasicTableProps>, slots: Sl
                 titleHelpMessage,
                 showTableSetting,
                 tableSetting,
-                onColumnsChange: handlers.onColumnsChange
+                onColumnsChange: handlers.onColumnsChange,
               } as Recordable,
               {
                 ...(slots.toolbar
                   ? {
-                      toolbar: () => getSlot(slots, 'toolbar')
+                      toolbar: () => getSlot(slots, 'toolbar'),
                     }
                   : {}),
                 ...(slots.tableTitle
                   ? {
-                      tableTitle: () => getSlot(slots, 'tableTitle')
+                      tableTitle: () => getSlot(slots, 'tableTitle'),
                     }
                   : {}),
                 ...(slots.headerTop
                   ? {
-                      headerTop: () => getSlot(slots, 'headerTop')
+                      headerTop: () => getSlot(slots, 'headerTop'),
                     }
-                  : {})
-              }
-            )
+                  : {}),
+              },
+            ),
     }
   })
   return { getHeaderProps }

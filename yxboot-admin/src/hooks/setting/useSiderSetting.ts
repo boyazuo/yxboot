@@ -1,6 +1,6 @@
+import { storeToRefs } from 'pinia'
 import { ThemeEnum } from '@/enums'
 import { useAppConfigStore } from '@/store/modules/appConfig'
-import { storeToRefs } from 'pinia'
 
 export function useSiderSetting() {
   const appConfigStore = useAppConfigStore()
@@ -17,13 +17,13 @@ export function useSiderSetting() {
 
   function toggleTheme() {
     setSiderSetting({
-      theme: unref(getSiderTheme) === ThemeEnum.DARK ? ThemeEnum.LIGHT : ThemeEnum.DARK
+      theme: unref(getSiderTheme) === ThemeEnum.DARK ? ThemeEnum.LIGHT : ThemeEnum.DARK,
     })
   }
 
   function toggleCollapsed() {
     setSiderSetting({
-      collapsed: !unref(getCollapsed)
+      collapsed: !unref(getCollapsed),
     })
   }
 
@@ -39,6 +39,6 @@ export function useSiderSetting() {
     getCollapsed,
 
     toggleTheme,
-    toggleCollapsed
+    toggleCollapsed,
   }
 }

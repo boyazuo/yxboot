@@ -1,12 +1,11 @@
+import { tryOnUnmounted, useDebounceFn, useTimeoutFn } from '@vueuse/core'
 import type { EChartsOption } from 'echarts'
 import type { Ref } from 'vue'
-
+import { computed, nextTick, ref, unref, watch } from 'vue'
 import { useBreakpoint } from '@/hooks/event/useBreakpoint'
 import { useEventListener } from '@/hooks/event/useEventListener'
 import { useSiderSetting, useThemeSetting } from '@/hooks/setting'
 import echarts from '@/utils/lib/echarts'
-import { tryOnUnmounted, useDebounceFn, useTimeoutFn } from '@vueuse/core'
-import { computed, nextTick, ref, unref, watch } from 'vue'
 
 export function useECharts(elRef: Ref<HTMLDivElement>, theme: 'light' | 'dark' | 'default' = 'default') {
   const { getTheme: getSysDarkMode } = useThemeSetting()
@@ -28,7 +27,7 @@ export function useECharts(elRef: Ref<HTMLDivElement>, theme: 'light' | 'dark' |
     }
     return {
       backgroundColor: 'transparent',
-      ...cacheOptions.value
+      ...cacheOptions.value,
     } as EChartsOption
   })
 
@@ -42,7 +41,7 @@ export function useECharts(elRef: Ref<HTMLDivElement>, theme: 'light' | 'dark' |
     const { removeEvent } = useEventListener({
       el: window,
       name: 'resize',
-      listener: resizeFn
+      listener: resizeFn,
     })
     removeResizeFn = removeEvent
     const { widthRef, screenEnum } = useBreakpoint()
@@ -82,8 +81,8 @@ export function useECharts(elRef: Ref<HTMLDivElement>, theme: 'light' | 'dark' |
     chartInstance?.resize({
       animation: {
         duration: 300,
-        easing: 'quadraticIn'
-      }
+        easing: 'quadraticIn',
+      },
     })
   }
 
@@ -95,7 +94,7 @@ export function useECharts(elRef: Ref<HTMLDivElement>, theme: 'light' | 'dark' |
         initCharts(theme as 'default')
         setOptions(cacheOptions.value)
       }
-    }
+    },
   )
 
   watch(getCollapsed, (_) => {
@@ -122,6 +121,6 @@ export function useECharts(elRef: Ref<HTMLDivElement>, theme: 'light' | 'dark' |
     setOptions,
     resize,
     echarts,
-    getInstance
+    getInstance,
   }
 }

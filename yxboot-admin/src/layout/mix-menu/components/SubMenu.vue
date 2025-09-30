@@ -8,18 +8,18 @@
   </a-menu-item>
 </template>
 <script lang="ts">
-  import Icon from '@/components/Icon'
-  export default {
-    name: 'Menu',
-    components: { Icon },
-    props: {
-      menu: {
-        type: Object,
-        default() {
-          return {}
-        }
-      }
-    }
-  }
+import Icon from '@/components/Icon'
+export default {
+  name: 'Menu',
+  components: { Icon },
+  props: {
+    menu: {
+      type: Object,
+      default() {
+        return {}
+      },
+    },
+  },
+}
 </script>
 <style lang="less" scoped></style>

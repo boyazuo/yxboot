@@ -1,5 +1,5 @@
 import { http } from '@/utils/http/axios'
-import { BasicResultModel } from '../model/basicModel'
+import type { BasicResultModel } from '../model/basicModel'
 
 enum Api {
   all = '/sys/dept/all',
@@ -7,7 +7,7 @@ enum Api {
   get = '/sys/dept/get',
   save = '/sys/dept/save',
   remove = '/sys/dept/remove',
-  tree = '/sys/dept/tree'
+  tree = '/sys/dept/tree',
 }
 
 export const allDept = (params: any) => http.get<BasicResultModel>({ url: Api.all, params })

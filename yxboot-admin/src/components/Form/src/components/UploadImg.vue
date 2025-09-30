@@ -13,46 +13,47 @@
   <div v-if="proposal" class="proposal">{{ proposal }}</div>
 </template>
 <script setup lang="ts">
-  /**
-   * 上传图片 组件
-   * @date 2023-08-15
-   * @author caohy
-   * @Email 482315166@qq.com
-   */
-  import { uploadFile } from '@/api/sys/file'
-  import { message, UploadChangeParam } from 'ant-design-vue'
+/**
+ * 上传图片 组件
+ * @date 2023-08-15
+ * @author caohy
+ * @Email 482315166@qq.com
+ */
 
-  const props = defineProps({
-    value: {
-      type: String,
-      default: ''
-    },
-    proposal: {
-      type: String,
-      default: ''
-    }
+import { message, UploadChangeParam } from 'ant-design-vue'
+import { uploadFile } from '@/api/sys/file'
+
+const props = defineProps({
+  value: {
+    type: String,
+    default: '',
+  },
+  proposal: {
+    type: String,
+    default: '',
+  },
+})
+const attrs = useAttrs()
+
+const emits = defineEmits(['update:value'])
+
+const ImgUrl = computed({
+  get() {
+    return props.value
+  },
+  set(value) {
+    emits('update:value', value)
+  },
+})
+
+const handleChangeOssImg = (info: UploadChangeParam) => {
+  uploadFile({ file: info.file }).then((res) => {
+    if (res.code === 0) {
+      ImgUrl.value = res.data.url
+      message.success(res.msg)
+    } else message.warning(res.data.msg)
   })
-  const attrs = useAttrs()
-
-  const emits = defineEmits(['update:value'])
-
-  const ImgUrl = computed({
-    get() {
-      return props.value
-    },
-    set(value) {
-      emits('update:value', value)
-    }
-  })
-
-  const handleChangeOssImg = (info: UploadChangeParam) => {
-    uploadFile({ file: info.file }).then((res) => {
-      if (res.code === 0) {
-        ImgUrl.value = res.data.url
-        message.success(res.msg)
-      } else message.warning(res.data.msg)
-    })
-  }
+}
 </script>
 <style lang="less" scoped>
   .upload-img {

@@ -48,271 +48,269 @@
 </template>
 
 <script lang="ts" setup>
-  import { deepMerge } from '@/utils'
-  import { dateUtil } from '@/utils/dateUtil'
-  import { isBoolean, isFunction } from '@/utils/is'
-  import { Ref, computed, onMounted, reactive, ref, unref, watch } from 'vue'
-  import { dateItemType } from './helper'
-  import { basicProps } from './props'
-  import type { FormActionType, FormProps, FormSchema } from './types/form'
-  import type { ColEx } from './types/index'
+import { useDebounceFn } from '@vueuse/core'
+import { cloneDeep } from 'lodash-es'
+import { computed, onMounted, Ref, reactive, ref, unref, watch } from 'vue'
+import { deepMerge } from '@/utils'
+import { dateUtil } from '@/utils/dateUtil'
+import { isBoolean, isFunction } from '@/utils/is'
+import { componentMap } from './componentMap'
+import { createPlaceholderMessage, dateItemType } from './helper'
+import { useFormEvents } from './hooks/useFormEvents'
+import { useFormValues } from './hooks/useFormValues'
+import { useItemLabelWidth } from './hooks/useLabelWidth'
+import { basicProps } from './props'
+import type { FormActionType, FormProps, FormSchema } from './types/form'
+import type { ColEx } from './types/index'
 
-  import { useDebounceFn } from '@vueuse/core'
-  import { cloneDeep } from 'lodash-es'
-  import { componentMap } from './componentMap'
-  import { createPlaceholderMessage } from './helper'
-  import { useFormEvents } from './hooks/useFormEvents'
-  import { useFormValues } from './hooks/useFormValues'
-  import { useItemLabelWidth } from './hooks/useLabelWidth'
+const props = defineProps(basicProps)
+const emit = defineEmits(['advanced-change', 'reset', 'submit', 'register', 'field-value-change'])
+const attrs = useAttrs()
+const formModel = reactive<Recordable>({})
 
-  const props = defineProps(basicProps)
-  const emit = defineEmits(['advanced-change', 'reset', 'submit', 'register', 'field-value-change'])
-  const attrs = useAttrs()
-  const formModel = reactive<Recordable>({})
+const defaultValueRef = ref<Recordable>({})
+const isInitedDefaultRef = ref(false)
+const propsRef = ref<Partial<FormProps>>({})
+const schemaRef = ref<Nullable<FormSchema[]>>(null)
+const formElRef = ref<Nullable<FormActionType>>(null)
 
-  const defaultValueRef = ref<Recordable>({})
-  const isInitedDefaultRef = ref(false)
-  const propsRef = ref<Partial<FormProps>>({})
-  const schemaRef = ref<Nullable<FormSchema[]>>(null)
-  const formElRef = ref<Nullable<FormActionType>>(null)
+// Get the basic configuration of the form
+const getProps = computed((): FormProps => {
+  return { ...props, ...unref(propsRef) } as FormProps
+})
 
-  // Get the basic configuration of the form
-  const getProps = computed((): FormProps => {
-    return { ...props, ...unref(propsRef) } as FormProps
-  })
-
-  // ['from', { from--compact: true }]
-  const getFormClass = computed(() => {
-    return [
-      'form',
-      {
-        ['form--compact']: unref(getProps).compact
-      }
-    ]
-  })
-
-  // get attrs props
-  const getBindValue = computed(() => ({ ...attrs, ...props, ...unref(getProps) }) as Recordable)
-
-  // get isShow state
-  const getShow = (schema) => {
-    const { show, ifShow } = schema
-    let isShow = true
-    let isIfShow = true
-
-    if (isBoolean(show)) {
-      isShow = show
-    }
-    if (isBoolean(ifShow)) {
-      isIfShow = ifShow
-    }
-    if (isFunction(show)) {
-      isShow = show(unref(formModel))
-    }
-    if (isFunction(ifShow)) {
-      isIfShow = ifShow(unref(formModel))
-    }
-    return { isShow, isIfShow }
-  }
-
-  const getDisable = (schema) => {
-    const { disabled } = schema
-    if (isBoolean(disabled)) {
-      return disabled
-    }
-    if (isFunction(disabled)) {
-      return disabled(unref(formModel))
-    }
-    return false
-  }
-
-  const getReadonly = (schema) => {
-    const { readonly } = schema
-    if (isBoolean(readonly)) {
-      return readonly
-    }
-    if (isFunction(readonly)) {
-      return readonly(unref(formModel))
-    }
-    return false
-  }
-
-  const getComponent = (schema) => {
-    return componentMap.get(schema.component)
-  }
-  const getSchemaSlot = (schema) => {
-    return schema.slot
-  }
-  const getSlotScope = (schema) => {
-    return {
-      schema: schema,
-      model: unref(formModel)
-    }
-  }
-
-  const getComponentProps = (schema) => {
-    let { componentProps = {} } = schema
-    if (isFunction(componentProps)) {
-      componentProps = componentProps({ schema, formModel, formActionType }) ?? {}
-    }
-    const component = schema.component
-    return {
-      clearable: true,
-      placeholder: createPlaceholderMessage(unref(component)) + schema.label,
-      ...componentProps,
-      disabled: getDisable(schema),
-      readonly: getReadonly(schema)
-    }
-  }
-
-  const getSchema = computed((): FormSchema[] => {
-    const schemas: FormSchema[] = unref(schemaRef) || (unref(getProps).schemas as any)
-    for (const schema of schemas) {
-      const { defaultValue, component } = schema
-      // handle date type
-      if (defaultValue && dateItemType.includes(component)) {
-        // if no Array
-        if (!Array.isArray(defaultValue)) {
-          schema.defaultValue = dateUtil(defaultValue)
-        } else {
-          const def: any[] = []
-          defaultValue.forEach((item) => {
-            def.push(dateUtil(item))
-          })
-          schema.defaultValue = def
-        }
-      }
-    }
-    // handle advaced button
-    // if showAdvancedButton remove Divider
-    if (unref(getProps).showAdvancedButton) {
-      return cloneDeep(schemas.filter((schema) => schema.component !== 'Divider') as FormSchema[])
-    } else {
-      return cloneDeep(schemas as FormSchema[])
-    }
-  })
-
-  const { handleFormValues, initDefault } = useFormValues({
-    getProps,
-    defaultValueRef,
-    getSchema,
-    formModel
-  })
-
-  const {
-    handleSubmit,
-    setFieldsValue,
-    clearValidate,
-    validate,
-    validateFields,
-    getFieldsValue,
-    resetFields,
-    updateSchema,
-    resetSchema,
-    removeSchemaByFiled,
-    appendSchemaByField
-  } = useFormEvents({
-    emit,
-    getProps,
-    formModel,
-    getSchema,
-    defaultValueRef,
-    formElRef: formElRef as Ref<FormActionType>,
-    schemaRef: schemaRef as Ref<FormSchema[]>,
-    handleFormValues
-  })
-
-  watch(
-    () => unref(getProps).model,
-    () => {
-      const { model } = unref(getProps)
-      if (!model) return
-      setFieldsValue(model)
-    },
+// ['from', { from--compact: true }]
+const getFormClass = computed(() => {
+  return [
+    'form',
     {
-      immediate: true
-    }
-  )
+      ['form--compact']: unref(getProps).compact,
+    },
+  ]
+})
 
-  watch(
-    () => unref(getProps).schemas,
-    (schemas) => {
-      resetSchema(schemas ?? [])
-    }
-  )
+// get attrs props
+const getBindValue = computed(() => ({ ...attrs, ...props, ...unref(getProps) }) as Recordable)
 
-  watch(
-    () => getSchema.value,
-    (schema) => {
-      if (unref(isInitedDefaultRef)) {
-        return
+// get isShow state
+const getShow = (schema) => {
+  const { show, ifShow } = schema
+  let isShow = true
+  let isIfShow = true
+
+  if (isBoolean(show)) {
+    isShow = show
+  }
+  if (isBoolean(ifShow)) {
+    isIfShow = ifShow
+  }
+  if (isFunction(show)) {
+    isShow = show(unref(formModel))
+  }
+  if (isFunction(ifShow)) {
+    isIfShow = ifShow(unref(formModel))
+  }
+  return { isShow, isIfShow }
+}
+
+const getDisable = (schema) => {
+  const { disabled } = schema
+  if (isBoolean(disabled)) {
+    return disabled
+  }
+  if (isFunction(disabled)) {
+    return disabled(unref(formModel))
+  }
+  return false
+}
+
+const getReadonly = (schema) => {
+  const { readonly } = schema
+  if (isBoolean(readonly)) {
+    return readonly
+  }
+  if (isFunction(readonly)) {
+    return readonly(unref(formModel))
+  }
+  return false
+}
+
+const getComponent = (schema) => {
+  return componentMap.get(schema.component)
+}
+const getSchemaSlot = (schema) => {
+  return schema.slot
+}
+const getSlotScope = (schema) => {
+  return {
+    schema: schema,
+    model: unref(formModel),
+  }
+}
+
+const getComponentProps = (schema) => {
+  let { componentProps = {} } = schema
+  if (isFunction(componentProps)) {
+    componentProps = componentProps({ schema, formModel, formActionType }) ?? {}
+  }
+  const component = schema.component
+  return {
+    clearable: true,
+    placeholder: createPlaceholderMessage(unref(component)) + schema.label,
+    ...componentProps,
+    disabled: getDisable(schema),
+    readonly: getReadonly(schema),
+  }
+}
+
+const getSchema = computed((): FormSchema[] => {
+  const schemas: FormSchema[] = unref(schemaRef) || (unref(getProps).schemas as any)
+  for (const schema of schemas) {
+    const { defaultValue, component } = schema
+    // handle date type
+    if (defaultValue && dateItemType.includes(component)) {
+      // if no Array
+      if (!Array.isArray(defaultValue)) {
+        schema.defaultValue = dateUtil(defaultValue)
+      } else {
+        const def: any[] = []
+        defaultValue.forEach((item) => {
+          def.push(dateUtil(item))
+        })
+        schema.defaultValue = def
       }
-      if (schema?.length) {
-        initDefault()
-        isInitedDefaultRef.value = true
-      }
-    }
-  )
-
-  watch(
-    () => formModel,
-    useDebounceFn(() => {
-      unref(getProps).submitOnChange && handleSubmit()
-    }, 300),
-    { deep: true }
-  )
-
-  async function setProps(formProps: Partial<FormProps>): Promise<void> {
-    propsRef.value = deepMerge(unref(propsRef) || {}, formProps)
-  }
-
-  const getColProps = (schema) => {
-    const { colProps = {} } = schema
-    const { baseColProps = { span: 24 } } = unref(getProps)
-    return { ...baseColProps, ...colProps }
-  }
-
-  const actionColOpt = computed(() => {
-    const { showAdvancedButton, actionSpan, actionColOptions } = unref(getProps)
-    const advancedSpanObj = showAdvancedButton ? { span: actionSpan < 6 ? 24 : actionSpan } : {}
-    const actionColOpt: Partial<ColEx> = {
-      style: { textAlign: 'right', flex: '1 0 auto' },
-      span: showAdvancedButton ? 6 : 4,
-      ...advancedSpanObj,
-      ...actionColOptions
-    }
-    return actionColOpt
-  })
-
-  const getItemProps = (schema) => {
-    const itemLabelWidthProp = useItemLabelWidth(schema, getProps)
-    const { labelCol, wrapperCol } = unref(itemLabelWidthProp)
-    return {
-      labelCol,
-      wrapperCol,
-      required: schema.required ?? false
     }
   }
-
-  const formActionType: Partial<FormActionType> = {
-    getFieldsValue,
-    setFieldsValue,
-    resetFields,
-    setProps,
-    updateSchema,
-    resetSchema,
-    removeSchemaByFiled,
-    appendSchemaByField,
-    clearValidate,
-    validateFields,
-    validate,
-    submit: handleSubmit
+  // handle advaced button
+  // if showAdvancedButton remove Divider
+  if (unref(getProps).showAdvancedButton) {
+    return cloneDeep(schemas.filter((schema) => schema.component !== 'Divider') as FormSchema[])
+  } else {
+    return cloneDeep(schemas as FormSchema[])
   }
+})
 
-  onMounted(() => {
-    initDefault()
-    emit('register', formActionType)
-  })
+const { handleFormValues, initDefault } = useFormValues({
+  getProps,
+  defaultValueRef,
+  getSchema,
+  formModel,
+})
+
+const {
+  handleSubmit,
+  setFieldsValue,
+  clearValidate,
+  validate,
+  validateFields,
+  getFieldsValue,
+  resetFields,
+  updateSchema,
+  resetSchema,
+  removeSchemaByFiled,
+  appendSchemaByField,
+} = useFormEvents({
+  emit,
+  getProps,
+  formModel,
+  getSchema,
+  defaultValueRef,
+  formElRef: formElRef as Ref<FormActionType>,
+  schemaRef: schemaRef as Ref<FormSchema[]>,
+  handleFormValues,
+})
+
+watch(
+  () => unref(getProps).model,
+  () => {
+    const { model } = unref(getProps)
+    if (!model) return
+    setFieldsValue(model)
+  },
+  {
+    immediate: true,
+  },
+)
+
+watch(
+  () => unref(getProps).schemas,
+  (schemas) => {
+    resetSchema(schemas ?? [])
+  },
+)
+
+watch(
+  () => getSchema.value,
+  (schema) => {
+    if (unref(isInitedDefaultRef)) {
+      return
+    }
+    if (schema?.length) {
+      initDefault()
+      isInitedDefaultRef.value = true
+    }
+  },
+)
+
+watch(
+  () => formModel,
+  useDebounceFn(() => {
+    unref(getProps).submitOnChange && handleSubmit()
+  }, 300),
+  { deep: true },
+)
+
+async function setProps(formProps: Partial<FormProps>): Promise<void> {
+  propsRef.value = deepMerge(unref(propsRef) || {}, formProps)
+}
+
+const getColProps = (schema) => {
+  const { colProps = {} } = schema
+  const { baseColProps = { span: 24 } } = unref(getProps)
+  return { ...baseColProps, ...colProps }
+}
+
+const actionColOpt = computed(() => {
+  const { showAdvancedButton, actionSpan, actionColOptions } = unref(getProps)
+  const advancedSpanObj = showAdvancedButton ? { span: actionSpan < 6 ? 24 : actionSpan } : {}
+  const actionColOpt: Partial<ColEx> = {
+    style: { textAlign: 'right', flex: '1 0 auto' },
+    span: showAdvancedButton ? 6 : 4,
+    ...advancedSpanObj,
+    ...actionColOptions,
+  }
+  return actionColOpt
+})
+
+const getItemProps = (schema) => {
+  const itemLabelWidthProp = useItemLabelWidth(schema, getProps)
+  const { labelCol, wrapperCol } = unref(itemLabelWidthProp)
+  return {
+    labelCol,
+    wrapperCol,
+    required: schema.required ?? false,
+  }
+}
+
+const formActionType: Partial<FormActionType> = {
+  getFieldsValue,
+  setFieldsValue,
+  resetFields,
+  setProps,
+  updateSchema,
+  resetSchema,
+  removeSchemaByFiled,
+  appendSchemaByField,
+  clearValidate,
+  validateFields,
+  validate,
+  submit: handleSubmit,
+}
+
+onMounted(() => {
+  initDefault()
+  emit('register', formActionType)
+})
 </script>
 <style lang="less" scoped>
   .form {

@@ -52,63 +52,63 @@
   </div>
 </template>
 <script lang="ts" setup>
-  import type { Rule } from 'ant-design-vue/es/form'
-  import { Dayjs } from 'dayjs'
-  import type { UnwrapRef } from 'vue'
-  import { reactive, ref, toRaw } from 'vue'
+import type { Rule } from 'ant-design-vue/es/form'
+import { Dayjs } from 'dayjs'
+import type { UnwrapRef } from 'vue'
+import { reactive, ref, toRaw } from 'vue'
 
-  interface FormState {
-    name: string
-    region: string | undefined
-    date1: Dayjs | undefined
-    delivery: boolean
-    type: string[]
-    resource: string
-    desc: string
-  }
-  const formRef = ref()
-  const labelCol = { span: 5 }
-  const wrapperCol = { span: 13 }
-  const formState: UnwrapRef<FormState> = reactive({
-    name: '',
-    region: undefined,
-    date1: undefined,
-    delivery: false,
-    type: [],
-    resource: '',
-    desc: ''
-  })
-  const rules: Record<string, Rule[]> = {
-    name: [
-      { required: true, message: 'Please input Activity name', trigger: 'change' },
-      { min: 3, max: 5, message: 'Length should be 3 to 5', trigger: 'blur' }
-    ],
-    region: [{ required: true, message: 'Please select Activity zone', trigger: 'change' }],
-    date1: [{ required: true, message: 'Please pick a date', trigger: 'change', type: 'object' }],
-    type: [
-      {
-        type: 'array',
-        required: true,
-        message: 'Please select at least one activity type',
-        trigger: 'change'
-      }
-    ],
-    resource: [{ required: true, message: 'Please select activity resource', trigger: 'change' }],
-    desc: [{ required: true, message: 'Please input activity form', trigger: 'blur' }]
-  }
-  const onSubmit = () => {
-    formRef.value
-      .validate()
-      .then(() => {
-        console.log('values', formState, toRaw(formState))
-      })
-      .catch((error) => {
-        console.log('error', error)
-      })
-  }
-  const resetForm = () => {
-    formRef.value.resetFields()
-  }
+interface FormState {
+  name: string
+  region: string | undefined
+  date1: Dayjs | undefined
+  delivery: boolean
+  type: string[]
+  resource: string
+  desc: string
+}
+const formRef = ref()
+const labelCol = { span: 5 }
+const wrapperCol = { span: 13 }
+const formState: UnwrapRef<FormState> = reactive({
+  name: '',
+  region: undefined,
+  date1: undefined,
+  delivery: false,
+  type: [],
+  resource: '',
+  desc: '',
+})
+const rules: Record<string, Rule[]> = {
+  name: [
+    { required: true, message: 'Please input Activity name', trigger: 'change' },
+    { min: 3, max: 5, message: 'Length should be 3 to 5', trigger: 'blur' },
+  ],
+  region: [{ required: true, message: 'Please select Activity zone', trigger: 'change' }],
+  date1: [{ required: true, message: 'Please pick a date', trigger: 'change', type: 'object' }],
+  type: [
+    {
+      type: 'array',
+      required: true,
+      message: 'Please select at least one activity type',
+      trigger: 'change',
+    },
+  ],
+  resource: [{ required: true, message: 'Please select activity resource', trigger: 'change' }],
+  desc: [{ required: true, message: 'Please input activity form', trigger: 'blur' }],
+}
+const onSubmit = () => {
+  formRef.value
+    .validate()
+    .then(() => {
+      console.log('values', formState, toRaw(formState))
+    })
+    .catch((error) => {
+      console.log('error', error)
+    })
+}
+const resetForm = () => {
+  formRef.value.resetFields()
+}
 </script>
 <style scoped>
   .page-wrapper {

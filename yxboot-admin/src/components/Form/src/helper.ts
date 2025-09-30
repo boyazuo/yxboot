@@ -1,8 +1,7 @@
 import type { Rule as ValidationRule } from 'ant-design-vue/lib/form/interface'
-import type { ComponentType } from './types/index'
-
 import { dateUtil } from '@/utils/dateUtil'
 import { isNumber, isObject } from '@/utils/is'
+import type { ComponentType } from './types/index'
 
 /**
  * @description: 生成placeholder

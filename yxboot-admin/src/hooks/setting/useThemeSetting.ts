@@ -1,5 +1,5 @@
-import { useAppConfigStore } from '@/store/modules/appConfig'
 import { storeToRefs } from 'pinia'
+import { useAppConfigStore } from '@/store/modules/appConfig'
 
 export function useThemeSetting() {
   const appConfigStore = useAppConfigStore()
@@ -20,13 +20,13 @@ export function useThemeSetting() {
       colorSuccess: getSuccessColor.value,
       colorWarning: getWarningColor.value,
       colorError: getErrorColor.value,
-      colorInfo: getInfoColor.value
+      colorInfo: getInfoColor.value,
     }
   })
   const getToken = computed(() => {
     return {
       ...getThemeColors.value,
-      borderRadius: getBorderRadius.value
+      borderRadius: getBorderRadius.value,
     }
   })
 
@@ -42,6 +42,6 @@ export function useThemeSetting() {
     getSuccessColor,
     getWarningColor,
     getErrorColor,
-    getInfoColor
+    getInfoColor,
   }
 }

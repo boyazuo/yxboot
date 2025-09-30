@@ -1,5 +1,5 @@
-import { useAppConfigStore } from '@/store/modules/appConfig'
 import { storeToRefs } from 'pinia'
+import { useAppConfigStore } from '@/store/modules/appConfig'
 
 export function useMultipleTabSetting() {
   const appConfigStore = useAppConfigStore()
@@ -21,6 +21,6 @@ export function useMultipleTabSetting() {
     getShowMultipleTab,
     getShowQuick,
     getShowRedo,
-    getShowFold
+    getShowFold,
   }
 }

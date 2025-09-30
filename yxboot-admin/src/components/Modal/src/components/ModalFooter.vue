@@ -12,14 +12,15 @@
   </div>
 </template>
 <script setup lang="ts">
-  import { basicProps } from '../props'
-  defineProps(basicProps)
-  const emit = defineEmits(['ok', 'cancel'])
-  function handleOk(e: Event) {
-    emit('ok', e)
-  }
+import { basicProps } from '../props'
 
-  function handleCancel(e: Event) {
-    emit('cancel', e)
-  }
+defineProps(basicProps)
+const emit = defineEmits(['ok', 'cancel'])
+function handleOk(e: Event) {
+  emit('ok', e)
+}
+
+function handleCancel(e: Event) {
+  emit('cancel', e)
+}
 </script>

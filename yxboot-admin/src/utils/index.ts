@@ -1,16 +1,13 @@
-import _ from 'lodash-es'
+import * as _ from 'lodash-es'
 import type { App, Plugin } from 'vue'
-import type { RouteLocationNormalized, RouteRecordNormalized } from 'vue-router'
-
-import { isObject } from '@/utils/is'
 import { unref } from 'vue'
+import type { RouteLocationNormalized, RouteRecordNormalized } from 'vue-router'
+import { isObject } from '@/utils/is'
 
 export const noop = () => {}
 
 export {
   assign as _assign,
-  merge as _merge,
-  omit as _omit,
   clone,
   cloneDeep,
   isArray,
@@ -20,8 +17,10 @@ export {
   isNumber,
   isString,
   isUndefined,
+  merge as _merge,
+  omit as _omit,
   omit,
-  toString
+  toString,
 } from 'lodash-es'
 
 /**
@@ -62,18 +61,15 @@ export function deepMerge<T = any>(src: any = {}, target: any = {}, newObject: b
   const obj = newObject ? _.cloneDeep(src) : null
   for (key in target) {
     if (newObject) {
-      obj[key] = isObject(src[key]) ? deepMerge(src[key], target[key], newObject) : (obj[key] = target[key])
+      obj[key] = isObject(src[key]) ? deepMerge(src[key], target[key], newObject) : target[key]
     } else {
-      src[key] = isObject(src[key]) ? deepMerge(src[key], target[key]) : (src[key] = target[key])
+      src[key] = isObject(src[key]) ? deepMerge(src[key], target[key]) : target[key]
     }
   }
   return newObject ? obj : src
 }
 
-export function openWindow(
-  url: string,
-  opt?: { target?: TargetContext | string; noopener?: boolean; noreferrer?: boolean }
-) {
+export function openWindow(url: string, opt?: { target?: TargetContext | string; noopener?: boolean; noreferrer?: boolean }) {
   const { target = '__blank', noopener = true, noreferrer = true } = opt || {}
   const feature: string[] = []
 
@@ -87,7 +83,7 @@ export function openWindow(
 export function getDynamicProps<T extends object, U>(props: T): Partial<U> {
   const ret: Recordable = {}
 
-  Object.keys(props).map((key) => {
+  Object.keys(props).forEach((key) => {
     ret[key] = unref((props as Recordable)[key])
   })
 
@@ -103,9 +99,9 @@ export function getRawRoute(route: RouteLocationNormalized): RouteLocationNormal
       ? matched.map((item) => ({
           meta: item.meta,
           name: item.name,
-          path: item.path
+          path: item.path,
         }))
-      : undefined) as RouteRecordNormalized[]
+      : undefined) as RouteRecordNormalized[],
   }
 }
 

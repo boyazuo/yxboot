@@ -39,59 +39,59 @@
   </div>
 </template>
 <script lang="ts" setup>
-  import { listUser, removeUser } from '@/api/sys/user'
-  import { useDrawer } from '@/components/Drawer'
-  import { useModal } from '@/components/Modal'
-  import { useTable } from '@/components/Table'
-  import { message } from 'ant-design-vue'
-  import ResetPasswordModalVue from './ResetPasswordModal.vue'
-  import UserDrawer from './UserDrawer.vue'
-  import { searchFormSchema, tableColumns } from './user.data'
+import { listUser, removeUser } from '@/api/sys/user'
+import { useDrawer } from '@/components/Drawer'
+import { useModal } from '@/components/Modal'
+import { useTable } from '@/components/Table'
+import { message } from 'ant-design-vue'
+import ResetPasswordModalVue from './ResetPasswordModal.vue'
+import UserDrawer from './UserDrawer.vue'
+import { searchFormSchema, tableColumns } from './user.data'
 
-  const [registerTable, { reload: reloadList }] = useTable({
-    title: '用户列表',
-    titleHelpMessage: '用户表提示说明(示例)',
-    api: listUser,
-    rowKey: 'userId',
-    columns: tableColumns,
-    useSearchForm: true,
-    formConfig: {
-      labelWidth: 120,
-      schemas: searchFormSchema
-    },
-    actionColumn: {
-      width: 180
+const [registerTable, { reload: reloadList }] = useTable({
+  title: '用户列表',
+  titleHelpMessage: '用户表提示说明(示例)',
+  api: listUser,
+  rowKey: 'userId',
+  columns: tableColumns,
+  useSearchForm: true,
+  formConfig: {
+    labelWidth: 120,
+    schemas: searchFormSchema,
+  },
+  actionColumn: {
+    width: 180,
+  },
+})
+
+const [registerModal, { openModal }] = useModal()
+
+const [registerDrawer, { openDrawer }] = useDrawer()
+
+const handleCreate = () => {
+  openDrawer(true, { isUpdate: false })
+}
+
+const handleEdit = (record: Recordable) => {
+  openDrawer(true, { record, isUpdate: true })
+}
+
+const handleRemove = ({ userId }) => {
+  removeUser({ userId }).then((res) => {
+    if (res.code === 0) {
+      message.success('删除成功！')
+      reloadList()
     }
   })
+}
 
-  const [registerModal, { openModal }] = useModal()
+const handleSuccess = () => {
+  reloadList()
+}
 
-  const [registerDrawer, { openDrawer }] = useDrawer()
-
-  const handleCreate = () => {
-    openDrawer(true, { isUpdate: false })
-  }
-
-  const handleEdit = (record: Recordable) => {
-    openDrawer(true, { record, isUpdate: true })
-  }
-
-  const handleRemove = ({ userId }) => {
-    removeUser({ userId }).then((res) => {
-      if (res.code === 0) {
-        message.success('删除成功！')
-        reloadList()
-      }
-    })
-  }
-
-  const handleSuccess = () => {
-    reloadList()
-  }
-
-  const handleResetPassword = ({ userId }) => {
-    openModal(true, {
-      userId
-    })
-  }
+const handleResetPassword = ({ userId }) => {
+  openModal(true, {
+    userId,
+  })
+}
 </script>

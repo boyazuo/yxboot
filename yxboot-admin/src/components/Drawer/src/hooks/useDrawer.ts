@@ -1,16 +1,10 @@
-import { isProdMode } from '@/utils/env'
-import { isFunction } from '@/utils/is'
-import { error } from '@/utils/log'
 import { tryOnUnmounted } from '@vueuse/core'
 import { isEqual } from 'lodash-es'
 import { computed, getCurrentInstance, nextTick, reactive, ref, toRaw, unref, watchEffect } from 'vue'
-import type {
-  DrawerInstance,
-  DrawerProps,
-  ReturnMethods,
-  UseDrawerInnerReturnType,
-  UseDrawerReturnType
-} from '../types/typing'
+import { isProdMode } from '@/utils/env'
+import { isFunction } from '@/utils/is'
+import { error } from '@/utils/log'
+import type { DrawerInstance, DrawerProps, ReturnMethods, UseDrawerInnerReturnType, UseDrawerReturnType } from '../types/typing'
 
 const dataTransferRef = reactive<any>({})
 
@@ -66,7 +60,7 @@ export function useDrawer(): UseDrawerReturnType {
 
     openDrawer: <T = any>(visible = true, data?: T, openOnSet = true): void => {
       getInstance()?.setDrawerProps({
-        visible: visible
+        visible: visible,
       })
       if (!data) return
 
@@ -82,7 +76,7 @@ export function useDrawer(): UseDrawerReturnType {
     },
     closeDrawer: () => {
       getInstance()?.setDrawerProps({ visible: false })
-    }
+    },
   }
 
   return [register, methods]
@@ -146,7 +140,7 @@ export const useDrawerInner = (callbackFn?: Fn): UseDrawerInnerReturnType => {
 
       setDrawerProps: (props: Partial<DrawerProps> | boolean) => {
         getInstance()?.setDrawerProps(props)
-      }
-    }
+      },
+    },
   ]
 }

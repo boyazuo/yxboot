@@ -13,19 +13,19 @@
   </a-dropdown>
 </template>
 <script lang="ts" setup>
-  import Icon from '@/components/Icon'
-  import { useUserStoreWithOut } from '@/store/modules/user'
-  import { computed } from 'vue'
+import { computed } from 'vue'
+import Icon from '@/components/Icon'
+import { useUserStoreWithOut } from '@/store/modules/user'
 
-  defineOptions({ name: 'UserDropDown' })
+defineOptions({ name: 'UserDropDown' })
 
-  const userStore = useUserStoreWithOut()
-  const userStoreData: any = computed(() => userStore.getUser)
+const userStore = useUserStoreWithOut()
+const userStoreData: any = computed(() => userStore.getUser)
 
-  const handleLogout = async () => {
-    await userStore.logout()
-    window.location.reload()
-  }
+const handleLogout = async () => {
+  await userStore.logout()
+  window.location.reload()
+}
 </script>
 <style lang="less" scoped>
   .user-dropdown {

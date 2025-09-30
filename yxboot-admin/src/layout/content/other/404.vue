@@ -8,10 +8,10 @@
 </template>
 
 <script setup>
-  function gohome() {
-    location.href = '/'
-  }
-  function goback() {
-    this.$router.go(-1)
-  }
+function gohome() {
+  location.href = '/'
+}
+function goback() {
+  this.$router.go(-1)
+}
 </script>

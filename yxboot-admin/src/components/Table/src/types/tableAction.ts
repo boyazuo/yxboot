@@ -1,5 +1,5 @@
-import { ButtonProps } from 'ant-design-vue/es/button/buttonTypes'
-import { TooltipProps } from 'ant-design-vue/es/tooltip/Tooltip'
+import type { ButtonProps } from 'ant-design-vue/es/button/buttonTypes'
+import type { TooltipProps } from 'ant-design-vue/es/tooltip/Tooltip'
 
 export interface ActionItem extends ButtonProps {
   onClick?: Fn

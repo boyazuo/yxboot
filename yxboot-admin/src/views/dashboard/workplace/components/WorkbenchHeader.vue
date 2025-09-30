@@ -24,11 +24,11 @@
   </div>
 </template>
 <script lang="ts" setup>
-  import { useUserStore } from '@/store/modules/user'
-  import { Avatar } from 'ant-design-vue'
+import { useUserStore } from '@/store/modules/user'
+import { Avatar } from 'ant-design-vue'
 
-  const userStore = useUserStore()
-  const userinfo = computed(() => userStore.getUser)
+const userStore = useUserStore()
+const userinfo = computed(() => userStore.getUser)
 </script>
 <style scoped>
   html[data-theme='light'] .text-secondary {

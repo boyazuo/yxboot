@@ -1,9 +1,9 @@
-import { AppSetting } from '#/config'
-import { _assign, deepMerge } from '@/utils'
-import { Persistent } from '@/utils/cache/persistent'
 import { defineStore } from 'pinia'
+import type { AppSetting } from '#/config'
 import { ContentLayoutEnum, RouterTransitionEnum, SettingButtonPositionEnum, ThemeEnum, ThemeTypeEnum } from '@/enums/appEnum'
 import { MenuModeEnum, MenuTypeEnum } from '@/enums/menuEnum'
+import { _assign, deepMerge } from '@/utils'
+import { Persistent } from '@/utils/cache/persistent'
 
 let defaultOptions: AppSetting = {
   themeSetting: {
@@ -14,7 +14,7 @@ let defaultOptions: AppSetting = {
     successColor: '#52c41a',
     warningColor: '#faad14',
     errorColor: '#ff4d4f',
-    infoColor: '#1677ff'
+    infoColor: '#1677ff',
   },
   projectSetting: {
     showSettingButton: true,
@@ -30,7 +30,7 @@ let defaultOptions: AppSetting = {
     useOpenBackTop: true,
     canEmbedIFramePage: true,
     closeMessageOnSwitch: true,
-    removeAllHttpPending: false
+    removeAllHttpPending: false,
   },
   siderSetting: {
     theme: ThemeEnum.DARK,
@@ -39,19 +39,19 @@ let defaultOptions: AppSetting = {
     width: 210,
     mixSidebarWidth: 80,
     collapsedWidth: 48,
-    collapsed: false
+    collapsed: false,
   },
   headerSetting: {
     fixed: true,
     show: true,
     theme: ThemeEnum.LIGHT,
     useLockPage: true,
-    showFullScreen: true
+    showFullScreen: true,
   },
   menuSetting: {
     mode: MenuModeEnum.INLINE,
     type: MenuTypeEnum.SIDER,
-    split: false
+    split: false,
   },
   multiTabsSetting: {
     cache: false,
@@ -59,13 +59,13 @@ let defaultOptions: AppSetting = {
     showQuick: true,
     showRedo: true,
     showFold: true,
-    canDrag: true
+    canDrag: true,
   },
   transitionSetting: {
     enable: true,
     basicTransition: RouterTransitionEnum.FADE_SIDE,
-    openNProgress: false
-  }
+    openNProgress: false,
+  },
 }
 
 // Must be called before the first use of useAppConfig
@@ -97,7 +97,7 @@ export const useAppConfigStore = defineStore('APP_CONFIG', {
     },
     getTransitionSetting(state) {
       return state.transitionSetting
-    }
+    },
   },
   actions: {
     setThemeSetting(value) {
@@ -123,6 +123,6 @@ export const useAppConfigStore = defineStore('APP_CONFIG', {
     },
     async resetAllState() {
       Persistent.clearAll()
-    }
-  }
+    },
+  },
 })

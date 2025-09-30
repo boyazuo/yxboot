@@ -1,9 +1,8 @@
+import { computed, unref } from 'vue'
 import type { HeaderSetting } from '#/config'
-
 import { MenuModeEnum } from '@/enums/menuEnum'
 import { useMenuSetting, useProjectSetting } from '@/hooks/setting'
 import { useAppConfigStore } from '@/store/modules/appConfig'
-import { computed, unref } from 'vue'
 
 export function useHeaderSetting() {
   const appStore = useAppConfigStore()
@@ -52,6 +51,6 @@ export function useHeaderSetting() {
     getShowHeaderLogo,
     getShowHeader,
     getFixed,
-    getShowMixHeaderRef
+    getShowMixHeaderRef,
   }
 }

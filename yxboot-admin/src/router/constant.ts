@@ -1,4 +1,5 @@
 import { RouterView } from 'vue-router'
+
 export const REDIRECT_NAME = 'Redirect'
 
 export const PARENT_LAYOUT_NAME = 'ParentLayout'
@@ -17,5 +18,5 @@ export const LAYOUT = () => import('@/layout/index.vue')
  */
 export const PARENT_LAYOUT = {
   name: PARENT_LAYOUT_NAME,
-  render: () => h(RouterView)
+  render: () => h(RouterView),
 }

@@ -115,7 +115,7 @@ export function getViewportOffset(element: Element): ViewportOffsetResult {
     right: clientWidth - rectWidth - left,
     bottom: clientHeight - rectHeight - top,
     rightIncludeBody: clientWidth - left,
-    bottomIncludeBody: clientHeight - top
+    bottomIncludeBody: clientHeight - top,
   }
 }
 
@@ -128,16 +128,12 @@ export function hackCss(attr: string, value: string) {
   })
   return {
     ...styleObj,
-    [attr]: value
+    [attr]: value,
   }
 }
 
 /* istanbul ignore next */
-export function on(
-  element: Element | HTMLElement | Document | Window,
-  event: string,
-  handler: EventListenerOrEventListenerObject
-): void {
+export function on(element: Element | HTMLElement | Document | Window, event: string, handler: EventListenerOrEventListenerObject): void {
   if (element && event && handler) {
     element.addEventListener(event, handler, false)
   }

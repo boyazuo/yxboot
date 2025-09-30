@@ -4,38 +4,38 @@
   </svg>
 </template>
 <script lang="ts" setup>
-  import type { CSSProperties } from 'vue'
-  import { computed } from 'vue'
+import type { CSSProperties } from 'vue'
+import { computed } from 'vue'
 
-  const props = defineProps({
-    prefix: {
-      type: String,
-      default: 'icon'
-    },
-    name: {
-      type: String,
-      required: true
-    },
-    size: {
-      type: [Number, String],
-      default: 16
-    },
-    spin: {
-      type: Boolean,
-      default: false
-    }
-  })
-  const symbolId = computed(() => `#${props.prefix}-${props.name}`)
+const props = defineProps({
+  prefix: {
+    type: String,
+    default: 'icon',
+  },
+  name: {
+    type: String,
+    required: true,
+  },
+  size: {
+    type: [Number, String],
+    default: 16,
+  },
+  spin: {
+    type: Boolean,
+    default: false,
+  },
+})
+const symbolId = computed(() => `#${props.prefix}-${props.name}`)
 
-  const getStyle = computed((): CSSProperties => {
-    const { size } = props
-    let s = `${size}`
-    s = `${s.replace('px', '')}px`
-    return {
-      width: s,
-      height: s
-    }
-  })
+const getStyle = computed((): CSSProperties => {
+  const { size } = props
+  let s = `${size}`
+  s = `${s.replace('px', '')}px`
+  return {
+    width: s,
+    height: s,
+  }
+})
 </script>
 <style lang="less" scoped>
   @prefix-cls: ~'svg-icon';

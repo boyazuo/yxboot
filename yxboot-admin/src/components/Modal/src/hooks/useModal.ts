@@ -1,16 +1,10 @@
-import { isProdMode } from '@/utils/env'
-import { isFunction } from '@/utils/is'
-import { error } from '@/utils/log'
 import { tryOnUnmounted } from '@vueuse/core'
 import { isEqual } from 'lodash-es'
 import { computed, getCurrentInstance, nextTick, onUnmounted, reactive, ref, toRaw, unref, watchEffect } from 'vue'
-import type {
-  ModalMethods,
-  ModalProps,
-  ReturnMethods,
-  UseModalInnerReturnType,
-  UseModalReturnType
-} from '../types/typing'
+import { isProdMode } from '@/utils/env'
+import { isFunction } from '@/utils/is'
+import { error } from '@/utils/log'
+import type { ModalMethods, ModalProps, ReturnMethods, UseModalInnerReturnType, UseModalReturnType } from '../types/typing'
 
 const dataTransfer = reactive<any>({})
 
@@ -67,7 +61,7 @@ export function useModal(): UseModalReturnType {
 
     openModal: <T = any>(open = true, data?: T, openOnSet = true): void => {
       getInstance()?.setModalProps({
-        open: open
+        open: open,
       })
 
       if (!data) return
@@ -85,7 +79,7 @@ export function useModal(): UseModalReturnType {
 
     closeModal: () => {
       getInstance()?.setModalProps({ open: false })
-    }
+    },
   }
   return [register, methods]
 }
@@ -147,7 +141,7 @@ export const useModalInner = (callbackFn?: Fn): UseModalInnerReturnType => {
       redoModalHeight: () => {
         const callRedo = getInstance()?.redoModalHeight
         callRedo && callRedo()
-      }
-    }
+      },
+    },
   ]
 }

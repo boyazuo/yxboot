@@ -9,15 +9,15 @@ export const searchFormSchema: FormSchema[] = [
     field: 'status',
     label: '状态',
     component: 'Select',
-    componentProps: { allowClear: true, options: statusOptions }
-  }
+    componentProps: { allowClear: true, options: statusOptions },
+  },
 ]
 
 export const tableColumns: BasicColumn[] = [
   { title: '字典编码', dataIndex: 'dictCode', width: 150 },
   { title: '字典名称', dataIndex: 'dictName', width: 200 },
   { title: '字典说明', dataIndex: 'descn', minWidth: 150 },
-  { title: '状态', dataIndex: 'statusDesc', width: 80 }
+  { title: '状态', dataIndex: 'statusDesc', width: 80 },
 ]
 
 export const editFormSchema: FormSchema[] = [
@@ -26,13 +26,13 @@ export const editFormSchema: FormSchema[] = [
     field: 'dictCode',
     label: '字典编码',
     component: 'Input',
-    required: true
+    required: true,
   },
   {
     field: 'dictName',
     label: '字典名称',
     component: 'Input',
-    required: true
+    required: true,
   },
   { field: 'descn', label: '字典说明', component: 'InputTextArea' },
   {
@@ -41,8 +41,8 @@ export const editFormSchema: FormSchema[] = [
     component: 'Select',
     rules: [{ required: true, message: '请选择状态' }],
     defaultValue: 1,
-    componentProps: { options: statusOptions }
-  }
+    componentProps: { options: statusOptions },
+  },
 ]
 
 export const tableColumns_dictData: BasicColumn[] = [
@@ -50,7 +50,7 @@ export const tableColumns_dictData: BasicColumn[] = [
   { title: '字典标签名', dataIndex: 'label', minWidth: 200 },
   { title: '字典内容值', dataIndex: 'value', minWidth: 150 },
   { title: '排序', dataIndex: 'sort', width: 80 },
-  { title: '状态', dataIndex: 'statusDesc', width: 80 }
+  { title: '状态', dataIndex: 'statusDesc', width: 80 },
 ]
 
 export const editFormSchema_dictData: FormSchema[] = [
@@ -60,13 +60,13 @@ export const editFormSchema_dictData: FormSchema[] = [
     field: 'label',
     label: '字典标签名',
     component: 'Input',
-    required: true
+    required: true,
   },
   {
     field: 'value',
     label: '字典内容值',
     component: 'Input',
-    required: true
+    required: true,
   },
   { field: 'sort', label: '排序', component: 'InputNumber', componentProps: { precision: 0 } },
   {
@@ -75,8 +75,8 @@ export const editFormSchema_dictData: FormSchema[] = [
     component: 'Select',
     rules: [{ required: true, message: '请选择状态' }],
     defaultValue: 1,
-    componentProps: { options: statusOptions }
-  }
+    componentProps: { options: statusOptions },
+  },
 ]
 
 export const editFormSchema_dictDataBatch: FormSchema[] = [
@@ -85,14 +85,14 @@ export const editFormSchema_dictDataBatch: FormSchema[] = [
     label: '字典标签名',
     component: 'Input',
     required: true,
-    colProps: { span: 11 }
+    colProps: { span: 11 },
   },
   {
     field: 'value',
     label: '字典内容值',
     component: 'Input',
     required: true,
-    colProps: { span: 11 }
+    colProps: { span: 11 },
   },
   {
     field: 'operation',
@@ -100,8 +100,8 @@ export const editFormSchema_dictDataBatch: FormSchema[] = [
     component: 'Input',
     slot: 'operation',
     colProps: { span: 2 },
-    labelWidth: '0px'
-  }
+    labelWidth: '0px',
+  },
 ]
 
 export const inspectDictData = (allDictData, params) => {

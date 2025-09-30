@@ -29,72 +29,72 @@
 </template>
 
 <script lang="ts" setup>
-  import { useMultipleTabSetting } from '@/hooks/setting'
-  import { REDIRECT_NAME } from '@/router/constant'
-  import { listenerRouteChange } from '@/router/mitt/routeChange'
-  import { useMultipleTabStore } from '@/store/modules/multipleTab'
-  import { useUserStore } from '@/store/modules/user'
-  import type { RouteLocationNormalized, RouteMeta } from 'vue-router'
-  import { useRouter } from 'vue-router'
-  import FoldButton from './components/FoldButton.vue'
-  import TabContent from './components/TabContent.vue'
-  import TabRedo from './components/TabRedo.vue'
-  import { initAffixTabs, useTabsDrag } from './useMultipleTabs'
+import type { RouteLocationNormalized, RouteMeta } from 'vue-router'
+import { useRouter } from 'vue-router'
+import { useMultipleTabSetting } from '@/hooks/setting'
+import { REDIRECT_NAME } from '@/router/constant'
+import { listenerRouteChange } from '@/router/mitt/routeChange'
+import { useMultipleTabStore } from '@/store/modules/multipleTab'
+import { useUserStore } from '@/store/modules/user'
+import FoldButton from './components/FoldButton.vue'
+import TabContent from './components/TabContent.vue'
+import TabRedo from './components/TabRedo.vue'
+import { initAffixTabs, useTabsDrag } from './useMultipleTabs'
 
-  const router = useRouter()
-  const tabStore = useMultipleTabStore()
-  const userStore = useUserStore()
+const router = useRouter()
+const tabStore = useMultipleTabStore()
+const userStore = useUserStore()
 
-  const { getShowQuick, getShowRedo, getShowFold } = useMultipleTabSetting()
+const { getShowQuick, getShowRedo, getShowFold } = useMultipleTabSetting()
 
-  const activeKeyRef = ref('')
-  const affixTextList = initAffixTabs()
+const activeKeyRef = ref('')
+const affixTextList = initAffixTabs()
 
-  useTabsDrag(affixTextList)
+useTabsDrag(affixTextList)
 
-  const getTabsState = computed(() => {
-    return tabStore.getTabList.filter((item) => !item.meta?.hideTab)
-  })
+const getTabsState = computed(() => {
+  return tabStore.getTabList.filter((item) => !item.meta?.hideTab)
+})
 
-  const unClose = computed(() => unref(getTabsState).length === 1)
+const unClose = computed(() => unref(getTabsState).length === 1)
 
-  function handleChange(activeKey: any) {
-    activeKeyRef.value = activeKey
-    router.push(activeKey)
+function handleChange(activeKey: any) {
+  activeKeyRef.value = activeKey
+  router.push(activeKey)
+}
+
+// Close the current tab
+function handleEdit(targetKey: string) {
+  // Added operation to hide, currently only use delete operation
+  if (unref(unClose)) {
+    return
   }
 
-  // Close the current tab
-  function handleEdit(targetKey: string) {
-    // Added operation to hide, currently only use delete operation
-    if (unref(unClose)) {
-      return
-    }
+  tabStore.closeTabByKey(targetKey, router)
+}
 
-    tabStore.closeTabByKey(targetKey, router)
+listenerRouteChange((route) => {
+  const { name } = route
+  if (name === REDIRECT_NAME || !route || !userStore.getToken) {
+    return
   }
 
-  listenerRouteChange((route) => {
-    const { name } = route
-    if (name === REDIRECT_NAME || !route || !userStore.getToken) {
-      return
-    }
+  const { path, fullPath, meta = {} } = route
+  const { currentActiveMenu, hideTab } = meta as RouteMeta
+  const isHide = !hideTab ? null : currentActiveMenu
+  const p = isHide || fullPath || path
+  if (activeKeyRef.value !== p) {
+    activeKeyRef.value = p as string
+  }
 
-    const { path, fullPath, meta = {} } = route
-    const { currentActiveMenu, hideTab } = meta as RouteMeta
-    const isHide = !hideTab ? null : currentActiveMenu
-    const p = isHide || fullPath || path
-    if (activeKeyRef.value !== p) {
-      activeKeyRef.value = p as string
-    }
+  if (isHide) {
+    const findParentRoute = router.getRoutes().find((item) => item.path === currentActiveMenu)
 
-    if (isHide) {
-      const findParentRoute = router.getRoutes().find((item) => item.path === currentActiveMenu)
-
-      findParentRoute && tabStore.addTab(findParentRoute as unknown as RouteLocationNormalized)
-    } else {
-      tabStore.addTab(unref(route))
-    }
-  })
+    findParentRoute && tabStore.addTab(findParentRoute as unknown as RouteLocationNormalized)
+  } else {
+    tabStore.addTab(unref(route))
+  }
+})
 </script>
 <style lang="less">
   @import url('./index.less');

@@ -1,10 +1,7 @@
-import type { ModalFunc, ModalFuncProps } from 'ant-design-vue/lib/modal/Modal'
-
 import { CheckCircleFilled, CloseCircleFilled, InfoCircleFilled } from '@ant-design/icons-vue'
 import { message as Message, Modal, notification } from 'ant-design-vue'
-
-import { ConfigProps, NotificationArgsProps } from 'ant-design-vue/lib/notification'
-
+import type { ModalFunc, ModalFuncProps } from 'ant-design-vue/lib/modal/Modal'
+import type { ConfigProps, NotificationArgsProps } from 'ant-design-vue/lib/notification'
 import { isString } from '@/utils/is'
 
 export interface NotifyApi {
@@ -36,13 +33,13 @@ interface ConfirmOptions {
 
 function getIcon(iconType: string) {
   if (iconType === 'warning') {
-    return <InfoCircleFilled class="modal-icon-warning" />
+    return <InfoCircleFilled class='modal-icon-warning' />
   } else if (iconType === 'success') {
-    return <CheckCircleFilled class="modal-icon-success" />
+    return <CheckCircleFilled class='modal-icon-success' />
   } else if (iconType === 'info') {
-    return <InfoCircleFilled class="modal-icon-info" />
+    return <InfoCircleFilled class='modal-icon-info' />
   } else {
-    return <CloseCircleFilled class="modal-icon-error" />
+    return <CloseCircleFilled class='modal-icon-error' />
   }
 }
 
@@ -64,7 +61,7 @@ function createConfirm(options: ModalOptionsEx): ConfirmOptions {
     centered: true,
     icon: getIcon(iconType),
     ...options,
-    content: renderContent(options)
+    content: renderContent(options),
   }
   return Modal.confirm(opt) as unknown as ConfirmOptions
 }
@@ -72,7 +69,7 @@ function createConfirm(options: ModalOptionsEx): ConfirmOptions {
 const getBaseOptions = () => {
   return {
     okText: '确认',
-    centered: true
+    centered: true,
   }
 }
 
@@ -81,7 +78,7 @@ function createModalOptions(options: ModalOptionsPartial, icon: string): ModalOp
     ...getBaseOptions(),
     ...options,
     content: renderContent(options),
-    icon: getIcon(icon)
+    icon: getIcon(icon),
   }
 }
 
@@ -103,7 +100,7 @@ function createWarningModal(options: ModalOptionsPartial) {
 
 notification.config({
   placement: 'topRight',
-  duration: 3
+  duration: 3,
 })
 
 /**
@@ -117,6 +114,6 @@ export function useMessage() {
     createSuccessModal,
     createErrorModal,
     createInfoModal,
-    createWarningModal
+    createWarningModal,
   }
 }

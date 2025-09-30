@@ -1,9 +1,9 @@
-import { formatDate } from '@/utils/dateUtil'
-import { isArray, isBoolean, isFunction, isMap, isString } from '@/utils/is'
-import { ColumnType } from 'ant-design-vue/lib/table/interface'
+import type { ColumnType } from 'ant-design-vue/lib/table/interface'
 import { cloneDeep, isEqual } from 'lodash-es'
 import type { ComputedRef } from 'vue'
-import { Ref, computed, reactive, ref, toRaw, unref, watch } from 'vue'
+import { computed, type Ref, reactive, ref, toRaw, unref, watch } from 'vue'
+import { formatDate } from '@/utils/dateUtil'
+import { isArray, isBoolean, isFunction, isMap, isString } from '@/utils/is'
 import { renderEditCell } from '../components/editable'
 import { ACTION_COLUMN_FLAG, DEFAULT_ALIGN, INDEX_COLUMN_FLAG, PAGE_SIZE } from '../const'
 import type { PaginationProps } from '../types/pagination'
@@ -15,7 +15,7 @@ function handleItem(item: BasicColumn, ellipsis: boolean) {
   if (ellipsis) {
     if (!isBoolean(item.ellipsis)) {
       Object.assign(item, {
-        ellipsis
+        ellipsis,
       })
     }
   }
@@ -34,11 +34,7 @@ function handleChildren(children: BasicColumn[] | undefined, ellipsis: boolean) 
   })
 }
 
-function handleIndexColumn(
-  propsRef: ComputedRef<BasicTableProps>,
-  getPaginationRef: ComputedRef<boolean | PaginationProps>,
-  columns: BasicColumn[]
-) {
+function handleIndexColumn(propsRef: ComputedRef<BasicTableProps>, getPaginationRef: ComputedRef<boolean | PaginationProps>, columns: BasicColumn[]) {
   const { showIndexColumn, indexColumnProps } = unref(propsRef)
 
   let pushIndexColumns = false
@@ -71,10 +67,10 @@ function handleIndexColumn(
     },
     ...(isFixedLeft
       ? {
-          fixed: 'left'
+          fixed: 'left',
         }
       : {}),
-    ...indexColumnProps
+    ...indexColumnProps,
   })
 }
 
@@ -90,15 +86,12 @@ function handleActionColumn(propsRef: ComputedRef<BasicTableProps>, columns: Bas
       fixed: 'right',
       width: 120,
       ...actionColumn,
-      flag: ACTION_COLUMN_FLAG
+      flag: ACTION_COLUMN_FLAG,
     })
   }
 }
 
-export function useColumns(
-  propsRef: ComputedRef<BasicTableProps>,
-  getPaginationRef: ComputedRef<boolean | PaginationProps>
-) {
+export function useColumns(propsRef: ComputedRef<BasicTableProps>, getPaginationRef: ComputedRef<boolean | PaginationProps>) {
   const columnsRef = ref(unref(propsRef).columns) as unknown as Ref<BasicColumn[]>
   let cacheColumns = unref(propsRef).columns
 
@@ -172,7 +165,7 @@ export function useColumns(
     (columns) => {
       columnsRef.value = columns
       cacheColumns = columns?.filter((item) => !item.flag) ?? []
-    }
+    },
   )
 
   function setCacheColumnsByField(dataIndex: string | undefined, value: Partial<BasicColumn>) {
@@ -211,16 +204,13 @@ export function useColumns(
       cacheColumns.forEach((item) => {
         newColumns.push({
           ...item,
-          defaultHidden: !columnKeys.includes(item.dataIndex?.toString() || (item.key as string))
+          defaultHidden: !columnKeys.includes(item.dataIndex?.toString() || (item.key as string)),
         })
       })
       // Sort according to another array
       if (!isEqual(cacheKeys, columns)) {
         newColumns.sort((prev, next) => {
-          return (
-            columnKeys.indexOf(prev.dataIndex?.toString() as string) -
-            columnKeys.indexOf(next.dataIndex?.toString() as string)
-          )
+          return columnKeys.indexOf(prev.dataIndex?.toString() as string) - columnKeys.indexOf(next.dataIndex?.toString() as string)
         })
       }
       columnsRef.value = newColumns
@@ -268,7 +258,7 @@ export function useColumns(
     getViewColumns,
     setCacheColumnsByField,
     setCacheColumns,
-    setColumnWidth
+    setColumnWidth,
   }
 }
 

@@ -9,13 +9,13 @@
 </template>
 
 <script lang="ts" setup>
-  import BasicInfo from './components/BasicInfo.vue'
-  import ChangePwd from './components/ChangePwd.vue'
+import BasicInfo from './components/BasicInfo.vue'
+import ChangePwd from './components/ChangePwd.vue'
 
-  const tabPane = shallowRef([
-    { compontent: BasicInfo, label: '基本信息' },
-    { compontent: ChangePwd, label: '修改密码' }
-  ])
+const tabPane = shallowRef([
+  { compontent: BasicInfo, label: '基本信息' },
+  { compontent: ChangePwd, label: '修改密码' },
+])
 </script>
 
 <style lang="less" scoped>

@@ -60,40 +60,33 @@
   </BasicDrawer>
 </template>
 <script lang="ts" setup>
-  import { BasicDrawer, useDrawerInner } from '@/components/Drawer'
-  import { HandlerEnum, contentModeOptions, menuTypeList, themeTypeList } from '@/enums/handlerEnum'
-  import { useAppConfig } from '@/hooks/config/useAppConfig'
-  import {
-    useHeaderSetting,
-    useMenuSetting,
-    useMultipleTabSetting,
-    useProjectSetting,
-    useSiderSetting,
-    useThemeSetting
-  } from '@/hooks/setting'
-  import { APP_PRESET_COLOR_LIST } from '@/settings/designSetting'
-  import SelectItem from './components/SelectItem.vue'
-  import SwitchItem from './components/SwitchItem.vue'
-  import ThemeColorPicker from './components/ThemeColorPicker.vue'
-  import TypePicker from './components/TypePicker.vue'
+import { BasicDrawer, useDrawerInner } from '@/components/Drawer'
+import { contentModeOptions, HandlerEnum, menuTypeList, themeTypeList } from '@/enums/handlerEnum'
+import { useAppConfig } from '@/hooks/config/useAppConfig'
+import { useHeaderSetting, useMenuSetting, useMultipleTabSetting, useProjectSetting, useSiderSetting, useThemeSetting } from '@/hooks/setting'
+import { APP_PRESET_COLOR_LIST } from '@/settings/designSetting'
+import SelectItem from './components/SelectItem.vue'
+import SwitchItem from './components/SwitchItem.vue'
+import ThemeColorPicker from './components/ThemeColorPicker.vue'
+import TypePicker from './components/TypePicker.vue'
 
-  const { getMenuType, isSidebarType, isTopMenuType } = useMenuSetting()
-  const { getFixed } = useSiderSetting()
+const { getMenuType, isSidebarType, isTopMenuType } = useMenuSetting()
+const { getFixed } = useSiderSetting()
 
-  const { getShowMultipleTab, getShowQuick, getShowRedo, getShowFold } = useMultipleTabSetting()
-  const { getFixed: getHeaderFixed } = useHeaderSetting()
-  const { getContentMode, getShowBreadCrumb, getShowBreadCrumbIcon, getShowLogo, getShowFooter } = useProjectSetting()
-  const { getThemeType, getPrimaryColor } = useThemeSetting()
+const { getShowMultipleTab, getShowQuick, getShowRedo, getShowFold } = useMultipleTabSetting()
+const { getFixed: getHeaderFixed } = useHeaderSetting()
+const { getContentMode, getShowBreadCrumb, getShowBreadCrumbIcon, getShowLogo, getShowFooter } = useProjectSetting()
+const { getThemeType, getPrimaryColor } = useThemeSetting()
 
-  const [register] = useDrawerInner()
+const [register] = useDrawerInner()
 
-  const { baseHandler } = useAppConfig()
+const { baseHandler } = useAppConfig()
 
-  const themeTypeHandler = (item) => {
-    baseHandler(HandlerEnum.CHANGE_THEME, item.type)
-  }
+const themeTypeHandler = (item) => {
+  baseHandler(HandlerEnum.CHANGE_THEME, item.type)
+}
 
-  const menuTypeHandler = (item) => {
-    baseHandler(HandlerEnum.CHANGE_LAYOUT, item.type)
-  }
+const menuTypeHandler = (item) => {
+  baseHandler(HandlerEnum.CHANGE_LAYOUT, item.type)
+}
 </script>

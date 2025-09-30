@@ -1,6 +1,6 @@
+import type { ComponentPublicInstance, DirectiveBinding, ObjectDirective } from 'vue'
 import { on } from '@/utils/domUtils'
 import { isServer } from '@/utils/is'
-import type { ComponentPublicInstance, DirectiveBinding, ObjectDirective } from 'vue'
 
 type DocumentHandler = <T extends MouseEvent>(mouseup: T, mousedown: T) => void
 
@@ -33,7 +33,7 @@ function createDocumentHandler(el: HTMLElement, binding: DirectiveBinding): Docu
     // due to current implementation on binding type is wrong the type casting is necessary here
     excludes.push(binding.arg as unknown as HTMLElement)
   }
-  return function (mouseup, mousedown) {
+  return (mouseup, mousedown) => {
     const popperRef = (
       binding.instance as ComponentPublicInstance<{
         popperRef: Nullable<HTMLElement>
@@ -61,18 +61,18 @@ const ClickOutside: ObjectDirective = {
   beforeMount(el, binding) {
     nodeList.set(el, {
       documentHandler: createDocumentHandler(el, binding),
-      bindingFn: binding.value
+      bindingFn: binding.value,
     })
   },
   updated(el, binding) {
     nodeList.set(el, {
       documentHandler: createDocumentHandler(el, binding),
-      bindingFn: binding.value
+      bindingFn: binding.value,
     })
   },
   unmounted(el) {
     nodeList.delete(el)
-  }
+  },
 }
 
 export default ClickOutside

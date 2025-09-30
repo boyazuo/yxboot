@@ -6,34 +6,34 @@
   </div>
 </template>
 <script lang="ts" setup>
-  import { SvgIcon } from '@/components/Icon'
-  import { ThemeEnum } from '@/enums/appEnum'
-  import { HandlerEnum } from '@/enums/handlerEnum'
-  import { useAppConfig } from '@/hooks/config/useAppConfig'
+import { SvgIcon } from '@/components/Icon'
+import { ThemeEnum } from '@/enums/appEnum'
+import { HandlerEnum } from '@/enums/handlerEnum'
+import { useAppConfig } from '@/hooks/config/useAppConfig'
 
-  // const { isDark, toggleTheme } = useAppTheme()
-  const { isDark, baseHandler } = useAppConfig()
+// const { isDark, toggleTheme } = useAppTheme()
+const { isDark, baseHandler } = useAppConfig()
 
-  const prefixCls = 'dark-switch'
+const prefixCls = 'dark-switch'
 
-  // const isDark = computed(() => getDarkMode.value === ThemeEnum.DARK)
+// const isDark = computed(() => getDarkMode.value === ThemeEnum.DARK)
 
-  const getClass = computed(() => [
-    prefixCls,
-    {
-      [`${prefixCls}--dark`]: unref(isDark)
-    }
-  ])
+const getClass = computed(() => [
+  prefixCls,
+  {
+    [`${prefixCls}--dark`]: unref(isDark),
+  },
+])
 
-  function toggleDarkMode() {
-    baseHandler(HandlerEnum.CHANGE_THEME, isDark.value ? ThemeEnum.LIGHT : ThemeEnum.DARK)
-    // toggleTheme(!isDark.value)
-    // const darkMode = !isDark.value ? ThemeEnum.LIGHT : ThemeEnum.DARK
-    // setDarkMode(darkMode)
-    // updateHeaderBgColor()
-    // updateDarkTheme(darkMode)
-    // updateSidebarBgColor()
-  }
+function toggleDarkMode() {
+  baseHandler(HandlerEnum.CHANGE_THEME, isDark.value ? ThemeEnum.LIGHT : ThemeEnum.DARK)
+  // toggleTheme(!isDark.value)
+  // const darkMode = !isDark.value ? ThemeEnum.LIGHT : ThemeEnum.DARK
+  // setDarkMode(darkMode)
+  // updateHeaderBgColor()
+  // updateDarkTheme(darkMode)
+  // updateSidebarBgColor()
+}
 </script>
 <style lang="less" scoped>
   @prefix-cls: ~'dark-switch';

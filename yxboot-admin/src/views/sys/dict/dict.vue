@@ -41,54 +41,54 @@
   </div>
 </template>
 <script lang="ts" setup>
-  import { listDict, removeDict } from '@/api/sys/dict'
-  import { useDrawer } from '@/components/Drawer'
-  import { useTable } from '@/components/Table'
-  import { message } from 'ant-design-vue'
-  import DictDataDrawer from './DictData.vue'
-  import DictDrawer from './DictDrawer.vue'
-  import { searchFormSchema, tableColumns } from './dict.data'
+import { message } from 'ant-design-vue'
+import { listDict, removeDict } from '@/api/sys/dict'
+import { useDrawer } from '@/components/Drawer'
+import { useTable } from '@/components/Table'
+import DictDataDrawer from './DictData.vue'
+import DictDrawer from './DictDrawer.vue'
+import { searchFormSchema, tableColumns } from './dict.data'
 
-  const [registerTable, { reload: reloadList }] = useTable({
-    title: '字典列表',
-    formConfig: {
-      labelWidth: 120,
-      schemas: searchFormSchema
-    },
-    useSearchForm: true,
-    api: listDict,
-    rowKey: 'dictId',
-    columns: tableColumns,
-    actionColumn: {
-      width: 180
+const [registerTable, { reload: reloadList }] = useTable({
+  title: '字典列表',
+  formConfig: {
+    labelWidth: 120,
+    schemas: searchFormSchema,
+  },
+  useSearchForm: true,
+  api: listDict,
+  rowKey: 'dictId',
+  columns: tableColumns,
+  actionColumn: {
+    width: 180,
+  },
+})
+
+const [dictDrawer, { openDrawer: openDictDrawer }] = useDrawer()
+const [dictDataDrawer, { openDrawer: openDictDataDrawer }] = useDrawer()
+
+const handleCreate = () => {
+  openDictDrawer(true, { isUpdate: false })
+}
+
+const handleDictData = (record: Recordable) => {
+  openDictDataDrawer(true, { record })
+}
+
+const handleEdit = (record: Recordable) => {
+  openDictDrawer(true, { record, isUpdate: true })
+}
+
+const handleRemove = ({ dictId }) => {
+  removeDict({ dictId }).then((res) => {
+    if (res.code === 0) {
+      message.success('删除成功！')
+      reloadList()
     }
   })
+}
 
-  const [dictDrawer, { openDrawer: openDictDrawer }] = useDrawer()
-  const [dictDataDrawer, { openDrawer: openDictDataDrawer }] = useDrawer()
-
-  const handleCreate = () => {
-    openDictDrawer(true, { isUpdate: false })
-  }
-
-  const handleDictData = (record: Recordable) => {
-    openDictDataDrawer(true, { record })
-  }
-
-  const handleEdit = (record: Recordable) => {
-    openDictDrawer(true, { record, isUpdate: true })
-  }
-
-  const handleRemove = ({ dictId }) => {
-    removeDict({ dictId }).then((res) => {
-      if (res.code === 0) {
-        message.success('删除成功！')
-        reloadList()
-      }
-    })
-  }
-
-  const handleSuccess = () => {
-    reloadList()
-  }
+const handleSuccess = () => {
+  reloadList()
+}
 </script>

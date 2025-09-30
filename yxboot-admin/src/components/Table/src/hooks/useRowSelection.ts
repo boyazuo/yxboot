@@ -1,7 +1,7 @@
+import { omit } from 'lodash-es'
+import { type ComputedRef, computed, nextTick, type Ref, ref, toRaw, unref, watch } from 'vue'
 import { findNodeAll } from '@/utils/helper/trees'
 import { isFunction } from '@/utils/is'
-import { omit } from 'lodash-es'
-import { ComputedRef, Ref, computed, nextTick, ref, toRaw, unref, watch } from 'vue'
 import { ROW_KEY } from '../const'
 import type { BasicTableProps, TableRowSelection } from '../types/table'
 
@@ -20,7 +20,7 @@ export function useRowSelection(propsRef: ComputedRef<BasicTableProps>, tableDat
       onChange: (selectedRowKeys: string[]) => {
         setSelectedRowKeys(selectedRowKeys)
       },
-      ...omit(rowSelection, ['onChange'])
+      ...omit(rowSelection, ['onChange']),
     }
   })
 
@@ -28,7 +28,7 @@ export function useRowSelection(propsRef: ComputedRef<BasicTableProps>, tableDat
     () => unref(propsRef).rowSelection?.selectedRowKeys,
     (v: string[]) => {
       setSelectedRowKeys(v)
-    }
+    },
   )
 
   watch(
@@ -42,11 +42,11 @@ export function useRowSelection(propsRef: ComputedRef<BasicTableProps>, tableDat
         }
         emit('selection-change', {
           keys: getSelectRowKeys(),
-          rows: getSelectRows()
+          rows: getSelectRows(),
         })
       })
     },
-    { deep: true }
+    { deep: true },
   )
 
   const getAutoCreateKey = computed(() => {
@@ -64,8 +64,8 @@ export function useRowSelection(propsRef: ComputedRef<BasicTableProps>, tableDat
       toRaw(unref(tableData)).concat(toRaw(unref(selectedRowRef))),
       (item) => rowKeys.includes(item[unref(getRowKey) as string]),
       {
-        children: propsRef.value.childrenColumnName ?? 'children'
-      }
+        children: propsRef.value.childrenColumnName ?? 'children',
+      },
     )
     const trueSelectedRows: any[] = []
     rowKeys.forEach((key: string) => {
@@ -113,6 +113,6 @@ export function useRowSelection(propsRef: ComputedRef<BasicTableProps>, tableDat
     setSelectedRowKeys,
     clearSelectedRowKeys,
     deleteSelectRowByKey,
-    setSelectedRows
+    setSelectedRows,
   }
 }

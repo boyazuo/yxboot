@@ -14,36 +14,36 @@
   </div>
 </template>
 <script setup lang="ts">
-  import { CloseOutlined, FullscreenExitOutlined, FullscreenOutlined } from '@ant-design/icons-vue'
-  import { Tooltip } from 'ant-design-vue'
-  import { computed } from 'vue'
+import { CloseOutlined, FullscreenExitOutlined, FullscreenOutlined } from '@ant-design/icons-vue'
+import { Tooltip } from 'ant-design-vue'
+import { computed } from 'vue'
 
-  const props = defineProps({
-    canFullscreen: { type: Boolean, default: true },
-    fullScreen: { type: Boolean }
-  })
-  const emit = defineEmits(['cancel', 'fullscreen'])
-  const prefixCls = 'modal-close'
+const props = defineProps({
+  canFullscreen: { type: Boolean, default: true },
+  fullScreen: { type: Boolean },
+})
+const emit = defineEmits(['cancel', 'fullscreen'])
+const prefixCls = 'modal-close'
 
-  const getClass = computed(() => {
-    return [
-      prefixCls,
-      `${prefixCls}--custom`,
-      {
-        [`${prefixCls}--can-full`]: props.canFullscreen
-      }
-    ]
-  })
+const getClass = computed(() => {
+  return [
+    prefixCls,
+    `${prefixCls}--custom`,
+    {
+      [`${prefixCls}--can-full`]: props.canFullscreen,
+    },
+  ]
+})
 
-  function handleCancel(e: Event) {
-    emit('cancel', e)
-  }
+function handleCancel(e: Event) {
+  emit('cancel', e)
+}
 
-  function handleFullScreen(e: Event) {
-    e?.stopPropagation()
-    e?.preventDefault()
-    emit('fullscreen')
-  }
+function handleFullScreen(e: Event) {
+  e?.stopPropagation()
+  e?.preventDefault()
+  emit('fullscreen')
+}
 </script>
 <style lang="less">
   @prefix-cls: ~'modal-close';

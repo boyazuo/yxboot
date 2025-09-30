@@ -1,7 +1,5 @@
+import { h, type Ref } from 'vue'
 import type { BasicColumn } from '@/components/Table/src/types/table'
-
-import { h, Ref } from 'vue'
-
 import { isArray } from '@/utils/is'
 import EditableCell from './EditableCell.vue'
 
@@ -48,7 +46,7 @@ export function renderEditCell(column: BasicColumn) {
       value,
       record,
       column,
-      index
+      index,
     })
   }
 }

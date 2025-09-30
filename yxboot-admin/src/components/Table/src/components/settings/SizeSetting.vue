@@ -23,20 +23,20 @@
   </a-tooltip>
 </template>
 <script setup lang="ts">
-  import { getPopupContainer } from '@/utils'
-  import { ColumnHeightOutlined } from '@ant-design/icons-vue'
-  import { ref } from 'vue'
-  import { useTableContext } from '../../hooks/useTableContext'
-  import type { SizeType } from '../../types/table'
+import { ColumnHeightOutlined } from '@ant-design/icons-vue'
+import { ref } from 'vue'
+import { getPopupContainer } from '@/utils'
+import { useTableContext } from '../../hooks/useTableContext'
+import type { SizeType } from '../../types/table'
 
-  const table = useTableContext()
+const table = useTableContext()
 
-  const selectedKeysRef = ref<SizeType[]>([table.getSize()])
+const selectedKeysRef = ref<SizeType[]>([table.getSize()])
 
-  function handleTitleClick({ key }: { key: SizeType }) {
-    selectedKeysRef.value = [key]
-    table.setProps({
-      size: key
-    })
-  }
+function handleTitleClick({ key }: { key: SizeType }) {
+  selectedKeysRef.value = [key]
+  table.setProps({
+    size: key,
+  })
+}
 </script>

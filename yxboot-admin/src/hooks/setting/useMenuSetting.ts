@@ -1,6 +1,6 @@
+import { storeToRefs } from 'pinia'
 import { MenuTypeEnum } from '@/enums'
 import { useAppConfigStore } from '@/store/modules/appConfig'
-import { storeToRefs } from 'pinia'
 
 export function useMenuSetting() {
   const appConfigStore = useAppConfigStore()
@@ -25,6 +25,6 @@ export function useMenuSetting() {
     isSidebarType,
     isTopMenuType,
     isMixTopType,
-    isMixSidebarType
+    isMixSidebarType,
   }
 }

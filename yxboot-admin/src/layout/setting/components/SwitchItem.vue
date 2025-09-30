@@ -11,37 +11,37 @@
   </div>
 </template>
 <script setup lang="ts">
-  import { HandlerEnum } from '@/enums/handlerEnum'
-  import { useAppConfig } from '@/hooks/config'
-  import { PropType, computed } from 'vue'
+import { computed, PropType } from 'vue'
+import { HandlerEnum } from '@/enums/handlerEnum'
+import { useAppConfig } from '@/hooks/config'
 
-  const { baseHandler } = useAppConfig()
+const { baseHandler } = useAppConfig()
 
-  defineOptions({ name: 'SwitchItem' })
+defineOptions({ name: 'SwitchItem' })
 
-  const props = defineProps({
-    event: {
-      type: Number as PropType<HandlerEnum>
-    },
-    disabled: {
-      type: Boolean
-    },
-    title: {
-      type: String
-    },
-    def: {
-      type: Boolean
-    }
-  })
-  const prefixCls = 'setting-switch-item'
+const props = defineProps({
+  event: {
+    type: Number as PropType<HandlerEnum>,
+  },
+  disabled: {
+    type: Boolean,
+  },
+  title: {
+    type: String,
+  },
+  def: {
+    type: Boolean,
+  },
+})
+const prefixCls = 'setting-switch-item'
 
-  const getBindValue = computed(() => {
-    return props.def ? { checked: props.def } : {}
-  })
+const getBindValue = computed(() => {
+  return props.def ? { checked: props.def } : {}
+})
 
-  function handleChange(e: ChangeEvent) {
-    props.event && baseHandler(props.event, e)
-  }
+function handleChange(e: ChangeEvent) {
+  props.event && baseHandler(props.event, e)
+}
 </script>
 <style lang="less" scoped>
   @prefix-cls: ~'setting-switch-item';

@@ -1,12 +1,12 @@
 import { http } from '@/utils/http/axios'
-import { BasicResultModel } from '../model/basicModel'
-import { LoginParams } from '../model/userModel'
+import type { BasicResultModel } from '../model/basicModel'
+import type { LoginParams } from '../model/userModel'
 
 enum Api {
   login = '/auth/login',
   profile = '/auth/profile',
   permissions = '/auth/permissions',
-  captcha = '/auth/captcha'
+  captcha = '/auth/captcha',
 }
 
 export const login = (params: LoginParams) => http.post<BasicResultModel>({ url: Api.login, params })

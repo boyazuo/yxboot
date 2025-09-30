@@ -1,7 +1,6 @@
-import { store } from '@/store'
 import { defineStore } from 'pinia'
-
-import { SysMenu } from '@/api/model/sysModel'
+import type { SysMenu } from '@/api/model/sysModel'
+import { store } from '@/store'
 
 export interface PermissionState {
   origin: Array<SysMenu>
@@ -14,7 +13,7 @@ export const usePermissionStore = defineStore('permissionStore', {
     origin: [],
     menus: [],
     menusCode: [],
-    loaded: false
+    loaded: false,
   }),
   getters: {
     getMenus(): Array<SysMenu> {
@@ -25,7 +24,7 @@ export const usePermissionStore = defineStore('permissionStore', {
     },
     isLoaded(): boolean {
       return this.loaded
-    }
+    },
   },
   actions: {
     setMenus(menus: Array<SysMenu>) {
@@ -41,8 +40,8 @@ export const usePermissionStore = defineStore('permissionStore', {
       this.origin = []
       this.menus = []
       this.loaded = false
-    }
-  }
+    },
+  },
 })
 
 export function usePermissionStoreWithOut() {

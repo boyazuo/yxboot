@@ -1,10 +1,10 @@
+import { nextTick, ref, toRaw } from 'vue'
+import type { RouteLocationNormalized } from 'vue-router'
+import { useRouter } from 'vue-router'
 import { useMultipleTabSetting } from '@/hooks/setting'
 import { useSortable } from '@/hooks/web/useSortable'
 import { useMultipleTabStore } from '@/store/modules/multipleTab'
 import { isNil } from '@/utils/is'
-import { nextTick, ref, toRaw } from 'vue'
-import type { RouteLocationNormalized } from 'vue-router'
-import { useRouter } from 'vue-router'
 
 export function initAffixTabs(): string[] {
   const affixList = ref<RouteLocationNormalized[]>([])
@@ -35,7 +35,7 @@ export function initAffixTabs(): string[] {
       tabStore.addTab({
         meta: tab.meta,
         name: tab.name,
-        path: tab.path
+        path: tab.path,
       } as unknown as RouteLocationNormalized)
     }
   }
@@ -70,7 +70,7 @@ export function useTabsDrag(affixTextList: string[]) {
         }
 
         tabStore.sortTabs(oldIndex, newIndex)
-      }
+      },
     })
   })
 }

@@ -1,4 +1,5 @@
-import type { Options, Sortable } from 'sortablejs'
+import type Sortable from 'sortablejs'
+import type { Options } from 'sortablejs'
 import type { Ref } from 'vue'
 import { nextTick, unref } from 'vue'
 
@@ -13,7 +14,7 @@ export function useSortable(el: HTMLElement | Ref<HTMLElement | undefined>, opti
         animation: 100,
         delay: 400,
         delayOnTouchOnly: true,
-        ...options
+        ...options,
       })
     })
   }

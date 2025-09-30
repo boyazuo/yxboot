@@ -10,17 +10,17 @@
 </template>
 
 <script lang="ts" setup>
-  import { useHeaderSetting, useMultipleTabSetting, useSiderSetting } from '@/hooks/setting'
-  import LayoutContent from './content/index.vue'
-  import LayoutHeader from './header/index.vue'
-  import LayoutSider from './sider/index.vue'
-  import Tabs from './tabs/index.vue'
+import { useHeaderSetting, useMultipleTabSetting, useSiderSetting } from '@/hooks/setting'
+import LayoutContent from './content/index.vue'
+import LayoutHeader from './header/index.vue'
+import LayoutSider from './sider/index.vue'
+import Tabs from './tabs/index.vue'
 
-  const { getShowSider } = useSiderSetting()
-  const { getShowHeader } = useHeaderSetting()
-  const { getShowMultipleTab } = useMultipleTabSetting()
+const { getShowSider } = useSiderSetting()
+const { getShowHeader } = useHeaderSetting()
+const { getShowMultipleTab } = useMultipleTabSetting()
 
-  const prefixCls = 'layout'
+const prefixCls = 'layout'
 </script>
 <style lang="less" scope>
   .layout {

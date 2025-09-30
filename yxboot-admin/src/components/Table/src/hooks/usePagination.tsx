@@ -1,6 +1,6 @@
-import { isBoolean } from '@/utils/is'
 import { LeftOutlined, RightOutlined } from '@ant-design/icons-vue'
-import { ComputedRef, computed, ref, unref, watch } from 'vue'
+import { type ComputedRef, computed, ref, unref, watch } from 'vue'
+import { isBoolean } from '@/utils/is'
 import { PAGE_SIZE, PAGE_SIZE_OPTIONS } from '../const'
 import type { PaginationProps } from '../types/pagination'
 import type { BasicTableProps } from '../types/table'
@@ -30,10 +30,10 @@ export function usePagination(refProps: ComputedRef<BasicTableProps>) {
       if (!isBoolean(pagination) && pagination) {
         configRef.value = {
           ...unref(configRef),
-          ...(pagination ?? {})
+          ...(pagination ?? {}),
         }
       }
-    }
+    },
   )
 
   const getPaginationInfo = computed((): PaginationProps | boolean => {
@@ -54,7 +54,7 @@ export function usePagination(refProps: ComputedRef<BasicTableProps>) {
       itemRender: itemRender,
       showQuickJumper: true,
       ...(isBoolean(pagination) ? {} : pagination),
-      ...unref(configRef)
+      ...unref(configRef),
     }
   })
 
@@ -62,7 +62,7 @@ export function usePagination(refProps: ComputedRef<BasicTableProps>) {
     const paginationInfo = unref(getPaginationInfo)
     configRef.value = {
       ...(!isBoolean(paginationInfo) ? paginationInfo : {}),
-      ...info
+      ...info,
     }
   }
 

@@ -5,7 +5,7 @@ import { statusOptions } from '@/enums'
 export const tableColumns: BasicColumn[] = [
   { title: '部门名称', dataIndex: 'name', align: 'left' },
   { title: '部门说明', dataIndex: 'remark' },
-  { title: '状态', dataIndex: 'statusDesc' }
+  { title: '状态', dataIndex: 'statusDesc' },
 ]
 
 export const editFormSchema: FormSchema[] = [
@@ -14,13 +14,13 @@ export const editFormSchema: FormSchema[] = [
     field: 'parentId',
     label: '上级部门',
     component: 'TreeSelect',
-    slot: 'parentId'
+    slot: 'parentId',
   },
   {
     field: 'name',
     label: '部门名称',
     component: 'Input',
-    required: true
+    required: true,
   },
   { field: 'remark', label: '部门说明', component: 'InputTextArea' },
   {
@@ -29,6 +29,6 @@ export const editFormSchema: FormSchema[] = [
     component: 'Select',
     rules: [{ required: true, message: '请选择状态' }],
     defaultValue: 1,
-    componentProps: { options: statusOptions }
-  }
+    componentProps: { options: statusOptions },
+  },
 ]

@@ -13,18 +13,18 @@
   </a-layout-sider>
 </template>
 <script lang="ts" setup>
-  import { MenuModeEnum } from '@/enums/menuEnum'
-  import { useHeaderSetting, useMenuSetting, useSiderSetting } from '@/hooks/setting'
-  import LayoutMenu from '../menu/index.vue'
-  import MixMenu from '../mix-menu/index.vue'
-  import AppLogo from './AppLogo.vue'
+import { MenuModeEnum } from '@/enums/menuEnum'
+import { useHeaderSetting, useMenuSetting, useSiderSetting } from '@/hooks/setting'
+import LayoutMenu from '../menu/index.vue'
+import MixMenu from '../mix-menu/index.vue'
+import AppLogo from './AppLogo.vue'
 
-  const { getCollapsed, getWidth, getSiderTheme } = useSiderSetting()
-  const { isMixSidebarType } = useMenuSetting()
+const { getCollapsed, getWidth, getSiderTheme } = useSiderSetting()
+const { isMixSidebarType } = useMenuSetting()
 
-  const isCollapsed = computed(() => unref(isMixSidebarType) || unref(getCollapsed))
+const isCollapsed = computed(() => unref(isMixSidebarType) || unref(getCollapsed))
 
-  const { getShowHeaderLogo } = useHeaderSetting()
+const { getShowHeaderLogo } = useHeaderSetting()
 </script>
 <style lang="less" scope>
   .ant-layout-sider-dark {

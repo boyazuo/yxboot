@@ -46,66 +46,66 @@
 </template>
 
 <script lang="ts" setup>
-  import { profile } from '@/api/sys/auth'
-  import { uploadFile } from '@/api/sys/file'
-  import { saveUser } from '@/api/sys/user'
-  import { useUserStoreWithOut } from '@/store/modules/user'
-  import { PlusOutlined } from '@ant-design/icons-vue'
-  import type { UploadChangeParam } from 'ant-design-vue'
-  import { message } from 'ant-design-vue'
+import { PlusOutlined } from '@ant-design/icons-vue'
+import type { UploadChangeParam } from 'ant-design-vue'
+import { message } from 'ant-design-vue'
+import { profile } from '@/api/sys/auth'
+import { uploadFile } from '@/api/sys/file'
+import { saveUser } from '@/api/sys/user'
+import { useUserStoreWithOut } from '@/store/modules/user'
 
-  type formDataType = {
-    username: ''
-    name: ''
-    sex: ''
-    phone: ''
-    email: ''
-    userId: ''
-  }
-  let formData: formDataType = reactive({
-    username: '',
-    name: '',
-    sex: '',
-    phone: '',
-    email: '',
-    userId: ''
-  })
+type formDataType = {
+  username: ''
+  name: ''
+  sex: ''
+  phone: ''
+  email: ''
+  userId: ''
+}
+let formData: formDataType = reactive({
+  username: '',
+  name: '',
+  sex: '',
+  phone: '',
+  email: '',
+  userId: '',
+})
 
-  const handleSubmit = () => {
-    saveUser(formData).then((res: any) => {
-      if (res.code === 0) {
-        message.success(res.msg)
-      } else {
-        message.warning(res.msg)
-      }
-    })
-  }
-
-  const avatarUrl = ref('')
-  const userStore = useUserStoreWithOut()
-  const handleChangeAvatar = (info: UploadChangeParam) => {
-    uploadFile({ file: info.file }).then((res) => {
-      if (res.code === 0) {
-        avatarUrl.value = res.data.url
-        userStore.setAvatar(avatarUrl.value)
-        saveUser({ avatar: avatarUrl.value, userId: formData.userId }).then((res: any) => {
-          if (res.code === 0) message.success(res.msg)
-          else message.warning(res.msg)
-        })
-      } else message.warning(res.data.msg)
-    })
-  }
-
-  const loadUserInfo = async () => {
-    const result = await profile()
-    let key: keyof formDataType
-    for (key in formData) {
-      formData[key] = result.data[key]
+const handleSubmit = () => {
+  saveUser(formData).then((res: any) => {
+    if (res.code === 0) {
+      message.success(res.msg)
+    } else {
+      message.warning(res.msg)
     }
-    avatarUrl.value = result.data.avatar
-  }
+  })
+}
 
-  loadUserInfo()
+const avatarUrl = ref('')
+const userStore = useUserStoreWithOut()
+const handleChangeAvatar = (info: UploadChangeParam) => {
+  uploadFile({ file: info.file }).then((res) => {
+    if (res.code === 0) {
+      avatarUrl.value = res.data.url
+      userStore.setAvatar(avatarUrl.value)
+      saveUser({ avatar: avatarUrl.value, userId: formData.userId }).then((res: any) => {
+        if (res.code === 0) message.success(res.msg)
+        else message.warning(res.msg)
+      })
+    } else message.warning(res.data.msg)
+  })
+}
+
+const loadUserInfo = async () => {
+  const result = await profile()
+  let key: keyof formDataType
+  for (key in formData) {
+    formData[key] = result.data[key]
+  }
+  avatarUrl.value = result.data.avatar
+}
+
+loadUserInfo()
 </script>
 
 <style lang="less" scoped>

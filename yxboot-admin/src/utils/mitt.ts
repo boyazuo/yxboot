@@ -96,6 +96,6 @@ export default function mitt(all?: EventHandlerMap): Emitter {
      */
     clear() {
       this.all.clear()
-    }
+    },
   }
 }

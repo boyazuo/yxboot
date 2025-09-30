@@ -10,6 +10,6 @@ export function usePermission() {
   }
 
   return {
-    hasPermission
+    hasPermission,
   }
 }

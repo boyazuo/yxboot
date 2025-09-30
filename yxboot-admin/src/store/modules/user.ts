@@ -1,5 +1,6 @@
+import { defineStore } from 'pinia'
 import type { UserInfo } from '#/store'
-import { LoginParams } from '@/api/model/userModel'
+import type { LoginParams } from '@/api/model/userModel'
 import { login } from '@/api/sys/auth'
 import { ACCESS_TOKEN, CURRENT_USER } from '@/enums/cacheEnum'
 import { ResultEnum } from '@/enums/httpEnum'
@@ -7,7 +8,6 @@ import { PageEnum } from '@/enums/pageEnum'
 import router from '@/router'
 import { store } from '@/store'
 import { storage } from '@/utils/storage'
-import { defineStore } from 'pinia'
 
 export interface UserState {
   user: Nullable<UserInfo>
@@ -17,7 +17,7 @@ export interface UserState {
 export const useUserStore = defineStore('userStore', {
   state: (): UserState => ({
     user: null,
-    token: ''
+    token: '',
   }),
   getters: {
     getUser(): UserInfo {
@@ -25,7 +25,7 @@ export const useUserStore = defineStore('userStore', {
     },
     getToken(): string {
       return this.token || storage.get(ACCESS_TOKEN, '')
-    }
+    },
   },
   actions: {
     setUser(user: UserInfo | null) {
@@ -72,8 +72,8 @@ export const useUserStore = defineStore('userStore', {
       user.avatar = avatar
       storage.set(CURRENT_USER, user)
       this.setUser(user)
-    }
-  }
+    },
+  },
 })
 
 // Need to be used outside the setup

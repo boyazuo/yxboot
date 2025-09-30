@@ -1,11 +1,8 @@
 import { defineStore } from 'pinia'
-
-import { TABLE_SETTING_KEY } from '@/enums/cacheEnum'
-
-import { Persistent } from '@/utils/cache/persistent'
-
 import type { TableSetting } from '#/store'
 import type { ColumnOptionsType, SizeType } from '@/components/Table/src/types/table'
+import { TABLE_SETTING_KEY } from '@/enums/cacheEnum'
+import { Persistent } from '@/utils/cache/persistent'
 
 interface TableSettingState {
   setting: Nullable<Partial<TableSetting>>
@@ -13,7 +10,7 @@ interface TableSettingState {
 
 export const useTableSettingStore = defineStore('table-setting', {
   state: (): TableSettingState => ({
-    setting: Persistent.getLocal(TABLE_SETTING_KEY)
+    setting: Persistent.getLocal(TABLE_SETTING_KEY),
   }),
   getters: {
     getTableSetting(state): Nullable<Partial<TableSetting>> {
@@ -42,7 +39,7 @@ export const useTableSettingStore = defineStore('table-setting', {
       return (routerName: string) => {
         return state.setting?.columns && state.setting?.columns[routerName] ? state.setting?.columns[routerName] : null
       }
-    }
+    },
   },
   actions: {
     setTableSetting(setting: Partial<TableSetting>) {
@@ -59,9 +56,9 @@ export const useTableSettingStore = defineStore('table-setting', {
         Object.assign({}, this.setting, {
           size: {
             ...this.setting?.size,
-            [routerName]: size
-          }
-        })
+            [routerName]: size,
+          },
+        }),
       )
     },
     //
@@ -70,9 +67,9 @@ export const useTableSettingStore = defineStore('table-setting', {
         Object.assign({}, this.setting, {
           showIndexColumn: {
             ...this.setting?.showIndexColumn,
-            [routerName]: show
-          }
-        })
+            [routerName]: show,
+          },
+        }),
       )
     },
     //
@@ -81,9 +78,9 @@ export const useTableSettingStore = defineStore('table-setting', {
         Object.assign({}, this.setting, {
           showRowSelection: {
             ...this.setting?.showRowSelection,
-            [routerName]: show
-          }
-        })
+            [routerName]: show,
+          },
+        }),
       )
     },
     //
@@ -92,9 +89,9 @@ export const useTableSettingStore = defineStore('table-setting', {
         Object.assign({}, this.setting, {
           columns: {
             ...this.setting?.columns,
-            [routerName]: columns
-          }
-        })
+            [routerName]: columns,
+          },
+        }),
       )
     },
     clearColumns(routerName: string) {
@@ -102,10 +99,10 @@ export const useTableSettingStore = defineStore('table-setting', {
         Object.assign({}, this.setting, {
           columns: {
             ...this.setting?.columns,
-            [routerName]: undefined
-          }
-        })
+            [routerName]: undefined,
+          },
+        }),
       )
-    }
-  }
+    },
+  },
 })

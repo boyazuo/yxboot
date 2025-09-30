@@ -1,5 +1,5 @@
+import type { RouteRecordRaw } from 'vue-router'
 import { EXCEPTION_COMPONENT, LAYOUT, PAGE_NOT_FOUND_NAME, REDIRECT_NAME } from '@/router/constant'
-import { RouteRecordRaw } from 'vue-router'
 
 // 404 on a page
 export const PAGE_NOT_FOUND_ROUTE: RouteRecordRaw = {
@@ -9,8 +9,8 @@ export const PAGE_NOT_FOUND_ROUTE: RouteRecordRaw = {
   meta: {
     title: 'ErrorPage',
     hideBreadcrumb: true,
-    hideMenu: true
-  }
+    hideMenu: true,
+  },
 }
 
 export const REDIRECT_ROUTE: RouteRecordRaw = {
@@ -20,7 +20,7 @@ export const REDIRECT_ROUTE: RouteRecordRaw = {
   meta: {
     title: REDIRECT_NAME,
     hideBreadcrumb: true,
-    hideMenu: true
+    hideMenu: true,
   },
   children: [
     {
@@ -29,8 +29,8 @@ export const REDIRECT_ROUTE: RouteRecordRaw = {
       component: () => import('@/views/redirect.vue'),
       meta: {
         title: REDIRECT_NAME,
-        hideBreadcrumb: true
-      }
-    }
-  ]
+        hideBreadcrumb: true,
+      },
+    },
+  ],
 }

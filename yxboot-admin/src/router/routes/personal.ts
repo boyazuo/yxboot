@@ -1,5 +1,5 @@
+import type { RouteRecordRaw } from 'vue-router'
 import { LAYOUT } from '@/router/constant'
-import { RouteRecordRaw } from 'vue-router'
 
 export const PERSONAL_ROUTE: RouteRecordRaw = {
   path: '/personal',
@@ -14,8 +14,8 @@ export const PERSONAL_ROUTE: RouteRecordRaw = {
       meta: {
         title: '个人中心',
         icon: 'ant-design:user-outlined',
-        hideMenu: true
-      }
-    }
-  ]
+        hideMenu: true,
+      },
+    },
+  ],
 }

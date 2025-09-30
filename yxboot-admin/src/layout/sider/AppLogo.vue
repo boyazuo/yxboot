@@ -5,11 +5,11 @@
   </div>
 </template>
 <script lang="ts" setup>
-  import { useGlobSetting, useSiderSetting } from '@/hooks/setting'
+import { useGlobSetting, useSiderSetting } from '@/hooks/setting'
 
-  const { title } = useGlobSetting()
+const { title } = useGlobSetting()
 
-  const { getWidth } = useSiderSetting()
+const { getWidth } = useSiderSetting()
 </script>
 <style lang="less" scope>
   .logo {

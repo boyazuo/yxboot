@@ -12,16 +12,9 @@ export interface UseEventParams {
   isDebounce?: boolean
   wait?: number
 }
-export function useEventListener({
-  el = window,
-  name,
-  listener,
-  options,
-  autoRemove = true,
-  isDebounce = true,
-  wait = 80
-}: UseEventParams): { removeEvent: RemoveEventFn } {
-   
+export function useEventListener({ el = window, name, listener, options, autoRemove = true, isDebounce = true, wait = 80 }: UseEventParams): {
+  removeEvent: RemoveEventFn
+} {
   let remove: RemoveEventFn = () => {}
   const isAddRef = ref(false)
 
@@ -46,7 +39,7 @@ export function useEventListener({
           })
         }
       },
-      { immediate: true }
+      { immediate: true },
     )
 
     remove = () => {

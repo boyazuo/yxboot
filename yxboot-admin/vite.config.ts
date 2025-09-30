@@ -7,7 +7,7 @@ import { generateModifyVars } from './build/generate/generateModifyVars'
 import { wrapperEnv } from './build/utils'
 import { createPlugins } from './build/vite/plugin'
 import { createProxy } from './build/vite/proxy'
-import pkg from './package.json' assert { type: 'json' }
+import pkg from './package.json'
 
 function pathResolve(dir: string) {
   return resolve(process.cwd(), '.', dir)
@@ -16,7 +16,7 @@ function pathResolve(dir: string) {
 const { dependencies, devDependencies, name, version } = pkg
 const __APP_INFO__ = {
   pkg: { dependencies, devDependencies, name, version },
-  lastBuildTime: dayjs().format('YYYY-MM-DD HH:mm:ss')
+  lastBuildTime: dayjs().format('YYYY-MM-DD HH:mm:ss'),
 }
 
 export default async ({ command, mode }: ConfigEnv): Promise<UserConfig> => {
@@ -36,21 +36,21 @@ export default async ({ command, mode }: ConfigEnv): Promise<UserConfig> => {
       alias: [
         {
           find: /@\//,
-          replacement: pathResolve('src') + '/'
+          replacement: pathResolve('src') + '/',
         },
         {
           find: /#\//,
-          replacement: pathResolve('types') + '/'
-        }
-      ]
+          replacement: pathResolve('types') + '/',
+        },
+      ],
     },
     server: {
       host: true,
       port: VITE_PORT,
-      proxy: createProxy(VITE_PROXY)
+      proxy: createProxy(VITE_PROXY),
     },
     esbuild: {
-      pure: VITE_DROP_CONSOLE ? ['console.log', 'debugger'] : []
+      pure: VITE_DROP_CONSOLE ? ['console.log', 'debugger'] : [],
     },
     build: {
       target: 'es2015',
@@ -63,29 +63,29 @@ export default async ({ command, mode }: ConfigEnv): Promise<UserConfig> => {
         output: {
           manualChunks: {
             vue: ['vue', 'pinia', 'vue-router'],
-            antd: ['ant-design-vue', '@ant-design/icons-vue']
-          }
-        }
-      }
+            antd: ['ant-design-vue', '@ant-design/icons-vue'],
+          },
+        },
+      },
     },
     define: {
-      __APP_INFO__: JSON.stringify(__APP_INFO__)
+      __APP_INFO__: JSON.stringify(__APP_INFO__),
     },
     css: {
       preprocessorOptions: {
         less: {
           modifyVars: generateModifyVars(),
-          javascriptEnabled: true
-        }
-      }
+          javascriptEnabled: true,
+        },
+      },
     },
     plugins: await createPlugins({
       isBuild,
       root,
-      compress: VITE_BUILD_COMPRESS
+      compress: VITE_BUILD_COMPRESS,
     }),
     optimizeDeps: {
-      include: ['@iconify/iconify', 'ant-design-vue/es/locale/zh_CN', 'ant-design-vue/es/locale/en_US']
-    }
+      include: ['@iconify/iconify', 'ant-design-vue/es/locale/zh_CN', 'ant-design-vue/es/locale/en_US'],
+    },
   }
 }

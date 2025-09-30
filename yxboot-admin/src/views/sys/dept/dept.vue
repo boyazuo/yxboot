@@ -37,50 +37,50 @@
   </div>
 </template>
 <script lang="ts" setup>
-  import { removeDept, treeDept } from '@/api/sys/dept'
-  import { useDrawer } from '@/components/Drawer'
-  import { useTable } from '@/components/Table'
-  import { message } from 'ant-design-vue'
-  import DeptDrawer from './DeptDrawer.vue'
-  import { tableColumns } from './dept.data'
+import { message } from 'ant-design-vue'
+import { removeDept, treeDept } from '@/api/sys/dept'
+import { useDrawer } from '@/components/Drawer'
+import { useTable } from '@/components/Table'
+import DeptDrawer from './DeptDrawer.vue'
+import { tableColumns } from './dept.data'
 
-  const [registerTable, { reload: reloadList }] = useTable({
-    title: `部门列表`,
-    api: treeDept,
-    rowKey: 'deptId',
-    columns: tableColumns,
-    useSearchForm: false,
-    pagination: false,
-    showIndexColumn: false,
-    actionColumn: {
-      width: 180
+const [registerTable, { reload: reloadList }] = useTable({
+  title: `部门列表`,
+  api: treeDept,
+  rowKey: 'deptId',
+  columns: tableColumns,
+  useSearchForm: false,
+  pagination: false,
+  showIndexColumn: false,
+  actionColumn: {
+    width: 180,
+  },
+})
+
+const [registerDrawer, { openDrawer }] = useDrawer()
+
+const handleCreate = () => {
+  openDrawer(true, { isUpdate: false })
+}
+
+const handleEdit = (record: Recordable) => {
+  openDrawer(true, { record, isUpdate: true })
+}
+
+const handleCreateChild = (record: Recordable) => {
+  openDrawer(true, { record: { parentId: record.deptId }, isUpdate: true })
+}
+
+const handleRemove = ({ deptId }) => {
+  removeDept({ deptId }).then((res) => {
+    if (res.code === 0) {
+      message.success('删除成功！')
+      reloadList()
     }
   })
+}
 
-  const [registerDrawer, { openDrawer }] = useDrawer()
-
-  const handleCreate = () => {
-    openDrawer(true, { isUpdate: false })
-  }
-
-  const handleEdit = (record: Recordable) => {
-    openDrawer(true, { record, isUpdate: true })
-  }
-
-  const handleCreateChild = (record: Recordable) => {
-    openDrawer(true, { record: { parentId: record.deptId }, isUpdate: true })
-  }
-
-  const handleRemove = ({ deptId }) => {
-    removeDept({ deptId }).then((res) => {
-      if (res.code === 0) {
-        message.success('删除成功！')
-        reloadList()
-      }
-    })
-  }
-
-  const handleSuccess = () => {
-    reloadList()
-  }
+const handleSuccess = () => {
+  reloadList()
+}
 </script>

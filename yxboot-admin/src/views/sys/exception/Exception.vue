@@ -1,71 +1,71 @@
 <script lang="tsx">
-  import { Result } from 'ant-design-vue'
-  import type { PropType } from 'vue'
-  import { computed, defineComponent, ref, unref } from 'vue'
-  import { useRoute } from 'vue-router'
+import { Result } from 'ant-design-vue'
+import type { PropType } from 'vue'
+import { computed, defineComponent, ref, unref } from 'vue'
+import { useRoute } from 'vue-router'
 
-  interface MapValue {
-    title: string
-    status?: string
-    subTitle: string
-  }
+interface MapValue {
+  title: string
+  status?: string
+  subTitle: string
+}
 
-  export default defineComponent({
-    name: 'ErrorPage',
-    props: {
-      title: {
-        type: String as PropType<string>,
-        default: ''
-      },
-
-      status: {
-        type: Number as PropType<number>,
-        default: 404
-      },
-
-      subTitle: {
-        type: String as PropType<string>,
-        default: ''
-      }
+export default defineComponent({
+  name: 'ErrorPage',
+  props: {
+    title: {
+      type: String as PropType<string>,
+      default: '',
     },
-    setup(props) {
-      const statusMapRef = ref(new Map<string | number, MapValue>())
 
-      const { query } = useRoute()
+    status: {
+      type: Number as PropType<number>,
+      default: 404,
+    },
 
-      const getStatus = computed(() => {
-        const { status: routeStatus } = query
-        const { status } = props
-        return Number(routeStatus) || status
-      })
+    subTitle: {
+      type: String as PropType<string>,
+      default: '',
+    },
+  },
+  setup(props) {
+    const statusMapRef = ref(new Map<string | number, MapValue>())
 
-      const getMapValue = computed((): MapValue => {
-        return unref(statusMapRef).get(unref(getStatus)) as MapValue
-      })
+    const { query } = useRoute()
 
-      unref(statusMapRef).set(403, {
-        title: '403',
-        status: '403',
-        subTitle: '对不起，您没有访问此页面的权限。'
-      })
+    const getStatus = computed(() => {
+      const { status: routeStatus } = query
+      const { status } = props
+      return Number(routeStatus) || status
+    })
 
-      unref(statusMapRef).set(404, {
-        title: '404',
-        status: '404',
-        subTitle: '对不起，您访问的页面不存在。'
-      })
+    const getMapValue = computed((): MapValue => {
+      return unref(statusMapRef).get(unref(getStatus)) as MapValue
+    })
 
-      unref(statusMapRef).set(500, {
-        title: '500',
-        status: '500',
-        subTitle: '对不起，服务器错误。'
-      })
+    unref(statusMapRef).set(403, {
+      title: '403',
+      status: '403',
+      subTitle: '对不起，您没有访问此页面的权限。',
+    })
 
-      return () => {
-        const { title, status, subTitle } = unref(getMapValue) || {}
-        return <Result status={status as any} title={props.title || title} sub-title={props.subTitle || subTitle} />
-      }
+    unref(statusMapRef).set(404, {
+      title: '404',
+      status: '404',
+      subTitle: '对不起，您访问的页面不存在。',
+    })
+
+    unref(statusMapRef).set(500, {
+      title: '500',
+      status: '500',
+      subTitle: '对不起，服务器错误。',
+    })
+
+    return () => {
+      const { title, status, subTitle } = unref(getMapValue) || {}
+      return <Result status={status as any} title={props.title || title} sub-title={props.subTitle || subTitle} />
     }
-  })
+  },
+})
 </script>
 <style lang="less"></style>

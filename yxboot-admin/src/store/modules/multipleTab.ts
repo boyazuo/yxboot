@@ -1,5 +1,6 @@
+import { defineStore } from 'pinia'
+import { toRaw, unref } from 'vue'
 import type { RouteLocationNormalized, RouteLocationRaw, Router } from 'vue-router'
-
 import { MULTIPLE_TABS_KEY } from '@/enums/cacheEnum'
 import { PageEnum } from '@/enums/pageEnum'
 import { useGo, useRedo } from '@/hooks/web/usePage'
@@ -9,8 +10,6 @@ import { store } from '@/store'
 import { useUserStore } from '@/store/modules/user'
 import { getRawRoute } from '@/utils'
 import { Persistent } from '@/utils/cache/persistent'
-import { defineStore } from 'pinia'
-import { toRaw, unref } from 'vue'
 
 export interface MultipleTabState {
   cacheTabList: Set<string>
@@ -28,7 +27,7 @@ const getToTarget = (tabItem: RouteLocationNormalized) => {
   return {
     params: params || {},
     path,
-    query: query || {}
+    query: query || {},
   }
 }
 
@@ -41,7 +40,7 @@ export const useMultipleTabStore = defineStore('app-multiple-tab', {
     // multiple tab list
     tabList: cache ? Persistent.getLocal(MULTIPLE_TABS_KEY) || [] : [],
     // Index of the last moved tab
-    lastDragEndIndex: 0
+    lastDragEndIndex: 0,
   }),
   getters: {
     getTabList(): RouteLocationNormalized[] {
@@ -52,7 +51,7 @@ export const useMultipleTabStore = defineStore('app-multiple-tab', {
     },
     getLastDragEndIndex(): number {
       return this.lastDragEndIndex
-    }
+    },
   },
   actions: {
     /**
@@ -344,8 +343,8 @@ export const useMultipleTabStore = defineStore('app-multiple-tab', {
         findTab.path = fullPath
         await this.updateCacheTab()
       }
-    }
-  }
+    },
+  },
 })
 
 // Need to be used outside the setup

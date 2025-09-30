@@ -1,10 +1,10 @@
+import type { WatchStopHandle } from 'vue'
+import { onUnmounted, ref, toRaw, unref, watch } from 'vue'
 import type { DynamicProps } from '#/utils'
 import type { FormActionType } from '@/components/Form'
 import { getDynamicProps } from '@/utils'
 import { isProdMode } from '@/utils/env'
 import { error } from '@/utils/log'
-import type { WatchStopHandle } from 'vue'
-import { onUnmounted, ref, toRaw, unref, watch } from 'vue'
 import type { PaginationProps } from '../types/pagination'
 import type { BasicColumn, BasicTableProps, FetchParams, TableActionType } from '../types/table'
 
@@ -17,9 +17,7 @@ type UseTableMethod = TableActionType & {
   getForm: () => FormActionType
 }
 
-export function useTable(
-  tableProps?: Props
-): [(instance: TableActionType, formInstance: UseTableMethod) => void, UseTableMethod] {
+export function useTable(tableProps?: Props): [(instance: TableActionType, formInstance: UseTableMethod) => void, UseTableMethod] {
   const tableRef = ref<Nullable<TableActionType>>(null)
   const loadedRef = ref<Nullable<boolean>>(false)
   const formRef = ref<Nullable<UseTableMethod>>(null)
@@ -49,17 +47,15 @@ export function useTable(
       },
       {
         immediate: true,
-        deep: true
-      }
+        deep: true,
+      },
     )
   }
 
   function getTableInstance(): TableActionType {
     const table = unref(tableRef)
     if (!table) {
-      error(
-        'The table instance has not been obtained yet, please make sure the table is presented when performing the table operation!'
-      )
+      error('The table instance has not been obtained yet, please make sure the table is presented when performing the table operation!')
     }
     return table as TableActionType
   }
@@ -158,7 +154,7 @@ export function useTable(
     },
     scrollTo: (pos: string) => {
       getTableInstance().scrollTo(pos)
-    }
+    },
   }
 
   return [register, methods]

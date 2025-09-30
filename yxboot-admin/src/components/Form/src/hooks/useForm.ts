@@ -1,9 +1,9 @@
+import type { NamePath } from 'ant-design-vue/lib/form/interface'
+import { nextTick, onUnmounted, ref, unref, watch } from 'vue'
 import type { DynamicProps } from '#/utils'
 import { getDynamicProps } from '@/utils'
 import { isProdMode } from '@/utils/env'
 import { error } from '@/utils/log'
-import type { NamePath } from 'ant-design-vue/lib/form/interface'
-import { nextTick, onUnmounted, ref, unref, watch } from 'vue'
 import type { FormActionType, FormProps, FormSchema, UseFormReturnType } from '../types/form'
 
 export declare type ValidateFields = (nameList?: NamePath[]) => Promise<Recordable>
@@ -17,9 +17,7 @@ export function useForm(props?: Props): UseFormReturnType {
   async function getForm() {
     const form = unref(formRef)
     if (!form) {
-      error(
-        'The form instance has not been obtained, please make sure that the form has been rendered when performing the form operation!'
-      )
+      error('The form instance has not been obtained, please make sure that the form has been rendered when performing the form operation!')
     }
     await nextTick()
     return form as FormActionType
@@ -43,8 +41,8 @@ export function useForm(props?: Props): UseFormReturnType {
       },
       {
         immediate: true,
-        deep: true
-      }
+        deep: true,
+      },
     )
   }
 
@@ -107,7 +105,7 @@ export function useForm(props?: Props): UseFormReturnType {
     validateFields: async (nameList?: NamePath[]): Promise<Recordable> => {
       const form = await getForm()
       return form.validateFields(nameList)
-    }
+    },
   }
 
   return [register, methods]

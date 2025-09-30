@@ -8,11 +8,11 @@
   </Tooltip>
 </template>
 <script setup lang="ts">
-  import { FullscreenExitOutlined, FullscreenOutlined } from '@ant-design/icons-vue'
-  import { useFullscreen } from '@vueuse/core'
-  import { Tooltip } from 'ant-design-vue'
-  import { useTableContext } from '../../hooks/useTableContext'
+import { FullscreenExitOutlined, FullscreenOutlined } from '@ant-design/icons-vue'
+import { useFullscreen } from '@vueuse/core'
+import { Tooltip } from 'ant-design-vue'
+import { useTableContext } from '../../hooks/useTableContext'
 
-  const table = useTableContext()
-  const { toggle, isFullscreen } = useFullscreen(table.wrapRef)
+const table = useTableContext()
+const { toggle, isFullscreen } = useFullscreen(table.wrapRef)
 </script>

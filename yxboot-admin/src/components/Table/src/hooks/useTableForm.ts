@@ -1,14 +1,14 @@
-import type { FormProps } from '@/components/Form'
-import { isFunction } from '@/utils/is'
 import type { ComputedRef, Slots } from 'vue'
 import { computed, unref } from 'vue'
+import type { FormProps } from '@/components/Form'
+import { isFunction } from '@/utils/is'
 import type { BasicTableProps, FetchParams } from '../types/table'
 
 export function useTableForm(
   propsRef: ComputedRef<BasicTableProps>,
   slots: Slots,
   fetch: (opt?: FetchParams | undefined) => Promise<any>,
-  getLoading: ComputedRef<boolean | undefined>
+  getLoading: ComputedRef<boolean | undefined>,
 ) {
   const getFormProps = computed((): Partial<FormProps> => {
     const { formConfig } = unref(propsRef)
@@ -17,7 +17,7 @@ export function useTableForm(
       showAdvancedButton: true,
       ...formConfig,
       submitButtonOptions: { loading: unref(getLoading), ...submitButtonOptions },
-      compact: true
+      compact: true,
     }
   })
 
@@ -28,7 +28,7 @@ export function useTableForm(
 
   function replaceFormSlotKey(key: string) {
     if (!key) return ''
-    return key?.replace?.(/form\-/, '') ?? ''
+    return key?.replace?.(/form-/, '') ?? ''
   }
 
   function handleSearchInfoChange(info: Recordable) {
@@ -43,6 +43,6 @@ export function useTableForm(
     getFormProps,
     replaceFormSlotKey,
     getFormSlotKeys,
-    handleSearchInfoChange
+    handleSearchInfoChange,
   }
 }

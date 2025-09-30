@@ -1,5 +1,5 @@
+import type { RouteRecordRaw } from 'vue-router'
 import { LAYOUT } from '@/router/constant'
-import { RouteRecordRaw } from 'vue-router'
 
 export const ABOUT_ROUTE: RouteRecordRaw = {
   path: '/about',
@@ -14,8 +14,8 @@ export const ABOUT_ROUTE: RouteRecordRaw = {
       meta: {
         title: '关于',
         icon: 'simple-icons:about-dot-me',
-        hideMenu: true
-      }
-    }
-  ]
+        hideMenu: true,
+      },
+    },
+  ],
 }

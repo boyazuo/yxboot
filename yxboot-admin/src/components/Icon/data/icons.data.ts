@@ -788,8 +788,8 @@ export default {
     'ant-design:zhihu-outlined',
     'ant-design:zhihu-square-filled',
     'ant-design:zoom-in-outlined',
-    'ant-design:zoom-out-outlined'
-  ]
+    'ant-design:zoom-out-outlined',
+  ],
 }
 
 export const outlined = [
@@ -1151,7 +1151,7 @@ export const outlined = [
   'ant-design:wallet-outlined',
   'ant-design:whats-app-outlined',
   'ant-design:wifi-outlined',
-  'ant-design:woman-outlined'
+  'ant-design:woman-outlined',
 ]
 
 export const filled = [
@@ -1372,7 +1372,7 @@ export const filled = [
   'ant-design:video-camera-filled',
   'ant-design:wallet-filled',
   'ant-design:zhihu-circle-filled',
-  'ant-design:zhihu-square-filled'
+  'ant-design:zhihu-square-filled',
 ]
 
 export const twotone = [
@@ -1560,5 +1560,5 @@ export const twotone = [
   'ant-design:unlock-twotone',
   'ant-design:usb-twotone',
   'ant-design:video-camera-twotone',
-  'ant-design:wallet-twotone'
+  'ant-design:wallet-twotone',
 ]

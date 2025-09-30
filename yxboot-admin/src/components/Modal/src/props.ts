@@ -1,4 +1,4 @@
-import { ButtonProps } from 'ant-design-vue/es/button/buttonTypes'
+import type { ButtonProps } from 'ant-design-vue/es/button/buttonTypes'
 import type { CSSProperties, PropType } from 'vue'
 import type { ModalWrapperProps } from './types/typing'
 
@@ -14,7 +14,7 @@ export const modalProps = {
   cancelText: { type: String, default: '取消' },
   okText: { type: String, default: '确认' },
 
-  closeFunc: Function as PropType<() => Promise<boolean>>
+  closeFunc: Function as PropType<() => Promise<boolean>>,
 }
 
 export const basicProps = Object.assign({}, modalProps, {
@@ -77,5 +77,5 @@ export const basicProps = Object.assign({}, modalProps, {
 
   wrapClassName: { type: String },
 
-  zIndex: { type: Number }
+  zIndex: { type: Number },
 })

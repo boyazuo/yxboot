@@ -70,7 +70,7 @@
   </div>
 </template>
 <script lang="ts" setup>
-  import { DownloadOutlined, EditOutlined, SearchOutlined, ShareAltOutlined } from '@ant-design/icons-vue'
+import { DownloadOutlined, EditOutlined, SearchOutlined, ShareAltOutlined } from '@ant-design/icons-vue'
 </script>
 <style scoped>
   .page-wrapper {

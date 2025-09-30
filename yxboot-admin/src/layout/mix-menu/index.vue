@@ -25,95 +25,95 @@
   </a-layout-sider>
 </template>
 <script lang="ts" setup>
-  import { useGlobSetting, useSiderSetting } from '@/hooks/setting'
-  import { usePermissionStoreWithOut } from '@/store/modules/permission'
-  import { propTypes } from '@/utils/propTypes'
-  import { RouteRecord, useRoute, useRouter } from 'vue-router'
-  import Menu from './components/Menu.vue'
-  import SubMenus from './components/SubMenus.vue'
+import { useGlobSetting, useSiderSetting } from '@/hooks/setting'
+import { usePermissionStoreWithOut } from '@/store/modules/permission'
+import { propTypes } from '@/utils/propTypes'
+import { RouteRecord, useRoute, useRouter } from 'vue-router'
+import Menu from './components/Menu.vue'
+import SubMenus from './components/SubMenus.vue'
 
-  const { title } = useGlobSetting()
+const { title } = useGlobSetting()
 
-  const props = defineProps({
-    mode: propTypes.oneOf(['vertical', 'horizontal', 'inline']),
-    theme: propTypes.oneOf(['light', 'dark'])
-  })
+const props = defineProps({
+  mode: propTypes.oneOf(['vertical', 'horizontal', 'inline']),
+  theme: propTypes.oneOf(['light', 'dark']),
+})
 
-  const { getShowSider, getSiderTheme } = useSiderSetting()
+const { getShowSider, getSiderTheme } = useSiderSetting()
 
-  //菜单模式
-  const menuModel = computed(() => props.mode || (unref(getShowSider) ? 'inline' : 'horizontal'))
+//菜单模式
+const menuModel = computed(() => props.mode || (unref(getShowSider) ? 'inline' : 'horizontal'))
 
-  console.log('menuModel', menuModel.value)
+console.log('menuModel', menuModel.value)
 
-  const menuTheme = computed(() => props.theme || unref(getSiderTheme))
+const menuTheme = computed(() => props.theme || unref(getSiderTheme))
 
-  const router = useRouter()
+const router = useRouter()
 
-  const selectedKeys = ref<string[]>([])
+const selectedKeys = ref<string[]>([])
 
-  const permission = usePermissionStoreWithOut()
-  const menus = permission.getMenus
+const permission = usePermissionStoreWithOut()
+const menus = permission.getMenus
 
-  const handleMenuClick = function ({ key }: { key: string }) {
-    selectedKeys.value.splice(0, selectedKeys.value.length, key)
-    if (/http(s)?:/.test(key)) {
-      window.open(key)
-      openSubMenu.value = false
-    } else if (key.indexOf('menu_') === -1) {
-      router.push(key)
-      openSubMenu.value = false
-    }
-  }
-
-  const openSubMenu = ref(false)
-  const subMenus = ref([])
-
-  const openMenusClass = computed(() => {
-    return [
-      'open-menus',
-      {
-        open: unref(openSubMenu)
-      }
-    ]
-  })
-  const handleOpenSubMenus = (menus: any) => {
-    subMenus.value = menus
-    openSubMenu.value = true
-  }
-
-  const getMenuEvents = computed(() => {
-    return {
-      onMouseleave: () => {
-        openSubMenu.value = false
-      }
-    }
-  })
-
-  const closeSubMenusSider = () => {
+const handleMenuClick = function ({ key }: { key: string }) {
+  selectedKeys.value.splice(0, selectedKeys.value.length, key)
+  if (/http(s)?:/.test(key)) {
+    window.open(key)
+    openSubMenu.value = false
+  } else if (key.indexOf('menu_') === -1) {
+    router.push(key)
     openSubMenu.value = false
   }
+}
 
-  const checkMenuSelect = (route) => {
-    const resolve = router.resolve(route)
-    const { matched } = resolve
-    console.log('matched route==========', matched)
-    const [first] = matched as unknown as RouteRecord[]
-    if (first.children && first.children.length > 1) {
-      selectedKeys.value.splice(0, selectedKeys.value.length, `menu_${first.meta?.menuId}`)
-    } else {
-      selectedKeys.value.splice(0, selectedKeys.value.length, route.fullPath)
-    }
+const openSubMenu = ref(false)
+const subMenus = ref([])
+
+const openMenusClass = computed(() => {
+  return [
+    'open-menus',
+    {
+      open: unref(openSubMenu),
+    },
+  ]
+})
+const handleOpenSubMenus = (menus: any) => {
+  subMenus.value = menus
+  openSubMenu.value = true
+}
+
+const getMenuEvents = computed(() => {
+  return {
+    onMouseleave: () => {
+      openSubMenu.value = false
+    },
   }
+})
 
-  onMounted(async () => {
-    const route = useRoute()
-    checkMenuSelect(route)
-    watch(
-      () => route.fullPath,
-      () => checkMenuSelect(route)
-    )
-  })
+const closeSubMenusSider = () => {
+  openSubMenu.value = false
+}
+
+const checkMenuSelect = (route) => {
+  const resolve = router.resolve(route)
+  const { matched } = resolve
+  console.log('matched route==========', matched)
+  const [first] = matched as unknown as RouteRecord[]
+  if (first.children && first.children.length > 1) {
+    selectedKeys.value.splice(0, selectedKeys.value.length, `menu_${first.meta?.menuId}`)
+  } else {
+    selectedKeys.value.splice(0, selectedKeys.value.length, route.fullPath)
+  }
+}
+
+onMounted(async () => {
+  const route = useRoute()
+  checkMenuSelect(route)
+  watch(
+    () => route.fullPath,
+    () => checkMenuSelect(route),
+  )
+})
 </script>
 <style lang="less" scope>
   .yxboot-mix-menus {

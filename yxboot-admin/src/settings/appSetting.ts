@@ -1,11 +1,5 @@
-import { AppSetting } from '#/config'
-import {
-  ContentLayoutEnum,
-  RouterTransitionEnum,
-  SettingButtonPositionEnum,
-  ThemeEnum,
-  ThemeTypeEnum
-} from '@/enums/appEnum'
+import type { AppSetting } from '#/config'
+import { ContentLayoutEnum, RouterTransitionEnum, SettingButtonPositionEnum, ThemeEnum, ThemeTypeEnum } from '@/enums/appEnum'
 import { MenuModeEnum, MenuTypeEnum } from '@/enums/menuEnum'
 
 const setting: AppSetting = {
@@ -17,7 +11,7 @@ const setting: AppSetting = {
     successColor: '#52c41a',
     warningColor: '#faad14',
     errorColor: '#ff4d4f',
-    infoColor: '#1677ff'
+    infoColor: '#1677ff',
   },
 
   // Project configuration
@@ -50,7 +44,7 @@ const setting: AppSetting = {
     closeMessageOnSwitch: true,
     // Whether to cancel the http request that has been sent but not responded when switching the interface.
     // If it is enabled, I want to overwrite a single interface. Can be set in a separate interface
-    removeAllHttpPending: false
+    removeAllHttpPending: false,
   },
 
   // Sider Configuration
@@ -61,7 +55,7 @@ const setting: AppSetting = {
     width: 210,
     mixSidebarWidth: 80,
     collapsedWidth: 48,
-    collapsed: false
+    collapsed: false,
   },
 
   // Header configuration
@@ -75,7 +69,7 @@ const setting: AppSetting = {
     // Whether to enable the lock screen function
     useLockPage: true,
     // Whether to show the full screen button
-    showFullScreen: true
+    showFullScreen: true,
   },
 
   // Menu configuration
@@ -85,7 +79,7 @@ const setting: AppSetting = {
     // Menu type
     type: MenuTypeEnum.SIDER,
     // Split menu
-    split: false
+    split: false,
   },
 
   // Multi-label
@@ -100,7 +94,7 @@ const setting: AppSetting = {
     // Whether to show the refresh button
     showRedo: true,
     // Whether to show the collapse button
-    showFold: true
+    showFold: true,
   },
 
   // Transition Setting
@@ -111,8 +105,8 @@ const setting: AppSetting = {
     // Route basic switching animation
     basicTransition: RouterTransitionEnum.FADE_SIDE,
     // Whether to open the top progress bar
-    openNProgress: false
-  }
+    openNProgress: false,
+  },
 }
 
 export default setting

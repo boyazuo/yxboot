@@ -1,5 +1,5 @@
-import { useAppConfigStore } from '@/store/modules/appConfig'
 import { storeToRefs } from 'pinia'
+import { useAppConfigStore } from '@/store/modules/appConfig'
 
 export function useProjectSetting() {
   const appConfigStore = useAppConfigStore()
@@ -37,6 +37,6 @@ export function useProjectSetting() {
     getUseOpenBackTop,
     getCanEmbedIFramePage,
     getCloseMessageOnSwitch,
-    getRemoveAllHttpPending
+    getRemoveAllHttpPending,
   }
 }

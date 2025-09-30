@@ -30,18 +30,18 @@ export enum HandlerEnum {
   ROUTER_TRANSITION,
   OPEN_PROGRESS,
   OPEN_PAGE_LOADING,
-  OPEN_ROUTE_TRANSITION
+  OPEN_ROUTE_TRANSITION,
 }
 
 export const contentModeOptions = [
   {
     value: ContentLayoutEnum.FULL,
-    label: '流式'
+    label: '流式',
   },
   {
     value: ContentLayoutEnum.FIXED,
-    label: '定宽'
-  }
+    label: '定宽',
+  },
 ]
 
 export const routerTransitionOptions = [
@@ -50,37 +50,37 @@ export const routerTransitionOptions = [
   RouterTransitionEnum.ZOOM_OUT,
   RouterTransitionEnum.FADE_SIDE,
   RouterTransitionEnum.FADE_BOTTOM,
-  RouterTransitionEnum.FADE_SCALE
+  RouterTransitionEnum.FADE_SCALE,
 ].map((item) => {
   return {
     label: item,
-    value: item
+    value: item,
   }
 })
 
 export const themeTypeList: SelectorType[] = [
   {
     title: '亮色主题风格',
-    type: ThemeTypeEnum.LIGHT
+    type: ThemeTypeEnum.LIGHT,
   },
   {
     title: '暗色主题风格',
-    type: ThemeTypeEnum.DARK
+    type: ThemeTypeEnum.DARK,
   },
   {
     title: '暗黑模式',
-    type: ThemeTypeEnum.REAL_DARK
-  }
+    type: ThemeTypeEnum.REAL_DARK,
+  },
 ]
 
 export const menuTypeList: SelectorType[] = [
   {
     title: '左侧菜单模式',
-    type: MenuTypeEnum.SIDER
+    type: MenuTypeEnum.SIDER,
   },
   {
     title: '顶部菜单模式',
-    type: MenuTypeEnum.TOP_MENU
+    type: MenuTypeEnum.TOP_MENU,
   },
   // {
   //   title: '顶部混合菜单模式',
@@ -88,6 +88,6 @@ export const menuTypeList: SelectorType[] = [
   // },
   {
     title: '侧栏混合菜单模式',
-    type: MenuTypeEnum.MIX_SIDER
-  }
+    type: MenuTypeEnum.MIX_SIDER,
+  },
 ]

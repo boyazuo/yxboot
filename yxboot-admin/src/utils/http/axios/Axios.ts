@@ -1,11 +1,11 @@
-import type { RequestOptions, Result, UploadFileParams } from '#/axios'
-import { ContentTypeEnum, RequestEnum } from '@/enums/httpEnum'
-import { isFunction } from '@/utils/is'
 import type { AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse, InternalAxiosRequestConfig } from 'axios'
 import axios from 'axios'
 import { saveAs } from 'file-saver'
 import { cloneDeep } from 'lodash-es'
 import qs from 'qs'
+import type { RequestOptions, Result, UploadFileParams } from '#/axios'
+import { ContentTypeEnum, RequestEnum } from '@/enums/httpEnum'
+import { isFunction } from '@/utils/is'
 import { AxiosCanceler } from './axiosCancel'
 import type { CreateAxiosOptions } from './axiosTransform'
 
@@ -74,10 +74,9 @@ export class VAxios {
     // Request interceptor configuration processing
     this.axiosInstance.interceptors.request.use((config: InternalAxiosRequestConfig) => {
       // If cancel repeat request is turned on, then cancel repeat request is prohibited
-      // @ts-ignore
+      // @ts-expect-error
       const { ignoreCancelToken } = config.requestOptions
-      const ignoreCancel =
-        ignoreCancelToken !== undefined ? ignoreCancelToken : this.options.requestOptions?.ignoreCancelToken
+      const ignoreCancel = ignoreCancelToken !== undefined ? ignoreCancelToken : this.options.requestOptions?.ignoreCancelToken
 
       !ignoreCancel && axiosCanceler.addPending(config)
       if (requestInterceptors && isFunction(requestInterceptors)) {
@@ -141,9 +140,8 @@ export class VAxios {
       data: formData,
       headers: {
         'Content-type': ContentTypeEnum.FORM_DATA,
-        // @ts-ignore
-        ignoreCancelToken: true
-      }
+        ignoreCancelToken: true,
+      },
     } as AxiosRequestConfig)
   }
 
@@ -152,17 +150,13 @@ export class VAxios {
     const headers = config.headers || this.options.headers
     const contentType = headers?.['Content-Type'] || headers?.['content-type']
 
-    if (
-      contentType !== ContentTypeEnum.FORM_URLENCODED ||
-      !Reflect.has(config, 'data') ||
-      config.method?.toUpperCase() === RequestEnum.GET
-    ) {
+    if (contentType !== ContentTypeEnum.FORM_URLENCODED || !Reflect.has(config, 'data') || config.method?.toUpperCase() === RequestEnum.GET) {
       return config
     }
 
     return {
       ...config,
-      data: qs.stringify(config.data, { arrayFormat: 'brackets' })
+      data: qs.stringify(config.data, { arrayFormat: 'brackets' }),
     }
   }
 
@@ -183,12 +177,9 @@ export class VAxios {
   }
 
   download(config: AxiosRequestConfig, options?: RequestOptions): Promise<boolean> {
-    return this.request(
-      { ...config, responseType: 'blob', timeout: 1000 * 10 },
-      { ...options, isReturnNativeResponse: true }
-    ).then((response) => {
+    return this.request({ ...config, responseType: 'blob', timeout: 1000 * 10 }, { ...options, isReturnNativeResponse: true }).then((response) => {
       const {
-        headers: { 'content-disposition': disposition }
+        headers: { 'content-disposition': disposition },
       } = response
       const fileName = disposition.replace('attachment; filename=', '')
       saveAs(response.data, decodeURIComponent(fileName))

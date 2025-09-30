@@ -8,55 +8,55 @@
   </a-menu-item>
 </template>
 <script lang="ts" setup>
-  import Icon from '@/components/Icon'
-  import { useMenuSetting } from '@/hooks/setting'
+import Icon from '@/components/Icon'
+import { useMenuSetting } from '@/hooks/setting'
 
-  const props = defineProps({
-    menu: {
-      type: Object,
-      default() {
-        return {}
-      }
-    }
-  })
+const props = defineProps({
+  menu: {
+    type: Object,
+    default() {
+      return {}
+    },
+  },
+})
 
-  const emit = defineEmits(['openSubMenus'])
+const emit = defineEmits(['openSubMenus'])
 
-  const isGroupMenu = computed(() => {
-    if (!props.menu.children || props.menu.children.length === 0) {
-      return false
-    }
-    if (props.menu.children && props.menu.children.length === 1) {
-      const [child] = props.menu.children
-      return child.name !== props.menu.name
-    }
-    return true
-  })
-
-  const parseMenu = computed(() => {
-    const menu = props.menu
-    return isGroupMenu ? menu : menu.children && menu.children.length === 1 ? menu.children[0] : menu
-  })
-
-  const menuKey = computed(() => {
-    return unref(isGroupMenu) ? `menu_${unref(parseMenu).menuId}` : unref(parseMenu).path
-  })
-
-  const getWrapperClass = computed(() => {
-    const { isMixTopType, isMixSidebarType } = useMenuSetting()
-
-    return {
-      'mix-sider': unref(isMixSidebarType),
-      'mix-top': unref(isMixTopType)
-    }
-  })
-
-  function handleMenuClick() {
-    console.log('parseMenu==', unref(parseMenu))
-    if (unref(parseMenu).children && unref(parseMenu).children.length > 0) {
-      emit('openSubMenus', unref(parseMenu).children)
-    }
+const isGroupMenu = computed(() => {
+  if (!props.menu.children || props.menu.children.length === 0) {
+    return false
   }
+  if (props.menu.children && props.menu.children.length === 1) {
+    const [child] = props.menu.children
+    return child.name !== props.menu.name
+  }
+  return true
+})
+
+const parseMenu = computed(() => {
+  const menu = props.menu
+  return isGroupMenu ? menu : menu.children && menu.children.length === 1 ? menu.children[0] : menu
+})
+
+const menuKey = computed(() => {
+  return unref(isGroupMenu) ? `menu_${unref(parseMenu).menuId}` : unref(parseMenu).path
+})
+
+const getWrapperClass = computed(() => {
+  const { isMixTopType, isMixSidebarType } = useMenuSetting()
+
+  return {
+    'mix-sider': unref(isMixSidebarType),
+    'mix-top': unref(isMixTopType),
+  }
+})
+
+function handleMenuClick() {
+  console.log('parseMenu==', unref(parseMenu))
+  if (unref(parseMenu).children && unref(parseMenu).children.length > 0) {
+    emit('openSubMenus', unref(parseMenu).children)
+  }
+}
 </script>
 <style lang="less" scoped>
   .ant-menu-item {

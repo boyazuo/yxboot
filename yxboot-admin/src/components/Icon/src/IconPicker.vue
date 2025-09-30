@@ -53,113 +53,113 @@
   </BasicModal>
 </template>
 <script lang="ts" setup>
-  import { useModal } from '@/components/Modal'
-  import { propTypes } from '@/utils/propTypes'
-  import { Tooltip, message } from 'ant-design-vue'
-  import axios from 'axios'
-  import { filled, outlined, twotone } from '../data/icons.data'
-  import Icon from './Icon.vue'
+import { message, Tooltip } from 'ant-design-vue'
+import axios from 'axios'
+import { useModal } from '@/components/Modal'
+import { propTypes } from '@/utils/propTypes'
+import { filled, outlined, twotone } from '../data/icons.data'
+import Icon from './Icon.vue'
 
-  defineOptions({
-    inheritAttrs: false
-  })
+defineOptions({
+  inheritAttrs: false,
+})
 
-  const iconData = { outlined, filled, twotone }
+const iconData = { outlined, filled, twotone }
 
-  const IconPickerItem = defineComponent({
-    props: {
-      icon: propTypes.string,
-      selected: propTypes.bool
-    },
-    emits: ['selected'],
-    render(context) {
-      const { icon, selected, $emit } = context
-      const getClass = () => {
-        return {
-          icon: true,
-          selected
-        }
+const IconPickerItem = defineComponent({
+  props: {
+    icon: propTypes.string,
+    selected: propTypes.bool,
+  },
+  emits: ['selected'],
+  render(context) {
+    const { icon, selected, $emit } = context
+    const getClass = () => {
+      return {
+        icon: true,
+        selected,
       }
-      return h(
-        'div',
-        {
-          class: getClass(),
-          onClick: () => $emit('selected', icon)
-        },
-        [h(Tooltip, { title: icon }, [h(Icon, { icon, size: 32 })])]
-      )
     }
+    return h(
+      'div',
+      {
+        class: getClass(),
+        onClick: () => $emit('selected', icon),
+      },
+      [h(Tooltip, { title: icon }, [h(Icon, { icon, size: 32 })])],
+    )
+  },
+})
+
+enum RequestResult {
+  FIRST = 1,
+  HAS_RESULT = 2,
+  EMPTY_RESULT = 3,
+}
+const props = defineProps({
+  value: propTypes.string,
+  placeholder: propTypes.string,
+})
+const emit = defineEmits(['change', 'update:value'])
+const innerValue = ref()
+const selectIcon = ref()
+const loading = ref(false)
+const requestResult = ref(RequestResult.FIRST)
+
+const category = ref('ant-design')
+//antd icon 屬性
+const style = ref('outlined')
+const antdKeyword = ref<string>('')
+//iconify 屬性
+const keyword = ref<string>('')
+const icons = ref<Array<string>>([])
+
+const antDesignIconList = computed<Array<string>>(() => {
+  const list = iconData[unref(style)].filter((item) => {
+    return item.indexOf(unref(antdKeyword)) > -1
   })
+  return list
+})
 
-  enum RequestResult {
-    FIRST = 1,
-    HAS_RESULT = 2,
-    EMPTY_RESULT = 3
-  }
-  const props = defineProps({
-    value: propTypes.string,
-    placeholder: propTypes.string
-  })
-  const emit = defineEmits(['change', 'update:value'])
-  const innerValue = ref()
-  const selectIcon = ref()
-  const loading = ref(false)
-  const requestResult = ref(RequestResult.FIRST)
+watch(
+  () => props.value,
+  () => {
+    innerValue.value = unref(props.value)
+  },
+)
 
-  const category = ref('ant-design')
-  //antd icon 屬性
-  const style = ref('outlined')
-  const antdKeyword = ref<string>('')
-  //iconify 屬性
-  const keyword = ref<string>('')
-  const icons = ref<Array<string>>([])
+const [registerModel, { openModal, closeModal }] = useModal()
 
-  const antDesignIconList = computed<Array<string>>(() => {
-    const list = iconData[unref(style)].filter((item) => {
-      return item.indexOf(unref(antdKeyword)) > -1
+const handleSelectIconClick = () => {
+  selectIcon.value = unref(innerValue)
+  openModal(true)
+}
+
+const handleModalOkClick = () => {
+  closeModal()
+  innerValue.value = unref(selectIcon)
+  emit('change', unref(innerValue))
+  emit('update:value', unref(innerValue))
+}
+
+const handleSearch = () => {
+  const value = unref(keyword)
+  if (value) {
+    loading.value = true
+    axios.get('https://api.iconify.design/search?query=' + value + '&limit=100').then((res) => {
+      const { data: { icons: iconList = [], total = 0 } = {} } = res
+      icons.value = [...iconList]
+      requestResult.value = total > 0 ? RequestResult.HAS_RESULT : RequestResult.EMPTY_RESULT
+      loading.value = false
     })
-    return list
-  })
-
-  watch(
-    () => props.value,
-    () => {
-      innerValue.value = unref(props.value)
-    }
-  )
-
-  const [registerModel, { openModal, closeModal }] = useModal()
-
-  const handleSelectIconClick = () => {
-    selectIcon.value = unref(innerValue)
-    openModal(true)
+  } else {
+    message.warning('请输入关键字')
   }
+}
 
-  const handleModalOkClick = () => {
-    closeModal()
-    innerValue.value = unref(selectIcon)
-    emit('change', unref(innerValue))
-    emit('update:value', unref(innerValue))
-  }
-
-  const handleSearch = () => {
-    const value = unref(keyword)
-    if (value) {
-      loading.value = true
-      axios.get('https://api.iconify.design/search?query=' + value + '&limit=100').then((res) => {
-        const { data: { icons: iconList = [], total = 0 } = {} } = res
-        icons.value = [...iconList]
-        requestResult.value = total > 0 ? RequestResult.HAS_RESULT : RequestResult.EMPTY_RESULT
-        loading.value = false
-      })
-    } else {
-      message.warning('请输入关键字')
-    }
-  }
-
-  const handleIconSelectClick = (icon) => {
-    selectIcon.value = icon
-  }
+const handleIconSelectClick = (icon) => {
+  selectIcon.value = icon
+}
 </script>
 <style lang="less" scoped>
   .icon-input {

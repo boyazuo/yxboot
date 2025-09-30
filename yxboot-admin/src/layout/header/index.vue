@@ -20,40 +20,40 @@
   </Layout.Header>
 </template>
 <script lang="ts" setup>
-  import { SettingButtonPositionEnum } from '@/enums/appEnum'
-  import { MenuModeEnum } from '@/enums/menuEnum'
-  import { useHeaderSetting, useMenuSetting, useProjectSetting } from '@/hooks/setting'
-  import { Layout } from 'ant-design-vue'
-  import Breadcrumb from '../breadcrumb/index.vue'
-  import LayoutMenu from '../menu/index.vue'
-  import MixMenu from '../mix-menu/index.vue'
-  import AppLogo from '../sider/AppLogo.vue'
-  import { FullScreen, HeaderTrigger, Setting, UserDropDown } from './components'
+import { Layout } from 'ant-design-vue'
+import { SettingButtonPositionEnum } from '@/enums/appEnum'
+import { MenuModeEnum } from '@/enums/menuEnum'
+import { useHeaderSetting, useMenuSetting, useProjectSetting } from '@/hooks/setting'
+import Breadcrumb from '../breadcrumb/index.vue'
+import LayoutMenu from '../menu/index.vue'
+import MixMenu from '../mix-menu/index.vue'
+import AppLogo from '../sider/AppLogo.vue'
+import { FullScreen, HeaderTrigger, Setting, UserDropDown } from './components'
 
-  const { isSidebarType, isTopMenuType, isMixTopType, isMixSidebarType } = useMenuSetting()
-  const { getShowSettingButton, getSettingButtonPosition } = useProjectSetting()
-  const { getShowHeaderLogo, getShowBread, getShowFullScreen, getShowHeader } = useHeaderSetting()
+const { isSidebarType, isTopMenuType, isMixTopType, isMixSidebarType } = useMenuSetting()
+const { getShowSettingButton, getSettingButtonPosition } = useProjectSetting()
+const { getShowHeaderLogo, getShowBread, getShowFullScreen, getShowHeader } = useHeaderSetting()
 
-  //主题
-  const { getHeaderTheme } = useHeaderSetting()
-  const layoutHeaderClass = computed(() => {
-    return {
-      'layout-header': true,
-      [`layout-header__${unref(getHeaderTheme)}`]: true
-    }
-  })
+//主题
+const { getHeaderTheme } = useHeaderSetting()
+const layoutHeaderClass = computed(() => {
+  return {
+    'layout-header': true,
+    [`layout-header__${unref(getHeaderTheme)}`]: true,
+  }
+})
 
-  const getShowSetting = computed(() => {
-    if (!unref(getShowSettingButton)) {
-      return false
-    }
-    const settingButtonPosition = unref(getSettingButtonPosition)
+const getShowSetting = computed(() => {
+  if (!unref(getShowSettingButton)) {
+    return false
+  }
+  const settingButtonPosition = unref(getSettingButtonPosition)
 
-    if (settingButtonPosition === SettingButtonPositionEnum.AUTO) {
-      return unref(getShowHeader)
-    }
-    return settingButtonPosition === SettingButtonPositionEnum.HEADER
-  })
+  if (settingButtonPosition === SettingButtonPositionEnum.AUTO) {
+    return unref(getShowHeader)
+  }
+  return settingButtonPosition === SettingButtonPositionEnum.HEADER
+})
 </script>
 <style lang="less" scoped>
   .layout-header {

@@ -9,6 +9,6 @@
   </a-card>
 </template>
 <script lang="ts" setup>
-  import Icon from '@/components/Icon'
-  import { navItems } from './data'
+import Icon from '@/components/Icon'
+import { navItems } from './data'
 </script>

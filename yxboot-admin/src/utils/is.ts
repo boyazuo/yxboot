@@ -31,9 +31,8 @@ export {
   isTypedArray,
   isUndefined,
   isWeakMap,
-  isWeakSet
+  isWeakSet,
 } from 'lodash-es'
-const toString = Object.prototype.toString
 
 export function is(val: unknown, type: string) {
   return toString.call(val) === `[object ${type}]`

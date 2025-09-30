@@ -5,16 +5,16 @@
 </template>
 
 <script setup lang="ts">
-  import { useProjectSetting } from '@/hooks/setting'
+import { useProjectSetting } from '@/hooks/setting'
 
-  const { getShowFooter } = useProjectSetting()
-  const { currentRoute } = useRouter()
+const { getShowFooter } = useProjectSetting()
+const { currentRoute } = useRouter()
 
-  const footerRef = ref<ComponentRef>(null)
+const footerRef = ref<ComponentRef>(null)
 
-  const getShowLayoutFooter = computed(() => {
-    return unref(getShowFooter) && !unref(currentRoute).meta?.hiddenFooter
-  })
+const getShowLayoutFooter = computed(() => {
+  return unref(getShowFooter) && !unref(currentRoute).meta?.hiddenFooter
+})
 </script>
 <style lang="less" scoped>
   @prefix-cls: ~'layout-footer';

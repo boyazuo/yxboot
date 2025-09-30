@@ -1,5 +1,5 @@
-import type { ErrorMessageMode } from '#/axios'
 import { message as Message, Modal } from 'ant-design-vue'
+import type { ErrorMessageMode } from '#/axios'
 
 export function checkStatus(status: number, msg: string, errorMessageMode: ErrorMessageMode = 'message'): void {
   let errMessage = ''

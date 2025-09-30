@@ -19,27 +19,27 @@
   </div>
 </template>
 <script setup lang="ts">
-  import type { SelectorType } from '#/config'
-  import { Tooltip } from 'ant-design-vue'
-  import { PropType } from 'vue'
+import { Tooltip } from 'ant-design-vue'
+import { PropType } from 'vue'
+import type { SelectorType } from '#/config'
 
-  defineOptions({ name: 'TypePicker' })
+defineOptions({ name: 'TypePicker' })
 
-  defineProps({
-    typeList: {
-      type: Array as PropType<SelectorType[]>,
-      default: () => []
-    },
-    handler: {
-      type: Function,
-      default: () => ({})
-    },
-    def: {
-      type: String,
-      default: ''
-    }
-  })
-  const prefixCls = 'setting-menu-type-picker'
+defineProps({
+  typeList: {
+    type: Array as PropType<SelectorType[]>,
+    default: () => [],
+  },
+  handler: {
+    type: Function,
+    default: () => ({}),
+  },
+  def: {
+    type: String,
+    default: '',
+  },
+})
+const prefixCls = 'setting-menu-type-picker'
 </script>
 <style lang="less" scoped>
   @prefix-cls: ~'setting-menu-type-picker';

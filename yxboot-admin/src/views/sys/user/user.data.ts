@@ -12,7 +12,7 @@ export const tableColumns: BasicColumn[] = [
   { title: '性别', dataIndex: 'sex.label' },
   { title: '手机号', dataIndex: 'phone' },
   { title: '邮箱', dataIndex: 'email' },
-  { title: '状态', dataIndex: 'statusDesc' }
+  { title: '状态', dataIndex: 'statusDesc' },
 ]
 
 export const searchFormSchema: FormSchema[] = [
@@ -24,8 +24,8 @@ export const searchFormSchema: FormSchema[] = [
     componentProps: {
       api: treeDept,
       resultField: 'data',
-      fieldNames: { children: 'children', label: 'name', value: 'deptId' }
-    }
+      fieldNames: { children: 'children', label: 'name', value: 'deptId' },
+    },
   },
   { field: 'phone', label: '手机号', component: 'Input' },
   {
@@ -33,8 +33,8 @@ export const searchFormSchema: FormSchema[] = [
     label: '状态',
     component: 'Select',
     defaultValue: 1,
-    componentProps: { allowClear: true, options: statusOptions }
-  }
+    componentProps: { allowClear: true, options: statusOptions },
+  },
 ]
 
 export const editFormSchema: FormSchema[] = [
@@ -48,15 +48,15 @@ export const editFormSchema: FormSchema[] = [
       {
         pattern: /^[A-Za-z0-9_]+$/,
         message: '只能包含数字、字母、下划线',
-        trigger: 'change'
+        trigger: 'change',
       },
       {
         min: 4,
         max: 20,
         message: `长度应在4 ~ 20位之间`,
-        trigger: 'blur'
-      }
-    ]
+        trigger: 'blur',
+      },
+    ],
   },
   {
     field: 'password',
@@ -69,22 +69,22 @@ export const editFormSchema: FormSchema[] = [
         min: 6,
         max: 20,
         message: `长度应在6 ~ 20位之间`,
-        trigger: 'blur'
-      }
-    ]
+        trigger: 'blur',
+      },
+    ],
   },
   {
     field: 'name',
     label: '姓名',
     component: 'Input',
-    required: true
+    required: true,
   },
   {
     field: 'sex',
     label: '性别',
     component: 'Dict',
     rules: [{ required: true, message: '请选择性别' }],
-    componentProps: { code: 'UserSex' }
+    componentProps: { code: 'UserSex' },
   },
   {
     field: 'phone',
@@ -95,9 +95,9 @@ export const editFormSchema: FormSchema[] = [
       {
         pattern: /^1[3-9]\d{9}$/,
         message: '请输入正确的的11位手机号码',
-        trigger: 'blur'
-      }
-    ]
+        trigger: 'blur',
+      },
+    ],
   },
   {
     field: 'email',
@@ -107,9 +107,9 @@ export const editFormSchema: FormSchema[] = [
       {
         pattern: /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/,
         message: '请输入正确的邮箱',
-        trigger: 'blur'
-      }
-    ]
+        trigger: 'blur',
+      },
+    ],
   },
   {
     field: 'roleId',
@@ -120,8 +120,8 @@ export const editFormSchema: FormSchema[] = [
       api: allRole,
       resultField: 'data',
       labelField: 'name',
-      valueField: 'roleId'
-    }
+      valueField: 'roleId',
+    },
   },
   {
     field: 'deptId',
@@ -132,8 +132,8 @@ export const editFormSchema: FormSchema[] = [
       api: treeDept,
       allowClear: true,
       resultField: 'data',
-      fieldNames: { children: 'children', label: 'name', value: 'deptId' }
-    }
+      fieldNames: { children: 'children', label: 'name', value: 'deptId' },
+    },
   },
   {
     field: 'status',
@@ -141,6 +141,6 @@ export const editFormSchema: FormSchema[] = [
     component: 'Select',
     defaultValue: 1,
     rules: [{ required: true, message: '请选择状态' }],
-    componentProps: { options: statusOptions }
-  }
+    componentProps: { options: statusOptions },
+  },
 ]

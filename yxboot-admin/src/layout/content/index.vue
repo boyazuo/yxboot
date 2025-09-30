@@ -7,11 +7,11 @@
   </a-layout-content>
 </template>
 <script lang="ts" setup>
-  import { useProjectSetting } from '@/hooks/setting'
-  import LayoutFooter from '../footer/index.vue'
+import { useProjectSetting } from '@/hooks/setting'
+import LayoutFooter from '../footer/index.vue'
 
-  const prefixCls = 'layout-content-wrap'
-  const { getContentMode } = useProjectSetting()
+const prefixCls = 'layout-content-wrap'
+const { getContentMode } = useProjectSetting()
 </script>
 <style lang="less" scope>
   .layout-content-wrap {

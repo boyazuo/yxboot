@@ -7,14 +7,14 @@
   </Tooltip>
 </template>
 <script setup lang="ts">
-  import { RedoOutlined } from '@ant-design/icons-vue'
-  import { Tooltip } from 'ant-design-vue'
+import { RedoOutlined } from '@ant-design/icons-vue'
+import { Tooltip } from 'ant-design-vue'
 
-  import { useTableContext } from '../../hooks/useTableContext'
+import { useTableContext } from '../../hooks/useTableContext'
 
-  const table = useTableContext()
+const table = useTableContext()
 
-  function redo() {
-    table.reload()
-  }
+function redo() {
+  table.reload()
+}
 </script>

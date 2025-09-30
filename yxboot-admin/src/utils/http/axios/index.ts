@@ -1,18 +1,17 @@
 // axios配置  可自行根据项目进行更改，只需更改该文件即可，其他文件可以不动
 // The axios configuration can be changed according to the project, just change the file, other files can be left unchanged
 
-import type { RequestOptions, Result } from '#/axios'
+import { message as Message, Modal } from 'ant-design-vue'
 import type { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios'
-import type { AxiosTransform, CreateAxiosOptions } from './axiosTransform'
-
+import { clone } from 'lodash-es'
+import type { RequestOptions, Result } from '#/axios'
 import { ContentTypeEnum, RequestEnum, ResultEnum } from '@/enums/httpEnum'
 import { useUserStoreWithOut } from '@/store/modules/user'
 import { deepMerge, setObjToUrlParams } from '@/utils'
 import { AxiosRetry } from '@/utils/http/axios/axiosRetry'
 import { isString } from '@/utils/is'
-import { message as Message, Modal } from 'ant-design-vue'
-import { clone } from 'lodash-es'
 import { VAxios } from './Axios'
+import type { AxiosTransform, CreateAxiosOptions } from './axiosTransform'
 import { checkStatus } from './checkStatus'
 import { formatRequestDate, joinTimestamp } from './helper'
 
@@ -57,11 +56,12 @@ const transform: AxiosTransform = {
     // 如果不希望中断当前请求，请return数据，否则直接抛出异常即可
     let timeoutMsg = ''
     switch (code) {
-      case ResultEnum.TIMEOUT:
+      case ResultEnum.TIMEOUT: {
         timeoutMsg = '登录超时，请重新登录！'
         const userStore = useUserStoreWithOut()
         userStore.logout(true)
         break
+      }
       default:
         if (msg) {
           timeoutMsg = msg
@@ -105,11 +105,7 @@ const transform: AxiosTransform = {
     } else {
       if (!isString(params)) {
         formatDate && formatRequestDate(params)
-        if (
-          Reflect.has(config, 'data') &&
-          config.data &&
-          (Object.keys(config.data).length > 0 || config.data instanceof FormData)
-        ) {
+        if (Reflect.has(config, 'data') && config.data && (Object.keys(config.data).length > 0 || config.data instanceof FormData)) {
           config.data = data
           config.params = params
         } else {
@@ -138,9 +134,7 @@ const transform: AxiosTransform = {
     const token: string = userStore.getToken
     if (token && (config as Recordable)?.requestOptions?.withToken !== false) {
       // jwt token
-      ;(config as Recordable).headers.Authorization = options.authenticationScheme
-        ? `${options.authenticationScheme} ${token}`
-        : token
+      ;(config as Recordable).headers.Authorization = options.authenticationScheme ? `${options.authenticationScheme} ${token}` : token
     }
     return config
   },
@@ -187,11 +181,9 @@ const transform: AxiosTransform = {
     // 添加自动重试机制 保险起见 只针对GET请求
     const retryRequest = new AxiosRetry()
     const { isOpenRetry } = config.requestOptions.retryRequest
-    config.method?.toUpperCase() === RequestEnum.GET &&
-      isOpenRetry &&
-      retryRequest.retry(axiosInstance as AxiosInstance, error)
+    config.method?.toUpperCase() === RequestEnum.GET && isOpenRetry && retryRequest.retry(axiosInstance as AxiosInstance, error)
     return Promise.reject(error)
-  }
+  },
 }
 
 function createAxios(opt?: Partial<CreateAxiosOptions>) {
@@ -237,12 +229,12 @@ function createAxios(opt?: Partial<CreateAxiosOptions>) {
           retryRequest: {
             isOpenRetry: true,
             count: 5,
-            waitTime: 100
-          }
-        }
+            waitTime: 100,
+          },
+        },
       },
-      opt || {}
-    )
+      opt || {},
+    ),
   )
 }
 export const http = createAxios()

@@ -1,7 +1,8 @@
-import { SysMenu } from '@/api/model/sysModel'
+import type { RouteRecordRaw } from 'vue-router'
+import type { SysMenu } from '@/api/model/sysModel'
 import { LAYOUT, PARENT_LAYOUT } from '@/router/constant'
+import type { Menu } from '@/router/types'
 import { findPath } from '@/utils/helper/trees'
-import { RouteRecordRaw } from 'vue-router'
 
 // export const ERROR_PAGE = () => import('@/views/exception/404.vue')
 
@@ -20,7 +21,7 @@ export function getAllParentPath<T = Recordable>(treeData: T[], path: string) {
 }
 
 export function convertMenuToRoute(menu: SysMenu): RouteRecordRaw {
-  const resolveComponent = function (component: string) {
+  const resolveComponent = (component: string) => {
     if (component.toUpperCase() === 'LAYOUT') {
       return LAYOUT
     } else if (component.toUpperCase() === 'PARENTLAYOUT') {
@@ -42,8 +43,8 @@ export function convertMenuToRoute(menu: SysMenu): RouteRecordRaw {
       title: menu.name,
       cache: false,
       hideBreadcrumb: component === LAYOUT || component === PARENT_LAYOUT,
-      ...menu
-    }
+      ...menu,
+    },
   } as RouteRecordRaw
 }
 
@@ -56,7 +57,7 @@ export function wrapperSingleMenu(menu: SysMenu): RouteRecordRaw {
     children: [convertMenuToRoute(menu)],
     meta: {
       cache: false,
-      hideBreadcrumb: true
-    }
+      hideBreadcrumb: true,
+    },
   } as RouteRecordRaw
 }

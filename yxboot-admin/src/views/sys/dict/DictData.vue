@@ -35,61 +35,61 @@
   </BasicDrawer>
 </template>
 <script lang="ts" setup>
-  import { allDictData, removeDictData } from '@/api/sys/dictData'
-  import { useDrawer, useDrawerInner } from '@/components/Drawer'
-  import { useTable } from '@/components/Table'
-  import { message } from 'ant-design-vue'
-  import DictDataBatchDrawer from './DictDataBatchDrawer.vue'
-  import DictDataDrawer from './DictDataDrawer.vue'
-  import { tableColumns_dictData as tableColumns } from './dict.data'
+import { message } from 'ant-design-vue'
+import { allDictData, removeDictData } from '@/api/sys/dictData'
+import { useDrawer, useDrawerInner } from '@/components/Drawer'
+import { useTable } from '@/components/Table'
+import DictDataBatchDrawer from './DictDataBatchDrawer.vue'
+import DictDataDrawer from './DictDataDrawer.vue'
+import { tableColumns_dictData as tableColumns } from './dict.data'
 
-  const dictCode = ref('')
-  const [register] = useDrawerInner(async (data) => {
-    dataSource.value = []
-    dictCode.value = data.record?.dictCode
-    reloadList()
+const dictCode = ref('')
+const [register] = useDrawerInner(async (data) => {
+  dataSource.value = []
+  dictCode.value = data.record?.dictCode
+  reloadList()
+})
+
+const dataSource = ref([])
+const reloadList = () => {
+  allDictData({ dictCode: dictCode.value }).then((res) => {
+    dataSource.value = res.data
   })
+}
 
-  const dataSource = ref([])
-  const reloadList = () => {
-    allDictData({ dictCode: dictCode.value }).then((res) => {
-      dataSource.value = res.data
-    })
-  }
+const [registerTable] = useTable({
+  title: '字典数据列表',
+  useSearchForm: false,
+  dataSource,
+  rowKey: 'id',
+  columns: tableColumns,
+})
 
-  const [registerTable] = useTable({
-    title: '字典数据列表',
-    useSearchForm: false,
-    dataSource,
-    rowKey: 'id',
-    columns: tableColumns
+const [dictDataDrawer, { openDrawer: openDictDataDrawer }] = useDrawer()
+const [dictDataBatchDrawer, { openDrawer: openDictDataBatchDrawer }] = useDrawer()
+
+const handleCreateBatch = () => {
+  openDictDataBatchDrawer(true, { dictCode: dictCode.value, allDictData: dataSource.value })
+}
+
+const handleCreate = () => {
+  openDictDataDrawer(true, { record: { dictCode: dictCode.value }, allDictData: dataSource.value, isUpdate: false })
+}
+
+const handleEdit = (record: any) => {
+  openDictDataDrawer(true, { record, allDictData: dataSource.value, isUpdate: true })
+}
+
+const handleRemove = ({ id }: { id: number }) => {
+  removeDictData({ id }).then((res: any) => {
+    if (res.code === 0) {
+      message.success('删除成功！')
+      reloadList()
+    }
   })
+}
 
-  const [dictDataDrawer, { openDrawer: openDictDataDrawer }] = useDrawer()
-  const [dictDataBatchDrawer, { openDrawer: openDictDataBatchDrawer }] = useDrawer()
-
-  const handleCreateBatch = () => {
-    openDictDataBatchDrawer(true, { dictCode: dictCode.value, allDictData: dataSource.value })
-  }
-
-  const handleCreate = () => {
-    openDictDataDrawer(true, { record: { dictCode: dictCode.value }, allDictData: dataSource.value, isUpdate: false })
-  }
-
-  const handleEdit = (record: any) => {
-    openDictDataDrawer(true, { record, allDictData: dataSource.value, isUpdate: true })
-  }
-
-  const handleRemove = ({ id }: { id: number }) => {
-    removeDictData({ id }).then((res: any) => {
-      if (res.code === 0) {
-        message.success('删除成功！')
-        reloadList()
-      }
-    })
-  }
-
-  const handleSuccess = () => {
-    reloadList()
-  }
+const handleSuccess = () => {
+  reloadList()
+}
 </script>

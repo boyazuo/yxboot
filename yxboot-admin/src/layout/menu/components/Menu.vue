@@ -8,13 +8,14 @@
   </a-menu-item>
 </template>
 <script setup lang="ts">
-  import Icon from '@/components/Icon'
-  defineProps({
-    menu: {
-      type: Object,
-      default() {
-        return {}
-      }
-    }
-  })
+import Icon from '@/components/Icon'
+
+defineProps({
+  menu: {
+    type: Object,
+    default() {
+      return {}
+    },
+  },
+})
 </script>

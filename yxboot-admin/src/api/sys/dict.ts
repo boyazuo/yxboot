@@ -1,11 +1,11 @@
 import { http } from '@/utils/http/axios'
-import { BasicResultModel } from '../model/basicModel'
+import type { BasicResultModel } from '../model/basicModel'
 
 enum Api {
   list = '/sys/dict/list',
   get = '/sys/dict/get',
   save = '/sys/dict/save',
-  remove = '/sys/dict/remove'
+  remove = '/sys/dict/remove',
 }
 
 export const listDict = (params: any) => http.get<BasicResultModel>({ url: Api.list, params })

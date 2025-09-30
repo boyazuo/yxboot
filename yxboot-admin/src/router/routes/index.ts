@@ -1,5 +1,5 @@
+import type { RouteRecordRaw } from 'vue-router'
 import { PageEnum } from '@/enums/pageEnum'
-import { RouteRecordRaw } from 'vue-router'
 import { PAGE_NOT_FOUND_ROUTE, REDIRECT_ROUTE } from './basic'
 import { PERSONAL_ROUTE } from './personal'
 
@@ -9,8 +9,8 @@ export const ROOT_ROUTE: RouteRecordRaw = {
   name: 'Root',
   redirect: PageEnum.BASE_HOME,
   meta: {
-    title: 'Root'
-  }
+    title: 'Root',
+  },
 }
 
 export const LOGIN_ROUTE: RouteRecordRaw = {
@@ -20,8 +20,8 @@ export const LOGIN_ROUTE: RouteRecordRaw = {
   meta: {
     title: '登录',
     keepAlive: true,
-    requireAuth: false
-  }
+    requireAuth: false,
+  },
 }
 
 // Basic routing without permission

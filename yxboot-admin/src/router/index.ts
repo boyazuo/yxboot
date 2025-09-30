@@ -1,6 +1,6 @@
-import { setupRouterGuard } from '@/router/guard/index'
 import type { App } from 'vue'
-import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
+import { createRouter, createWebHistory, type RouteRecordRaw } from 'vue-router'
+import { setupRouterGuard } from '@/router/guard/index'
 import { basicRoutes } from './routes'
 
 const router = createRouter({
@@ -9,7 +9,7 @@ const router = createRouter({
   // 应该添加到路由的初始路由列表
   routes: basicRoutes as unknown as RouteRecordRaw[],
   // 是否应该禁止尾部斜杠。默认为假
-  strict: true
+  strict: true,
 })
 export default router
 

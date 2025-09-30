@@ -5,13 +5,13 @@
 </template>
 
 <script lang="ts" setup>
-  import { useSiderSetting } from '@/hooks/setting'
-  import { propTypes } from '@/utils/propTypes'
-  import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons-vue'
+import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons-vue'
+import { useSiderSetting } from '@/hooks/setting'
+import { propTypes } from '@/utils/propTypes'
 
-  defineProps({
-    theme: propTypes.oneOf(['light', 'dark'])
-  })
-  const { getCollapsed, toggleCollapsed } = useSiderSetting()
-  const prefixCls = 'layout-header-trigger'
+defineProps({
+  theme: propTypes.oneOf(['light', 'dark']),
+})
+const { getCollapsed, toggleCollapsed } = useSiderSetting()
+const prefixCls = 'layout-header-trigger'
 </script>

@@ -1,9 +1,9 @@
+import { useDebounceFn } from '@vueuse/core'
+import { type ComputedRef, computed, nextTick, type Ref, ref, unref, watch } from 'vue'
 import { onMountedOrActivated } from '@/hooks/core/onMountedOrActivated'
 import { useWindowSizeFn } from '@/hooks/event/useWindowSizeFn'
 import { getViewportOffset } from '@/utils/domUtils'
 import { isBoolean } from '@/utils/is'
-import { useDebounceFn } from '@vueuse/core'
-import { ComputedRef, Ref, computed, nextTick, ref, unref, watch } from 'vue'
 import type { BasicColumn, BasicTableProps, TableRowSelection } from '../types/table'
 
 export function useTableScroll(
@@ -13,7 +13,7 @@ export function useTableScroll(
   rowSelectionRef: ComputedRef<TableRowSelection | null>,
   getDataSourceRef: ComputedRef<Recordable[]>,
   wrapRef: Ref<HTMLElement | null>,
-  formRef: Ref<ComponentRef>
+  formRef: Ref<ComponentRef>,
 ) {
   const tableHeightRef: Ref<Nullable<number | string>> = ref(167)
 
@@ -31,8 +31,8 @@ export function useTableScroll(
       debounceRedoHeight()
     },
     {
-      flush: 'post'
-    }
+      flush: 'post',
+    },
   )
 
   function redoHeight() {
@@ -149,8 +149,7 @@ export function useTableScroll(
       bottomIncludeBody = getViewportOffset(headEl).bottomIncludeBody
     }
 
-    let height =
-      bottomIncludeBody - (resizeHeightOffset || 0) - paddingHeight - paginationHeight - footerHeight - headerHeight
+    let height = bottomIncludeBody - (resizeHeightOffset || 0) - paddingHeight - paginationHeight - footerHeight - headerHeight
     height = (height > maxHeight! ? (maxHeight as number) : height) ?? height
     setHeight(height)
 
@@ -196,7 +195,7 @@ export function useTableScroll(
       x: unref(getScrollX),
       y: canResize ? tableHeight : null,
       scrollToFirstRowOnChange: false,
-      ...scroll
+      ...scroll,
     }
   })
 

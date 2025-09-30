@@ -20,43 +20,41 @@
   </a-dropdown>
 </template>
 <script setup lang="ts">
-  import { Icon } from '@/components/Icon'
-  import type { PropType } from 'vue'
-  import { computed, unref } from 'vue'
-  import type { RouteLocationNormalized } from 'vue-router'
-  import { DropMenu, TabContentProps } from '../types'
-  import { useTabDropdown } from '../useTabDropdown'
+import type { PropType } from 'vue'
+import { computed, unref } from 'vue'
+import type { RouteLocationNormalized } from 'vue-router'
+import { Icon } from '@/components/Icon'
+import { DropMenu, TabContentProps } from '../types'
+import { useTabDropdown } from '../useTabDropdown'
 
-  const props = defineProps({
-    tabItem: {
-      type: Object as PropType<RouteLocationNormalized>,
-      default: null
-    },
-    isExtra: Boolean
-  })
-  const prefixCls = 'tabs-content'
+const props = defineProps({
+  tabItem: {
+    type: Object as PropType<RouteLocationNormalized>,
+    default: null,
+  },
+  isExtra: Boolean,
+})
+const prefixCls = 'tabs-content'
 
-  const getTitle = computed(() => {
-    const { tabItem: { meta } = {} } = props
-    return meta && meta.title
-  })
+const getTitle = computed(() => {
+  const { tabItem: { meta } = {} } = props
+  return meta && meta.title
+})
 
-  const getIsTabs = computed(() => !props.isExtra)
+const getIsTabs = computed(() => !props.isExtra)
 
-  const getTrigger = computed((): ('contextmenu' | 'click' | 'hover')[] =>
-    unref(getIsTabs) ? ['contextmenu'] : ['click']
-  )
+const getTrigger = computed((): ('contextmenu' | 'click' | 'hover')[] => (unref(getIsTabs) ? ['contextmenu'] : ['click']))
 
-  const { getDropMenuList, handleMenuEvent, handleContextMenu } = useTabDropdown(props as TabContentProps, getIsTabs)
+const { getDropMenuList, handleMenuEvent, handleContextMenu } = useTabDropdown(props as TabContentProps, getIsTabs)
 
-  function handleContext(e) {
-    props.tabItem && handleContextMenu(props.tabItem)(e)
-  }
+function handleContext(e) {
+  props.tabItem && handleContextMenu(props.tabItem)(e)
+}
 
-  function handleClickMenu(item: DropMenu) {
-    const { event } = item
-    const menu = unref(getDropMenuList).find((item) => `${item.event}` === `${event}`)
-    handleMenuEvent(menu)
-    item.onClick?.()
-  }
+function handleClickMenu(item: DropMenu) {
+  const { event } = item
+  const menu = unref(getDropMenuList).find((item) => `${item.event}` === `${event}`)
+  handleMenuEvent(menu)
+  item.onClick?.()
+}
 </script>

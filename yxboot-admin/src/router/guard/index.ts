@@ -1,9 +1,9 @@
+import { Modal, notification } from 'ant-design-vue'
+import type { RouteLocationNormalized, Router } from 'vue-router'
 import { useProjectSetting } from '@/hooks/setting'
 import { setRouteChange } from '@/router/mitt/routeChange'
 import { AxiosCanceler } from '@/utils/http/axios/axiosCancel'
 import { warn } from '@/utils/log'
-import { Modal, notification } from 'ant-design-vue'
-import type { RouteLocationNormalized, Router } from 'vue-router'
 import { createPermissionGuard } from './permissionGuard'
 import { createStateGuard } from './stateGuard'
 

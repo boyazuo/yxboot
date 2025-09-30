@@ -45,26 +45,26 @@
   </div>
 </template>
 <script lang="ts" setup>
-  import { at as lodashAt } from 'lodash-es'
+import { at as lodashAt } from 'lodash-es'
 
-  const { pkg, lastBuildTime } = __APP_INFO__
-  const { dependencies, devDependencies, version } = pkg
+const { pkg, lastBuildTime } = __APP_INFO__
+const { dependencies, devDependencies, version } = pkg
 
-  const schema: any = []
-  const devSchema: any = []
-  const infoData = {
-    version,
-    lastBuildTime,
-    doc: 'http://admin.yxboot.com:9000/doc.html#/home',
-    preview: 'http://admin.yxboot.com',
-    gitee: 'https://gitee.com/yxboot/yxboot',
-    github: 'https://github.com/boyazuo/yxboot'
-  }
-  Object.keys(dependencies).forEach((key) => {
-    schema.push({ key, label: key })
-  })
+const schema: any = []
+const devSchema: any = []
+const infoData = {
+  version,
+  lastBuildTime,
+  doc: 'http://admin.yxboot.com:9000/doc.html#/home',
+  preview: 'http://admin.yxboot.com',
+  gitee: 'https://gitee.com/yxboot/yxboot',
+  github: 'https://github.com/boyazuo/yxboot',
+}
+Object.keys(dependencies).forEach((key) => {
+  schema.push({ key, label: key })
+})
 
-  Object.keys(devDependencies).forEach((key) => {
-    devSchema.push({ key, label: key })
-  })
+Object.keys(devDependencies).forEach((key) => {
+  devSchema.push({ key, label: key })
+})
 </script>

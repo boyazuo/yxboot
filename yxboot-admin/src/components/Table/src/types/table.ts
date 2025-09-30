@@ -1,12 +1,11 @@
-import type { FormProps } from '@/components/Form'
+import type { FixedType } from 'ant-design-vue/es/vc-table/interface'
 import type { ColumnProps } from 'ant-design-vue/lib/table'
 import type { TableRowSelection as ITableRowSelection } from 'ant-design-vue/lib/table/interface'
 import type { VNodeChild } from 'vue'
+import type { FormProps } from '@/components/Form'
+import type { VueNode } from '@/utils/propTypes'
+import type { ComponentType } from './componentType'
 import type { PaginationProps } from './pagination'
-
-import { VueNode } from '@/utils/propTypes'
-import { FixedType } from 'ant-design-vue/es/vc-table/interface'
-import { ComponentType } from './componentType'
 
 export declare type SortOrder = 'ascend' | 'descend'
 
@@ -377,12 +376,9 @@ export interface BasicTableProps<T = any> {
   onColumnsChange?: (data: ColumnChangeParam[]) => void
 }
 
-export type CellFormat =
-  | string
-  | ((text: string, record: Recordable, index: number) => string | number)
-  | Map<string | number, any>
+export type CellFormat = string | ((text: string, record: Recordable, index: number) => string | number) | Map<string | number, any>
 
-// @ts-ignore
+// @ts-expect-error
 export interface BasicColumn extends ColumnProps<Recordable> {
   children?: BasicColumn[]
   filters?: {
@@ -410,12 +406,7 @@ export interface BasicColumn extends ColumnProps<Recordable> {
   editable?: boolean
   editComponent?: ComponentType
   editComponentProps?:
-    | ((opt: {
-        text: string | number | boolean | Recordable
-        record: Recordable
-        column: BasicColumn
-        index: number
-      }) => Recordable)
+    | ((opt: { text: string | number | boolean | Recordable; record: Recordable; column: BasicColumn; index: number }) => Recordable)
     | Recordable
   editRule?: boolean | ((text: string, record: Recordable) => Promise<string>)
   editValueMap?: (value: any) => string

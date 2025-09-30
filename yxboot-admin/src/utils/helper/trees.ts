@@ -6,7 +6,7 @@ interface TreeHelperConfig {
 const DEFAULT_CONFIG: TreeHelperConfig = {
   id: 'id',
   children: 'children',
-  parentId: 'parentId'
+  parentId: 'parentId',
 }
 
 const getConfig = (config: Partial<TreeHelperConfig>) => Object.assign({}, DEFAULT_CONFIG, config)
@@ -154,13 +154,13 @@ export function treeMapEach(data: any, { children = 'children', conversion }: { 
       [children]: data[children].map((i: number) =>
         treeMapEach(i, {
           children,
-          conversion
-        })
-      )
+          conversion,
+        }),
+      ),
     }
   } else {
     return {
-      ...conversionData
+      ...conversionData,
     }
   }
 }

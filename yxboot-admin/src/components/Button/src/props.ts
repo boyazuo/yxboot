@@ -5,5 +5,5 @@ export const buttonProps = {
   preIcon: { type: String },
   postIcon: { type: String },
   iconSize: { type: Number, default: 14 },
-  onClick: { type: [Function, Array] as PropType<(() => any) | (() => any)[]>, default: null }
+  onClick: { type: [Function, Array] as PropType<(() => any) | (() => any)[]>, default: null },
 }

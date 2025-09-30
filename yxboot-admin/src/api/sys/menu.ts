@@ -1,5 +1,5 @@
 import { http } from '@/utils/http/axios'
-import { BasicResultModel } from '../model/basicModel'
+import type { BasicResultModel } from '../model/basicModel'
 
 enum Api {
   list = '/sys/menu/list',
@@ -7,7 +7,7 @@ enum Api {
   save = '/sys/menu/save',
   remove = '/sys/menu/remove',
   all = '/sys/menu/all',
-  tree = '/sys/menu/tree'
+  tree = '/sys/menu/tree',
 }
 
 export const listMenu = (params: any) => http.get<BasicResultModel>({ url: Api.list, params })

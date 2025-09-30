@@ -1,4 +1,4 @@
-import type { Router, RouteRecordRaw } from 'vue-router'
+import type { RouteRecordRaw, Router } from 'vue-router'
 
 import { permissions } from '@/api/sys/auth'
 import { PageEnum } from '@/enums/pageEnum'
@@ -49,9 +49,7 @@ export async function loadPermissionRoutes(router: Router) {
   const menus = res.data.filter((item: any) => [1, 2].indexOf(item.type) > -1)
 
   const menusTree = listToTree(menus, { id: 'menuId' })
-  routes = menusTree.map((item) =>
-    !isLayoutComponent(item.component) ? wrapperSingleMenu(item) : convertMenuToRoute(item)
-  )
+  routes = menusTree.map((item) => (!isLayoutComponent(item.component) ? wrapperSingleMenu(item) : convertMenuToRoute(item)))
 
   patchHomeAffix(routes)
 
@@ -76,7 +74,7 @@ const filterDisplayMenus = (menus: any[]) => {
         if (item.children && item.children.length > 0) {
           return {
             ...item,
-            children: filterChildren(item.children)
+            children: filterChildren(item.children),
           }
         }
         return item
@@ -89,7 +87,7 @@ const filterDisplayMenus = (menus: any[]) => {
       if (item.children && item.children.length > 0) {
         return {
           ...item,
-          children: filterChildren(item.children)
+          children: filterChildren(item.children),
         }
       }
       return item

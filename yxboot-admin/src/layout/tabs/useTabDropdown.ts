@@ -1,16 +1,15 @@
 import type { ComputedRef } from 'vue'
-import type { TabContentProps } from './types'
-
+import { computed, reactive, unref } from 'vue'
+import { type RouteLocationNormalized, useRouter } from 'vue-router'
 import { useTabs } from '@/hooks/web/useTabs'
 import { useMultipleTabStore } from '@/store/modules/multipleTab'
-import { computed, reactive, unref } from 'vue'
-import { RouteLocationNormalized, useRouter } from 'vue-router'
-import { DropMenu, MenuEventEnum } from './types'
+import type { TabContentProps } from './types'
+import { type DropMenu, MenuEventEnum } from './types'
 
 export function useTabDropdown(tabContentProps: TabContentProps, getIsTabs: ComputedRef<boolean>) {
   const state = reactive({
     current: null as Nullable<RouteLocationNormalized>,
-    currentIndex: 0
+    currentIndex: 0,
   })
 
   const tabStore = useMultipleTabStore()
@@ -44,48 +43,47 @@ export function useTabDropdown(tabContentProps: TabContentProps, getIsTabs: Comp
     const disabled = tabStore.getTabList.length === 1
 
     // Close right
-    const closeRightDisabled =
-      !isCurItem || (index === tabStore.getTabList.length - 1 && tabStore.getLastDragEndIndex >= 0)
+    const closeRightDisabled = !isCurItem || (index === tabStore.getTabList.length - 1 && tabStore.getLastDragEndIndex >= 0)
     const dropMenuList: DropMenu[] = [
       {
         icon: 'ion:reload-sharp',
         event: MenuEventEnum.REFRESH_PAGE,
         text: '重新加载',
-        disabled: refreshDisabled
+        disabled: refreshDisabled,
       },
       {
         icon: 'clarity:close-line',
         event: MenuEventEnum.CLOSE_CURRENT,
         text: '关闭标签页',
         disabled: !!meta?.affix || disabled,
-        divider: true
+        divider: true,
       },
       {
         icon: 'line-md:arrow-close-left',
         event: MenuEventEnum.CLOSE_LEFT,
         text: '关闭左侧标签页',
         disabled: closeLeftDisabled,
-        divider: false
+        divider: false,
       },
       {
         icon: 'line-md:arrow-close-right',
         event: MenuEventEnum.CLOSE_RIGHT,
         text: '关闭右侧标签页',
         disabled: closeRightDisabled,
-        divider: true
+        divider: true,
       },
       {
         icon: 'dashicons:align-center',
         event: MenuEventEnum.CLOSE_OTHER,
         text: '关闭其他标签页',
-        disabled: disabled || !isCurItem
+        disabled: disabled || !isCurItem,
       },
       {
         icon: 'clarity:minus-line',
         event: MenuEventEnum.CLOSE_ALL,
         text: '关闭全部标签页',
-        disabled: disabled
-      }
+        disabled: disabled,
+      },
     ]
 
     return dropMenuList

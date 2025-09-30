@@ -22,5 +22,5 @@
   </a-card>
 </template>
 <script lang="ts" setup>
-  import { dynamicInfoItems } from './data'
+import { dynamicInfoItems } from './data'
 </script>

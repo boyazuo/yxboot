@@ -1,4 +1,4 @@
-import { computed, Ref, ref, unref } from 'vue'
+import { computed, type Ref, ref, unref } from 'vue'
 
 export interface UseFullScreenContext {
   wrapClassName: Ref<string | undefined>

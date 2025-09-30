@@ -17,8 +17,8 @@
   </a-card>
 </template>
 <script lang="ts" setup>
-  import Icon from '@/components/Icon'
-  import { groupItems } from './data'
+import Icon from '@/components/Icon'
+import { groupItems } from './data'
 </script>
 <style scoped>
   html[data-theme='light'] .text-secondary {

@@ -1,11 +1,11 @@
-import { deepMerge } from '@/utils'
-import { dateUtil } from '@/utils/dateUtil'
-import { isArray, isDef, isFunction, isNil, isObject, isString } from '@/utils/is'
-import { error } from '@/utils/log'
 import type { NamePath } from 'ant-design-vue/lib/form/interface'
 import { cloneDeep, uniqBy } from 'lodash-es'
 import type { ComputedRef, Ref } from 'vue'
 import { nextTick, toRaw, unref } from 'vue'
+import { deepMerge } from '@/utils'
+import { dateUtil } from '@/utils/dateUtil'
+import { isArray, isDef, isFunction, isNil, isObject, isString } from '@/utils/is'
+import { error } from '@/utils/log'
 import { dateItemType, defaultValueComponents, handleInputNumberValue } from '../helper'
 import type { FormActionType, FormProps, FormSchema } from '../types/form'
 
@@ -28,7 +28,7 @@ export function useFormEvents({
   defaultValueRef,
   formElRef,
   schemaRef,
-  handleFormValues
+  handleFormValues,
 }: UseFormActionContext) {
   async function resetFields(): Promise<void> {
     const { resetFunc, submitOnReset } = unref(getProps)
@@ -173,9 +173,7 @@ export function useFormEvents({
       updateData = [...data]
     }
 
-    const hasField = updateData.every(
-      (item) => item.component === 'Divider' || (Reflect.has(item, 'field') && item.field)
-    )
+    const hasField = updateData.every((item) => item.component === 'Divider' || (Reflect.has(item, 'field') && item.field))
 
     if (!hasField) {
       error('All children of the form Schema array that need to be updated must contain the `field` field')
@@ -193,9 +191,7 @@ export function useFormEvents({
       updateData = [...data]
     }
 
-    const hasField = updateData.every(
-      (item) => item.component === 'Divider' || (Reflect.has(item, 'field') && item.field)
-    )
+    const hasField = updateData.every((item) => item.component === 'Divider' || (Reflect.has(item, 'field') && item.field))
 
     if (!hasField) {
       error('All children of the form Schema array that need to be updated must contain the `field` field')
@@ -301,6 +297,6 @@ export function useFormEvents({
     appendSchemaByField,
     removeSchemaByFiled,
     resetFields,
-    setFieldsValue
+    setFieldsValue,
   }
 }

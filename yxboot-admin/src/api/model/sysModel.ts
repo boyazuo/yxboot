@@ -1,4 +1,4 @@
-import { StatusEnum } from '@/enums/statusEnum'
+import type { StatusEnum } from '@/enums/statusEnum'
 
 export interface SysMenu {
   menuId: number

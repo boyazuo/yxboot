@@ -1,5 +1,5 @@
 import type { Ref } from 'vue'
-import { ComputedRef, inject, provide } from 'vue'
+import { type ComputedRef, inject, provide } from 'vue'
 import type { BasicTableProps, TableActionType } from '../types/table'
 
 const key = Symbol('s-table')
