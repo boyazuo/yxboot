@@ -19,23 +19,23 @@ import cn.hutool.core.util.StrUtil;
  */
 @Service
 public class SysRoleService extends ServiceImpl<SysRoleMapper, SysRole> {
-    public Page<SysRole> pageQuery(String name, Integer status, PageRequest pageRequest) {
+    public Page<SysRole> pageQuery(String name, String status, PageRequest pageRequest) {
         QueryWrapper wrapper = QueryWrapper.create();
         if (StrUtil.isNotEmpty(name)) {
             wrapper.where(SYS_ROLE.NAME.like(name));
         }
-        if (status != null) {
+        if (StrUtil.isNotEmpty(status)) {
             wrapper.where(SYS_ROLE.STATUS.eq(status));
         }
         return page(pageRequest.convertToPage(), wrapper);
     }
 
-    public List<SysRole> query(String name, Integer status) {
+    public List<SysRole> query(String name, String status) {
         QueryWrapper wrapper = QueryWrapper.create();
         if (StrUtil.isNotEmpty(name)) {
             wrapper.where(SYS_ROLE.NAME.like(name));
         }
-        if (status != null) {
+        if (StrUtil.isNotEmpty(status)) {
             wrapper.where(SYS_ROLE.STATUS.eq(status));
         }
         return list(wrapper);

@@ -18,24 +18,24 @@ import cn.hutool.core.util.StrUtil;
  */
 @Service
 public class SysDictDataService extends ServiceImpl<SysDictDataMapper, SysDictData> {
-    public Page<SysDictData> query(String dictCode, Integer status, PageRequest pageRequest) {
+    public Page<SysDictData> query(String dictCode, String status, PageRequest pageRequest) {
         QueryWrapper wrapper = QueryWrapper.create();
         if (StrUtil.isNotEmpty(dictCode)) {
             wrapper.where(SYS_DICT_DATA.DICT_CODE.eq(dictCode));
         }
-        if (status != null) {
+        if (StrUtil.isNotEmpty(status)) {
             wrapper.where(SYS_DICT_DATA.STATUS.eq(status));
         }
         wrapper.orderBy(SYS_DICT_DATA.SORT, true);
         return page(pageRequest.convertToPage(), wrapper);
     }
 
-    public List<SysDictData> query(String dictCode, Integer status) {
+    public List<SysDictData> query(String dictCode, String status) {
         QueryWrapper wrapper = QueryWrapper.create();
         if (StrUtil.isNotEmpty(dictCode)) {
             wrapper.where(SYS_DICT_DATA.DICT_CODE.eq(dictCode));
         }
-        if (status != null) {
+        if (StrUtil.isNotEmpty(status)) {
             wrapper.where(SYS_DICT_DATA.STATUS.eq(status));
         }
         wrapper.orderBy(SYS_DICT_DATA.SORT, true);

@@ -32,7 +32,7 @@ public class SysDictController {
 
     @GetMapping("/list")
     @Operation(summary = "查询列表接口")
-    public Result<Page<SysDict>> list(String dictName, String dictCode, Integer status, PageRequest pageRequest) {
+    public Result<Page<SysDict>> list(String dictName, String dictCode, String status, PageRequest pageRequest) {
         Page<SysDict> pageResult = sysDictService.pageQuery(dictName, dictCode, status, pageRequest);
         return Result.success("查询成功！", pageResult);
     }

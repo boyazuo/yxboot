@@ -11,6 +11,7 @@ import com.yxboot.modules.sys.entity.SysMenu;
 import com.yxboot.modules.sys.entity.table.SysMenuTableDef;
 import com.yxboot.modules.sys.mapper.SysMenuMapper;
 import cn.hutool.core.collection.CollUtil;
+import cn.hutool.core.util.StrUtil;
 
 
 /**
@@ -33,7 +34,7 @@ public class SysMenuService extends ServiceImpl<SysMenuMapper, SysMenu> {
         return list(wrapper);
     }
 
-    public List<SysMenu> query(Long parentId, List<Integer> type, Long roleId, Integer status) {
+    public List<SysMenu> query(Long parentId, List<Integer> type, Long roleId, String status) {
         SysMenuTableDef parent = SYS_MENU.as("parent");
         QueryWrapper wrapper = QueryWrapper.create();
         wrapper.select(SYS_MENU.ALL_COLUMNS);
@@ -48,7 +49,7 @@ public class SysMenuService extends ServiceImpl<SysMenuMapper, SysMenu> {
             wrapper.leftJoin(SYS_ROLE_MENU).on(SYS_ROLE_MENU.MENU_ID.eq(SYS_MENU.MENU_ID));
             wrapper.where(SYS_ROLE_MENU.ROLE_ID.eq(roleId));
         }
-        if (status != null) {
+        if (StrUtil.isNotEmpty(status)) {
             wrapper.where(SYS_MENU.STATUS.eq(status));
         }
         wrapper.leftJoin(parent).on(SYS_MENU.PARENT_ID.eq(parent.MENU_ID));

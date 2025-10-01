@@ -39,14 +39,14 @@ public class SysRoleController {
 
     @GetMapping("/list")
     @Operation(summary = "查询列表接口")
-    public Result<Page<SysRole>> list(String name, Integer status, PageRequest pageRequest) {
+    public Result<Page<SysRole>> list(String name, String status, PageRequest pageRequest) {
         Page<SysRole> pageResult = sysRoleService.pageQuery(name, status, pageRequest);
         return Result.success("查询成功！", pageResult);
     }
 
     @GetMapping("/all")
     @Operation(summary = "角色列表（不分页）")
-    public Result<List<SysRole>> listAll(String name, Integer status) {
+    public Result<List<SysRole>> listAll(String name, String status) {
         List<SysRole> list = sysRoleService.query(name, status);
         return Result.success("查询成功！", list);
     }

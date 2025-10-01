@@ -39,7 +39,7 @@ public class SysMenuController {
     @GetMapping("/all")
     @Operation(summary = "查询列表接口,没有分页")
     public Result<List<SysMenu>> all(Long parentId, @RequestParam(required = false) List<Integer> type, Long roleId,
-            Integer status) {
+            String status) {
         List<SysMenu> list = sysMenuService.query(parentId, type, roleId, status);
         return Result.success("查询成功！", list);
     }

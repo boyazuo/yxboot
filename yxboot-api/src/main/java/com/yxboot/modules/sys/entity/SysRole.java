@@ -94,12 +94,6 @@ public class SysRole implements Serializable {
 	@Schema(description = "状态（0:无效 1:有效）")
 	private StatusEnum status;
 
-	/**
-	 * 删除标识（0:未删除 1:已删除）
-	 */
-	@Schema(description = "删除标识（0:未删除  1:已删除）")
-	private Integer deleted;
-
 	@Column(ignore = true)
 	@Schema(description = "关联菜单")
 	private List<SysMenu> menus;

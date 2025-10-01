@@ -18,7 +18,7 @@ import cn.hutool.core.util.StrUtil;
  */
 @Service
 public class SysDictService extends ServiceImpl<SysDictMapper, SysDict> {
-    public Page<SysDict> pageQuery(String dictName, String dictCode, Integer status, PageRequest pageRequest) {
+    public Page<SysDict> pageQuery(String dictName, String dictCode, String status, PageRequest pageRequest) {
         QueryWrapper wrapper = QueryWrapper.create();
         if (StrUtil.isNotEmpty(dictName)) {
             wrapper.where(SYS_DICT.DICT_NAME.like(dictName));
@@ -26,7 +26,7 @@ public class SysDictService extends ServiceImpl<SysDictMapper, SysDict> {
         if (StrUtil.isNotEmpty(dictCode)) {
             wrapper.where(SYS_DICT.DICT_CODE.like(dictCode));
         }
-        if (status != null) {
+        if (StrUtil.isNotEmpty(status)) {
             wrapper.where(SYS_DICT.STATUS.eq(status));
         }
         return page(pageRequest.convertToPage(), wrapper);

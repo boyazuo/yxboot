@@ -89,12 +89,6 @@ public class SysDept implements Serializable {
 	private StatusEnum status;
 
 	/**
-	 * 删除标识
-	 */
-	@Schema(description = "删除标识")
-	private Integer deleted;
-
-	/**
 	 * 子部门
 	 */
 	@Column(ignore = true)

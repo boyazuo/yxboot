@@ -86,10 +86,4 @@ public class SysDict implements Serializable {
 	@Schema(description = "状态")
 	private StatusEnum status;
 
-	/**
-	 * 删除标识
-	 */
-	@Schema(description = "删除标识")
-	private Integer deleted;
-
 }

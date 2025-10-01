@@ -32,7 +32,7 @@ const patchHomeAffix = (routes: RouteRecordRaw[]) => {
 
   try {
     patcher(routes)
-  } catch (e) {
+  } catch {
     // 已处理完毕跳出循环
   }
   return
@@ -46,8 +46,7 @@ export async function loadPermissionRoutes(router: Router) {
   const res = await permissions()
 
   // Dynamically introduce components
-  const menus = res.data.filter((item: any) => [1, 2].indexOf(item.type) > -1)
-
+  const menus = res.data.filter((item: any) => ['module', 'menu'].indexOf(item.type) > -1)
   const menusTree = listToTree(menus, { id: 'menuId' })
   routes = menusTree.map((item) => (!isLayoutComponent(item.component) ? wrapperSingleMenu(item) : convertMenuToRoute(item)))
 
@@ -59,7 +58,6 @@ export async function loadPermissionRoutes(router: Router) {
 
   const code = res.data.filter((item) => !!item.code).map((item) => item.code)
   permissionStore.setMenusCode(code)
-
   const displyMenusTree = filterDisplayMenus(menusTree)
   console.log('displyMenusTree', displyMenusTree)
   permissionStore.setMenus(displyMenusTree)
@@ -82,7 +80,7 @@ const filterDisplayMenus = (menus: any[]) => {
   }
 
   return menus
-    .filter((item: any) => [1, 2].indexOf(item.type) > -1 && item.display === 1)
+    .filter((item: any) => ['module', 'menu'].indexOf(item.type) > -1 && item.display === 1)
     .map((item: any) => {
       if (item.children && item.children.length > 0) {
         return {

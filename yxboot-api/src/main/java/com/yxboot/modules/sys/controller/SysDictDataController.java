@@ -33,14 +33,14 @@ public class SysDictDataController {
 
     @GetMapping("/all")
     @Operation(summary = "查询全部")
-    public Result<List<SysDictData>> All(String dictCode, Integer status) {
+    public Result<List<SysDictData>> All(String dictCode, String status) {
         List<SysDictData> listResult = sysDictDataService.query(dictCode, status);
         return Result.success("查询成功！", listResult);
     }
 
     @GetMapping("/list")
     @Operation(summary = "查询列表接口")
-    public Result<Page<SysDictData>> list(String dictCode, Integer status, PageRequest pageRequest) {
+    public Result<Page<SysDictData>> list(String dictCode, String status, PageRequest pageRequest) {
         Page<SysDictData> pageResult = sysDictDataService.query(dictCode, status, pageRequest);
         return Result.success("查询成功！", pageResult);
     }

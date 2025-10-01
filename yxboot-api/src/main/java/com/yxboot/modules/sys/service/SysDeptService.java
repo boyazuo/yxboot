@@ -18,23 +18,23 @@ import cn.hutool.core.util.StrUtil;
  */
 @Service
 public class SysDeptService extends ServiceImpl<SysDeptMapper, SysDept> {
-    public Page<SysDept> pageQuery(String name, Integer status, PageRequest pageRequest) {
+    public Page<SysDept> pageQuery(String name, String status, PageRequest pageRequest) {
         QueryWrapper wrapper = QueryWrapper.create();
         if (StrUtil.isNotEmpty(name)) {
             wrapper.where(SYS_DEPT.NAME.like(name));
         }
-        if (status != null) {
+        if (StrUtil.isNotEmpty(status)) {
             wrapper.where(SYS_DEPT.STATUS.eq(status));
         }
         return page(pageRequest.convertToPage(), wrapper);
     }
 
-    public List<SysDept> listQuery(String name, Integer status) {
+    public List<SysDept> listQuery(String name, String status) {
         QueryWrapper wrapper = QueryWrapper.create();
         if (StrUtil.isNotEmpty(name)) {
             wrapper.where(SYS_DEPT.NAME.like(name));
         }
-        if (status != null) {
+        if (StrUtil.isNotEmpty(status)) {
             wrapper.where(SYS_DEPT.STATUS.eq(status));
         }
         return list(wrapper);

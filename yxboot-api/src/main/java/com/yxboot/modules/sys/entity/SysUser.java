@@ -127,16 +127,10 @@ public class SysUser implements Serializable {
 	private Date lastLoginTime;
 
 	/**
-	 * 状态（0:无效 1:有效）
+	 * 状态
 	 */
-	@Schema(description = "状态（0:无效 1:有效）")
+	@Schema(description = "状态")
 	private StatusEnum status;
-
-	/**
-	 * 删除标识(0:未删除 1:已删除)
-	 */
-	@Schema(description = "删除标识(0:未删除 1:已删除)")
-	private Integer deleted;
 
 	@Column(ignore = true)
 	private Long roleId;

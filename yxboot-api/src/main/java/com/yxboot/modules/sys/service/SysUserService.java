@@ -22,7 +22,7 @@ import cn.hutool.core.util.StrUtil;
 @Service
 public class SysUserService extends ServiceImpl<SysUserMapper, SysUser> {
 
-    public Page<SysUser> pageQuery(String name, String phone, Long roleId, Integer status, Integer deptId,
+    public Page<SysUser> pageQuery(String name, String phone, Long roleId, String status, Integer deptId,
             PageRequest pageRequest) {
         QueryWrapper wrapper = QueryWrapper.create();
         wrapper.select(SYS_USER.ALL_COLUMNS);
@@ -34,7 +34,7 @@ public class SysUserService extends ServiceImpl<SysUserMapper, SysUser> {
         if (StrUtil.isNotEmpty(phone)) {
             wrapper.where(SYS_USER.PHONE.like(phone));
         }
-        if (status != null) {
+        if (StrUtil.isNotEmpty(status)) {
             wrapper.where(SYS_USER.STATUS.eq(status));
         }
         if (roleId != null) {

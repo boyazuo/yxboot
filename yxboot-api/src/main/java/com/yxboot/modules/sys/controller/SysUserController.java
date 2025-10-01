@@ -43,7 +43,7 @@ public class SysUserController {
 
     @GetMapping("/list")
     @Operation(summary = "查询列表接口")
-    public Result<Page<SysUser>> list(String name, String phone, Long roleId, Integer status, Integer deptId,
+    public Result<Page<SysUser>> list(String name, String phone, Long roleId, String status, Integer deptId,
             PageRequest pageRequest) {
         Page<SysUser> pageResult = sysUserService.pageQuery(name, phone, roleId, status, deptId, pageRequest);
         return Result.success("查询成功！", pageResult);
