@@ -84,7 +84,7 @@ export const editFormSchema: FormSchema[] = [
     label: '性别',
     component: 'Dict',
     rules: [{ required: true, message: '请选择性别' }],
-    componentProps: { code: 'UserSex' },
+    componentProps: { code: 'user_sex' },
   },
   {
     field: 'phone',

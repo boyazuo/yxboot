@@ -5,7 +5,6 @@ import java.io.Serializable;
 import com.mybatisflex.annotation.Id;
 import com.mybatisflex.annotation.KeyType;
 import com.mybatisflex.annotation.Table;
-import com.yxboot.config.mybatisflex.MyFlexListener;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -17,7 +16,7 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-@Table(value = "sys_role_menu", onInsert = MyFlexListener.class, onUpdate = MyFlexListener.class)
+@Table(value = "sys_role_menu")
 @Schema(name = "SysRoleMenu", description = "系统角色菜单表")
 public class SysRoleMenu implements Serializable {
 	@Serial
