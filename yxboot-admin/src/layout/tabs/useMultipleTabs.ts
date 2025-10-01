@@ -16,12 +16,11 @@ export function initAffixTabs(): string[] {
    */
   function filterAffixTabs(routes: RouteLocationNormalized[]) {
     const tabs: RouteLocationNormalized[] = []
-    routes &&
-      routes.forEach((route) => {
-        if (route.meta && route.meta.affix) {
-          tabs.push(toRaw(route))
-        }
-      })
+    routes?.forEach((route) => {
+      if (route.meta?.affix) {
+        tabs.push(toRaw(route))
+      }
+    })
     return tabs
   }
 

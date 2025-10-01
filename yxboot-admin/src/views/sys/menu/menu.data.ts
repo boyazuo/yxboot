@@ -1,5 +1,5 @@
-import { FormSchema } from '@/components/Form'
-import { BasicColumn } from '@/components/Table'
+import type { FormSchema } from '@/components/Form'
+import type { BasicColumn } from '@/components/Table'
 import { statusOptions } from '@/enums'
 
 export const listMenuType = [

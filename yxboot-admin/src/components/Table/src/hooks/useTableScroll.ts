@@ -22,7 +22,7 @@ export function useTableScroll(
 
   const getCanResize = computed(() => {
     const { canResize, scroll } = unref(propsRef)
-    return canResize && !(scroll || {}).y
+    return canResize && !scroll?.y
   })
 
   watch(

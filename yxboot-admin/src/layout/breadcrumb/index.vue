@@ -14,7 +14,7 @@
   </div>
 </template>
 <script lang="ts" setup>
-import { ref, watchEffect } from 'vue'
+import { type PropType, ref, watchEffect } from 'vue'
 import type { RouteLocationMatched } from 'vue-router'
 import { useRouter } from 'vue-router'
 import Icon from '@/components/Icon'
@@ -26,13 +26,12 @@ import type { Menu } from '@/router/types'
 import { usePermissionStoreWithOut } from '@/store/modules/permission'
 import { filter } from '@/utils/helper/trees'
 import { isString } from '@/utils/is'
-import { propTypes } from '@/utils/propTypes'
 
 defineOptions({ name: 'LayoutBreadcrumb' })
 
 defineProps({
   theme: {
-    type: propTypes.oneOf(['dark', 'light']),
+    type: String as PropType<'dark' | 'light'>,
   },
 })
 
@@ -52,7 +51,7 @@ watchEffect(async () => {
   const cur = routeMatched?.[routeMatched.length - 1]
   let path = currentRoute.value.path
 
-  if (cur && cur?.meta?.currentActiveMenu) {
+  if (cur?.meta?.currentActiveMenu) {
     path = cur.meta.currentActiveMenu as string
   }
 

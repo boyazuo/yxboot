@@ -16,7 +16,7 @@ export function useFullScreen(context: UseFullScreenContext) {
   })
 
   function handleFullScreen(e: Event) {
-    e && e.stopPropagation()
+    e?.stopPropagation()
     fullScreenRef.value = !unref(fullScreenRef)
 
     // const modalWrapper = unref(context.modalWrapperRef);

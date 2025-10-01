@@ -26,7 +26,7 @@ const getButtonClass = computed(() => {
   return [
     {
       [`ant-btn-${color}`]: !!color,
-      [`is-disabled`]: disabled,
+      'is-disabled': disabled,
       center: true,
     },
   ]

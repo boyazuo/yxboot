@@ -40,7 +40,9 @@ export function useDataSource(
     () => unref(propsRef).dataSource,
     () => {
       const { dataSource, api } = unref(propsRef)
-      !api && dataSource && (dataSourceRef.value = dataSource)
+      if (!api && dataSource) {
+        dataSourceRef.value = dataSource
+      }
     },
     {
       immediate: true,
@@ -75,7 +77,7 @@ export function useDataSource(
       if (!item[ROW_KEY]) {
         item[ROW_KEY] = buildUUID()
       }
-      if (item.children && item.children.length) {
+      if (item.children?.length) {
         setTableKey(item.children)
       }
     })
@@ -138,7 +140,7 @@ export function useDataSource(
   }
 
   function deleteTableDataRecord(rowKey: string | number | string[] | number[]) {
-    if (!dataSourceRef.value || dataSourceRef.value.length == 0) return
+    if (!dataSourceRef.value || dataSourceRef.value.length === 0) return
     const rowKeyName = unref(getRowKey)
     if (!rowKeyName) return
     const rowKeys = !Array.isArray(rowKey) ? [rowKey] : rowKey
@@ -179,7 +181,7 @@ export function useDataSource(
   }
 
   function findTableDataRecord(rowKey: string | number) {
-    if (!dataSourceRef.value || dataSourceRef.value.length == 0) return
+    if (!dataSourceRef.value || dataSourceRef.value.length === 0) return
 
     const rowKeyName = unref(getRowKey)
     if (!rowKeyName) return
@@ -187,7 +189,7 @@ export function useDataSource(
     const { childrenColumnName = 'children' } = unref(propsRef)
 
     const findRow = (array: any[]) => {
-      let ret
+      let ret: Recordable | undefined
       array.some(function iter(r) {
         if (typeof rowKeyName === 'function') {
           if ((rowKeyName(r) as string) === rowKey) {

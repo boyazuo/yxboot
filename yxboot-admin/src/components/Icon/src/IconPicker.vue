@@ -1,7 +1,7 @@
 <template>
   <a-input-group class="icon-input" compact>
     <a-input v-model:value="innerValue" :placeholder="placeholder" />
-    <a-button @click="handleSelectIconClick" pre-icon="ic:outline-emoji-emotions" icon-size="22">选择图标</a-button>
+    <a-button @click="handleSelectIconClick" pre-icon="ic:outline-emoji-emotions" icon-size="16">选择图标</a-button>
   </a-input-group>
   <BasicModal @register="registerModel" title="选择图标" width="800px" @ok="handleModalOkClick">
     <div class="icon-modal">
