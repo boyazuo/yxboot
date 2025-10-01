@@ -7,7 +7,6 @@ import { useGo, useRedo } from '@/hooks/web/usePage'
 import { PAGE_NOT_FOUND_ROUTE, REDIRECT_ROUTE } from '@/router/routes/basic'
 import appSetting from '@/settings/appSetting'
 import { store } from '@/store'
-import { useUserStore } from '@/store/modules/user'
 import { getRawRoute } from '@/utils'
 import { Persistent } from '@/utils/cache/persistent'
 
@@ -145,7 +144,7 @@ export const useMultipleTabStore = defineStore('app-multiple-tab', {
       } else {
         // Add tab
         // 获取动态路由打开数，超过 0 即代表需要控制打开数
-        const dynamicLevel = meta?.dynamicLevel ?? -1
+        const dynamicLevel = (meta?.dynamicLevel as number) ?? -1
         if (dynamicLevel > 0) {
           // 如果动态路由层级大于 0 了，那么就要限制该路由的打开数限制了
           // 首先获取到真实的路由，使用配置方式减少计算开销.
@@ -193,8 +192,7 @@ export const useMultipleTabStore = defineStore('app-multiple-tab', {
       if (index === 0) {
         // There is only one tab, then jump to the homepage, otherwise jump to the right tab
         if (this.tabList.length === 1) {
-          const userStore = useUserStore()
-          toTarget = userStore.getUserInfo.homePath || PageEnum.BASE_HOME
+          toTarget = PageEnum.BASE_HOME
         } else {
           //  Jump to the right tab
           const page = this.tabList[index + 1]
@@ -221,7 +219,7 @@ export const useMultipleTabStore = defineStore('app-multiple-tab', {
         })
         // 如果当前路由不存在于TabList中，尝试切换到其它路由
         if (isActivated === -1) {
-          let pageIndex
+          let pageIndex: number
           if (index > 0) {
             pageIndex = index - 1
           } else if (index < this.tabList.length - 1) {

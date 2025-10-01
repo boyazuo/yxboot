@@ -19,7 +19,7 @@ export const useTableSettingStore = defineStore('table-setting', {
     //
     getTableSize(state) {
       return (routerName: string) => {
-        return state.setting?.size && state.setting?.size[routerName] ? state.setting?.size[routerName] : 'middle'
+        return state.setting?.size?.[routerName] ?? 'middle'
       }
     },
     //

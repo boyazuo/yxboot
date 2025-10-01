@@ -1,5 +1,5 @@
 import colors from 'picocolors'
-import { type PluginOption } from 'vite'
+import type { PluginOption } from 'vite'
 import pkg from '../../../package.json'
 import { getConfigFileName } from '../../getConfigFileName'
 import { getEnvConfig } from '../utils/env'
@@ -13,7 +13,7 @@ function createAppConfigPlugin({ isBuild }: { isBuild: boolean }): PluginOption 
   let source: string
   if (!isBuild) {
     return {
-      name: PLUGIN_NAME
+      name: PLUGIN_NAME,
     }
   }
   const { version = '' } = pkg
@@ -35,10 +35,10 @@ function createAppConfigPlugin({ isBuild }: { isBuild: boolean }): PluginOption 
           {
             tag: 'script',
             attrs: {
-              src: appConfigSrc
-            }
-          }
-        ]
+              src: appConfigSrc,
+            },
+          },
+        ],
       }
     },
     async generateBundle() {
@@ -46,14 +46,14 @@ function createAppConfigPlugin({ isBuild }: { isBuild: boolean }): PluginOption 
         this.emitFile({
           type: 'asset',
           fileName: GLOBAL_CONFIG_FILE_NAME,
-          source
+          source,
         })
 
         console.log(colors.cyan(`✨configuration file is build successfully!`))
       } catch (error) {
         console.log(colors.red('configuration file configuration file failed to package:\n' + error))
       }
-    }
+    },
   }
 }
 

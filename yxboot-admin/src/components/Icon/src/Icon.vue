@@ -8,7 +8,6 @@
   ></span>
 </template>
 <script lang="ts" setup>
-import Iconify from '@purge-icons/generated'
 import type { PropType } from 'vue'
 import { CSSProperties, computed, nextTick, onMounted, ref, unref, watch } from 'vue'
 import { isString } from '@/utils/is'
@@ -30,7 +29,8 @@ const props = defineProps({
   spin: propTypes.bool.def(false),
   prefix: propTypes.string.def(''),
 })
-const elRef = ref<ElRef>(null)
+
+const elRef = ref<HTMLElement | null>(null)
 
 const isSvgIcon = computed(() => props.icon?.endsWith(SVG_END_WITH_FLAG))
 const getSvgIcon = computed(() => props.icon?.replace(SVG_END_WITH_FLAG, ''))
@@ -46,24 +46,20 @@ const update = async () => {
   const icon = unref(getIconRef)
   if (!icon) return
 
-  const svg = Iconify.renderSVG(icon, {})
-  if (svg) {
-    el.textContent = ''
-    el.appendChild(svg)
-  } else {
-    const span = document.createElement('span')
-    span.className = 'iconify'
-    span.dataset.icon = icon
-    el.textContent = ''
-    el.appendChild(span)
-  }
+  // 使用 iconify-icon 元素
+  const iconifyIcon = document.createElement('iconify-icon')
+  iconifyIcon.setAttribute('icon', icon)
+
+  // 清空容器并添加新的 iconify-icon 元素
+  el.innerHTML = ''
+  el.appendChild(iconifyIcon)
 }
 
 const getWrapStyle = computed((): CSSProperties => {
   const { size, color } = props
   let fs = size
   if (isString(size)) {
-    fs = parseInt(size, 10)
+    fs = parseInt(size as string, 10)
   }
 
   return {
@@ -81,21 +77,12 @@ onMounted(update)
   @import url('@/styles/color.less');
 
   .app-iconify {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
     vertical-align: -0.125em;
 
     &-spin {
-      svg {
-        animation: loadingCircle 1s infinite linear;
-      }
+      animation: loadingCircle 1s infinite linear;
     }
-  }
-
-  span.iconify {
-    display: block;
-    min-width: 1em;
-    min-height: 1em;
-    background-color: #5551;
-    border-radius: 100%;
   }
 </style>

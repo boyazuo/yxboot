@@ -8,9 +8,10 @@ export function useSortable(el: HTMLElement | Ref<HTMLElement | undefined>, opti
 
   function initSortable() {
     nextTick(async () => {
-      if (!el) return
+      const element = unref(el)
+      if (!element) return
       const Sortable = (await import('sortablejs')).default
-      sortableRef.value = Sortable.create(unref(el), {
+      sortableRef.value = Sortable.create(element, {
         animation: 100,
         delay: 400,
         delayOnTouchOnly: true,

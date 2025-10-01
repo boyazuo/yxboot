@@ -5,13 +5,7 @@
 import type { PluginOption } from 'vite'
 import compressPlugin from 'vite-plugin-compression'
 
-export function configCompressPlugin({
-  compress,
-  deleteOriginFile = false
-}: {
-  compress: string
-  deleteOriginFile?: boolean
-}): PluginOption[] {
+export function configCompressPlugin({ compress, deleteOriginFile = false }: { compress: string; deleteOriginFile?: boolean }): PluginOption[] {
   const compressList = compress.split(',')
 
   const plugins: PluginOption[] = []
@@ -20,8 +14,8 @@ export function configCompressPlugin({
     plugins.push(
       compressPlugin({
         ext: '.gz',
-        deleteOriginFile
-      })
+        deleteOriginFile,
+      }),
     )
   }
 
@@ -30,8 +24,8 @@ export function configCompressPlugin({
       compressPlugin({
         ext: '.br',
         algorithm: 'brotliCompress',
-        deleteOriginFile
-      })
+        deleteOriginFile,
+      }),
     )
   }
   return plugins

@@ -1,6 +1,5 @@
-import type { PluginOption } from 'vite'
-
 import Components from 'unplugin-vue-components/vite'
+import type { PluginOption } from 'vite'
 
 export function configComponentsPlugin() {
   const componentsPlugin: PluginOption = Components({
@@ -8,7 +7,7 @@ export function configComponentsPlugin() {
     extensions: ['vue', 'md'],
     // allow auto import and register components used in markdown
     include: [/\.vue$/, /\.vue\?vue/, /\.md$/],
-    dts: 'src/components.d.ts'
+    dts: 'src/components.d.ts',
   })
   return componentsPlugin
 }

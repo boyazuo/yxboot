@@ -94,12 +94,22 @@ export function useFormEvents({
       } else {
         nestKeyArray.forEach((nestKey: string) => {
           try {
-            const value = eval('values' + delimiter + nestKey)
+            // 安全地访问嵌套对象属性，替代 eval()
+            const keys = nestKey.split(delimiter)
+            let value: any = values
+            for (const key of keys) {
+              if (value && typeof value === 'object' && key in value) {
+                value = value[key]
+              } else {
+                value = undefined
+                break
+              }
+            }
             if (isDef(value)) {
               formModel[nestKey] = value
               validKeys.push(nestKey)
             }
-          } catch (e) {
+          } catch {
             // key not exist
             if (isDef(defaultValueRef.value[nestKey])) {
               formModel[nestKey] = cloneDeep(defaultValueRef.value[nestKey])
@@ -226,7 +236,7 @@ export function useFormEvents({
     const currentFieldsValue = getFieldsValue()
     schemas.forEach((item) => {
       if (
-        item.component != 'Divider' &&
+        item.component !== 'Divider' &&
         Reflect.has(item, 'field') &&
         item.field &&
         !isNil(item.defaultValue) &&

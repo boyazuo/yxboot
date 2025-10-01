@@ -1,16 +1,17 @@
+import 'iconify-icon'
 import '@/styles/index.less'
 import 'ant-design-vue/dist/reset.css'
 import 'virtual:uno.css'
 // Register icon sprite
 import 'virtual:svg-icons-register'
 
-import App from './App.vue'
-
+import { createApp } from 'vue'
 import { registerGlobComp } from '@/components/registerGlobComp'
 import { setupGlobDirectives } from '@/directives'
 import { initAppConfig } from '@/hooks/config'
 import { setupRouter } from '@/router'
 import { setupStore } from '@/store'
+import App from './App.vue'
 
 async function bootstrap() {
   const app = createApp(App)

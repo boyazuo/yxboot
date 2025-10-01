@@ -62,10 +62,6 @@ declare global {
     VITE_GENERATE_UI: string
   }
 
-  declare function parseInt(s: string | number, radix?: number): number
-
-  declare function parseFloat(string: string | number): number
-
   namespace JSX {
     // tslint:disable no-empty-interface
     type Element = VNode

@@ -1,5 +1,5 @@
-import { ContentLayoutEnum, RouterTransitionEnum, SettingButtonPositionEnum, ThemeEnum } from '@/enums/appEnum'
-import { MenuModeEnum, MenuTypeEnum } from '@/enums/menuEnum'
+import type { ContentLayoutEnum, RouterTransitionEnum, SettingButtonPositionEnum, ThemeEnum } from '@/enums/appEnum'
+import type { MenuModeEnum, MenuTypeEnum } from '@/enums/menuEnum'
 
 export type LocaleType = 'zh_CN' | 'en' | 'ru' | 'ja' | 'ko'
 

@@ -39,11 +39,11 @@
   </div>
 </template>
 <script lang="ts" setup>
+import { message } from 'ant-design-vue'
 import { listUser, removeUser } from '@/api/sys/user'
 import { useDrawer } from '@/components/Drawer'
 import { useModal } from '@/components/Modal'
 import { useTable } from '@/components/Table'
-import { message } from 'ant-design-vue'
 import ResetPasswordModalVue from './ResetPasswordModal.vue'
 import UserDrawer from './UserDrawer.vue'
 import { searchFormSchema, tableColumns } from './user.data'

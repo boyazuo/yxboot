@@ -1,5 +1,5 @@
+import { resolve } from 'node:path'
 import dayjs from 'dayjs'
-import { resolve } from 'path'
 import type { ConfigEnv, UserConfig } from 'vite'
 import { loadEnv } from 'vite'
 import { OUTPUT_DIR } from './build/constant'
@@ -85,7 +85,8 @@ export default async ({ command, mode }: ConfigEnv): Promise<UserConfig> => {
       compress: VITE_BUILD_COMPRESS,
     }),
     optimizeDeps: {
-      include: ['@iconify/iconify', 'ant-design-vue/es/locale/zh_CN', 'ant-design-vue/es/locale/en_US'],
+      include: ['iconify-icon', 'ant-design-vue/es/locale/zh_CN', 'ant-design-vue/es/locale/en_US'],
+      exclude: ['@iconify/iconify'],
     },
   }
 }

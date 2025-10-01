@@ -7,7 +7,7 @@ import { createHtmlPlugin } from 'vite-plugin-html'
 
 export function configHtmlPlugin({ isBuild }: { isBuild: boolean }) {
   const htmlPlugin: PluginOption[] = createHtmlPlugin({
-    minify: isBuild
+    minify: isBuild,
   })
   return htmlPlugin
 }

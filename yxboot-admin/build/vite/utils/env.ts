@@ -8,7 +8,7 @@ import { readFile } from 'fs-extra'
  */
 function getConfFiles() {
   const script = process.env.npm_lifecycle_script as string
-  const reg = new RegExp('--mode ([a-z_\\d]+)')
+  const reg = /--mode ([a-z_\d]+)/
   const result = reg.exec(script)
   if (result) {
     const mode = result[1]
@@ -24,7 +24,7 @@ function getConfFiles() {
  */
 export async function getEnvConfig(
   match = 'VITE_GLOB_',
-  confFiles = getConfFiles()
+  confFiles = getConfFiles(),
 ): Promise<{
   [key: string]: string
 }> {

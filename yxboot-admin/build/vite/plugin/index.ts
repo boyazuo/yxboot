@@ -1,6 +1,6 @@
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
-import { PluginOption } from 'vite'
+import type { PluginOption } from 'vite'
 
 import purgeIcons from 'vite-plugin-purge-icons'
 
@@ -43,8 +43,8 @@ async function createPlugins({ isBuild, compress }: Options) {
     // rollup-plugin-gzip
     vitePlugins.push(
       configCompressPlugin({
-        compress
-      })
+        compress,
+      }),
     )
   }
 
