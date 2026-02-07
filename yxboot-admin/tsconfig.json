@@ -1,0 +1,8 @@
+{
+  "files": [],
+  "references": [
+    { "path": "./tooling/tsconfig" },
+    { "path": "./packages/@core" },
+    { "path": "./apps/web-antd" }
+  ]
+}

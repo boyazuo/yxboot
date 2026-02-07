@@ -1,0 +1,37 @@
+{
+  "name": "@yxboot/web-antd",
+  "version": "1.0.0",
+  "private": true,
+  "description": "YXBoot Admin - Ant Design Vue 应用",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --mode development",
+    "build": "vite build --mode production",
+    "preview": "vite preview",
+    "typecheck": "vue-tsc --noEmit --skipLibCheck"
+  },
+  "dependencies": {
+    "@yxboot/core": "workspace:*",
+    "@vueuse/core": "catalog:",
+    "ant-design-vue": "catalog:",
+    "axios": "catalog:",
+    "dayjs": "catalog:",
+    "pinia": "catalog:",
+    "pinia-plugin-persistedstate": "catalog:",
+    "vue": "catalog:",
+    "vue-i18n": "catalog:",
+    "vue-router": "catalog:",
+    "zod": "catalog:"
+  },
+  "devDependencies": {
+    "@yxboot/tailwind-config": "workspace:*",
+    "@yxboot/tsconfig": "workspace:*",
+    "@yxboot/vite-config": "workspace:*",
+    "autoprefixer": "catalog:",
+    "postcss": "catalog:",
+    "tailwindcss": "catalog:",
+    "typescript": "catalog:",
+    "vite": "catalog:",
+    "vue-tsc": "catalog:"
+  }
+}

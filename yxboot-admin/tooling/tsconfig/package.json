@@ -1,0 +1,9 @@
+{
+  "name": "@yxboot/tsconfig",
+  "version": "1.0.0",
+  "private": true,
+  "description": "TypeScript 配置预设",
+  "files": ["base.json", "app.json", "lib.json", "node.json"],
+  "keywords": ["typescript", "tsconfig"],
+  "license": "MIT"
+}

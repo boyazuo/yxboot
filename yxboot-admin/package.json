@@ -1,0 +1,74 @@
+{
+  "name": "yxboot-admin",
+  "version": "1.0.0",
+  "private": true,
+  "description": "YXBoot Admin - 基于 Vue 3 + TypeScript 的现代化企业级中后台管理系统",
+  "keywords": [
+    "monorepo",
+    "turbo",
+    "yxboot",
+    "admin",
+    "vue",
+    "vue3",
+    "typescript",
+    "vite"
+  ],
+  "homepage": "https://github.com/yxboot/yxboot-admin",
+  "bugs": "https://github.com/yxboot/yxboot-admin/issues",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yxboot/yxboot-admin.git"
+  },
+  "license": "MIT",
+  "author": {
+    "name": "yxboot",
+    "email": "yxboot@example.com"
+  },
+  "type": "module",
+  "scripts": {
+    "preinstall": "npx only-allow pnpm",
+    "postinstall": "pnpm -r run stub --if-present",
+    "dev": "turbo dev",
+    "dev:antd": "pnpm -F @yxboot/web-antd run dev",
+    "build": "cross-env NODE_OPTIONS=--max-old-space-size=8192 turbo build",
+    "build:antd": "pnpm run build --filter=@yxboot/web-antd",
+    "preview": "turbo preview",
+    "clean": "rimraf node_modules **/node_modules **/dist **/.turbo",
+    "format": "biome format --write .",
+    "lint": "biome check .",
+    "lint:fix": "biome check --write .",
+    "typecheck": "turbo run typecheck",
+    "test": "vitest run --dom",
+    "test:unit": "vitest run --dom",
+    "prepare": "lefthook install",
+    "changeset": "pnpm exec changeset",
+    "version": "pnpm exec changeset version && pnpm install --no-frozen-lockfile"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "catalog:",
+    "@changesets/changelog-github": "catalog:",
+    "@changesets/cli": "catalog:",
+    "@types/node": "catalog:",
+    "@vitejs/plugin-vue": "catalog:",
+    "@vitejs/plugin-vue-jsx": "catalog:",
+    "@vue/test-utils": "catalog:",
+    "autoprefixer": "catalog:",
+    "cross-env": "catalog:",
+    "happy-dom": "catalog:",
+    "lefthook": "catalog:",
+    "rimraf": "catalog:",
+    "tailwindcss": "catalog:",
+    "turbo": "catalog:",
+    "typescript": "catalog:",
+    "unbuild": "catalog:",
+    "vite": "catalog:",
+    "vitest": "catalog:",
+    "vue": "catalog:",
+    "vue-tsc": "catalog:"
+  },
+  "engines": {
+    "node": ">=20.19.0",
+    "pnpm": ">=10.0.0"
+  },
+  "packageManager": "pnpm@10.28.2"
+}

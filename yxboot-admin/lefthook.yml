@@ -1,0 +1,25 @@
+pre-commit:
+  parallel: true
+  commands:
+    # Biome 检查和格式化（处理 JS/TS/JSON）
+    biome:
+      glob: '*.{js,ts,jsx,tsx,json}'
+      run: biome check --write --no-errors-on-unmatched --files-ignore-unknown=true {staged_files}
+
+post-merge:
+  commands:
+    install:
+      run: pnpm install
+
+commit-msg:
+  commands:
+    # 简化的 commit 消息检查
+    commit-format:
+      run: |
+        commit_msg=$(cat {1})
+        if ! echo "$commit_msg" | grep -qE '^(feat|fix|docs|style|refactor|perf|test|chore)(\(.+\))?: .{1,}$'; then
+          echo "❌ Commit 消息格式错误！"
+          echo "正确格式: <type>(<scope>): <subject>"
+          echo "类型: feat, fix, docs, style, refactor, perf, test, chore"
+          exit 1
+        fi

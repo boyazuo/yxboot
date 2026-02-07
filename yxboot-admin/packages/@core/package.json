@@ -1,0 +1,43 @@
+{
+  "name": "@yxboot/core",
+  "version": "1.0.0",
+  "private": true,
+  "description": "YXBoot Admin 核心框架包",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./base": "./src/base/index.ts",
+    "./runtime": "./src/runtime/index.ts",
+    "./ui": "./src/ui/index.ts",
+    "./composables": "./src/composables/index.ts",
+    "./directives": "./src/directives/index.ts",
+    "./styles": "./src/styles/index.css"
+  },
+  "files": ["src", "dist"],
+  "scripts": {
+    "build": "unbuild",
+    "stub": "unbuild --stub",
+    "typecheck": "vue-tsc --noEmit"
+  },
+  "dependencies": {
+    "@vueuse/core": "catalog:",
+    "@vueuse/integrations": "catalog:",
+    "axios": "catalog:",
+    "dayjs": "catalog:",
+    "es-toolkit": "catalog:",
+    "pinia": "catalog:",
+    "pinia-plugin-persistedstate": "catalog:",
+    "vue": "catalog:",
+    "vue-i18n": "catalog:",
+    "vue-router": "catalog:",
+    "zod": "catalog:"
+  },
+  "devDependencies": {
+    "@yxboot/tsconfig": "workspace:*",
+    "typescript": "catalog:",
+    "unbuild": "catalog:",
+    "vue-tsc": "catalog:"
+  },
+  "keywords": ["vue", "admin", "core"],
+  "license": "MIT"
+}

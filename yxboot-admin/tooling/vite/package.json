@@ -1,0 +1,25 @@
+{
+  "name": "@yxboot/vite-config",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Vite 配置预设",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "files": ["src"],
+  "scripts": {
+    "stub": "unbuild --stub"
+  },
+  "dependencies": {
+    "@vitejs/plugin-vue": "catalog:",
+    "@vitejs/plugin-vue-jsx": "catalog:",
+    "vite": "catalog:"
+  },
+  "devDependencies": {
+    "typescript": "catalog:",
+    "unbuild": "catalog:"
+  },
+  "keywords": ["vite", "config"],
+  "license": "MIT"
+}

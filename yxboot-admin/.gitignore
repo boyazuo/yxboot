@@ -1,0 +1,46 @@
+# Dependencies
+node_modules
+.pnpm-store
+pnpm-lock.yaml
+
+# Build outputs
+dist
+dist.zip
+.turbo
+.nitro
+.output
+
+# IDE
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+.idea
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Env files
+.env*.local
+.env.production
+
+# Logs
+logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Cache
+.cache
+.temp
+.tmp
+
+# Test
+coverage
+.nyc_output
+
+# Misc
+*.tsbuildinfo
+.eslintcache
