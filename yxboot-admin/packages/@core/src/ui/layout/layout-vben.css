@@ -1,0 +1,146 @@
+/**
+ * 与 vben-admin layout-ui 完全对齐的布局样式
+ * 类名与 vben 一致，便于复刻 UI
+ */
+
+/* 侧栏：与 vben LayoutSidebar 一致 */
+.vben-layout-sidebar {
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100%;
+  z-index: 201;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transition: width 0.15s ease, min-width 0.15s ease, max-width 0.15s ease, margin-left 0.15s ease;
+}
+
+.vben-layout-sidebar--light {
+  border-right: 1px solid hsl(var(--border));
+  background-color: hsl(var(--sidebar));
+  color: hsl(var(--foreground));
+}
+
+.vben-layout-sidebar--dark {
+  border-right: 1px solid hsl(var(--border));
+  background-color: hsl(var(--sidebar));
+  color: hsl(var(--foreground) / 0.9);
+}
+
+.vben-layout-sidebar__logo {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+  min-height: 49px;
+  border-bottom: 1px solid hsl(var(--border));
+}
+
+.vben-layout-sidebar__scroll {
+  flex: 1;
+  min-height: 0;
+  padding-top: 8px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+}
+
+.vben-layout-sidebar__footer-spacer {
+  height: 42px;
+  flex-shrink: 0;
+}
+
+/* 侧栏折叠按钮：与 vben sidebar-collapse-button 一致 */
+.vben-sidebar-collapse-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  bottom: 8px;
+  left: 12px;
+  z-index: 10;
+  padding: 4px;
+  cursor: pointer;
+  border: none;
+  border-radius: 2px;
+  background-color: hsl(var(--accent));
+  color: hsl(var(--foreground) / 0.6);
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.vben-sidebar-collapse-btn:hover {
+  background-color: hsl(var(--accent-hover));
+  color: hsl(var(--foreground));
+}
+
+/* 侧栏固定按钮：与 vben sidebar-fixed-button 一致 */
+.vben-sidebar-fixed-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  bottom: 8px;
+  right: 12px;
+  z-index: 10;
+  padding: 5px;
+  cursor: pointer;
+  border: none;
+  border-radius: 2px;
+  background-color: hsl(var(--accent));
+  color: hsl(var(--foreground) / 0.6);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.vben-sidebar-fixed-btn:hover {
+  background-color: hsl(var(--accent-hover));
+  color: hsl(var(--foreground));
+}
+
+/* Header：与 vben layout-header 一致 */
+.vben-layout-header {
+  display: flex;
+  align-items: center;
+  flex: 0 0 auto;
+  width: 100%;
+  min-height: 48px;
+  padding-left: 8px;
+  border-bottom: 1px solid hsl(var(--border));
+  background-color: hsl(var(--header));
+  color: hsl(var(--foreground));
+  transition: margin-top 0.2s ease;
+}
+
+.vben-layout-header__logo {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+}
+
+.vben-layout-header__content {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+}
+
+/* Tabbar：与 vben layout-tabbar 一致 */
+.vben-layout-tabbar {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  flex-shrink: 0;
+  border-bottom: 1px solid hsl(var(--border));
+  background-color: hsl(var(--background));
+  transition: margin 0.2s ease, width 0.2s ease;
+}
+
+/* Content：与 vben layout-content 一致 */
+.vben-layout-content {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  background-color: hsl(var(--background-deep));
+  transition: margin-top 0.2s ease;
+}

@@ -1,0 +1,23 @@
+{
+  "common": {
+    "confirm": "确定",
+    "cancel": "取消",
+    "save": "保存",
+    "delete": "删除",
+    "edit": "编辑",
+    "add": "新增",
+    "search": "搜索",
+    "reset": "重置",
+    "submit": "提交",
+    "back": "返回"
+  },
+  "http": {
+    "networkError": "网络错误",
+    "requestTimeout": "请求超时",
+    "badRequest": "请求参数错误",
+    "unauthorized": "未授权，请登录",
+    "forbidden": "拒绝访问",
+    "notFound": "请求地址不存在",
+    "internalServerError": "服务器错误"
+  }
+}

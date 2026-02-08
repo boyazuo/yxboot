@@ -1,19 +1,10 @@
-<template>
-  <router-view />
-</template>
-
 <script setup lang="ts">
-import { onMounted } from 'vue';
-import { useAppStore } from '@yxboot/core/runtime/store';
-
-const appStore = useAppStore();
-
-onMounted(() => {
-  // 检测移动端
-  const checkMobile = () => {
-    appStore.setMobile(window.innerWidth < 768);
-  };
-  checkMobile();
-  window.addEventListener('resize', checkMobile);
-});
+import { ConfigProvider } from 'ant-design-vue';
+import zhCN from 'ant-design-vue/es/locale/zh_CN';
 </script>
+
+<template>
+  <ConfigProvider :locale="zhCN">
+    <RouterView />
+  </ConfigProvider>
+</template>

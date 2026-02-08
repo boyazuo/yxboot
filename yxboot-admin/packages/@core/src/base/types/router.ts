@@ -15,20 +15,38 @@ export interface RouteMeta {
   icon?: string;
   /** 是否隐藏 */
   hidden?: boolean;
+  /** 是否在菜单中隐藏 */
+  hideInMenu?: boolean;
+  /** 是否在标签页中隐藏 */
+  hideInTab?: boolean;
   /** 是否固定在标签页 */
   affix?: boolean;
+  /** 固定标签页顺序 */
+  affixTabOrder?: number;
   /** 是否缓存 */
   keepAlive?: boolean;
+  /** 权限/角色标识（与 permissions/roles 二选一，vben 风格） */
+  authority?: string[];
   /** 权限标识 */
   permissions?: string[];
   /** 角色标识 */
   roles?: string[];
+  /** 菜单可见但无权限时跳 403 */
+  menuVisibleWithForbidden?: boolean;
   /** 排序 */
   order?: number;
   /** 外部链接 */
   externalLink?: string;
   /** 内嵌 iframe */
   iframe?: string;
+  /** 子级在菜单中不展现 */
+  hideChildrenInMenu?: boolean;
+  /** 外链路径 */
+  link?: string;
+  /** 不使用基础布局 */
+  noBasicLayout?: boolean;
+  /** 标签页最大打开数 */
+  maxNumOfOpenTab?: number;
 }
 
 /** 菜单项 */

@@ -1,0 +1,23 @@
+{
+  "common": {
+    "confirm": "Confirm",
+    "cancel": "Cancel",
+    "save": "Save",
+    "delete": "Delete",
+    "edit": "Edit",
+    "add": "Add",
+    "search": "Search",
+    "reset": "Reset",
+    "submit": "Submit",
+    "back": "Back"
+  },
+  "http": {
+    "networkError": "Network Error",
+    "requestTimeout": "Request Timeout",
+    "badRequest": "Bad Request",
+    "unauthorized": "Unauthorized",
+    "forbidden": "Forbidden",
+    "notFound": "Not Found",
+    "internalServerError": "Internal Server Error"
+  }
+}

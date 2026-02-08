@@ -8,11 +8,16 @@ export default {
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
         ring: 'hsl(var(--ring))',
-        background: 'hsl(var(--background))',
+        background: {
+          DEFAULT: 'hsl(var(--background))',
+          deep: 'hsl(var(--background-deep))',
+        },
         foreground: 'hsl(var(--foreground))',
         primary: {
           DEFAULT: 'hsl(var(--primary))',
           foreground: 'hsl(var(--primary-foreground))',
+          hover: 'hsl(var(--primary-hover))',
+          active: 'hsl(var(--primary-active))',
         },
         secondary: {
           DEFAULT: 'hsl(var(--secondary))',
@@ -29,7 +34,17 @@ export default {
         accent: {
           DEFAULT: 'hsl(var(--accent))',
           foreground: 'hsl(var(--accent-foreground))',
+          hover: 'hsl(var(--accent-hover))',
         },
+        overlay: {
+          DEFAULT: 'hsl(var(--overlay))',
+          content: 'hsl(var(--overlay-content))',
+        },
+        sidebar: {
+          DEFAULT: 'hsl(var(--sidebar))',
+          deep: 'hsl(var(--sidebar-deep))',
+        },
+        header: 'hsl(var(--header))',
         popover: {
           DEFAULT: 'hsl(var(--popover))',
           foreground: 'hsl(var(--popover-foreground))',

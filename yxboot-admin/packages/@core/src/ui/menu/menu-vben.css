@@ -1,0 +1,233 @@
+/**
+ * 与 vben-admin menu-ui 对齐的菜单样式
+ * 使用 BEM：vben-menu, vben-menu-item, vben-sub-menu, vben-sub-menu-content
+ */
+.vben-menu,
+.vben-menu__popup-container {
+  --menu-title-width: 140px;
+  --menu-item-icon-size: var(--font-size-base, 16px);
+  --menu-item-height: 38px;
+  --menu-item-padding-y: 0;
+  --menu-item-padding-x: 12px;
+  --menu-item-popup-padding-y: 20px;
+  --menu-item-popup-padding-x: 12px;
+  --menu-item-margin-y: 2px;
+  --menu-item-margin-x: 8px;
+  --menu-item-collapse-padding-y: 23.5px;
+  --menu-item-collapse-padding-x: 0;
+  --menu-item-collapse-margin-y: 4px;
+  --menu-item-collapse-margin-x: 6px;
+  --menu-item-radius: 8px;
+  --menu-item-indent: 16px;
+}
+
+.vben-menu.is-dark {
+  --menu-item-background-color: hsl(var(--menu));
+  --menu-item-color: hsl(var(--foreground) / 80%);
+  --menu-item-hover-color: hsl(var(--accent-foreground));
+  --menu-item-hover-background-color: hsl(var(--accent));
+  --menu-item-active-color: hsl(var(--accent-foreground));
+  --menu-item-active-background-color: hsl(var(--accent));
+  --menu-submenu-hover-color: hsl(var(--foreground));
+  --menu-submenu-hover-background-color: hsl(var(--accent));
+  --menu-submenu-active-color: hsl(var(--foreground));
+  --menu-submenu-active-background-color: transparent;
+  --menu-submenu-background-color: hsl(var(--menu));
+}
+
+.vben-menu.is-light {
+  --menu-item-background-color: hsl(var(--menu));
+  --menu-item-color: hsl(var(--foreground));
+  --menu-item-hover-color: hsl(var(--foreground));
+  --menu-item-hover-background-color: hsl(var(--accent));
+  --menu-item-active-color: hsl(var(--primary));
+  --menu-item-active-background-color: hsl(var(--primary) / 0.15);
+  --menu-submenu-hover-color: hsl(var(--primary));
+  --menu-submenu-hover-background-color: hsl(var(--accent));
+  --menu-submenu-active-color: hsl(var(--primary));
+  --menu-submenu-active-background-color: transparent;
+  --menu-submenu-background-color: hsl(var(--menu));
+}
+
+.vben-menu {
+  position: relative;
+  box-sizing: border-box;
+  padding-left: 0;
+  margin: 0;
+  list-style: none;
+  background: var(--menu-background-color, hsl(var(--sidebar)));
+}
+
+.vben-menu.is-vertical:not(.vben-menu.is-collapse) .vben-menu-item,
+.vben-menu.is-vertical:not(.vben-menu.is-collapse) .vben-sub-menu-content,
+.vben-menu.is-vertical:not(.vben-menu.is-collapse) .vben-sub-menu__list .vben-menu-item {
+  padding-left: calc(var(--menu-item-indent) + var(--menu-level, 0) * var(--menu-item-indent));
+  white-space: nowrap;
+}
+
+/* 首层菜单项/子菜单标题：与 vben 一致 */
+.vben-menu.is-vertical:not(.vben-menu.is-collapse) > .vben-sub-menu > .vben-sub-menu-content {
+  padding-left: calc(var(--menu-item-indent) - 8px);
+}
+
+.vben-menu.is-vertical:not(.vben-menu.is-collapse) > .vben-menu-item {
+  padding-left: calc(var(--menu-item-indent) - 8px);
+}
+
+.vben-menu.is-vertical > .vben-sub-menu > .vben-sub-menu__list {
+  padding-left: var(--menu-item-indent);
+}
+
+.vben-menu.is-collapse .vben-menu__icon,
+.vben-menu.is-collapse .vben-sub-menu__icon-arrow {
+  margin-right: 0;
+}
+
+.vben-menu.is-collapse .vben-sub-menu__icon-arrow {
+  display: none;
+}
+
+.vben-menu.is-collapse .vben-sub-menu-content,
+.vben-menu.is-collapse .vben-menu-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--menu-item-collapse-padding-y) var(--menu-item-collapse-padding-x);
+  margin: var(--menu-item-collapse-margin-y) var(--menu-item-collapse-margin-x);
+  transition: all 0.3s;
+}
+
+.vben-menu.is-collapse .vben-menu-item.is-active,
+.vben-menu.is-collapse .vben-sub-menu-content.is-active {
+  background: var(--menu-item-active-background-color) !important;
+  border-radius: var(--menu-item-radius);
+}
+
+.vben-menu__icon {
+  flex-shrink: 0;
+  width: var(--menu-item-icon-size);
+  height: var(--menu-item-icon-size);
+  margin-right: 8px;
+  vertical-align: middle;
+  text-align: center;
+}
+
+/* menu item */
+.vben-menu-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: var(--menu-item-height);
+  padding: var(--menu-item-padding-y) var(--menu-item-padding-x);
+  margin: 0 var(--menu-item-margin-x) var(--menu-item-margin-y) var(--menu-item-margin-x);
+  font-size: var(--menu-font-size) !important;
+  color: var(--menu-item-color);
+  white-space: nowrap;
+  text-decoration: none;
+  cursor: pointer;
+  list-style: none;
+  background: var(--menu-item-background-color);
+  border: none;
+  border-radius: var(--menu-item-radius);
+  transition: background 0.15s ease, color 0.15s ease, padding 0.15s ease;
+}
+
+.vben-menu-item.is-disabled {
+  cursor: not-allowed;
+  background: none !important;
+  opacity: 0.25;
+}
+
+.vben-menu-item .vben-menu__icon {
+  transition: transform 0.25s;
+}
+
+.vben-menu-item:hover .vben-menu__icon {
+  transform: scale(1.2);
+}
+
+.vben-menu-item.is-active {
+  color: var(--menu-item-active-color);
+  background: var(--menu-item-active-background-color);
+}
+
+.vben-menu-item:not(.is-active):hover {
+  color: var(--menu-item-hover-color);
+  background: var(--menu-item-hover-background-color) !important;
+}
+
+.vben-menu-item__content {
+  display: inline-flex;
+  align-items: center;
+  width: 100%;
+  height: var(--menu-item-height);
+}
+
+.vben-menu-item__content span {
+  max-width: var(--menu-title-width);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: var(--menu-font-size) !important;
+  white-space: nowrap;
+}
+
+/* sub menu */
+.vben-sub-menu {
+  padding-left: 0;
+  margin: 0;
+  list-style: none;
+  background: var(--menu-submenu-background-color);
+}
+
+.vben-sub-menu.is-active .vben-sub-menu-content {
+  color: var(--menu-submenu-active-color);
+  background: var(--menu-submenu-active-background-color);
+}
+
+.vben-sub-menu-content {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: var(--menu-item-height);
+  padding: var(--menu-item-padding-y) var(--menu-item-padding-x);
+  margin: 0 var(--menu-item-margin-x) var(--menu-item-margin-y) var(--menu-item-margin-x);
+  font-size: var(--menu-font-size) !important;
+  color: var(--menu-item-color);
+  white-space: nowrap;
+  text-decoration: none;
+  cursor: pointer;
+  list-style: none;
+  background: var(--menu-item-background-color);
+  border: none;
+  border-radius: var(--menu-item-radius);
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.vben-sub-menu-content__title {
+  max-width: var(--menu-title-width);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: var(--menu-font-size) !important;
+  white-space: nowrap;
+}
+
+.vben-sub-menu-content__icon-arrow {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  margin-top: -8px;
+  opacity: 1;
+  transition: transform 0.25s ease;
+}
+
+.vben-sub-menu-content:hover {
+  color: var(--menu-submenu-hover-color);
+  background: var(--menu-submenu-hover-background-color) !important;
+}
+
+.vben-sub-menu__list {
+  list-style: none;
+  padding: 0 0 0 var(--menu-item-indent);
+  margin: 0;
+  background: var(--menu-submenu-background-color);
+}

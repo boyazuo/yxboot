@@ -1,0 +1,65 @@
+<script setup lang="ts">
+import { Button, Card, message, notification, Space } from 'ant-design-vue';
+
+type NotificationType = 'error' | 'info' | 'success' | 'warning';
+
+function info() {
+  message.info('How many roads must a man walk down');
+}
+
+function error() {
+  message.error({
+    content: 'Once upon a time you dressed so fine',
+    duration: 2500,
+  });
+}
+
+function warning() {
+  message.warning('How many roads must a man walk down');
+}
+
+function success() {
+  message.success('Cause you walked hand in hand With another man in my place');
+}
+
+function notify(type: NotificationType) {
+  notification[type]({
+    duration: 2500,
+    message: '说点啥呢',
+    type,
+  });
+}
+</script>
+
+<template>
+  <div class="p-5">
+    <div class="mb-5">
+      <h2 class="text-lg font-semibold text-foreground">Ant Design Vue 组件使用演示</h2>
+      <p class="text-muted-foreground text-sm">支持多语言、主题功能集成切换等</p>
+    </div>
+    <Card class="mb-5" title="按钮">
+      <Space>
+        <Button>Default</Button>
+        <Button type="primary">Primary</Button>
+        <Button>Info</Button>
+        <Button danger>Error</Button>
+      </Space>
+    </Card>
+    <Card class="mb-5" title="Message">
+      <Space>
+        <Button @click="info">信息</Button>
+        <Button danger @click="error">错误</Button>
+        <Button @click="warning">警告</Button>
+        <Button @click="success">成功</Button>
+      </Space>
+    </Card>
+    <Card class="mb-5" title="Notification">
+      <Space>
+        <Button @click="notify('info')">信息</Button>
+        <Button danger @click="notify('error')">错误</Button>
+        <Button @click="notify('warning')">警告</Button>
+        <Button @click="notify('success')">成功</Button>
+      </Space>
+    </Card>
+  </div>
+</template>

@@ -36,7 +36,8 @@ export function listToTree<T extends TreeNode>(
 
   // 创建映射
   list.forEach((item) => {
-    map.set(item[idKey], { ...item, [childrenKey]: [] });
+    const key = item[idKey as keyof T];
+    map.set(key as string | number, { ...item, [childrenKey]: [] } as T);
   });
 
   // 构建树
@@ -49,10 +50,11 @@ export function listToTree<T extends TreeNode>(
     } else {
       const parent = map.get(parentId);
       if (parent) {
-        if (!parent[childrenKey]) {
-          parent[childrenKey] = [];
+        const p = parent as Record<string, any>;
+        if (!p[childrenKey]) {
+          p[childrenKey] = [];
         }
-        parent[childrenKey].push(node);
+        p[childrenKey].push(node);
       }
     }
   });
@@ -121,13 +123,10 @@ export function findTreeNode<T extends TreeNode>(
 }
 
 /**
- * 过滤树节点
- * @param tree 树形数据
- * @param predicate 过滤条件
- * @param options 配置项
- * @returns 过滤后的树
+ * 过滤树节点（保留满足条件的节点，并递归过滤其子节点）
+ * 适用于任意带 children 的树结构（如 RouteRecordRaw、MenuRecordRaw）
  */
-export function filterTree<T extends TreeNode>(
+export function filterTree<T extends Record<string, any>>(
   tree: T[],
   predicate: (node: T) => boolean,
   options: {
@@ -137,14 +136,72 @@ export function filterTree<T extends TreeNode>(
   const { childrenKey = 'children' } = options;
 
   return tree
+    .filter((node) => predicate(node))
     .map((node) => {
-      const newNode = { ...node };
-      if (newNode[childrenKey] && newNode[childrenKey].length > 0) {
-        newNode[childrenKey] = filterTree(newNode[childrenKey], predicate, options);
+      const newNode = { ...node } as T;
+      const children = newNode[childrenKey];
+      if (children && Array.isArray(children) && children.length > 0) {
+        (newNode as Record<string, unknown>)[childrenKey] = filterTree(
+          children as T[],
+          predicate,
+          options,
+        );
       }
       return newNode;
-    })
-    .filter(
-      (node) => predicate(node) || (node[childrenKey] && node[childrenKey].length > 0),
-    );
+    });
+}
+
+/**
+ * 映射树节点
+ * 适用于任意带 children 的树结构
+ */
+export function mapTree<T extends Record<string, any>, V extends Record<string, any>>(
+  tree: T[],
+  mapper: (node: T) => V,
+  options: {
+    childrenKey?: string;
+  } = {},
+): V[] {
+  const { childrenKey = 'children' } = options;
+
+  return tree.map((node) => {
+    const mapped = mapper(node) as V & Record<string, unknown>;
+    const childNodes = (node as Record<string, unknown>)[childrenKey];
+    if (Array.isArray(childNodes) && childNodes.length > 0) {
+      (mapped as Record<string, unknown>)[childrenKey] = mapTree(
+        childNodes as T[],
+        mapper,
+        options,
+      );
+    }
+    return mapped as V;
+  });
+}
+
+/**
+ * 对树形结构递归排序
+ */
+export function sortTree<T extends Record<string, any>>(
+  tree: T[],
+  compare: (a: T, b: T) => number,
+  options: {
+    childrenKey?: string;
+  } = {},
+): T[] {
+  const { childrenKey = 'children' } = options;
+
+  return [...tree]
+    .sort(compare)
+    .map((node) => {
+      const newNode = { ...node } as T;
+      const children = newNode[childrenKey];
+      if (children && Array.isArray(children) && children.length > 0) {
+        (newNode as Record<string, unknown>)[childrenKey] = sortTree(
+          children as T[],
+          compare,
+          options,
+        );
+      }
+      return newNode;
+    });
 }

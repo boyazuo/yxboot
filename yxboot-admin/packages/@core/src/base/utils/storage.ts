@@ -11,7 +11,7 @@ class Storage {
   private storage: globalThis.Storage;
 
   constructor(type: StorageType = 'localStorage') {
-    this.storage = type === 'localStorage' ? localStorage : sessionStorage;
+    this.storage = (type === 'localStorage' ? window.localStorage : window.sessionStorage) as globalThis.Storage;
   }
 
   /**

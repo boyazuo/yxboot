@@ -1,0 +1,181 @@
+/**
+ * 设计令牌 / CSS 变量
+ * 与 vben-admin design-tokens 对齐：使用 HSL 数值（无 hsl() 包裹），便于 hsl(var(--x)) 与 Tailwind 使用
+ */
+
+:root {
+  /** 弹出层的基础层级 **/
+  --popup-z-index: 2000;
+  --font-family:
+    -apple-system, blinkmacsystemfont, 'Segoe UI', roboto, 'Helvetica Neue',
+    arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+    'Segoe UI Symbol', 'Noto Color Emoji';
+
+  /* Default background color of <body />...etc */
+  --background: 0 0% 100%;
+
+  /* 主体区域背景色 */
+  --background-deep: 216 20.11% 95.47%;
+  --foreground: 210 6% 21%;
+
+  /* Background color for <Card /> */
+  --card: 0 0% 100%;
+  --card-foreground: 222.2 84% 4.9%;
+
+  /* Background color for popovers */
+  --popover: 0 0% 100%;
+  --popover-foreground: 222.2 84% 4.9%;
+
+  /* Muted backgrounds */
+  --muted: 240 4.8% 95.9%;
+  --muted-foreground: 240 3.8% 46.1%;
+
+  /* 主题颜色 */
+  --primary: 212 100% 45%;
+  --primary-foreground: 0 0% 98%;
+  --primary-hover: 212 100% 52%;
+  --primary-active: 212 100% 38%;
+
+  /* Destructive */
+  --destructive: 359.33 100% 65.1%;
+  --destructive-foreground: 0 0% 98%;
+
+  /* Info / Success / Warning */
+  --info: 240 5% 96%;
+  --info-foreground: 220 4% 58%;
+  --success: 144 57% 58%;
+  --success-foreground: 0 0% 98%;
+  --warning: 42 84% 61%;
+  --warning-foreground: 0 0% 98%;
+
+  /* Secondary / Accent */
+  --secondary: 240 5% 96%;
+  --secondary-foreground: 240 6% 10%;
+  --accent: 240 5% 96%;
+  --accent-dark: 216 14% 93%;
+  --accent-darker: 216 11% 91%;
+  --accent-lighter: 240 0% 98%;
+  --accent-hover: 200deg 10% 90%;
+  --accent-foreground: 240 6% 10%;
+
+  /* Heavy */
+  --heavy: 192deg 9.43% 89.61%;
+  --heavy-foreground: var(--accent-foreground);
+
+  /* Border & Input */
+  --border: 240 5.9% 90%;
+  --input: 240deg 5.88% 90%;
+  --input-placeholder: 217 10.6% 65%;
+  --input-background: 0 0% 100%;
+  --ring: 222.2 84% 4.9%;
+
+  /* Border radius */
+  --radius: 0.5rem;
+
+  /* ============= custom ============= */
+  --overlay: 0 0% 0% / 45%;
+  --overlay-content: 0 0% 95% / 45%;
+  --font-size-base: 16px;
+  --menu-font-size: calc(var(--font-size-base) * 0.875);
+
+  /* ============= component & UI ============= */
+  --sidebar: 0 0% 100%;
+  --sidebar-deep: 0 0% 100%;
+  --menu: var(--sidebar);
+  --header: 0 0% 100%;
+
+  /* 菜单（与 vben 语义一致） */
+  --menu-item-height: 38px;
+  --menu-item-padding-x: 12px;
+  --menu-item-padding-y: 0;
+  --menu-item-margin-x: 8px;
+  --menu-item-margin-y: 2px;
+  --menu-item-radius: 8px;
+  --menu-item-indent: 16px;
+  --menu-item-icon-size: 16px;
+  --menu-background-color: var(--sidebar);
+  --menu-item-color: var(--foreground);
+  --menu-item-hover-color: var(--foreground);
+  --menu-item-hover-background-color: var(--accent);
+  --menu-item-active-color: var(--primary);
+  --menu-item-active-background-color: 212 100% 45% / 0.15;
+  --menu-submenu-hover-color: var(--primary);
+  --menu-submenu-hover-background-color: var(--accent);
+  --menu-submenu-active-color: var(--primary);
+  --menu-submenu-active-background-color: transparent;
+  --menu-submenu-background-color: var(--sidebar);
+
+  accent-color: hsl(var(--primary));
+  color-scheme: light;
+}
+
+/* 暗色主题：与 vben .dark 对齐 */
+.dark,
+html.dark {
+  --background: 222.34deg 10.43% 12.27%;
+  --background-deep: 220deg 13.06% 9%;
+  --foreground: 0 0% 95%;
+
+  --card: 222.34deg 10.43% 12.27%;
+  --card-foreground: 210 40% 98%;
+
+  --popover: 0 0% 14.2%;
+  --popover-foreground: 210 40% 98%;
+
+  --muted: 240 3.7% 15.9%;
+  --muted-foreground: 240 5% 64.9%;
+
+  --primary: 212 100% 55%;
+  --primary-foreground: 0 0% 98%;
+  --primary-hover: 212 100% 62%;
+  --primary-active: 212 100% 48%;
+
+  --destructive: 359.21 68.47% 56.47%;
+  --destructive-foreground: 0 0% 98%;
+
+  --info: 180 1.54% 12.75%;
+  --info-foreground: 220 4% 58%;
+  --success: 144 57% 58%;
+  --success-foreground: 0 0% 98%;
+  --warning: 42 84% 61%;
+  --warning-foreground: 0 0% 98%;
+
+  --secondary: 240 5% 17%;
+  --secondary-foreground: 0 0% 98%;
+  --accent: 216 5% 19%;
+  --accent-dark: 240 0% 22%;
+  --accent-darker: 240 0% 26%;
+  --accent-lighter: 216 5% 12%;
+  --accent-hover: 216 5% 24%;
+  --accent-foreground: 0 0% 98%;
+
+  --heavy: 216 5% 24%;
+  --heavy-foreground: var(--accent-foreground);
+
+  --border: 240 3.7% 22%;
+  --input: 0deg 0% 100% / 10%;
+  --input-placeholder: 218deg 11% 65%;
+  --input-background: 0deg 0% 100% / 5%;
+  --ring: 222.2 84% 4.9%;
+
+  --overlay: 0deg 0% 0% / 40%;
+  --overlay-content: 0deg 0% 0% / 40%;
+
+  --sidebar: 222.34deg 10.43% 12.27%;
+  --sidebar-deep: 220deg 13.06% 9%;
+  --header: 222.34deg 10.43% 12.27%;
+
+  --menu-background-color: var(--sidebar);
+  --menu-item-color: 0 0% 95%;
+  --menu-item-hover-color: var(--accent-foreground);
+  --menu-item-hover-background-color: var(--accent);
+  --menu-item-active-color: var(--accent-foreground);
+  --menu-item-active-background-color: var(--accent);
+  --menu-submenu-hover-color: var(--foreground);
+  --menu-submenu-hover-background-color: var(--accent);
+  --menu-submenu-active-color: var(--foreground);
+  --menu-submenu-active-background-color: transparent;
+  --menu-submenu-background-color: var(--sidebar);
+
+  color-scheme: dark;
+}

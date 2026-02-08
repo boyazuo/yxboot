@@ -3,7 +3,6 @@
  */
 import { defineStore } from 'pinia';
 import { ref, computed } from 'vue';
-import type { AuthState } from '../../base/types/auth';
 import { storage } from '../../base/utils/storage';
 import { CACHE_KEYS } from '../../base/constants';
 

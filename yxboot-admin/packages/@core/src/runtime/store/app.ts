@@ -3,7 +3,7 @@
  */
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
-import type { AppState, Locale, LayoutMode, ThemeMode } from '../../base/types/app';
+import type { Locale, LayoutMode, ThemeMode } from '../../base/types/app';
 import { storage } from '../../base/utils/storage';
 import { CACHE_KEYS } from '../../base/constants';
 
